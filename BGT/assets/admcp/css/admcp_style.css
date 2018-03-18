@@ -1,0 +1,213 @@
+body {
+	font-family: "Arial", Helvetica, serif;
+    background: rgb(25, 28, 31) center center no-repeat fixed;
+	background-size: cover;
+    margin: 0 auto;
+	border: 0;
+}
+
+.main-container {
+    text-align: center;
+    margin: 5% auto;
+    border: 0 solid rgba(0, 0, 0, 0.9);
+    box-sizing: border-box;
+    box-shadow: 1px 4px 4px rgba(0, 1, 2, 0.8);
+    position: relative;
+    width: 40%;
+    background-color: rgba(12, 15, 18, 0.6);
+    padding: 2%;
+    border-radius: 24px;
+}
+
+.main-text {
+    color: ghostwhite;
+    background-blend-mode: difference;
+    text-align: center;
+    font-weight: bolder;
+}
+
+h1.main-text {
+    margin: 0 auto;
+    font-size: 32px;
+    margin-bottom: 2%;
+}
+
+h2.main-text {
+    margin: 0 auto;
+    font-size: 24px;
+    margin-bottom: 1%;
+}
+
+.lgn-box {
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    width: 90%;
+}
+
+.lgn-form {
+    width: 80%;
+	text-align: center;
+    margin: 2% auto;
+    border: 0;
+    box-sizing: border-box;
+    padding: 2% 2% 2%;
+}
+
+.lgn-form p.main-text {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.fill-box {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 5%;
+    border: 5px solid azure;
+    width: 80%;
+    line-height: 18px;
+    display: block;
+    text-shadow: none;
+    background-blend-mode: difference;
+    box-shadow: 3px 6px 6px black;
+}
+
+input.admcp-lgn-view-btn {
+    margin-top: 7%;
+}
+
+.admcp-lgn-view-btn {
+    display: block;
+    margin: 3% auto;
+    border: 0;
+    text-align: center;
+    font-size: 18px;
+    width: 80%;
+    padding: 4px 10px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 26px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 12px;
+}
+
+.admcp-lgn-view-btn:hover, .admcp-lgn-view-btn:focus, .admcp-lgn-view-btn:focus-within, .admcp-lgn-view-btn:active {
+    background-color: blue;
+    text-shadow: none;
+    color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 3px 6px 6px black;
+}
+
+@media screen and (max-width: 600px) {    
+    
+    body {
+        font-family: "Arial", Helvetica, serif;
+        background: rgb(25, 28, 31) center center no-repeat fixed;
+        background-size: cover;
+        margin: 2% auto;
+        border: 0;
+    }
+    
+    .main-container {
+        text-align: center;
+        margin: 0 auto;
+        border: 0 solid rgba(0, 0, 0, 0.9);
+        box-sizing: border-box;
+        box-shadow: 1px 4px 4px rgba(0, 1, 2, 0.8);
+        position: relative;
+        width: 70%;
+        background-color: rgba(12, 15, 18, 0.6);
+        padding: 2%;
+        border-radius: 24px;
+    }
+    
+    .main-text {
+        color: ghostwhite;
+        background-blend-mode: difference;
+        text-align: center;
+        font-weight: bolder;
+    }
+    
+    h1.main-text {
+        margin: 0 auto;
+        font-size: 24px;
+        margin-bottom: 2%;
+    }
+    
+    h2.main-text {
+        margin: 0 auto;
+        font-size: 16px;
+        margin-bottom: 1%;
+    }
+    
+    .lgn-box {
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        width: 90%;
+    }
+    
+    .lgn-form {
+        width: 90%;
+        text-align: center;
+        margin: 2% auto;
+        border: 0;
+        box-sizing: border-box;
+        padding: 2% 2% 2%;
+    }
+    
+    .lgn-form p.main-text {
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        font-size: 14px;
+        text-align: center;
+    }
+    
+    .fill-box {
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 5%;
+        border: 3px solid azure;
+        width: 90%;
+        line-height: 18px;
+        display: block;
+        text-shadow: none;
+        background-blend-mode: difference;
+        box-shadow: 3px 6px 6px black;
+    }
+    
+    input.admcp-lgn-view-btn {
+        margin-top: 7%;
+    }
+    
+    .admcp-lgn-view-btn {
+        display: block;
+        margin: 3% auto;
+        border: 0;
+        text-align: center;
+        font-size: 16px;
+        width: 90%;
+        padding: 3px 9px 3px;
+        background-color: #5DA9E9;
+        cursor:pointer;
+        line-height: 26px;
+        text-shadow: none;
+        box-shadow: 3px 6px 6px black;
+        border-radius: 12px;
+    }
+    
+    .admcp-lgn-view-btn:hover, .admcp-lgn-view-btn:focus, .admcp-lgn-view-btn:focus-within, .admcp-lgn-view-btn:active {
+        background-color: blue;
+        text-shadow: none;
+        color: #ffffff;
+        border-radius: 50%;
+        box-shadow: 3px 6px 6px black;
+    }
+    
+}
