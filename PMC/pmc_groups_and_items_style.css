@@ -1,7 +1,8 @@
 .Groups{
+    padding: 2% 2%;
     position: inherit;
     text-align: center;
-    background-color: azure;
+    background-color: #d3d0cb;
 }
 
 .Title{
@@ -9,55 +10,80 @@
     font-size: 35px;
     position: relative;
     top: 5%;
-    background-color: skyblue;
+    background-color: #2e5266;
     color: white;
     width:96%;
     text-align: center;
 }
 
 .Menu{
+    padding: 2% 2%;
     position: sticky;
     text-align: center;
-    width: 100%;
+    width: 96%;
 }
 
 .MenuButton{
     display: inline-block;
     width: 10%;
-    background-color: skyblue;
+    background-color: #2e5266;
     border: none;
     color: white;
-    padding: 2% 2%;
+    padding: 5px 5px 5px 5px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: inline-block flex;
     font-size: 16px;
     border-radius: 35%;
     transition-duration: 0.2s;
+    outline: none;
+    box-shadow: 9px 9px gray;
+    cursor: pointer;
 }
 
 .MenuButton:hover{
-    background-color: darkorange;
+    background-color: #d3d0cb;
+    color: black;
+}
+
+.MenuButton:active{
+    background-color: #e2c044;
+    box-shadow: 6px 6px black;
+    color: black;
 }
 
 .ProductButton{
-    display: inline-block;
+    text-align: center;
+    display: inline-flex;
     width: 10%;
-    background-color: skyblue;
+    background-color: #2e5266;
     border: none;
     color: white;
-    padding: 2% 2%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     border-radius: 35%;
-    transition-duration: 0.2s;
+    transition-duration: 0.5s;
     float: right;
+    box-shadow: 2px 4px 4px #9fb1bc;
+    cursor: pointer;
+    box-sizing: border-box;
+    line-height: 32px;
+    margin: 0.5%;
 }
 
 .ProductButton:hover{
-    background-color: darkorange;
+    background-color: #d3d0cb;
+    box-sizing: border-box;
+    color: black;
+}
+
+.ProductButton:active{
+    background-color: #e2c044;
+    box-shadow: 2px 2px black;
+    transform: translateY(2%);
+    box-sizing: border-box;
+    color: black;
 }
 
 .Group{
@@ -75,7 +101,7 @@
     padding: 2% 2% 2% 2%;
     font-size: 16px;
     top: 5%;
-    background-color: skyblue;
+    background-color: #2e5266;
     color: white;
     width:10%;
     text-align: left;
@@ -124,34 +150,40 @@
 }
 
 .Product{
-    padding: 2% 2%;
+    padding: 2% 2% 2% 2%;
     font-size: 16px;
-    position: relative;
     top: 5%;
-    background-color: firebrick;
+    background-color: #6e8898;
     color: white;
     width:100%;
     text-align: center;
     overflow: hidden;
-    
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
 }
 
 .ProductIcon{
     padding: 2% 2%;
     float:left;
+    display: inline-flex;
+    height: 100%;
 }
 
 .ProductName{
     padding: 2% 2%;
     float:left;
+    display: inline-flex;
 }
 
 .ProductQuantity{
     padding: 2% 2%;
     float:left;
+    display: inline-flex;
 }
 
 .ProductAvailable{
     padding: 2% 2%;
     float:left;
+    display: inline-flex;
 }
