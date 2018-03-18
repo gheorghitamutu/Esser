@@ -1,0 +1,96 @@
+.Groups{
+    position: inherit;
+    text-align: center;
+    border: orange;
+    border-style:dashed;
+    background-color: azure;
+}
+
+.Title{
+    padding: 2% 2%;
+    font-size: 16px;
+    position: relative;
+    top: 5%;
+    background-color: skyblue;
+    color: white;
+    width:96%;
+    text-align: center;
+}
+
+.Menu{
+    position: sticky;
+    text-align: center;
+    width: 100%;
+}
+
+.Button{
+    display: inline-block;
+    width: 10%;
+    background-color: skyblue;
+    border: none;
+    color: white;
+    padding: 2% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 35%;
+    transition-duration: 0.2s;
+}
+
+.Button:hover{
+    background-color: darkorange;
+}
+
+
+.Group{
+    width: 90%;
+    padding: 2% 2% 2% 2%;
+    top: 5%;
+    bottom: 5%;
+    right: 5%;
+    left: 5%;
+}
+
+.GroupName{
+    padding: 2% 2% 2% 2%;
+    font-size: 16px;
+    top: 5%;
+    background-color: skyblue;
+    color: white;
+    width:10%;
+    text-align: left;
+    width: 100%;
+}
+
+.Product{
+    padding: 2% 2%;
+    font-size: 16px;
+    position: relative;
+    top: 5%;
+    background-color: skyblue;
+    color: white;
+    width:100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ProductIcon{
+    padding: 2% 2%;
+    float:left;
+}
+
+.ProductName{
+    padding: 2% 2%;
+    float:left;
+}
+
+.ProductQuantity{
+    padding: 2% 2%;
+    float:left;
+}
+
+.ProductAvailable{
+    padding: 2% 2%;
+    float:left;
+}
