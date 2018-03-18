@@ -1,6 +1,6 @@
 body {
     font-family: "Arial", Helvetica, serif;
-	background: cyan url('../images/main_page_background.jpg') center center no-repeat fixed;
+	background: cyan url('/assets/normal/images/main_page_background.jpg') center center no-repeat fixed;
 	background-size: cover;
 	margin: 0 auto;
 	border: 0;
