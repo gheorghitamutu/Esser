@@ -1,14 +1,12 @@
 .Groups{
     position: inherit;
     text-align: center;
-    border: orange;
-    border-style:dashed;
     background-color: azure;
 }
 
 .Title{
     padding: 2% 2%;
-    font-size: 16px;
+    font-size: 35px;
     position: relative;
     top: 5%;
     background-color: skyblue;
@@ -23,7 +21,7 @@
     width: 100%;
 }
 
-.Button{
+.MenuButton{
     display: inline-block;
     width: 10%;
     background-color: skyblue;
@@ -38,18 +36,39 @@
     transition-duration: 0.2s;
 }
 
-.Button:hover{
+.MenuButton:hover{
     background-color: darkorange;
 }
 
+.ProductButton{
+    display: inline-block;
+    width: 10%;
+    background-color: skyblue;
+    border: none;
+    color: white;
+    padding: 2% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 35%;
+    transition-duration: 0.2s;
+    float: right;
+}
+
+.ProductButton:hover{
+    background-color: darkorange;
+}
 
 .Group{
-    width: 90%;
+    width: 92%;
     padding: 2% 2% 2% 2%;
     top: 5%;
     bottom: 5%;
     right: 5%;
     left: 5%;
+    border-radius: 25%;
+    color: aquamarine;
 }
 
 .GroupName{
@@ -61,6 +80,47 @@
     width:10%;
     text-align: left;
     width: 100%;
+    
+}
+
+/* Expand/Collapse for #1 group - hardcoded */
+
+#Contents1{
+    padding: 2% 2% 2% 2%;
+    font-size: 16px;
+    top: 5%;
+    color: white;
+    width:10%;
+    text-align: left;
+    width: 100%;
+}
+
+#Contents1, #show1, #hide1:target {
+    display: none; 
+}
+
+#hide1:target + #show1, #hide1:target ~ #Contents1 {
+    display: initial; 
+}
+
+/* Expand/Collapse for #2 group - hardcoded */
+
+#Contents2{
+    padding: 2% 2% 2% 2%;
+    font-size: 16px;
+    top: 5%;
+    color: white;
+    width:10%;
+    text-align: left;
+    width: 100%;
+}
+
+#Contents2, #show2, #hide2:target {
+    display: none; 
+}
+
+#hide2:target + #show2, #hide2:target ~ #Contents2 {
+    display: initial; 
 }
 
 .Product{
@@ -68,11 +128,12 @@
     font-size: 16px;
     position: relative;
     top: 5%;
-    background-color: skyblue;
+    background-color: firebrick;
     color: white;
     width:100%;
     text-align: center;
     overflow: hidden;
+    
 }
 
 .ProductIcon{
