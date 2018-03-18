@@ -42,7 +42,7 @@ body {
     border: 0;
     text-align: center;
     font-size: 18px;
-    width: 40%;
+    width: 60%;
     height: 5%;
     padding: 4px 10px 4px;
     background-color: #5DA9E9;
@@ -203,6 +203,7 @@ body {
         border: 0;
         text-align: center;
         font-size: 14px;
+        font-weight: bold;
         width: 100%;
         height: 5%;
         padding: 4px 10px 4px;

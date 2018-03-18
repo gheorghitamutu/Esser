@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="icon" href="/assets/admcp/images/favicon.png" />
+		<link rel="stylesheet" href="/assets/admcp/css/admcp_style.css" />
+		<meta charset="utf-8">
+		<meta name="author" content="Bugeag George Tiberiu">
+		<meta name="description" content="Web Technologies Project">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Esser AdminCP</title>
+	</head>
+    <body>
+        <div class="admcp-header-bar"> 
+            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Go to Website! </button>
+            <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
+        </div>
+        <div class="tables-body">
+        <div class="admcp-left-bar"> 
+            <div class="admc-left-menu">
+                <div class="admcp-menu-option"> Dashboard </div>
+                <div class="admcp-menu-option" id="user-mngr"> User Manager </div>
+                <div class="admcp-menu-option" id="web-settings"> Website Settings </div>
+                <div class="admcp-menu-option" id="logs-mngr"> Logs </div>
+            </div>
+        </div>
+        <div class="admcp-rt-box">
+            <div class="admcp-rt-content">
+                <div class="dshb-cnt-line"> <label> Total users: </label> <output> Result </output> </div>
+                <div class="dshb-cnt-line"> <label> Last login time: </label> </div>
+                <div class="dshb-cnt-line"> <label> Latest DB backup time: </label> </div>
+                <div class="dshb-cnt-line"> <label> Total number of product groups: </label> </div>
+                <div class="dshb-cnt-line"> <label> Average number of products per group: </label> </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
