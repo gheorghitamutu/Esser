@@ -26,18 +26,6 @@ body {
     font-weight: bolder;
 }
 
-h1.main-text {
-    margin: 0 auto;
-    font-size: 32px;
-    margin-bottom: 2%;
-}
-
-h2.main-text {
-    margin: 0 auto;
-    font-size: 24px;
-    margin-bottom: 1%;
-}
-
 .lgn-box {
     text-align: center;
     margin: 0 auto;
@@ -125,6 +113,7 @@ input.admcp-lgn-view-btn {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
     color: darkgray;
+    cursor:pointer;
 }
 
 .back-to-website:hover, .back-to-website:focus, .back-to-website:active {
@@ -158,6 +147,7 @@ input.admcp-lgn-view-btn {
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     color: darkgray;
+    cursor:pointer;
 }
 
 .admcp-logout-btn:hover, .admcp-logout-btn:focus, .admcp-logout-btn:active {
@@ -175,6 +165,15 @@ input.admcp-lgn-view-btn {
 }
 
 output.bad-credentials {
+    display: none;
+    font-size: 16px;
+    color: red;
+    margin: auto;
+    text-align: center;
+}
+
+output.bad-credentials#show {
+    display: block;
     font-size: 16px;
     color: red;
     margin: auto;
@@ -202,15 +201,44 @@ output.bad-credentials {
     width: 90%;
 }
 
-div.admcp-menu-option {
+.admcp-menu-option {
+    display: block;
     margin: 5% auto;
     text-align: center;
     width: 90%;
     line-height: 38px;
     font-size: 24px;
+    background-color: rgba(12, 15, 18, 0.9);
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 12px;
     color: ghostwhite;
+    cursor:pointer;
+}
+
+.admcp-menu-option:hover, .admcp-menu-option:focus, .admcp-menu-option:focus-within, .admcp-menu-option:active  {
+    border: 2px solid rgb(51, 181, 229);
+    background-color: rgb(248, 248, 255);
+    color: black;
+}
+
+.admcp-menu-option {
+    display: block;
+    margin: 5% auto;
+    text-align: center;
+    width: 90%;
+    line-height: 38px;
+    font-size: 24px;
+    background-color: rgba(12, 15, 18, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    color: ghostwhite;
+    cursor:pointer;
+}
+
+.admcp-menu-option:hover, .admcp-menu-option:focus, .admcp-menu-option:focus-within, .admcp-menu-option:active  {
+    border: 2px solid rgb(51, 181, 229);
+    background-color: rgb(248, 248, 255);
+    color: black;
 }
 
 .admcp-rt-box {
@@ -227,11 +255,101 @@ div.admcp-menu-option {
     width: 70%;
 }
 
+.admcp-rt-result-box {
+    display: inline-block;
+    float: right;
+    margin: 0 auto;
+    position: absolute;
+    margin-right: 3%;
+    margin-top: 10%;
+    border: 0.5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    box-sizing: border-box;
+    box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
+    width: 70%;
+}
+
 .admcp-rt-content {
     margin: 1% auto;
-    text-align: center;
+    text-align: left;
     width: 95%;
     position: relative;
+}
+
+.adm-rt-title {
+    display: block;
+    margin: 1% auto;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    border-bottom: 2px solid #33b5e5;
+    color: ghostwhite;    
+}
+
+.srch-layout {
+    text-align: left;
+    margin: 1% auto;
+    width: 100%;
+}
+
+.adm-srch-box {
+    display: inline-block;
+    margin: 1%;
+    text-align: center;
+    width: 15%;
+    line-height: 22px;
+    border-radius: 6px;
+}
+
+.admcp-srch-btn {
+    margin: 1%;
+    border: 0;
+    text-align: center;
+    font-size: 16px;
+    width: 10%;
+    padding: 2px 4px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 20px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 6px;
+}
+
+.admcp-srch-btn:hover, .admcp-srch-btn:focus, .admcp-srch-btn:focus-within, .admcp-srch-btn:active {
+    background-color: blue;
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+.srch-result-layout {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 1.5%;
+    background-color: transparent;
+    color: ghostwhite;
+    line-height: 18px;
+    padding: 8px;
+}
+
+.srch-result-layout thead {
+    text-align: center;
+}
+
+.srch-result-layout th ~ .srch-result-layout th {
+    border-left: 1px solid gray;
+}
+
+.srch-result-layout tr {
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+
+.srch-result-layout td ~ .srch-result-layout td {
+    border-left: 1px solid gray;
 }
 
 .dshb-cnt-line {
@@ -245,12 +363,174 @@ div.admcp-menu-option {
     color: ghostwhite;
 }
 
-#content, #show, #hide:target {
-    display: none; 
+.info {
+    margin: 0 auto;
 }
 
-#hide:target + #show, #hide:target ~ #content {
-    display: initial; 
+.dshb-online-usrs {
+    color: green;
+    position: relative;
+    margin: 0 auto;
+    left: 63%;
+}
+
+.dshb-total-usrs {
+    color: red;
+    position: relative;
+    margin: 0 auto;
+    left: 63%;
+    overflow-x: auto;
+}
+
+output.dshb-online-usrs ~ label.separator {
+    color: #33b5e5;
+    position: relative;
+    margin: 0 auto;
+    left: 63%;
+}
+
+.info-datetime {
+    color:green;
+    position: relative;
+    margin: 0 auto;
+    left: 33%;
+}
+
+output.info-datetime ~ output.info-timezone {
+    color: #33b5e5;
+    position: relative;
+    margin: 0 auto;
+    left: 33%;
+}
+
+.info-result {
+    color: green;
+    position: relative;
+    margin: 0 auto;
+}
+
+#prd-grp-nr {
+    left: 60%;
+}
+
+#prd-grp-avg {
+    left: 54%;
+}
+
+.usr-edit-form {
+    margin: 0 0 18px;
+    border: 0;
+    width: 100%;
+}
+
+fieldset {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+legend {    
+    color: #999999;
+    border-bottom: 0px solid #222;
+    display: none;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 27px;
+    font-size: 19.5px;
+    line-height: 36px;
+    border: 0;
+}
+
+.ctrl-group {
+    display: justify;
+    width: 70%;
+    line-height: 24px;
+    margin: 2%;
+    text-align: left;
+}
+
+.ctrl-group label {
+    color: ghostwhite;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 3%;
+    text-align: right;
+    border: 0;
+    text-shadow: black 1px 1px;
+}
+
+.ctrl-group input {
+    line-height: 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: 2px inset #ffffff;
+    margin-left: 1%;
+    text-align: center;
+    width: 30%;
+}
+
+.admcp-save-btn {
+    margin: 1%;
+    border: 0;
+    text-align: center;
+    font-size: 16px;
+    width: 10%;
+    padding: 2px 4px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 20px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 6px;
+}
+
+.admcp-save-btn:hover, .admcp-save-btn:focus, .admcp-save-btn:focus-within, .admcp-save-btn:active {
+    background-color: blue;
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+.usr-mngr-layout {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 1.5%;
+    background-color: transparent;
+    color: ghostwhite;
+    line-height: 20px;
+    padding: 8px;
+}
+
+.usr-mngr-layout thead {
+    text-align: left;
+}
+
+.usr-mngr-layout tr {
+    text-align: left;
+    line-height: 48px;
+    border-bottom: 1px solid white;
+}
+
+.usr-mngr-layout button {
+    width: 90%;
+    height: 85%;
+}
+
+.usr-mngr-layout td:nth-of-type(4), .usr-mngr-layout td:nth-of-type(5) {
+    width: 10%;
+    text-align: center;
+}
+
+.usr-mngr-layout th:nth-of-type(4), .usr-mngr-layout th:nth-of-type(5) {
+    width: 10%;
+    text-align: center;
+}
+
+ {
+    width: 10%;
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {    

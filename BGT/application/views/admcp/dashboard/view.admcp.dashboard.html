@@ -11,27 +11,50 @@
 	</head>
     <body>
         <div class="admcp-header-bar"> 
-            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Go to Website! </button>
+            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
         <div class="tables-body">
-        <div class="admcp-left-bar"> 
-            <div class="admc-left-menu">
-                <div class="admcp-menu-option"> Dashboard </div>
-                <div class="admcp-menu-option" id="user-mngr"> User Manager </div>
-                <div class="admcp-menu-option" id="web-settings"> Website Settings </div>
-                <div class="admcp-menu-option" id="logs-mngr"> Logs </div>
+            <div class="admcp-left-bar"> 
+                <div class="admc-left-menu">
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.manager.html'"> Manage Users </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.editor.html'"> Edit User </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/web_settings/view.admcp.settings.manager.html'"> Website Settings </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/web_settings/view.admcp.database.manager.html'"> Database Settings </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.user.logs.html'"> User Logs </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.login.logs.html'"> Login Logs </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.data.logs.html'"> Product Logs </button>
+                </div>
             </div>
-        </div>
-        <div class="admcp-rt-box">
-            <div class="admcp-rt-content">
-                <div class="dshb-cnt-line"> <label> Total users: </label> <output> Result </output> </div>
-                <div class="dshb-cnt-line"> <label> Last login time: </label> </div>
-                <div class="dshb-cnt-line"> <label> Latest DB backup time: </label> </div>
-                <div class="dshb-cnt-line"> <label> Total number of product groups: </label> </div>
-                <div class="dshb-cnt-line"> <label> Average number of products per group: </label> </div>
-            </div>
-        </div>
+            <div class="admcp-rt-box">
+                <div class="admcp-rt-content">
+                    <div class="dshb-cnt-line"> 
+                        <label class="info"> User count: </label> 
+                        <output class="dshb-online-usrs" value="getOnlineUsers()">60000 (Online)</output> 
+                        <label class="separator"> / </label>
+                        <output class="dshb-total-usrs" value="getOnlineUsers()">60000 (Total)</output>
+                    </div>
+                    <div class="dshb-cnt-line"> 
+                        <label class="info"> Last login date and time:             </label> 
+                        <output class="info-datetime" value="getUserLastLoginDate('this.user')"> 19/02/2018 at 19:38:43.400 </output>
+                        <output class="info-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output>
+                    </div>
+                    <div class="dshb-cnt-line"> 
+                        <label class="info"> Latest DB backup time:                </label>  
+                        <output class="info-datetime" value="getLastDBBkupTime('this.database')"> 19/02/2018 at 19:42:323.870 </output>
+                        <output class="info-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output> 
+                    </div>
+                    <div class="dshb-cnt-line"> 
+                        <label class="info"> Total number of product groups:       </label>   
+                        <output class="info-result" value="getCountProductGroups()" id="prd-grp-nr"> 3000 </output>
+                    </div>
+                    <div class="dshb-cnt-line"> 
+                        <label class="info"> Average number of products per group: </label>    
+                        <output class="info-result" value="getAvgProductCountPerGroup()" id="prd-grp-avg"> 3200000 </output>
+                    </div>
+                </div>
+            </div>            
         </div>
     </body>
 </html>

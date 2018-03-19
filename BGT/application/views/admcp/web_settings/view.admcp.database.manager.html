@@ -11,27 +11,69 @@
 	</head>
     <body>
         <div class="admcp-header-bar"> 
-            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Go to Website! </button>
+            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
         <div class="tables-body">
-        <div class="admcp-left-bar"> 
-            <div class="admc-left-menu">
-                <div class="admcp-menu-option"> Dashboard </div>
-                <div class="admcp-menu-option" id="user-mngr"> User Manager </div>
-                <div class="admcp-menu-option" id="web-settings"> Website Settings </div>
-                <div class="admcp-menu-option" id="logs-mngr"> Logs </div>
+            <div class="admcp-left-bar"> 
+                <div class="admc-left-menu">
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.manager.html'"> Manage Users </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.editor.html'"> Edit User </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/web_settings/view.admcp.settings.manager.html'"> Website Settings </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/web_settings/view.admcp.database.manager.html'"> Database Settings </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.user.logs.html'"> User Logs </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.login.logs.html'"> Login Logs </button>
+                    <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/logs/view.admcp.data.logs.html'"> Product Logs </button>
+                </div>
             </div>
-        </div>
-        <div class="admcp-rt-box">
-            <div class="admcp-rt-content">
-                <div class="dshb-cnt-line"> <label> Total users: </label> <output> Result </output> </div>
-                <div class="dshb-cnt-line"> <label> Last login time: </label> </div>
-                <div class="dshb-cnt-line"> <label> Latest DB backup time: </label> </div>
-                <div class="dshb-cnt-line"> <label> Total number of product groups: </label> </div>
-                <div class="dshb-cnt-line"> <label> Average number of products per group: </label> </div>
+            <div class="admcp-rt-box">
+                <div class="admcp-rt-content">
+                    <h3 class="adm-rt-title"> Add New Database </h3>
+                    <form type="POST" class="usr-edit-form">
+                        <fieldset>
+                        <legend></legend>    
+                            <div class="ctrl-group">                                
+                                <label> Database Name </label> <input type="text" name="NewDBName" id="new-db-name" value="">
+                            </div>
+                            <div class="ctrl-group">                                
+                                <label> Input New Owner </label> <input type="text" name="NewDBOwner" id="new-db-owner" value="">
+                            </div>
+                            <div class="ctrl-group"> 
+                                <label> Collation Type </label> <input type="text" name="NewDBColl" id="new-db-coll" value="">
+                            </div>
+                        </fieldset>
+                        <button type="button" class="admcp-save-btn" onclick="createNewDB('new-db-name','new-db-owner','new-db-coll')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Cancel </button>
+                    </form>
+                    <h3 class="adm-rt-title"> In Use Database </h3>
+                    <form type="POST" class="usr-edit-form">
+                        <fieldset>
+                        <legend></legend>    
+                            <div class="ctrl-group">                                
+                                <label> Database Name </label> <input type="text" name="UsedDBName" id="used-db-name" value="FirstUsedDB">
+                            </div>
+                            <div class="ctrl-group">                                
+                                <label> Input New Owner </label> <input type="text" name="UsedDBOwner" id="used-db-owner" value="Edward">
+                            </div>
+                        </fieldset>
+                        <button type="button" class="admcp-save-btn" onclick="changeDBProps('used-db-name','used-db-owner')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Cancel </button>
+                    </form>
+                    
+                    <h3 class="adm-rt-title"> Backup Database </h3>
+                    <form type="POST" class="usr-edit-form">
+                        <fieldset>
+                        <legend></legend>    
+                            <div class="ctrl-group">                                
+                                <label> Database Name </label> <input type="text" name="UsedDBName" id="bckup-db-name" value="FirstUsedDB">
+                            </div>
+                        </fieldset>
+                        <button type="button" class="admcp-save-btn" onclick="initBackUpDB('bckup-db-name','getBckUpPath()')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Cancel </button>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
     </body>
 </html>
