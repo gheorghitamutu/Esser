@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+    font-family: "Lato", sans-serif;
+}
+
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    flex: 70%;
+    margin-left: 150px;
+}
+
+.navbar {
+    display: flex;
+    background-color: #333;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 150px;
+}
+
+.mainCointainers {
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+}
+
+.c1 {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 10px;
+    margin-top:16px;
+}
+
+.c2 {
+    background-color: #aaa;;
+    width: 100%;
+    padding: 20px;
+}
+
+.footer {
+    padding: 20px;
+    margin-left: 150px;
+    text-align: center;
+    background: #ddd;
+}
+
+.sideBarNav {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #85bbba;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sideBarNav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sideBarNav a:hover:not(:first-child) {
+    color: #f1f1f1;
+}
+
+/*       notifications  */
+#answerNotif,
+#showNotif,
+#hideNotif:target{
+    display: none;
+
+}
+
+#hideNotif:target + #showNotif,
+#hideNotif:target ~ #answerNotif {
+    display: initial;
+}
+
+#showNotif, #hideNotif {
+    padding: 10px;
+    border: 1px;
+    background-color: green;
+
+}
+
+
+#answerNotif {
+    margin-bottom: 4px;
+}
+
+#success,#warning,#almost-empty{
+    background-color: rgba(0, 255, 180, 0.22);
+    text-align: left;
+    padding: 1px;
+    border: 1px black;
+
+
+}
+
+
+
+#answerCollapse1,
+#showCollapse1,
+#hideCollapse1:target {
+    display: none;
+
+}
+
+
+#hideCollapse1:target + #showCollapse1,
+#hideCollapse1:target ~ #answerCollapse1 {
+    display: initial;
+}
+
+
+
+#answerCollapse2,
+#showCollapse2,
+#hideCollapse2:target {
+    display: none;
+
+}
+
+
+#hideCollapse2:target + #showCollapse2,
+#hideCollapse2:target ~ #answerCollapse2{
+    display: initial;
+}
