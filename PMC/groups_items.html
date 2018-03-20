@@ -1,30 +1,63 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="styles/pmc_groups_and_items_style.css">
+        <link rel="stylesheet" href="styles/pmc_groups_of_items_style.css">
         <script src="scripts/groupForm.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        
-        <!-- Group Registration Form -->
-        
-        <div class="GroupForm" id="groupForm">
-            <div class="GroupFormContent">
-                <span class="closeButton">&times;</span>
-                
-            </div>
+    
+    <!-- Register a new group Form -->
+    
+    <div class="modal" id="groupForm">
+        <div class="groupFormContent">
+            <div class="Title">Add a new group</div>
+            <form>
+            <div class="formElement">Name:</div>
+            <input type="text" name="newGroupName" value="NewGroup" class="formElement"><br>
+            </form>
+            <a href="#">
+                <button class="closeButton FormButton">Add Group</button>
+            </a>
+            <a href="#">
+                <button class="closeButton FormButton">Cancel</button>
+            </a>
         </div>
-        
+    </div>
+    
+    <!-- Register a new product Form -->
+    
+    <div class="modal" id="productForm">
+        <div class="productFormContent">
+            <div class="Title">Add a new group</div>
+            <form>
+            <div class="formElement">Name:</div>
+            <input type="text" name="newProductName" value="NewProduct" class="formElement"><br>
+            <div class="formElement">Quantity:</div>
+            <input type="text" name="newProductQuantity" value="NewProductQ" class="formElement"><br>
+            <div class="formElement">Tile Image:</div>
+            <button class="FormButton">Browse</button>
+            </form>
+            <a href="#">
+                <button class="FormButton closeButton ">Add Product</button>
+            </a>
+            <a href="#">
+                <button class="FormButton closeButton ">Cancel</button>
+            </a>
+        </div>
+    </div>
+    
+    <body>
         <!-- Section to be shown -->
         
-        <div class="Groups">
-            <div class="Title">Groups</div>
+        <div class="ProductGroups">
+            <div class="Title">Product Groups</div>
             <div class="Menu">
-                <button class="MenuButton" id="addGroup">Add Group</button>
+                <a href="#groupForm"><button class="MenuButton" id="addGroup">Add Group</button>
+                </a>
                 <button class="MenuButton" id="deleteGroup">Delete Group</button>
             </div>
-            <div class="Group">
-                <div class="GroupButton">Add Product</div>
+            <div class="ProductGroup">
+                <a href="#productForm"><div class="GroupButton">Add Product</div>
                 <a href="#hide1" id="hide1">
                     <div class="GroupName">+ PC Parts</div>
                 </a>
@@ -114,7 +147,7 @@
                     </div>
                 </div>
             </div>
-            <div class="Group">
+            <div class="ProductGroup">
                 <div class="GroupButton">Add Product</div>
                 <a href="#hide2" id="hide2">
                     <div class="GroupName">+ Fruits</div>
@@ -147,4 +180,7 @@
             </div>
         </div>
     </body>
+    <footer>
+        
+    </footer>
 </html>

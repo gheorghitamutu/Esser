@@ -1,4 +1,10 @@
-.Groups{
+
+body{
+    margin: auto;
+    background-color: #d3d0cb;
+}
+
+.ProductGroups{
     padding: 2% 2%;
     position: relative;
     text-align: center;
@@ -27,15 +33,15 @@
 
 .MenuButton{
     display: inline-block;
-    width: 10%;
+    width: 49%;
     background-color: #2e5266;
     border: none;
     color: white;
-    padding: 5px 5px 5px 5px;
+    padding: 2% 2% 2% 2%;
     text-align: center;
     text-decoration: none;
     display: inline-block flex;
-    font-size: 16px;
+    font-size: 1vw;
     border-radius: 35%;
     transition-duration: 0.2s;
     outline: none;
@@ -64,7 +70,7 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1vw;
     border-radius: 35%;
     transition-duration: 0.5s;
     float: right;
@@ -131,7 +137,7 @@
     width: 8%;
 }
 
-.Group{
+.ProductGroup{
     width: 92%;
     padding: 2% 2% 2% 2%;
     top: 5%;
@@ -144,7 +150,7 @@
 
 .GroupName{
     padding: 2% 2% 2% 2%;
-    font-size: 16px;
+    font-size: 20px;
     top: 5%;
     background-color: #2e5266;
     text-decoration:none; 
@@ -254,31 +260,246 @@
     transform: translateY(50%);
 }
 
+/* ----------- */
+/*  Responsive */
+/* ----------- */
 
-/* Form Group Class*/
-
-.GroupForm{
-    display: none;
-    content: "";
-    display: block;
-    background-color: black;
-    opacity: .5;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+@media only screen and (max-width:1152px){
+    .GroupButton{
+        line-height: 10px;
+        
+    }
+    .MenuButton{
+        font-size: 2vw;
+    }
 }
 
-.GroupFormContent{
+@media only screen and (max-width:995px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 10%;
+        
+    }
+}
+
+@media only screen and (max-width:700px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 20%;
+        line-height: 20px;
+    }
+    .ProductName{
+        width: 10%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 49%;
+    }
     
 }
 
-.closeButton{
-    float: right;
+@media only screen and (max-width:550px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 20%;
+        line-height: 15px;
+    }
+    .ProductName{
+        width: 6%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 100%;
+        padding: 4%;
+        margins: 4%;
+    }
+    .ProductButton{
+        line-height: 20px;
+        margin: 0% 0% 2% 0%;
+        font-size: 12px;
+        width: 100%;
+        clear: both;
+        float: left;
+    }
+    .ProductIcon{
+        width: 20%;
+    }
+    
+    .ProductName{
+        width: 20%;
+    }
+    
+    .ProductQuantity{
+        width: 20%;
+    }
+    .ProductAvailable{
+        width: 20%;
+    }
+    
 }
 
-.closeButton:hover, .closeButton.focus{
-    color: black;
+@media only screen and (max-width:475px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 40%;
+        line-height: 15px;
+    }
+    .ProductName{
+        width: 6%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 100%;
+        padding: 4%;
+    }
+    .ProductButton{
+        line-height: 20px;
+        margin: 0% 0% 2% 0%;
+        font-size: 12px;
+        width: 100%;
+        clear: both;
+        float: left;
+    }
+    .ProductIcon{
+        width: 20%;
+    }
+    
+    .ProductName{
+        width: 20%;
+    }
+    
+    .ProductQuantity{
+        width: 20%;
+    }
+    .ProductAvailable{
+        width: 20%;
+    }
+    
+}
+
+/* ----------- */
+/* Forms */
+/* ----------- */
+
+/* ----------- */
+/* Group Register Forms */
+/* ----------- */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 10%;
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal:target{
+    outline: none;
+    display: block;
+}
+
+.groupFormContent{
+    opacity: 1;
+    position: relative;
+    background-color: #d3d0cb;
+    opacity: 1;
+}
+
+.productFormContent{
+    opacity: 1;
+    position: relative;
+    background-color: #d3d0cb;
+    opacity: 1;
+}
+
+.closeButton{
+    color: white;
+    font-size: 2vm;
+    width: 50%;
+}
+.closeButton:target {
+    
+}
+
+.formElement{
+    width: 25%;
+    padding: 1% 10% 1% 10%;
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: top;
+}
+
+
+
+.FormButton{
+    width: 45%;
+    height: 20%;
+    background-color: #2e5266;
+    border: none;
+    color: white;
+    text-align: center;
     text-decoration: none;
+    display: inline-block;
+    font-size: 1vw;
+    border-radius: 35%;
+    margin: 2% 2% 2% 2%;
+    transition-duration: 0.2s;
+    outline: none;
+    box-shadow: 9px 9px gray;
     cursor: pointer;
+    vertical-align: middle;
+}
+
+.FormButton:hover{
+    background-color: #d3d0cb;
+    color: black;
+}
+
+.FormButton:active{
+    background-color: #e2c044;
+    box-shadow: 6px 6px black;
+    color: black;
 }
