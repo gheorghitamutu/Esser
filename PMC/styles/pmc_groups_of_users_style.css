@@ -4,7 +4,7 @@ body{
     background-color: #d3d0cb;
 }
 
-.ProductGroups{
+.UserGroups{
     padding: 2% 2%;
     position: relative;
     text-align: center;
@@ -63,7 +63,7 @@ body{
 
 /*Buttons for products*/
 
-.ProductButton{
+.UserButton{
     text-align: center;
     display: inline-flex;
     background-color: #2e5266;
@@ -86,12 +86,12 @@ body{
     transform: translateY(50%);
 }
 
-.ProductButton:hover{
+.UserButton:hover{
     background-color: #d3d0cb;
     color: black;
 }
 
-.ProductButton:active{
+.UserButton:active{
     background-color: #e2c044;
     box-shadow: 2px 2px black;
     color: black;
@@ -138,7 +138,7 @@ body{
     width: 8%;
 }
 
-.ProductGroup{
+.UserGroup{
     width: 92%;
     padding: 2% 2% 2% 2%;
     top: 5%;
@@ -202,7 +202,7 @@ body{
     display: initial; 
 }
 
-.Product{
+.User{
     padding: 2% 2% 2% 2%;
     margin: 1% 1% 1% 0%;
     font-size: 16px;
@@ -220,7 +220,7 @@ body{
 
 /* Product information */
 
-.ProductIcon{
+.UserIcon{
     padding: 2% 2%;
     float:left;
     display: inline-flex;
@@ -231,7 +231,7 @@ body{
     
 }
 
-.ProductName{
+.UserName{
     padding: 2% 2%;
     float:left;
     display: inline-flex;
@@ -241,7 +241,7 @@ body{
     transform: translateY(50%);
 }
 
-.ProductQuantity{
+.UserPrename{
     padding: 2% 2%;
     float:left;
     display: inline-flex;
@@ -251,7 +251,7 @@ body{
     transform: translateY(50%);
 }
 
-.ProductAvailable{
+.UserAvailable{
     padding: 2% 2%;
     float:left;
     display: inline-flex;
@@ -276,17 +276,20 @@ body{
 }
 
 @media only screen and (max-width:995px){
-    .ProductButton{
+    .UserButton{
         line-height: 20px;
         margin: 1%;
         font-size: 14px;
         width: 10%;
         
     }
+    .UserAvailable{
+        width: 8%;
+    }
 }
 
-@media only screen and (max-width:700px){
-    .ProductButton{
+@media only screen and (max-width:800px){
+    .UserButton{
         line-height: 20px;
         margin: 1%;
         font-size: 14px;
@@ -296,14 +299,14 @@ body{
         width: 20%;
         line-height: 20px;
     }
-    .ProductName{
+    .UserName{
         width: 10%;
     }
-    .ProductQuantity{
+    .UserPrename{
         width: 6%;
     }
-    .ProductAvailable{
-        width: 6%;
+    .UserAvailable{
+        width: 10%;
     }
     .MenuButton{
         font-size: 3vw;
@@ -312,8 +315,8 @@ body{
     
 }
 
-@media only screen and (max-width:550px){
-    .ProductButton{
+@media only screen and (max-width:632px){
+    .UserButton{
         line-height: 20px;
         margin: 1%;
         font-size: 14px;
@@ -323,21 +326,12 @@ body{
         width: 20%;
         line-height: 15px;
     }
-    .ProductName{
-        width: 6%;
-    }
-    .ProductQuantity{
-        width: 6%;
-    }
-    .ProductAvailable{
-        width: 6%;
-    }
     .MenuButton{
         font-size: 3vw;
         width: 100%;
         padding: 4%;
     }
-    .ProductButton{
+    .UserButton{
         line-height: 20px;
         margin: 0% 0% 2% 0%;
         font-size: 12px;
@@ -345,25 +339,25 @@ body{
         clear: both;
         float: left;
     }
-    .ProductIcon{
+    .UserIcon{
         width: 20%;
     }
     
-    .ProductName{
+    .UserName{
         width: 20%;
     }
     
-    .ProductQuantity{
+    .UserPrename{
         width: 20%;
     }
-    .ProductAvailable{
+    .UserAvailable{
         width: 20%;
     }
     
 }
 
 @media only screen and (max-width:475px){
-    .ProductButton{
+    .UserButton{
         line-height: 20px;
         margin: 1%;
         font-size: 14px;
@@ -373,21 +367,12 @@ body{
         width: 40%;
         line-height: 15px;
     }
-    .ProductName{
-        width: 6%;
-    }
-    .ProductQuantity{
-        width: 6%;
-    }
-    .ProductAvailable{
-        width: 6%;
-    }
     .MenuButton{
         font-size: 3vw;
         width: 100%;
         padding: 4%;
     }
-    .ProductButton{
+    .UserButton{
         line-height: 20px;
         margin: 0% 0% 2% 0%;
         font-size: 12px;
@@ -395,18 +380,18 @@ body{
         clear: both;
         float: left;
     }
-    .ProductIcon{
+    .UserIcon{
         width: 20%;
     }
     
-    .ProductName{
+    .UserName{
         width: 20%;
     }
     
-    .ProductQuantity{
+    .UserPrename{
         width: 20%;
     }
-    .ProductAvailable{
+    .UserAvailable{
         width: 20%;
     }
     
@@ -490,6 +475,7 @@ body{
     box-shadow: 9px 9px gray;
     cursor: pointer;
     vertical-align: middle;
+    font-size: 16px;
 }
 
 .FormButton:hover{
