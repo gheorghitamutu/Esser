@@ -14,7 +14,7 @@
             <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
-        <div class="tables-body">
+        <div class="admcp-tables-body">
             <div class="admcp-left-bar"> 
                 <div class="admc-left-menu">
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
@@ -28,32 +28,54 @@
                 </div>
             </div>
             <div class="admcp-rt-box">
-                <div class="admcp-rt-content">
-                    <div class="dshb-cnt-line"> 
-                        <label class="info"> User count: </label> 
-                        <output class="dshb-online-usrs" value="getOnlineUsers()">60000 (Online)</output> 
-                        <label class="separator"> / </label>
-                        <output class="dshb-total-usrs" value="getOnlineUsers()">60000 (Total)</output>
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <div class="dshb-cnt-line">
+                            <div class="info">
+                                <label> User count: </label> 
+                            </div>
+                            <div class="info-result">
+                                <output class="dshb-online-usrs" value="getOnlineUsers()">60000 (Online)</output> 
+                                <label class="separator"> / </label>
+                                <output class="dshb-total-usrs" value="getOnlineUsers()">60000 (Total)</output>
+                            </div>
+                        </div>
+                        <div class="dshb-cnt-line"> 
+                            <div class="info">
+                                <label> Last login date and time: </label> 
+                            </div>
+                            <div class="info-result">
+                                <output class="rslt-datetime" value="getUserLastLoginDate('this.user')"> 19/02/2018 at 19:38:43.400 </output>
+                                <output class="rslt-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output>
+                            </div>
+                        </div>
+                        <div class="dshb-cnt-line"> 
+                            <div class="info"> 
+                                <label> Latest DB backup time: </label> 
+                            </div>
+                            <div class="info-result">
+                                <output class="rslt-datetime" value="getLastDBBkupTime('this.database')"> 19/02/2018 at 19:42:323.870 </output>
+                                <output class="rslt-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output> 
+                            </div>
+                        </div>
+                        <div class="dshb-cnt-line"> 
+                            <div class="info"> 
+                                <label> Total number of product groups: </label>   
+                            </div>
+                            <div class="info-result">
+                                <output class="prd-result" value="getCountProductGroups()" id="prd-grp-nr"> 3000 </output>
+                            </div>
+                        </div>
+                        <div class="dshb-cnt-line"> 
+                            <div class="info"> 
+                                <label> Average number of products per group: </label>    
+                            </div>
+                            <div class="info-result">
+                                <output class="prd-result" value="getAvgProductCountPerGroup()" id="prd-grp-avg"> 3200000 </output>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dshb-cnt-line"> 
-                        <label class="info"> Last login date and time:             </label> 
-                        <output class="info-datetime" value="getUserLastLoginDate('this.user')"> 19/02/2018 at 19:38:43.400 </output>
-                        <output class="info-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output>
-                    </div>
-                    <div class="dshb-cnt-line"> 
-                        <label class="info"> Latest DB backup time:                </label>  
-                        <output class="info-datetime" value="getLastDBBkupTime('this.database')"> 19/02/2018 at 19:42:323.870 </output>
-                        <output class="info-timezone" value="getSrvTimeZone()"> UMT+2 @Bucharest Time </output> 
-                    </div>
-                    <div class="dshb-cnt-line"> 
-                        <label class="info"> Total number of product groups:       </label>   
-                        <output class="info-result" value="getCountProductGroups()" id="prd-grp-nr"> 3000 </output>
-                    </div>
-                    <div class="dshb-cnt-line"> 
-                        <label class="info"> Average number of products per group: </label>    
-                        <output class="info-result" value="getAvgProductCountPerGroup()" id="prd-grp-avg"> 3200000 </output>
-                    </div>
-                </div>
+                </div>    
             </div>            
         </div>
     </body>

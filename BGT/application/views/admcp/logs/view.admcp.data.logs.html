@@ -14,7 +14,7 @@
             <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
-        <div class="tables-body">
+        <div class="admcp-tables-body">
             <div class="admcp-left-bar"> 
                 <div class="admc-left-menu">
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
@@ -28,35 +28,65 @@
                 </div>
             </div>
             <div class="admcp-rt-box">
-                <div class="admcp-rt-content">
-                    <h3 class="adm-rt-title"> Search logs of a specifc product </h3>
-                    <form class="srch-layout">
-                        <input class="adm-srch-box" required="required" placeholder="Insert Product">
-                        <button type="submit" class="admcp-srch-btn"> Search </button>
-                    </form>
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Search logs of a specifc product </h3>
+                        <form class="srch-layout">
+                            <input class="adm-srch-box" required="required" placeholder="Insert Product">
+                            <button type="submit" class="admcp-srch-btn"> Search </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="admcp-rt-result-box">
-                <div class="admcp-rt-content">
-                    <h3 class="adm-rt-title"> Logs List </h3>
-                    <table class="srch-result-layout">
-                        <thead class="tbl-header">
-                        <tr>
-                            <th>Product</th>
-                            <th>Date</th>
-                            <th>Action Info</th>
-                            <th>Quantifier</th>
-                            <th>Account</th>
-                            <th>IP</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr> <td> Becuri </td> <td> 19/03/2018 22:16:43.850 </td> <td> Updated quantity </td> <td> +14 </td> <td> Edward </td> <td> 162.163.235.18 </td> </tr>
-                            <tr> <td> Grp:Electronice </td> <td> 19/03/2018 22:22:05.350 </td> <td> New group creation </td> <td> +1 </td> <td> Edward </td> <td> 162.163.235.18 </td> </tr>
-                            <tr> <td> Notebook Dell Aspire 4500U </td> <td> 19/03/2018 22:27:18.820 </td> <td> New Product Insertion </td> <td> +15 </td> <td> Edward </td> <td> 162.163.235.18 </td> </tr>
-                            <tr> <td> Grp:Chestii </td> <td> 19/03/2018 22:22:05.350 </td> <td> Group has been deleted </td> <td> -1 </td> <td> Edward </td> <td> 162.163.235.18 </td> </tr>
-                        </tbody>
-                    </table>
+                <div class="admcp-rt-result-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Logs List </h3>                        
+                        <div class="flex-table">
+                            <div class="flex-table-head">
+                                <div class="flex-table-row">
+                                    <div class="flex-table-th"> Product </div>
+                                    <div class="flex-table-th"> Date </div>
+                                    <div class="flex-table-th"> Action Info </div>
+                                    <div class="flex-table-th"> Quantifier </div>
+                                    <div class="flex-table-th"> Account </div>
+                                    <div class="flex-table-th"> IP </div>
+                                </div>
+                            </div>
+                            <div class="flex-table-body">
+                                <div class="flex-table-row"> 
+                                    <div class="flex-table-td"> Becuri </div> 
+                                    <div class="flex-table-td"> 19/03/2018 22:16:43.850 </div> 
+                                    <div class="flex-table-td"> Updated quantity </div> 
+                                    <div class="flex-table-td"> +14 </div> 
+                                    <div class="flex-table-td"> Edward </div> 
+                                    <div class="flex-table-td"> 162.163.235.18 </div> 
+                                </div>
+                                <div class="flex-table-row"> 
+                                    <div class="flex-table-td"> Electronice </div> 
+                                    <div class="flex-table-td"> 19/03/2018 22:22:05.350 </div>
+                                    <div class="flex-table-td"> New group creation </div> 
+                                    <div class="flex-table-td"> +1 </div>
+                                    <div class="flex-table-td"> Edward </div>
+                                    <div class="flex-table-td"> 162.163.235.18 </div>
+                                </div>                                
+                                <div class="flex-table-row">
+                                    <div class="flex-table-td"> Notebook Dell Aspire 4500U </div>
+                                    <div class="flex-table-td"> 19/03/2018 22:27:18.820 </div>
+                                    <div class="flex-table-td"> New Product Insertion </div> 
+                                    <div class="flex-table-td"> +15 </div>
+                                    <div class="flex-table-td"> Edward </div> 
+                                    <div class="flex-table-td"> 162.163.235.18 </div> 
+                                </div>
+                                <div class="flex-table-row"> 
+                                    <div class="flex-table-td"> Chestii </div> 
+                                    <div class="flex-table-td"> 19/03/2018 22:22:05.350 </div> 
+                                    <div class="flex-table-td"> Group has been deleted </div>
+                                    <div class="flex-table-td"> -1 </div> 
+                                    <div class="flex-table-td"> Edward </div> 
+                                    <div class="flex-table-td"> 162.163.235.18 </div> 
+                                </div>                                
+                            </div>                            
+                        </div>
+                    </div>
                 </div>
             </div> 
         </div>

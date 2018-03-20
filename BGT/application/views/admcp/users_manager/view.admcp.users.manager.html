@@ -14,7 +14,7 @@
             <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
-        <div class="tables-body">
+        <div class="admcp-tables-body">
             <div class="admcp-left-bar"> 
                 <div class="admc-left-menu">
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
@@ -28,28 +28,30 @@
                 </div>
             </div>
             <div class="admcp-rt-box">
-                <div class="admcp-rt-content">
-                    <h3 class="adm-rt-title"> User Management </h3>
-                    <table class="usr-mngr-layout">
-                        <thead>
-                            <tr>
-                                <th> Username </th>
-                                <th> Joined Date </th>
-                                <th> Account Level </th>
-                                <th> Edit </th>
-                                <th> Delete </th>    
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> Edward </td>
-                                <td> 28/02/2018 </td>
-                                <td> Admin </td>
-                                <td> <button type="submit" class="admcp-srch-btn" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.editor.html?editUserByName=Edward'"> Edit </button> </td>
-                                <td> <button type="submit" class="admcp-srch-btn" onclick="deleteUserByID('getUserID('Edward')')"> Delete </button> </td>    
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> User Management </h3>
+                        <div class="flex-table">
+                            <div class="flex-table-head">
+                                <div class="flex-table-row">
+                                    <div class="flex-table-th"> Username </div>
+                                    <div class="flex-table-th"> Joined Date </div>
+                                    <div class="flex-table-th"> Account Level </div>
+                                    <div class="flex-table-th"> Edit </div>
+                                    <div class="flex-table-th"> Delete </div>    
+                                </div>
+                            </div>
+                            <div class="flex-table-body">
+                                <div class="flex-table-row">
+                                    <div class="flex-table-td"> Edward </div>
+                                    <div class="flex-table-td"> 28/02/2018 </div>
+                                    <div class="flex-table-td"> Admin </div>
+                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.editor.html?editUserByName=Edward'"> Edit </button> </div>
+                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="deleteUserByID('getUserID('Edward')')"> Delete </button> </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>            
         </div>

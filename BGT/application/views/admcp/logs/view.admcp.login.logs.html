@@ -14,9 +14,9 @@
             <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
             <button type="button" class="admcp-logout-btn" onclick="window.location=../view.admcp.index.html"> Logout </button>
         </div>
-        <div class="tables-body">
+        <div class="admcp-tables-body">
             <div class="admcp-left-bar"> 
-                <div class="admc-left-menu">
+                <div class="admcp-left-menu">
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/dashboard/view.admcp.dashboard.html'"> Dashboard </button>
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.manager.html'"> Manage Users </button>
                     <button type="button" class="admcp-menu-option" onclick="window.location='/application/views/admcp/users_manager/view.admcp.users.editor.html'"> Edit User </button>
@@ -28,34 +28,46 @@
                 </div>
             </div>
             <div class="admcp-rt-box">
-                <div class="admcp-rt-content">
-                    <h3 class="adm-rt-title"> Search logs from and to a specific date </h3>
-                    <form class="srch-layout">
-                        <input class="adm-srch-box" required="required" placeholder="Insert Start Date">
-                        <input class="adm-srch-box" required="required" placeholder="Insert End Date">
-                        <button type="submit" class="admcp-srch-btn"> Search </button>
-                    </form>
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Search logs from and to a specific date </h3>
+                        <form class="srch-layout">
+                            <input class="adm-srch-box" required="required" placeholder="Insert Start Date">
+                            <input class="adm-srch-box" required="required" placeholder="Insert End Date">
+                            <button type="submit" class="admcp-srch-btn"> Search </button>
+                        </form>
+                    </div>
                 </div>
+                <div class="admcp-rt-result-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Logs List </h3>                    
+                        <div class="flex-table">
+                            <div class="flex-table-head">
+								<div class="flex-table-row">
+									<div class="flex-table-th">Account</div>
+									<div class="flex-table-th">Date</div>
+									<div class="flex-table-th">Action Info</div>
+									<div class="flex-table-th">IP</div>
+								</div>								
+                            </div>
+                            <div class="flex-table-body">
+                                <div class="flex-table-row"> 
+									<div class="flex-table-td"> Edward </div> 
+									<div class="flex-table-td"> 19/03/2018 22:16:43.850 </div>  
+									<div class="flex-table-td"> User logged in </div>  
+									<div class="flex-table-td"> 162.163.235.18 </div> 
+								</div>
+								<div class="flex-table-row"> 
+									<div class="flex-table-td"> Edward </div> 
+									<div class="flex-table-td"> 19/03/2018 23:43:31.600 </div>  
+									<div class="flex-table-td"> User Logged Out </div>  
+									<div class="flex-table-td"> 162.163.235.18 </div> 
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
             </div>
-            <div class="admcp-rt-result-box">
-                <div class="admcp-rt-content">
-                    <h3 class="adm-rt-title"> Logs List </h3>                    
-                    <table class="srch-result-layout">
-                        <thead class="tbl-header">
-                        <tr>
-                            <th>Account</th>
-                            <th>Date</th>
-                            <th>Action Info</th>
-                            <th>IP</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr> <td> Edward </td> <td> 19/03/2018 22:16:43.850 </td>  <td> User logged in </td>  <td> 162.163.235.18 </td> </tr>
-                            <tr> <td> Edward </td> <td> 19/03/2018 23:43:31.600 </td>  <td> User Logged Out </td>  <td> 162.163.235.18 </td> </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> 
         </div>
     </body>
 </html>

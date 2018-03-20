@@ -180,23 +180,28 @@ output.bad-credentials#show {
     text-align: center;
 }
 
+.admcp-tables-body {
+    margin: 1% auto;
+    display: flex;
+    width: 100%;
+}
+
 .admcp-left-bar {
-    display: inline-block;
+    display: block;
+    width: 15%;
+    max-height: 370px;
     text-align: center;
-    margin-left: 3%;
-    margin-right: 5%;
-    margin-top: 2%;
+    margin: 1% auto;
     border: 0.5px solid rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
     box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
     position: relative;
-    width: 15%;
     background-color: rgba(12, 15, 18, 0.6);
     border-radius: 24px;    
 }
 
 .admcp-left-menu {
-    margin: 5% auto;
+    margin: 2% auto;
     text-align: center;
     width: 90%;
 }
@@ -206,28 +211,8 @@ output.bad-credentials#show {
     margin: 5% auto;
     text-align: center;
     width: 90%;
-    line-height: 38px;
-    font-size: 24px;
-    background-color: rgba(12, 15, 18, 0.9);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    color: ghostwhite;
-    cursor:pointer;
-}
-
-.admcp-menu-option:hover, .admcp-menu-option:focus, .admcp-menu-option:focus-within, .admcp-menu-option:active  {
-    border: 2px solid rgb(51, 181, 229);
-    background-color: rgb(248, 248, 255);
-    color: black;
-}
-
-.admcp-menu-option {
-    display: block;
-    margin: 5% auto;
-    text-align: center;
-    width: 90%;
-    line-height: 38px;
-    font-size: 24px;
+    line-height: 24px;
+    font-size: 20px;
     background-color: rgba(12, 15, 18, 0.9);
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 12px;
@@ -242,34 +227,35 @@ output.bad-credentials#show {
 }
 
 .admcp-rt-box {
-    display: inline-block;
-    float: right;
-    margin: 0 auto;
-    position: absolute;
-    margin-right: 3%;
-    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;    
+    width: 65%;
+}
+
+.admcp-rt-cnt-box {
+    display: block;
+    margin-top: 0;
+    margin: 2%;
     border: 0.5px solid rgba(255, 255, 255, 0.8);
     border-radius: 24px;
     box-sizing: border-box;
     box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
-    width: 70%;
+    width: 90%;
 }
 
 .admcp-rt-result-box {
-    display: inline-block;
-    float: right;
-    margin: 0 auto;
-    position: absolute;
-    margin-right: 3%;
-    margin-top: 10%;
+    display: block;
+    margin: 2%;
     border: 0.5px solid rgba(255, 255, 255, 0.8);
     border-radius: 24px;
     box-sizing: border-box;
     box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
-    width: 70%;
+    width: 90%;
 }
 
 .admcp-rt-content {
+    display: block;
     margin: 1% auto;
     text-align: left;
     width: 95%;
@@ -345,7 +331,7 @@ output.bad-credentials#show {
 
 .srch-result-layout tr {
     text-align: center;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid ghostwhite;
 }
 
 .srch-result-layout td ~ .srch-result-layout td {
@@ -353,68 +339,59 @@ output.bad-credentials#show {
 }
 
 .dshb-cnt-line {
-    margin: 1% auto;
-    text-align: justify;
+    display: flex;
+    margin: 0.5%;
     width: 100%;
-    line-height: 32px;
+    line-height: 28px;
     font-size:24px;
-    border-top: 2px solid rgba(255, 255, 255, 0.8);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.8);
     color: ghostwhite;
 }
 
-.info {
-    margin: 0 auto;
+div.admcp-rt-content div.dshb-cnt-line {
+    padding-bottom: 1%;
+    border-bottom: 2px solid ghostwhite;
+}
+
+div.admcp-rt-content div.dshb-cnt-line:last-child {
+    padding-bottom: 1%;
+    border: 0;
+}
+
+div.dshb-cnt-line > div.info {
+    width: 40%;
+    text-align: left;
+}
+
+div.dshb-cnt-line > div.info-result {
+    width: 60%;
+    text-align: right;
 }
 
 .dshb-online-usrs {
     color: green;
-    position: relative;
-    margin: 0 auto;
-    left: 63%;
+    width: auto;
 }
 
 .dshb-total-usrs {
     color: red;
-    position: relative;
-    margin: 0 auto;
-    left: 63%;
-    overflow-x: auto;
+    width: auto;
 }
 
-output.dshb-online-usrs ~ label.separator {
+.separator {
     color: #33b5e5;
-    position: relative;
-    margin: 0 auto;
-    left: 63%;
+    width: 5%;
 }
 
-.info-datetime {
+.rslt-datetime {
     color:green;
-    position: relative;
-    margin: 0 auto;
-    left: 33%;
 }
 
-output.info-datetime ~ output.info-timezone {
+output.rslt-datetime ~ output.rslt-timezone {
     color: #33b5e5;
-    position: relative;
-    margin: 0 auto;
-    left: 33%;
 }
 
-.info-result {
+.prd-result {
     color: green;
-    position: relative;
-    margin: 0 auto;
-}
-
-#prd-grp-nr {
-    left: 60%;
-}
-
-#prd-grp-avg {
-    left: 54%;
 }
 
 .usr-edit-form {
@@ -443,31 +420,38 @@ legend {
 }
 
 .ctrl-group {
-    display: justify;
-    width: 70%;
+    display: flex;
+    width: 80%;
     line-height: 24px;
-    margin: 2%;
+    margin: 1%;
     text-align: left;
 }
 
-.ctrl-group label {
+.ctrl-group > label {
     color: ghostwhite;
+    width: 20%;
     font-size: 18px;
     font-weight: bold;
-    margin: 3%;
-    text-align: right;
+    margin: 1%;
+    text-align: left;
     border: 0;
     text-shadow: black 1px 1px;
 }
 
-.ctrl-group input {
-    line-height: 20px;
+.ctrl-group > input {
+    width: 25%;
+    line-height: 24px;
     font-size: 18px;
     border-radius: 6px;
     border: 2px inset #ffffff;
-    margin-left: 1%;
+    margin: 1%;
     text-align: center;
-    width: 30%;
+}
+
+.ctrl-group > button {
+    width: 15%;
+    line-height: 24px;
+    margin: 1%;
 }
 
 .admcp-save-btn {
@@ -510,7 +494,7 @@ legend {
 .usr-mngr-layout tr {
     text-align: left;
     line-height: 48px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid ghostwhite;
 }
 
 .usr-mngr-layout button {
@@ -528,9 +512,60 @@ legend {
     text-align: center;
 }
 
- {
-    width: 10%;
+div.flex-table {
+    display: block;
+    margin: auto;
     text-align: center;
+    width: 95%;
+    margin-bottom: 1.5%;
+    background-color: transparent;
+    color: ghostwhite;
+    line-height: 22px;
+    font-size: 16px;        
+}
+
+div.flex-table div.flex-table-head {
+    display: block;
+    width: 100%;
+    margin: 1% auto;
+    border-bottom: 2px solid ghostwhite;
+}
+
+div.flex-table-head > div.flex-table-row {
+    text-align: center;
+    display: flex;
+    width: 100%;
+    margin: 1% auto;
+    overflow: auto;
+}
+
+div.flex-table-row div.flex-table-th {
+    width: 20%;
+    margin: 0.5% auto;
+}
+
+div.flex-table-head + div.flex-table-body {
+    width: 100%;
+    margin: 1% auto;
+    display: block;
+}
+
+div.flex-table-body div.flex-table-row {
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    overflow: auto;
+    margin: 1% auto;
+    border-bottom: 1px solid ghostwhite;
+}
+
+div.flex-table-row div.flex-table-td {
+    width: 20%;
+    margin: 0.5% auto;
+}
+
+div.flex-table-td + div.flex-table-td {
+    border-left: 1px solid gray;
 }
 
 @media screen and (max-width: 600px) {    
@@ -639,4 +674,336 @@ legend {
         border-radius: 50%;
         box-shadow: 3px 6px 6px black;
     }    
+    
+    .admcp-header-bar {
+        display: flex;
+        width: 100%;
+        margin: 2%;
+        border-bottom: 2px solid #33b5e5;
+    }
+    
+    .back-to-website {
+        text-align: center;
+        text-overflow: ellipsis;
+        margin: 0 auto;    
+        margin-left: 3.5%;
+        width: 40%;
+        font-size: 14px;
+        background: rgba(25, 28, 31, 0.7) center center no-repeat fixed;
+        border: 0;
+        border-left: 5px;
+        border-style: groove;
+        border-left-color: #33b5e5;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+        color: darkgray;
+        cursor:pointer;
+    }
+    
+    .back-to-website:hover, .back-to-website:focus, .back-to-website:active {
+        margin-left: 3%;
+        background: rgba(23, 25, 28, 1) center center no-repeat fixed;
+        border-left: 3px;
+        border-style: ridge;
+        border-left-color: ghostwhite;
+        color: ghostwhite;
+    }
+    
+    .admcp-logout-btn {
+        text-align: center;
+        text-overflow: ellipsis;
+        right: 0%;
+        margin: 0 auto;    
+        margin-right: 3.5%;
+        width: 40%;
+        font-size: 14px;
+        background: rgba(25, 28, 31, 0.7) center center no-repeat fixed;
+        border: 0;
+        border-right: 5px;
+        border-style: groove;
+        border-right-color: #33b5e5;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        color: darkgray;
+        cursor:pointer;
+    }
+    
+    .admcp-logout-btn:hover, .admcp-logout-btn:focus, .admcp-logout-btn:active {   
+        margin-right: 3%;
+        background: rgba(23, 25, 28, 1) center center no-repeat fixed;
+        border-right: 3px;
+        border-style: ridge;
+        border-right-color: ghostwhite;
+        color: ghostwhite;
+    }
+    
+    .admcp-tables-body {
+        margin: 1%;
+        display: block;
+        width: 95%;
+    }
+    
+    .admcp-left-bar {
+        display: block;
+        width: 100%;
+        margin: 1% auto;
+        border: 0.5px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
+        background-color: rgba(12, 15, 18, 0.6);
+        border-radius: 12px;
+    }
+    
+    .admcp-left-menu {
+        margin: 1%;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .admcp-menu-option {
+        display: block;
+        margin: 5px auto;
+        text-align: center;
+        width: 90%;
+        line-height: 18px;
+        font-size: 14px;
+        background-color: rgba(12, 15, 18, 0.9);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        color: ghostwhite;
+        cursor:pointer;
+    }
+    
+    .admcp-menu-option:hover, .admcp-menu-option:focus, .admcp-menu-option:focus-within, .admcp-menu-option:active  {
+        border: 2px solid rgb(51, 181, 229);
+        background-color: rgb(248, 248, 255);
+        color: black;
+    }
+    
+    .admcp-rt-box {
+        display: block;
+        margin: 8px auto;    
+        width: 100%;
+    }
+    
+    .admcp-rt-cnt-box {
+        display: block;
+        margin-top: 0;
+        margin: 1% auto;
+        border: 0.5px solid rgba(255, 255, 255, 0.8);
+        border-radius: 12px;
+        box-sizing: border-box;
+        box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
+        width: 100%;
+    }
+    
+    .admcp-rt-content {
+        display: block;
+        margin: 1% auto;
+        text-align: left;
+        width: 100%;
+    }
+    
+    .adm-rt-title {
+        display: block;
+        margin: 1% auto;
+        font-size: 14px;
+        font-weight: 200;
+        text-align: center;
+        width: 100%;
+        border-bottom: 2px solid #33b5e5;
+        color: ghostwhite;    
+    }
+    
+    .srch-layout {
+        text-align: center;
+        margin: 1% auto;
+        width: 100%;
+    }
+    
+    .adm-srch-box {
+        display: inline-block;
+        margin: 1% auto;
+        text-align: center;
+        width: 35%;
+        line-height: 18px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+    
+    .admcp-srch-btn {
+        margin: 1% auto;
+        border: 0;
+        text-align: center;
+        font-size: 12px;
+        width: 20%;
+        padding: 2px 2px 2px;
+        background-color: #5DA9E9;
+        cursor:pointer;
+        line-height: 18px;
+        text-shadow: none;
+        box-shadow: 3px 6px 6px black;
+        border-radius: 6px;
+    }
+    
+    .admcp-srch-btn:hover, .admcp-srch-btn:focus, .admcp-srch-btn:focus-within, .admcp-srch-btn:active {
+        background-color: blue;
+        color: #ffffff;
+        border-radius: 50%;
+    }
+ 
+    .admcp-rt-result-box {
+        display: block;
+        margin: 2% auto;
+        border: 0.5px solid rgba(255, 255, 255, 0.8);
+        border-radius: 24px;
+        box-sizing: border-box;
+        box-shadow: 3px 6px 6px rgba(0, 1, 2, 0.8);
+        width: 100%;
+    }
+    
+    .srch-result-layout {
+        margin: auto;
+        overflow: auto;
+        text-align: center;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 95%;
+        margin-bottom: 1.5%;
+        background-color: transparent;
+        color: ghostwhite;
+        line-height: 16px;
+        font-size: 12px;
+        padding: 8px;
+    }
+    
+    thead.tbl-header > tr:only-child {
+        border-bottom: 1px solid ghostwhite;
+    }
+    
+    .srch-result-layout tr:last-of-type {
+        border-bottom: 0;
+    }
+    
+    .dshb-cnt-line {
+        display: flex;
+        margin: 0.5%;
+        width: 100%;
+        line-height: 16px;
+        font-size: 12px;
+        color: ghostwhite;
+    }
+    
+    div.admcp-rt-content div.dshb-cnt-line {
+        padding-bottom: 1%;
+        border-bottom: 2px solid ghostwhite;
+    }
+    
+    div.admcp-rt-content div.dshb-cnt-line:last-child {
+        padding-bottom: 1%;
+        border: 0;
+    }
+    
+    div.dshb-cnt-line > div.info {
+        width: 40%;
+        text-align: left;
+    }
+    
+    div.dshb-cnt-line > div.info-result {
+        width: 60%;
+        text-align: left;
+    }
+    
+    div.flex-table {
+        display: block;
+        margin: auto;
+        text-align: center;
+        width: 95%;
+        margin-bottom: 1.5%;
+        background-color: transparent;
+        color: ghostwhite;
+        line-height: 16px;
+        font-size: 12px;        
+    }
+    
+    div.flex-table div.flex-table-head {
+        display: block;
+        width: 100%;
+        margin: 1% auto;
+        border-bottom: 2px solid ghostwhite;
+    }
+    
+    div.flex-table-head > div.flex-table-row {
+        text-align: center;
+        display: flex;
+        width: 100%;
+        margin: 5px auto;
+        overflow: scroll;
+    }
+    
+    div.flex-table-row div.flex-table-th {
+        width: 20%;
+        margin: 5px;
+    }
+    
+    div.flex-table-head + div.flex-table-body {
+        width: 100%;
+        margin: 1% auto;
+        display: block;
+    }
+    
+    div.flex-table-body div.flex-table-row {
+        vertical-align: middle;
+        text-align: center;
+        display: flex;
+        overflow: scroll;
+        margin: 5px auto;
+        border-bottom: 1px solid ghostwhite;
+    }
+    
+    div.flex-table-row div.flex-table-td {
+        margin: 8px auto;
+        padding: 4px;
+    }
+    
+    div.flex-table-td + div.flex-table-td {
+        border-left: 1px solid gray;
+    }
+    
+    .admcp-save-btn {
+        font-size: 12px;
+        width: 30%;
+        line-height: 16px;
+    }
+    
+    .ctrl-group {
+        display: flex;
+        width: 80%;
+        line-height: 16px;
+        margin: 1%;
+        text-align: left;
+    }
+    
+    .ctrl-group > label {
+        color: ghostwhite;
+        width: 30%;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+    .ctrl-group > input {
+        width: 65%;
+        line-height: 16px;
+        font-size: 12px;
+    }
+    
+    .ctrl-group > button {
+        width: 45%;
+        line-height: 16px;
+    }
+    
+    .admcp-srch-btn {
+        font-size: 12px;
+        width: 100%;
+        line-height: 16px;
+    }
 }
