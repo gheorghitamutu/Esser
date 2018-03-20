@@ -9,7 +9,6 @@
 <body>
 
 
-
 <div class="content">
 
     <div class="header">
@@ -20,94 +19,176 @@
 
     <div class="sideBarNav">
         <a href="#user">Username</a>
+        <a href="#notifications">Notifications</a>
+        <a href="itemsgroups">Items</a>
+        <a href="#notifications">Users</a>
         <a href="#home">Home</a>
         <a href="#logout">Logout</a>
     </div>
 
 
     <div class="container">
-    <div class="notif">
-        <a href="#hideNotif" id="hideNotif">You have new notifications</a>
-        <a href="#" id="showNotif">Hide notifications</a>
-        <div id="answerNotif">
-            <div id="success">
-                <p><strong>Resupply Success!</strong> Your fruits supply was successfully updated in your data base!
-                </p>
-            </div>
+
+        <div class="itemsContainer">
+            <table id="itemsT">
+                <tr>
+                    <th>PC spare parts</th>
+                    <th>Current cantity</th>
+                    <th>Unit</th>
+
+                </tr>
+                <tr>
+                    <td>Hard</td>
+                    <td>50</td>
+                    <td>item</td>
+
+                </tr>
+                <tr>
+                    <td>SSD</td>
+                    <td>30</td>
+                    <td>item</td>
+                </tr>
+                <tr>
+                    <td>Mother board</td>
+                    <td>30</td>
+                    <td>item</td>
+                </tr>
+                <tr>
+                    <td>Ram</td>
+                    <td>30</td>
+                    <td>item</td>
+                </tr>
+
+                <tr>
+                    <th>Fruits</th>
+                    <th>Current cantity</th>
+                    <th>Unit</th>
+                </tr>
+                <tr>
+                    <td>Apples</td>
+                    <td>20</td>
+                    <td>kg</td>
+                </tr>
+
+            </table>
+
         </div>
 
+        <div class="logsContainer">
+            <h id="headNot"> You have new notifications ! Check it out.</h>
+            <li><u>28-02-2018 19:00:01</u>
+                <span style="color: white"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
+                <a href="#">Office 5</a> !
+                <span style="color: white"><strong>0</strong></span> <a href="#">Coffee bags</a> left!
+            </li>
+
+            <li><u>28-02-2018 19:00:01</u>
+                <span style="color: white"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
+                <a href="#">Office 5</a> !
+                <span style="color: white"><strong>0</strong></span> <a href="#">Coffee bags</a> left!
+            </li>
+
+            <li><u>28-02-2018 19:00:01</u>
+                <span style="color: white"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
+                <a href="#">Office 5</a> !
+                <span style="color: white"><strong>0</strong></span> <a href="#">Coffee bags</a> left!
+            </li>
+            <li><u>28-02-2018 19:00:01</u>
+                <span style="color: white"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
+                <a href="#">Office 5</a> !
+                <span style="color: white"><strong>0</strong></span> <a href="#">Coffee bags</a> left!
+            </li>
+            <li><u>28-02-2018 19:00:01</u>
+                <span style="color: white"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
+                <a href="#">Office 5</a> !
+                <span style="color: white"><strong>0</strong></span> <a href="#">Coffee bags</a> left!
+            </li>
+
+        </div>
+
+        <div class="usersContainer">
+            <table id="usersT">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Group</th>
+                    <th>Hierarchy</th>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Ion</td>
+                    <td>Popescu</td>
+                    <td>boss</td>
+                    <td>0</td>
+
+
+                </tr>
+                <tr>
+                    <td>Gerogescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Georgescu</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>employee</td>
+                    <td>1</td>
+
+                </tr>
+
+            </table>
+        </div>
+
+
     </div>
 
-    <div class="mainCointainers">
-        <p>im id est laborum consectet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exur
-            abore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exur
-            abore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exurabore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco.
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim
-            labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ex
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim</p>
-
-
-    </div>
     <div class="footer">
-        <p class="copyright">©2018 The Jellyvision Lab, Inc. All rights reserved. </p>
+        <p class="copyright">©2018 The EsserDeveloper Lab, Inc. All rights reserved. </p>
         <div class="data">
             <p id="dataHour"> 10:00 AM</p>
             <p id="dataYear"> 3/19/2018</p>
@@ -115,7 +196,7 @@
 
     </div>
 
-    </div>
 </div>
+
 </body>
 </html>
