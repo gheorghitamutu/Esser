@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="pmc_groups_and_items_style.css">
+        <link rel="stylesheet" href="styles/pmc_groups_and_items_style.css">
+        <script src="scripts/groupForm.js"></script>
     </head>
     <body>
+        
+        <!-- Group Registration Form -->
+        
+        <div class="GroupForm" id="groupForm">
+            <div class="GroupFormContent">
+                <span class="closeButton">&times;</span>
+                
+            </div>
+        </div>
+        
+        <!-- Section to be shown -->
+        
         <div class="Groups">
             <div class="Title">Groups</div>
             <div class="Menu">
-                <button class="MenuButton">Add Group</button>
-                <button class="MenuButton">Delete Group</button>
+                <button class="MenuButton" id="addGroup">Add Group</button>
+                <button class="MenuButton" id="deleteGroup">Delete Group</button>
             </div>
             <div class="Group">
                 <div class="GroupButton">Add Product</div>

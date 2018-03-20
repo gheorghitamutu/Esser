@@ -254,3 +254,31 @@
     transform: translateY(50%);
 }
 
+
+/* Form Group Class*/
+
+.GroupForm{
+    display: none;
+    content: "";
+    display: block;
+    background-color: black;
+    opacity: .5;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.GroupFormContent{
+    
+}
+
+.closeButton{
+    float: right;
+}
+
+.closeButton:hover, .closeButton.focus{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
