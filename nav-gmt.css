@@ -1,12 +1,13 @@
 #nav-mobile-container {
-    width: 90%;
-    height: 10%;
-    position: relative;
+    width: 20rem;
+    height: 150px;
+    position: fixed;
     list-style-type: none;
     margin: 20px;
     padding: 30px;
     float: left;
     display: inline-block;
+    z-index: 100;
 }
 
 #nav-mobile-container ul {
@@ -49,7 +50,7 @@
     border: 1px solid #ccc;
     background: white 10px 10px / 20px 20px no-repeat;
 
-    background-image: -webkit-repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);
+
     background-image: repeating-linear-gradient(#ccc, #ccc 2px, #fff 2px, #fff 4px);
     z-index: 2;
 }
@@ -60,7 +61,7 @@
 }
 
 .nav-mobile-button {
-    display:block;
+    display: block;
     height: 20%;
     margin: 1.5rem;
     padding: 0 30px 0 30px;
@@ -78,7 +79,6 @@
     border: 1px solid #bbb;
     cursor: pointer;
     box-sizing: border-box;
-    max-width: 70%;
 }
 
 .active .nav-mobile-button {
@@ -201,6 +201,47 @@ span.warning {
     display: none;
 }
 
+#footer {
+    margin-left: 500px;
+    margin-bottom: 1%;
+    margin-top: 5%;
+    display: block;
+}
+
+.footer_elem {
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    color: #555555;
+    border-bottom: 2px solid #555555;
+    display: inline-block;
+    margin: auto;
+}
+
+a:link {
+    text-decoration-color: #555555;
+}
+
+
+ul {
+    list-style: circle inside;
+}
+ol {
+    list-style: decimal inside; }
+ol, ul {
+    padding-left: 0;
+    margin-top: 0; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+    margin: 1.5rem 0 1.5rem 3rem;
+    font-size: 90%;
+}
+
+li {
+    margin-bottom: 1rem;
+}
+
 /* bug fix with floating floating menu when changing from lower res to higher one */
 @media screen and (min-width: 900px) {
     #nav-mobile-container {
@@ -209,6 +250,10 @@ span.warning {
 
     #access_nav {
         display: none;
+    }
+
+    #footer {
+        margin-left: 500px;
     }
 }
 
@@ -235,6 +280,9 @@ span.warning {
     #access_nav {
         display: block;
     }
+    #footer {
+        margin-left: 4%;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -250,39 +298,8 @@ span.warning {
         display: block;
     }
 
-}
+    #footer {
+        margin-left: 4%;
+    }
 
-ul {
-    list-style: circle inside;
-}
-ol {
-    list-style: decimal inside; }
-ol, ul {
-    padding-left: 0;
-    margin-top: 0; }
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-    margin: 1.5rem 0 1.5rem 3rem;
-    font-size: 90%;
-}
-li {
-    margin-bottom: 1rem;
-}
-
-#footer {
-    margin: 5% 40% 2% 45%;
-}
-
-.footer_elem {
-    padding: 10px 10px 10px 10px;
-    text-decoration: none;
-    color: #555555;
-    border-bottom: 2px solid #555555;
-    display: inline-block;
-}
-
-a:link {
-    text-decoration-color: #555555;
 }
