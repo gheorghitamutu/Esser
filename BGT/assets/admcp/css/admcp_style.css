@@ -846,18 +846,17 @@ div.flex-table-td + div.flex-table-td {
     }
     
     .admcp-srch-btn {
-        margin: 1% auto;
-        border: 0;
-        text-align: center;
         font-size: 12px;
         width: 20%;
+        padding: 2px 2px 2px;-
+        line-height: 16px;
+    }
+    
+    div.flex-table-td .admcp-srch-btn {
+        font-size: 12px;
+        width: 90%;
         padding: 2px 2px 2px;
-        background-color: #5DA9E9;
-        cursor:pointer;
-        line-height: 18px;
-        text-shadow: none;
-        box-shadow: 3px 6px 6px black;
-        border-radius: 6px;
+        line-height: 16px;
     }
     
     .admcp-srch-btn:hover, .admcp-srch-btn:focus, .admcp-srch-btn:focus-within, .admcp-srch-btn:active {
@@ -1013,12 +1012,6 @@ div.flex-table-td + div.flex-table-td {
     
     .ctrl-group > button {
         width: 45%;
-        line-height: 16px;
-    }
-    
-    .admcp-srch-btn {
-        font-size: 12px;
-        width: 100%;
         line-height: 16px;
     }
 }

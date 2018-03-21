@@ -27,13 +27,14 @@ body {
     background: #1abc9c;
     color: white;
     height: 5%;
-    margin: 0 0 2% 12%;
+    margin: 0 0 2% 15%;
+    width:85%;
 }
 
 .container {
     min-height: 95vh;
     margin: 0 0 0 12%;
-    width: 88%;
+    width: 85%;
     flex-flow: row wrap;
     display: flex;
 
@@ -46,7 +47,7 @@ body {
     height: 250px;
     border-radius: 30px;
     margin: auto;
-
+    overflow:hidden;
 }
 
 #headNot {
@@ -102,33 +103,6 @@ body {
 tr:nth-child(even) {
     background-color: #f2f2f2
 }
-
-.sideBarNav {
-    height: 100%;
-    width: 12%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #555;
-    overflow-x: hidden;
-    padding-top: 15%;
-
-}
-
-.sideBarNav a {
-    text-decoration: none;
-    font-size: 25px;
-    color: white;
-    display: block;
-    text-align: left;
-    margin-left: 10px;
-}
-
-.sideBarNav a:hover:not(:first-child) {
-    background-color: #f1f1f1;
-    color: #000;
-}
-
 .footer {
     text-align: right;
     background: #1abc9c;
@@ -172,10 +146,67 @@ tr:nth-child(even) {
     font-size: 10px;
 }
 
-@media screen and (max-width: 1050px) {
-    .sideBarNav a {
-        font-size: 20px;
+
+
+
+
+
+
+
+.active {
+    background-color: lightgray;
+}
+
+.sidenav {
+    list-style-type: none;
+    padding: 12% 1% 1% 1%;
+    width: 15%;
+    background-color: #555;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    padding-top:10%;
+}
+
+.nav-button ,#nav-username{
+    display:block;
+    margin: 1.5rem 0 1.5rem 0;
+    padding: 0 30px;
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 400%;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+}
+
+.nav-button:hover {
+    background-color: #f1f1f1;
+    color: #000;
+}
+
+
+@media screen and (max-width: 1450px) {
+    .container{
+        margin-left:15%;
     }
+
+}
+
+
+
+
+
+@media screen and (max-width: 1050px) {
 
     .itemsContainer, .logsContainer, .usersContainer {
         margin-top: 1%;
@@ -187,28 +218,36 @@ tr:nth-child(even) {
 }
 
 @media screen and (max-width: 1250px) {
-    .sideBarNav {
-        width: 18%;
-        padding-top: 25%;
-    }
-
-    .header {
-        margin-left: 18%;
-        width:auto;
-    }
-
-    .container {
-        margin-left: 18%;
-        width:auto;
-    }
 
     .itemsContainer, .logsContainer, .usersContainer {
         margin-top: 1%;
     }
+    .container{
+        margin-left:15%;
+    }
     .footer{
         height:80px;
     }
+    .sidenav{
+        padding-top:18%;
+    }
 }
+
+
+@media screen and (max-width: 1000px){
+    .sidenav{
+        width:18%;
+        padding-top:25%;
+    }
+    .container{
+        margin-left:18%;
+    }
+    .header{
+        margin-left:18%;
+    }
+}
+
+
 
 @media screen and (max-width: 1380px) {
 
@@ -221,24 +260,24 @@ tr:nth-child(even) {
     .header {
         width: 100%;
         height: 5%;
-        margin: auto;
+        margin:0 0 0 0;
     }
 
-    .sideBarNav {
+    .sidenav{
+
+        display:block;
         width: 100%;
-        margin: 0 4% 2% 0;
+        margin: 0 0 3% 0;
         position: static;
-        height: 5%;
-        padding-top: 10px;
+        height: 3%;
         text-align: center;
+        padding-top:1.5%;
     }
 
-    .sideBarNav a {
-        width: 100%;
+    .nav-button, #nav-username{
         text-align: center;
-        margin: auto;
+        margin:0 33% 0.5% 33%;
     }
-
     .container {
         width: 100%;
         margin: auto;
@@ -248,13 +287,9 @@ tr:nth-child(even) {
     .itemsContainer, .logsContainer, .usersContainer {
         margin-top: 1%;
     }
-
-}
-
-@media screen and (max-width: 850px) {
     .itemsContainer, .logsContainer, .usersContainer {
         width: 100%;
     }
-
 }
+
 
