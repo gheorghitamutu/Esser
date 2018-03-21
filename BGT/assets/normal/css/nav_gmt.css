@@ -6,6 +6,8 @@
     margin: 20px;
     padding: 30px;
     float: left;
+    top: -15px;
+    left: -15px;
     display: inline-block;
     z-index: 100;
 }
@@ -123,6 +125,7 @@ div.main-div {
 }
 
 .sidenav {
+    z-index: 3;
     list-style-type: none;
     padding: 12% 1% 1% 1%;
     width: 300px;
@@ -155,10 +158,6 @@ div.main-div {
 
 .active .nav-button {
     background-color: lightgray;
-}
-
-.nav-button {
-    
 }
 
 #nav-username {

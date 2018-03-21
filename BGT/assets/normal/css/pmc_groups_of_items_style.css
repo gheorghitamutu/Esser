@@ -1,0 +1,528 @@
+
+body{
+    margin: auto;
+    background-color: #d3d0cb;
+}
+
+.ProductGroups{
+    width: 75%;
+    right: 0;
+    margin-left: 12.5%;
+    margin-right: auto;
+    padding: 2% 2%;
+    position: absolute;
+    text-align: center;
+    background-color: #d3d0cb;
+    border-style: none;
+}
+
+.Title{
+    padding: 2% 2%;
+    font-size: 35px;
+    position: relative;
+    top: 5%;
+    background-color: #2e5266;
+    color: white;
+    width:96%;
+    text-align: center;
+}
+
+.Menu{
+    padding: 2% 2%;
+    position: sticky;
+    text-align: center;
+    width: 96%;
+}
+
+/* Buttons for menu */
+
+.MenuButton{
+    display: inline-block;
+    width: 49%;
+    background-color: #2e5266;
+    border: none;
+    color: white;
+    padding: 2% 2% 2% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1vw;
+    border-radius: 35%;
+    transition-duration: 0.2s;
+    outline: none;
+    box-shadow: 9px 9px gray;
+    cursor: pointer;
+}
+
+.MenuButton:hover{
+    background-color: #d3d0cb;
+    color: black;
+}
+
+.MenuButton:active{
+    background-color: #e2c044;
+    box-shadow: 6px 6px black;
+    color: black;
+}
+
+/*Buttons for products*/
+
+.ProductButton{
+    text-align: center;
+    display: inline-flex;
+    background-color: #2e5266;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1vw;
+    border-radius: 35%;
+    transition-duration: 0.5s;
+    float: right;
+    box-shadow: 2px 4px 4px #9fb1bc;
+    cursor: pointer;
+    line-height: 32px;
+    margin: 0.5%;
+    justify-content: center;
+    padding: 0% 2%;
+    height: 8%;
+    width: 8%;
+    transform: translateY(50%);
+}
+
+.ProductButton:hover{
+    background-color: #d3d0cb;
+    color: black;
+}
+
+.ProductButton:active{
+    background-color: #e2c044;
+    box-shadow: 2px 2px black;
+    color: black;
+}
+
+/*Buttons for groups*/
+
+.GroupButton{
+    position:inherit;
+    text-align: center;
+    display: inline-flex;
+    background-color: #d3d0cb;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 35%;
+    transition-duration: 0.5s;
+    float: right;
+    box-shadow: 2px 4px 4px #9fb1bc;
+    cursor: pointer;
+    line-height: 32px;
+    margin: 0.5%;
+    justify-content: center;
+    padding: 0% 2%;
+    height: 8%;
+    width: 8%;
+    transform: translateY(50%);
+}
+
+.GroupButton:hover{
+    background-color: #2e5266;
+    color: white;
+    height: 8%;
+    width: 8%;
+}
+
+.GroupButton:active{
+    background-color: #e2c044;
+    box-shadow: 2px 2px black;
+    color: black;
+    height: 8%;
+    width: 8%;
+}
+
+.ProductGroup{
+    width: 92%;
+    padding: 2% 2% 2% 2%;
+    top: 5%;
+    bottom: 5%;
+    right: 5%;
+    left: 5%;
+    border-radius: 25%;
+    color: aquamarine;
+}
+
+.GroupName{
+    padding: 2% 2% 2% 2%;
+    font-size: 20px;
+    top: 5%;
+    background-color: #2e5266;
+    text-decoration:none; 
+    color: white;
+    width:10%;
+    text-align: left;
+    width: 100%;
+    
+}
+
+/* Expand/Collapse for #1 group - hardcoded */
+
+#Contents1{
+    padding: 2% 2% 2% 2%;
+    font-size: 16px;
+    top: 5%;
+    color: white;
+    width:10%;
+    text-align: center;
+    width: 100%;
+}
+
+#Contents1, #show1, #hide1:target {
+    display: none; 
+}
+
+#hide1:target + #show1, #hide1:target ~ #Contents1 {
+    display: initial; 
+}
+
+/* Expand/Collapse for #2 group - hardcoded */
+
+#Contents2{
+    padding: 2% 2% 2% 2%;
+    font-size: 16px;
+    top: 5%;
+    color: white;
+    width:10%;
+    text-align: center;
+    width: 100%;
+}
+
+#Contents2, #show2, #hide2:target {
+    display: none; 
+}
+
+#hide2:target + #show2, #hide2:target ~ #Contents2 {
+    display: initial; 
+}
+
+.Product{
+    padding: 2% 2% 2% 2%;
+    margin: 1% 1% 1% 0%;
+    font-size: 16px;
+    top: 5%;
+    background-color: #6e8898;
+    color: white;
+    width:100%;
+    text-align: center;
+    overflow: hidden;
+    vertical-align: middle;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Product information */
+
+.ProductIcon{
+    padding: 2% 2%;
+    float:left;
+    display: inline-flex;
+    height: 100%;
+    justify-content: center;
+    height: 8%;
+    width: 8%;
+    
+}
+
+.ProductName{
+    padding: 2% 2%;
+    float:left;
+    display: inline-flex;
+    justify-content: center;
+    height: 8%;
+    width: 8%;
+    transform: translateY(50%);
+}
+
+.ProductQuantity{
+    padding: 2% 2%;
+    float:left;
+    display: inline-flex;
+    justify-content: center;
+    height: 8%;
+    width: 8%;
+    transform: translateY(50%);
+}
+
+.ProductAvailable{
+    padding: 2% 2%;
+    float:left;
+    display: inline-flex;
+    justify-content: center;
+    height: 8%;
+    width: 8%;
+    transform: translateY(50%);
+}
+
+/* ----------- */
+/*  Responsive */
+/* ----------- */
+
+@media only screen and (max-width:1152px){
+    .ProductGroups{
+        position: absolute;
+        width: 70%;
+        right: -30px;
+        margin: 0 auto;
+    }
+    .GroupButton{
+        line-height: 10px;
+        
+    }
+    .MenuButton{
+        font-size: 2vw;
+    }
+}
+
+@media only screen and (max-width:995px){
+    .ProductGroups{
+        position: absolute;
+        left: -30px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 10%;
+        
+    }
+}
+
+@media only screen and (max-width:700px){
+    .ProductGroups{
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        left: 1%;
+    }
+    
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 20%;
+        line-height: 20px;
+    }
+    .ProductName{
+        width: 10%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 49%;
+    }
+    
+}
+
+@media only screen and (max-width:550px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 20%;
+        line-height: 15px;
+    }
+    .ProductName{
+        width: 6%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 100%;
+        padding: 4%;
+    }
+    .ProductButton{
+        line-height: 20px;
+        margin: 0% 0% 2% 0%;
+        font-size: 12px;
+        width: 100%;
+        clear: both;
+        float: left;
+    }
+    .ProductIcon{
+        width: 20%;
+    }
+    
+    .ProductName{
+        width: 20%;
+    }
+    
+    .ProductQuantity{
+        width: 20%;
+    }
+    .ProductAvailable{
+        width: 20%;
+    }
+    
+}
+
+@media only screen and (max-width:475px){
+    .ProductButton{
+        line-height: 20px;
+        margin: 1%;
+        font-size: 14px;
+        width: 11%;
+    }
+    .GroupButton{
+        width: 40%;
+        line-height: 15px;
+    }
+    .ProductName{
+        width: 6%;
+    }
+    .ProductQuantity{
+        width: 6%;
+    }
+    .ProductAvailable{
+        width: 6%;
+    }
+    .MenuButton{
+        font-size: 3vw;
+        width: 100%;
+        padding: 4%;
+    }
+    .ProductButton{
+        line-height: 20px;
+        margin: 0% 0% 2% 0%;
+        font-size: 12px;
+        width: 100%;
+        clear: both;
+        float: left;
+    }
+    .ProductIcon{
+        width: 20%;
+    }
+    
+    .ProductName{
+        width: 20%;
+    }
+    
+    .ProductQuantity{
+        width: 20%;
+    }
+    .ProductAvailable{
+        width: 20%;
+    }
+    
+}
+
+/* ----------- */
+/* Forms */
+/* ----------- */
+
+/* ----------- */
+/* Group Register Forms */
+/* ----------- */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-bottom: 10%;
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal:target{
+    outline: none;
+    display: block;
+}
+
+.groupFormContent{
+    opacity: 1;
+    position: relative;
+    background-color: #d3d0cb;
+    opacity: 1;
+}
+
+.productFormContent{
+    opacity: 1;
+    position: relative;
+    background-color: #d3d0cb;
+    opacity: 1;
+}
+
+.closeButton{
+    color: white;
+    width: 50%;
+}
+.closeButton:target {
+    
+}
+
+.formElement{
+    width: 25%;
+    padding: 1% 10% 1% 10%;
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: top;
+}
+
+
+
+.FormButton{
+    width: 45%;
+    height: 20%;
+    background-color: #2e5266;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1vw;
+    border-radius: 35%;
+    margin: 2% 2% 2% 2%;
+    transition-duration: 0.2s;
+    outline: none;
+    box-shadow: 9px 9px gray;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.FormButton:hover{
+    background-color: #d3d0cb;
+    color: black;
+}
+
+.FormButton:active{
+    background-color: #e2c044;
+    box-shadow: 6px 6px black;
+    color: black;
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/assets/normal/css/nav_gmt.css">
+        <link rel="stylesheet" href="/assets/normal/css/pmc_groups_of_items_style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <!-- Register a new group Form -->
+    
+    <div class="modal" id="groupForm">
+        <div class="groupFormContent">
+            <div class="Title">Add a new group</div>
+            <form>
+            <div class="formElement">Name:</div>
+            <input type="text" name="newGroupName" value="NewGroup" class="formElement"><br>
+            </form>
+            <a href="#">
+                <button class="closeButton FormButton">Add Group</button>
+            </a>
+            <a href="#">
+                <button class="closeButton FormButton">Cancel</button>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Register a new product Form -->
+    
+    <div class="modal" id="productForm">
+        <div class="productFormContent">
+            <div class="Title">Add a new group</div>
+            <form>
+            <div class="formElement">Name:</div>
+            <input type="text" name="newProductName" value="NewProduct" class="formElement"><br>
+            <div class="formElement">Quantity:</div>
+            <input type="text" name="newProductQuantity" value="NewProductQ" class="formElement"><br>
+            <div class="formElement">Tile Image:</div>
+            <button class="FormButton">Browse</button>
+            </form>
+            <a href="#">
+                <button class="FormButton closeButton ">Add Product</button>
+            </a>
+            <a href="#">
+                <button class="FormButton closeButton ">Cancel</button>
+            </a>
+        </div>
+    </div>
+    
+    <body>
+        <!-- Section to be shown -->
+        
+        <div id="nav-mobile-container">
+            <p><a href="#mobile_nav" id="access_nav" class="access_aid">Navigation</a></p>
+            
+            <nav id="mobile_nav">
+                <ul>
+                    <li><a id="nav-mobile-username">John Doe</a></li>
+                    <li><a class="nav-mobile-button" href="#">Home</a></li>
+                    <li class="active"><a class="nav-mobile-button" href="alerts.html">Alerts</a></li>
+                    <li><a class="nav-mobile-button" href="logs.html">Logs</a></li>
+                    <li><a class="nav-mobile-button" href="#">Products</a></li>
+                    <li><a class="nav-mobile-button" href="#">Groups</a></li>
+                    <li><a class="nav-mobile-button" href="#">Logout</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+        
+        <span class="sidenav">
+            <a id="nav-username">John Doe</a>
+            <a class="nav-button" href="alerts.html">Home</a>
+            <span class="active"><a class="nav-button" href="alerts.html">Alerts</a></span>
+            <a class="nav-button" href="logs.html">Logs</a>
+            <a class="nav-button" href="#">Products</a>
+            <a class="nav-button" href="#">Groups</a>
+            <a class="nav-button" href="#">Logout</a>
+        </span>       
+        
+        <div class="ProductGroups">
+            <div class="Title">Product Groups</div>
+            <div class="Menu">
+                <a href="#groupForm"><button class="MenuButton" id="addGroup">Add Group</button>
+                </a>
+                <button class="MenuButton" id="deleteGroup">Delete Group</button>
+            </div>
+            <div class="ProductGroup">
+                <a href="#productForm"><div class="GroupButton">Add Product</div></a>
+                <a href="#hide1" id="hide1">
+                    <div class="GroupName">+ PC Parts</div>
+                </a>
+                <a href="#" id="show1">
+                    <div class="GroupName">- PC Parts</div>
+                </a>
+                <div id="Contents1">
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/cpu.png" alt="CPU">
+                        <div class="ProductName">CPU</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/hdd.png" alt="HDD">
+                        <div class="ProductName">HDD</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/motherboard.png" alt="Motherboard">
+                        <div class="ProductName">Motherboard</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/gpu.png" alt="GPU">
+                        <div class="ProductName">GPU</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/ssd.png" alt="SSD">
+                        <div class="ProductName">SSD</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/Case.png" alt="Case">
+                        <div class="ProductName">Case</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/psu.png" alt="PSU">
+                        <div class="ProductName">PSU</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/cooler.png" alt="Cooler">
+                        <div class="ProductName">Cooler</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ProductGroup">
+                <a href="#productForm"><div class="GroupButton">Add Product</div></a>
+                <a href="#hide2" id="hide2">
+                    <div class="GroupName">+ Fruits</div>
+                </a>
+                <a href="#" id="show2">
+                    <div class="GroupName">- Fruits</div>
+                </a>
+                <div id="Contents2">
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/default.png" alt="Bananas">
+                        <div class="ProductName">Bananas</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                    <div class="Product">
+                        <img class="ProductIcon" src="/assets/normal/images/default.png" alt="Apples">
+                        <div class="ProductName">Apples</div>
+                        <div class="ProductQuantity">12</div>
+                        <div class="ProductAvailable">Yes</div>
+                        <button class="ProductButton">Remove Item</button>
+                        <button class="ProductButton">Add Quantity</button>
+                        <button class="ProductButton">Remove Quantity</button>
+                        <button class="ProductButton">Request Quantity</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+        <script src="/assets/normal/js/nav_gmt.js"></script>
+    <footer>
+        
+    </footer>
+</html>

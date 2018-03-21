@@ -283,7 +283,7 @@ output.bad-credentials#show {
     display: inline-block;
     margin: 1%;
     text-align: center;
-    width: 15%;
+    width: 30%;
     line-height: 22px;
     border-radius: 6px;
 }
@@ -294,6 +294,21 @@ output.bad-credentials#show {
     text-align: center;
     font-size: 16px;
     width: 10%;
+    padding: 2px 4px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 20px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 6px;
+}
+
+div.flex-table-td .admcp-srch-btn {
+    margin: 1%;
+    border: 0;
+    text-align: center;
+    font-size: 16px;
+    width: 60%;
     padding: 2px 4px 4px;
     background-color: #5DA9E9;
     cursor:pointer;
@@ -568,7 +583,7 @@ div.flex-table-td + div.flex-table-td {
     border-left: 1px solid gray;
 }
 
-@media screen and (max-width: 600px) {    
+@media screen and (max-width: 1100px) {    
     
     body {
         font-family: "Arial", Helvetica, serif;
