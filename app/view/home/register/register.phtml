@@ -1,0 +1,26 @@
+<?php include VIEW . 'home/header.phtml';?>
+
+<div class="main-container">
+    <div class="lgn-box">
+        <h1 class="main-text"> Fill in the registration form: </h1>
+        <form class="lgn-form" action="/register_script.php">
+            <p class="main-text"> *First Name: </p>
+            <input class="fill-box" type="text" name="fname" value="" placeholder="Enter Your First Name" required="required"/>
+            <p class="main-text"> *Second Name: </p>
+            <input class="fill-box" type="text" name="sname" value="" placeholder="Enter Your Second Name" required="required"/>
+            <p class="main-text"> *Email: </p>
+            <input class="fill-box" type="email" name="email" value="" placeholder="Enter Your Email" required="required"/>
+            <p class="main-text"> *Username: </p>
+            <input class="fill-box" type="text" name="uname" value="" placeholder="Enter Your Username" required="required"/>
+            <p class="main-text"> *Password: </p>
+            <input class="fill-box" type="password" name="psw" value="" placeholder="Enter Your Password" required="required"/>
+            <p class="main-text"> *Repeat Password: </p>
+            <input class="fill-box" type="password" name="cpsw" value="" placeholder="Re-Enter Your Password" required="required"/>
+            <p class="sec-text"> All fields marked with asterisk (*) are required! </p>
+            <input type="submit" class="lgn-view-btn" value="Register">
+            <button type="button" class="lgn-view-btn" onclick="window.location='/index.phtml'">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<?php include VIEW . 'home/footer.phtml';?>

@@ -1,0 +1,24 @@
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: index.phtml
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/5/2018
+ * Time: 2:15 PM
+ */
+?>
+
+<?php include VIEW . 'home/header.phtml';?>
+
+<div class="main-container">
+    <div class="main-box">
+        <h1 class="main-text"> Welcome to your Resource Planner </h1>
+        <h2 class="main-text"> What do you want to do? </h2>
+        <button type="button" class="main-btn" onclick="window.location= <?php echo VIEW . 'home/register/register.phtml' ?> ">Register</button>
+        <button type="button" class="main-btn" onclick="window.location= <?php echo VIEW . 'home/register/login.phtml' ?> ">Login</button>
+    </div>
+</div>
+
+<?php include VIEW . 'home/footer.phtml';?>
