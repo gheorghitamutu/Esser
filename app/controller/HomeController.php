@@ -12,11 +12,28 @@
 
 class HomeController extends Controller
 {
-    public function index()
+    public function __construct($uri)
     {
+        switch($uri)
+        {
+            case '/':
+                $this->index();
+                break;
+            case 'home':
+                $this->index();
+                break;
+            default:
+                $this->index();
+                break;
 
-        $this->view('home\index');
-        $this->view->setPageTitle("Esser");
-        $this->view->render();
+        }
+    }
+
+    private function index()
+    {
+        View::CreateView(
+            'home' . DIRECTORY_SEPARATOR . 'index',
+            [],
+            'Esser');
     }
 }

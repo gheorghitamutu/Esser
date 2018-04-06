@@ -15,9 +15,6 @@ class View
     protected $view_data;
     protected $page_title;
 
-    /**
-     * @param mixed $page_title
-     */
     public function setPageTitle($page_title): void
     {
         $this->page_title = $page_title;
@@ -42,5 +39,12 @@ class View
         // checking??
         // if you want to modify stuff based on what view you are in
         return explode('\\', $this->view_file)[1];
+    }
+
+    public static function CreateView($view_file, $view_data, $page_title)
+    {
+        $view = new View($view_file, $view_data);
+        $view->setPageTitle($page_title);
+        $view->render();
     }
 }

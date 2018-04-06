@@ -11,5 +11,5 @@
 
 class RegisterController extends Controller
 {
-
+    // ..
 }

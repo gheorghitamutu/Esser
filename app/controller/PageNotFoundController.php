@@ -14,8 +14,9 @@ class PageNotFoundController extends Controller
 {
     public function index()
     {
-        $this->view('404');
-        $this->view->setPageTitle("Page not found!");
-        $this->view->render();
+        View::CreateView(
+            '404',
+            [],
+            'Page not found!');
     }
 }
