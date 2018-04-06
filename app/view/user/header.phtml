@@ -11,77 +11,63 @@
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <title>User Landing Page</title>
-    <meta charset="UTF-8">
-    <link href="/assets/normal/css/style_MP.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/user-nav-bar.css">
+        <title><?php echo (isset($this->page_title) ? $this->page_title : "Welcome!"); ?></title>
+    </head>
+<body id="body">
 
+<!------------------------------------------- sidebar trigger ------------------------------------------------->
 
-<div class="content">
-
-    <div class="header">
-        <h1>Esser</h1>
-        <p>The best resources planner </p>
+<div id="sidebar-trigger-container">
+    <div class="sidebar-trigger" id="sidebar-trigger" >
+        <div class="top"></div>
+        <div class="mid"></div>
+        <div class="bottom"></div>
     </div>
+    <div id="search-container">
+        <form action="" id="search-form">
+            <input type="text" placeholder="Search.." name="search" id="search-input">
+            <button type="submit" id="search-button"></button>
+        </form>
+    </div>
+</div>
 
-    <span class="sidenav">
-    <a id="nav-username">John Doe</a>
-    <a class="nav-button" href="/index.phtml">Home</a>
-    <span class="active"><a class="nav-button" href="alerts/view.alerts.html">Alerts</a></span>
-    <a class="nav-button" href="logs/view.logs.html">Logs</a>
-    <a class="nav-button" href="items/view.items.html">Products</a>
-    <a class="nav-button" href="users/view.users.html">Groups</a>
-    <a class="nav-button" href="../home/login/login.phtml">Logout</a>
-    </span>
-
-    <div class="container">
-
-        <div class="itemsContainer">
-            <table id="itemsT">
-                <tr>
-                    <th>PC spare parts</th>
-                    <th>Current cantity</th>
-                    <th>Unit</th>
-
-                </tr>
-                <tr>
-                    <td>Hard</td>
-                    <td>50</td>
-                    <td>item</td>
-
-                </tr>
-                <tr>
-                    <td>SSD</td>
-                    <td>30</td>
-                    <td>item</td>
-                </tr>
-                <tr>
-                    <td>Mother board</td>
-                    <td>30</td>
-                    <td>item</td>
-                </tr>
-                <tr>
-                    <td>Ram</td>
-                    <td>30</td>
-                    <td>item</td>
-                </tr>
-
-                <tr>
-                    <th>Fruits</th>
-                    <th>Current cantity</th>
-                    <th>Unit</th>
-                </tr>
-                <tr>
-                    <td>Apples</td>
-                    <td>20</td>
-                    <td>kg</td>
-                </tr>
-
-            </table>
-
+<!-------------------------------------------------- sidebar -------------------------------------------------->
+<div id="offCanvasSidenav" class="sidenav">
+    <div class="sidenav-container-item">
+        <div class="sidenav-item-user-icon">
+            <img src="/abstract-user-flat-3.svg">
         </div>
 
+        <div class="sidenav-item">
+            <a href="#">Home</a>
+        </div>
+
+        <div class="sidenav-item">
+            <a href="#">Alerts</a>
+        </div>
+
+        <div class="sidenav-item">
+            <a href="#">Logs</a>
+        </div>
+
+        <div class="sidenav-item">
+            <a href="#">Products</a>
+        </div>
+
+        <div class="sidenav-item">
+            <a href="#">Groups</a>
+        </div>
+
+        <div class="sidenav-item">
+            <a href="#">Logout</a>
+        </div>
+    </div>
+</div>
+
+
+<!----- Add all page content inside this div if you want the side nav to push page content to the right ------->
+<div id="main">

@@ -1,0 +1,291 @@
+body {
+    font-family: "Arial", Helvetica, serif;
+    background: cyan url('../resources/assets/images/normal/main_page_background.jpg') center center no-repeat fixed;
+    background-size: cover;
+    margin: 0 auto;
+    border: 0;
+}
+
+.main-container {
+    text-align: center;
+    margin: 5% auto;
+    border: 1px white;
+    position: relative;
+    top: 30%;
+    /* left 50%; */
+    width: 30%;
+    background-color: rgba(0,63,145, 0.7);
+    padding: 16px;
+    border-radius: 16px;
+}
+
+.main-box {
+    text-align: center;
+    margin: 5% auto;
+    position: relative;
+    width: 90%;
+    z-index: 1;
+}
+
+.main-text {
+    text-align: center;
+    font-weight: bolder;
+    color: ghostwhite;
+    text-shadow: 1px 0;
+    background-blend-mode: difference;
+    margin: 0;
+    padding: 0 0 0;
+}
+
+.main-btn {
+    margin: 2% auto;
+    border: 0;
+    text-align: center;
+    font-size: 18px;
+    width: 60%;
+    height: 5%;
+    padding: 4px 10px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 26px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 12px;
+}
+
+.main-btn:hover, .main-btn:focus, .main-btn:focus-within, .main-btn:active {
+    background-color: blue;
+    text-shadow: none;
+    color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 3px 6px 6px black;
+}
+
+/* Styles used for login, forgot and register pages */
+
+.lgn-box {
+    text-align: center;
+    margin: 5% auto;
+    position: relative;
+    width: 90%;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.lgn-form {
+    text-align: center;
+    margin: 5%;
+    border: 0;
+}
+
+.lgn-form p.main-text {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.lgn-form a {
+    margin: 50% auto;
+    font-weight: bold;
+    color: azure;
+    text-decoration-line: none;
+}
+
+.lgn-form a:hover {
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: aliceblue;
+    color: deepskyblue;
+    font-weight: bolder;
+}
+
+.lgn-form a:visited {
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: aliceblue;
+    color: lightblue;
+    font-weight: bolder;
+}
+
+.fill-box {
+    text-align: center;
+    margin: 0 auto 12px;
+    border: 5px solid azure;
+    width: 80%;
+    line-height: 24px;
+    display: block;
+    text-shadow: none;
+    background-blend-mode: difference;
+    box-shadow: 3px 6px 6px black;
+}
+
+.lgn-view-btn {
+    display: block;
+    margin: 3% auto;
+    border: 0;
+    text-align: center;
+    font-size: 18px;
+    width: 60%;
+    height: 5%;
+    padding: 4px 10px 4px;
+    background-color: #5DA9E9;
+    cursor:pointer;
+    line-height: 26px;
+    text-shadow: none;
+    box-shadow: 3px 6px 6px black;
+    border-radius: 12px;
+}
+
+.lgn-view-btn:hover, .lgn-view-btn:focus, .lgn-view-btn:focus-within, .lgn-view-btn:active {
+    background-color: blue;
+    text-shadow: none;
+    color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 3px 6px 6px black;
+}
+
+.sec-text {
+    text-align: center;
+    color: ghostwhite;
+    text-shadow: 1px 0;
+    background-blend-mode: difference;
+    margin: 0 0 2%;
+    padding: 0 0 0;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+
+    body {
+        font-family: "Arial", Helvetica, serif;
+        background: cyan url('../resources/assets/images/normal/main_page_background.jpg') center center no-repeat fixed;
+        background-size: cover;
+        margin: 0 auto;
+        border: 0;
+    }
+
+    .main-container {
+        text-align: center;
+        margin: 3% auto;
+        border: 1px white;
+        position: relative;
+        width: 60%;
+        background-color: rgba(0,63,145, 0.7);
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .main-box {
+        text-align: center;
+        margin: 3% auto;
+        position: relative;
+        width: 90%;
+        z-index: 1;
+    }
+
+    .main-text {
+        text-align: center;
+        font-weight: bold;
+        color: ghostwhite;
+        text-shadow: 1px 0;
+        background-blend-mode: difference;
+        margin: 0 auto;
+        padding: 0 0 0;
+    }
+
+    .main-btn {
+        display: block;
+        margin: 5px;
+        border: 0;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        width: 100%;
+        height: 5%;
+        padding: 4px 10px 4px;
+        background-color: #5DA9E9;
+        cursor:pointer;
+        line-height: 26px;
+        text-shadow: none;
+        box-shadow: 3px 6px 6px black;
+        border-radius: 24px;
+    }
+
+    .main-btn:hover, .main-btn:focus, .main-btn:focus-within, .main-btn:active {
+        background-color: blue;
+        text-shadow: none;
+        color: #ffffff;
+        border-radius: 25%;
+        box-shadow: 3px 6px 6px black;
+    }
+
+    .lgn-box {
+        text-align: center;
+        margin: 5% auto;
+        position: relative;
+        width: 90%;
+        z-index: 1;
+        box-sizing: border-box;
+    }
+
+    .lgn-form {
+        text-align: center;
+        margin: 5% auto;
+        border: 0;
+    }
+
+    .lgn-form input {
+        width: 100%;
+    }
+
+    .fill-box {
+        text-align: center;
+        text-shadow: none;
+        text-overflow: ellipsis;
+        font-size: 12px;
+        margin: 0 auto 5%;
+        border: 1px solid azure;
+        width: 90%;
+        line-height: 24px;
+        display: block;
+        background-blend-mode: difference;
+        box-shadow: 3px 6px 6px black;
+    }
+
+    .lgn-view-btn {
+        display: block;
+        margin: 4% auto;
+        border: 0;
+        text-align: center;
+        font-size: 18px;
+        width: 80%;
+        height: 5%;
+        padding: 4px 10px 4px;
+        background-color: #5DA9E9;
+        cursor:pointer;
+        line-height: 26px;
+        text-shadow: none;
+        box-shadow: 3px 6px 6px black;
+        border-radius: 24px;
+    }
+
+    .lgn-view-btn:hover, .lgn-view-btn:focus, .lgn-view-btn:focus-within, .lgn-view-btn:active {
+        background-color: blue;
+        text-shadow: none;
+        color: #ffffff;
+        border-radius: 25%;
+        box-shadow: 3px 6px 6px black;
+    }
+
+    .sec-text {
+        text-align: center;
+        color: ghostwhite;
+        text-shadow: 1px 0;
+        background-blend-mode: difference;
+        margin: 0 0 2%;
+        padding: 0 0 0;
+        font-size: 14px;
+    }
+}

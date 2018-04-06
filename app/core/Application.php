@@ -18,14 +18,19 @@ class Application
     public function __construct()
     {
         $this->parseURL();
+
         if(file_exists(CONTROLLER . $this->controller . '.php'))
         {
-
             $this->controller = new $this->controller;
             if(method_exists($this->controller, $this->action))
             {
                 call_user_func([$this->controller, $this->action], $this->params);
             }
+        }
+        else
+        {
+            $this->controller = new PageNotFoundController();
+            call_user_func([$this->controller, $this->action], $this->params); // the action is already the default index method
         }
     }
 

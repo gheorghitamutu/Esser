@@ -1,0 +1,351 @@
+/*
+    CSS Stylesheet for:
+        User sidebar elements
+        User footer elements
+        User Alerts page
+        User Logs page
+
+    *This stylesheet handles only min-width > 250px and min-height > 180px!
+*/
+
+/* -------------------------------------------------- body -----------------------------------------------------------*/
+#body {
+    display: inline-flex;
+    flex-direction: column;
+    min-height: 100vh;      /* sticks the footer to the bottom */
+    min-width: 99.9%;       /* fill the screen */
+    height: 100%;           /* fill the screen */
+    margin: 0;
+    padding: 0;
+}
+
+/* -------------------------------------------------- sidenav --------------------------------------------------------*/
+.sidenav {
+    height: 100%;
+    width: 20%;                           /* 0 width - change this with JavaScript */
+    position: fixed;                    /* Stay in place */
+    display: flex;
+    flex-direction: column;
+    z-index: 1;                         /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #3d3d3d;
+    overflow-x: hidden;                 /* Disable horizontal scroll */
+    padding-top: 5rem;                  /* Place content 5rem = 80px from the top */
+    transition: 0.5s;                   /* 0.5 second transition effect to slide in the sidenav */
+    margin-left: -20%;
+}
+
+.sidenav-container-item {
+    margin-top: 14%;
+    transition: 0.5s;
+}
+
+.sidenav-item {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    padding: 1% 1% 1% 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border: 1px solid white;
+}
+
+.sidenav-item a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #adadad;
+    transition: 0.5s;
+}
+
+.sidenav-item a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav-item p {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #adadad;
+    transition: 0.5s;
+}
+
+.sidenav-item-user-icon {
+    border: 1px solid white;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    flex-flow: row nowrap; /* keeps img fit to container */
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.sidenav-item-user-icon img {
+    max-width: 50%;
+    max-height: 50%;
+    transition: 0.5s;
+}
+
+/* -------------------------------------------------- main-container -------------------------------------------------*/
+#main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;                    /* sticks the footer to the bottom */
+    transition: .5s;
+    padding: 1.2rem;
+    border: 1px solid;
+    margin: 3.7% 0 0 0.1%; /* 4.25rem = 68px */
+}
+
+/* ------------------------------------------------ main-container-first-row -----------------------------------------*/
+#main-first-row-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    border: 1px solid;
+}
+
+#page-title {
+    flex: 3;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    margin: 0.1rem;
+    border: 1px solid;
+}
+
+#search-bar {
+    flex: 1;
+    display: inline-flex;
+    flex-direction: row; /* always having this with the 2 below for alignment stuff */
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    border: 1px solid;
+    margin: 0.1rem;
+}
+
+/* -------------------------------------------------- main-container-second-row --------------------------------------*/
+#main-second-row-container {
+    padding-top: 4rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    border: 1px solid;
+}
+
+.container-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    transition: .5s;
+    border: 1px solid;
+}
+
+.date {
+    flex: 1;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    margin: 0.1rem;
+    border: 1px solid;
+}
+
+.date p {
+    text-decoration: underline;
+}
+
+.message {
+    flex: 3;
+    display: inline-flex;
+    flex-direction: row; /* always having this with the 2 below for alignment stuff */
+    align-items: center;
+    justify-content: left;
+    transition: .5s;
+    border: 1px solid;
+    margin: 0.1rem;
+    padding: 0 0 0 2rem;
+}
+
+.message p span.warning {
+    color: red;
+    font-weight: bold;
+}
+
+.message p span.neutral {
+    color: blue;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------- sidebar-trigger-container --------------------------------------*/
+.sidebar-trigger {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    border: 1px solid white;
+    top: 1rem;
+    left: 1rem;
+    cursor: pointer;
+    transition: margin-left .5s;
+}
+
+.sidebar-trigger.active {
+    margin-left: 15.625rem;         /* 15.625rem = 250px */
+    transition: margin-left .5s;
+}
+
+.sidebar-trigger div {
+    width: 2.2rem;
+    height: 0.13rem;
+    margin-bottom: 0.515rem; /* if not accurate enough => one bar is bigger than other */
+    background-color: #adadad;
+    transition: transform 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91),
+                opacity 500ms,
+                box-shadow 250ms,
+                background-color 500ms;
+}
+
+.sidebar-trigger.active .top {
+    transform: translateY(10px) rotate(-135deg);
+}
+
+.sidebar-trigger.active .mid {
+    transform: scale(0);
+}
+
+.sidebar-trigger.active .bottom {
+    transform: translateY(-0.625rem) rotate(-45deg);
+}
+
+#sidebar-trigger-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    position: fixed;
+    width: 100%;
+    height: 4.1rem;
+    background-color: #3d3d3d;
+    z-index: 3;
+    cursor: pointer;
+    transition: .5s;
+}
+
+#search-container {
+    display: flex;
+    justify-content: left;
+    border: 1px solid white;
+    margin-left: 75%;
+    height: 50%;
+    width: 20%;
+    transition: .5s;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 1px solid white;
+    height: 100%;
+    width: 100%;
+    transition: .5s;
+}
+
+#search-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 1px solid white;
+    height: 84%;
+    width: 95%;
+    transition: .5s;
+}
+
+#search-button {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    border: 1px solid white;
+    height: 95%;
+    width: 5%;
+    transition: .5s;
+}
+
+/* -------------------------------------------------- footer ---------------------------------------------------------*/
+#footer-container {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    min-height: 4vh;
+    border: 1px solid;
+    margin: 0.2% 0 0.1% 0.1%; /* 4.25rem = 68px */
+}
+
+.footer-container-item {
+    border: 1px solid;
+    margin: 0.3rem 0 0 2.7rem;
+}
+
+.footer-container-item a {
+    text-decoration: none;
+}
+
+/* ---------------------------- adjust element by max-width in descending order ------------------------------------- */
+
+@media screen and (max-width: 1600px) {
+
+}
+
+@media screen and (max-width: 1400px) {
+
+}
+
+@media screen and (max-width: 1200px) {
+
+}
+
+@media screen and (max-width: 1000px) {
+
+}
+
+@media screen and (max-width: 960px) {
+
+}
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 600px) {
+
+}
+
+@media screen and (max-width: 450px) {
+
+}
+
+/* ------------------ let's just agree that there's no point fixing media under 250px width --------------------------*/
+
+@media screen and (max-width: 250px) {
+
+}

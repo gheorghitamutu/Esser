@@ -14,8 +14,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        //echo 'I am in ' . __CLASS__ . ' method ' . __METHOD__;
+
         $this->view('home\index');
+        $this->view->setPageTitle("Esser");
         $this->view->render();
     }
 }

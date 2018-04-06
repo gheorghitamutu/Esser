@@ -14,11 +14,11 @@
 <html>
 <head>
     <link rel="icon" href="/favicon.png" />
-    <link rel="stylesheet" href="/bg_style.css" />
+    <link href="/bg_style.css" rel="stylesheet" media="all"/>
     <meta charset="utf-8">
     <meta name="author" content="Bugeag George Tiberiu">
     <meta name="description" content="Web Technologies Project">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esser</title>
+    <title><?php echo (isset($this->page_title) ? $this->page_title : "Welcome!"); ?></title>
 </head>
 <body>

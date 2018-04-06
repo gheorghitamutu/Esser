@@ -18,4 +18,8 @@ class Controller
         $this->view = new View($viewName, $data);
         return $this->view;
     }
+
+    function redirect($url){
+        header("location: {$url}");
+    }
 }
