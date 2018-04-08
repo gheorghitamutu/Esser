@@ -12,6 +12,11 @@
 
 class PageNotFoundController extends Controller
 {
+    public function __construct()
+    {
+        $this->index();
+    }
+
     public function index()
     {
         View::CreateView(

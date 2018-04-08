@@ -19,7 +19,7 @@ class Controller
         return $this->view;
     }
 
-    function redirect($url){
+    public static function redirect($url){
         header("location: {$url}");
     }
 }

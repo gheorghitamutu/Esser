@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="/assets/normal/css/nav_gmt.css">
-        <link rel="stylesheet" href="/assets/normal/css/pmc_groups_of_items_style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<?php include VIEW . 'user/header.phtml';?>
     
     <!-- Register a new group Form -->
     
@@ -49,33 +43,6 @@
     <body>
         <!-- Section to be shown -->
         
-        <div id="nav-mobile-container">
-            <p><a href="#mobile_nav" id="access_nav" class="access_aid">Navigation</a></p>
-
-            <nav id="mobile_nav">
-                <ul>
-                    <li><a id="nav-mobile-username">John Doe</a></li>
-                    <li><a class="nav-mobile-button" href="../index.phtml">Home</a></li>
-                    <li><a class="nav-mobile-button" href="../alerts/alerts.phtml">Alerts</a></li>
-                    <li><a class="nav-mobile-button" href="../logs">Logs</a></li>
-                    <li class="active"><a class="nav-mobile-button" href="ms.html">Products</a></li>
-                    <li><a class="nav-mobile-button" href="../users/view.users.html">Groups</a></li>
-                    <li><a class="nav-mobile-button" href="../../home/login/login.phtml">Logout</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <span class="sidenav">
-            <a id="nav-username">John Doe</a>
-            <a class="nav-button" href="../index.phtml">Home</a>
-            <a class="nav-button" href="../alerts/alerts.phtml">Alerts</a>
-            <a class="nav-button" href="../logs/logs.phtml">Logs</a>
-            <span class="active"><a class="nav-button" href="ms.html">Products</a></span>
-            <a class="nav-button" href="../users/view.users.html">Groups</a>
-            <a class="nav-button" href="../../home/login/login.phtml">Logout</a>
-        </span>   
-        
         <div class="ProductGroups">
             <div class="Title">Product Groups</div>
             <div class="Menu">
@@ -93,7 +60,7 @@
                 </a>
                 <div id="Contents1">
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/cpu.png" alt="CPU">
+                        <img class="ProductIcon" src="/cpu.png" alt="CPU">
                         <div class="ProductName">CPU</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -103,7 +70,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/hdd.png" alt="HDD">
+                        <img class="ProductIcon" src="/hdd.png" alt="HDD">
                         <div class="ProductName">HDD</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -113,7 +80,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/motherboard.png" alt="Motherboard">
+                        <img class="ProductIcon" src="/motherboard.png" alt="Motherboard">
                         <div class="ProductName">Motherboard</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -123,7 +90,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/gpu.png" alt="GPU">
+                        <img class="ProductIcon" src="/gpu.png" alt="GPU">
                         <div class="ProductName">GPU</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -133,7 +100,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/ssd.png" alt="SSD">
+                        <img class="ProductIcon" src="/ssd.png" alt="SSD">
                         <div class="ProductName">SSD</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -143,7 +110,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/Case.png" alt="Case">
+                        <img class="ProductIcon" src="/Case.png" alt="Case">
                         <div class="ProductName">Case</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -153,7 +120,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/psu.png" alt="PSU">
+                        <img class="ProductIcon" src="/psu.png" alt="PSU">
                         <div class="ProductName">PSU</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -163,7 +130,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/cooler.png" alt="Cooler">
+                        <img class="ProductIcon" src="/cooler.png" alt="Cooler">
                         <div class="ProductName">Cooler</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -184,7 +151,7 @@
                 </a>
                 <div id="Contents2">
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/default.png" alt="Bananas">
+                        <img class="ProductIcon" src="/default.png" alt="Bananas">
                         <div class="ProductName">Bananas</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -194,7 +161,7 @@
                         <button class="ProductButton">Request Quantity</button>
                     </div>
                     <div class="Product">
-                        <img class="ProductIcon" src="/assets/normal/images/default.png" alt="Apples">
+                        <img class="ProductIcon" src="/default.png" alt="Apples">
                         <div class="ProductName">Apples</div>
                         <div class="ProductQuantity">12</div>
                         <div class="ProductAvailable">Yes</div>
@@ -206,9 +173,5 @@
                 </div>
             </div>
         </div>
-    </body>
-        <script src="/assets/normal/js/nav_gmt.js"></script>
-    <footer>
-        
-    </footer>
-</html>
+
+<?php include VIEW . 'user/footer.phtml';?>

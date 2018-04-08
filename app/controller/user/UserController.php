@@ -21,6 +21,18 @@ class UserController extends Controller
             case 'user/alerts':
                 $this->alerts();
                 break;
+            case 'user/logs':
+                $this->logs();
+                break;
+            case 'user/items':
+                $this->items();
+                break;
+            case 'user/users':
+                $this->users();
+                break;
+            case 'user/logout':
+                $this->logout();
+                break;
             default:
                 $this->index();
                 break;
@@ -42,5 +54,34 @@ class UserController extends Controller
             'user' . DIRECTORY_SEPARATOR . 'alerts' . DIRECTORY_SEPARATOR . 'alerts',
             [],
             'You have alerts!');
+    }
+
+    public function logs()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
+            [],
+            'Logs area');
+    }
+
+    public function items()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'items' . DIRECTORY_SEPARATOR . 'items',
+            [],
+            'Items area');
+    }
+
+    public function users()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
+            [],
+            'Users area');
+    }
+
+    public function logout()
+    {
+        Controller::redirect('/home');
     }
 }

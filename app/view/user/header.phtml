@@ -15,6 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="/user-nav-bar.css">
+        <link rel="stylesheet" href="/pmc_groups_of_users_style.css"> <!-- should remove this! -->
         <title><?php echo (isset($this->page_title) ? $this->page_title : "Welcome!"); ?></title>
     </head>
 <body id="body">
@@ -43,27 +44,27 @@
         </div>
 
         <div class="sidenav-item">
-            <a href="#">Home</a>
+            <a href="/user">Home</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="/alerts">Alerts</a>
+            <a href="/user/alerts">Alerts</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="#">Logs</a>
+            <a href="/user/logs">Logs</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="#">Products</a>
+            <a href="/user/items">Products</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="#">Groups</a>
+            <a href="/user/users">Groups</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="#">Logout</a>
+            <a href="/user/logout">Logout</a>
         </div>
     </div>
 </div>

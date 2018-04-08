@@ -28,18 +28,24 @@ class Route
     public static function submit()
     {
         $uriGetParam = isset($_GET['uri']) ? $_GET['uri'] : '/';
-        // just make a redirect here for localhost blank
+
+        if($uriGetParam == '/')
+        {
+            Controller::redirect('/home');
+            return;
+        }
+
+
         foreach (Route::$_uri as $key => $value)
         {
-            // echo $key .  ' ' . $value . ' ' . Route::$_method[$key] .'<br>';
-            // echo ucfirst($uriGetParam) . 'Controller' . '<br>';
             if(ucfirst(explode('/', $uriGetParam)[0]) . 'Controller' == Route::$_method[$key])
             {
                 $useMethod = Route::$_method[$key];
                 new $useMethod($uriGetParam);
-                break;
+                return;
             }
         }
 
+        new PageNotFoundController();
     }
 }

@@ -12,10 +12,15 @@
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->index();
+    }
+
     public function index()
     {
         // if login successfull call user landing page controller
-        $this->redirect('user/index');
+        $this->redirect('/user/index');
         // else call login failed controller
         // ...
     }
