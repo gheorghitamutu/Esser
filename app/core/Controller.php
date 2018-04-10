@@ -9,16 +9,8 @@
  * Time: 2:08 PM
  */
 
-class Controller
+class Controller extends Database
 {
-    protected $view;
-
-    public function view($viewName, $data = [])
-    {
-        $this->view = new View($viewName, $data);
-        return $this->view;
-    }
-
     public static function redirect($url){
         header("location: {$url}");
     }

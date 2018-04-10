@@ -15,10 +15,14 @@ define('LIB'       , ROOT                   . 'app' . DS . 'lib'        . DS);
 define('MODEL'     , ROOT                   . 'app' . DS . 'model'      . DS);
 define('RESOURCES' , ROOT                   . 'app' . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app' . DS . 'view'       . DS);
-define('DATABASE'  , ROOT                           . DS . 'database'   . DS);
-define('ROUTE'     , ROOT                           . DS . 'route'      . DS);
+define('DATABASE'  , ROOT                                . 'database'   . DS);
+define('ROUTE'     , ROOT                                . 'route'      . DS);
 
 define('PHP_FILE'  , '*.php');
+
+foreach (glob(DATABASE . PHP_FILE) as $filename) {
+    require_once($filename);
+}
 
 foreach (glob(CORE . PHP_FILE) as $filename)
     require_once($filename);

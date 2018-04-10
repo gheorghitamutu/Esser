@@ -23,4 +23,7 @@ spl_autoload_register('spl_autoload', false);
 
 use Application as App;
 
+// dummy db test
+$db = Database::getInstance();
+
 new App;
