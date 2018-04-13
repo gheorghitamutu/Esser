@@ -46,6 +46,7 @@ class Route
             }
         }
 
+        // if there are not routes for the url then page is not on the site
         new PageNotFoundController();
     }
 }

@@ -14,6 +14,7 @@ class HomeController extends Controller
 {
     public function __construct($uri)
     {
+        Parent::__construct();
         switch($uri)
         {
             case '/':

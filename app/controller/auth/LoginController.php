@@ -14,6 +14,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
+        Parent::__construct();
         $this->index();
     }
 
