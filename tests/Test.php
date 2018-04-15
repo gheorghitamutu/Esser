@@ -10,5 +10,6 @@ class Test
 {
     public function __construct()
     {
+        // Do something
     }
 }

@@ -9,6 +9,7 @@
  * Time: 2:23 PM
  */
 
+// paths macros
 define('CONTROLLER', ROOT                   . 'app' . DS . 'controller' . DS);
 define('CORE'      , ROOT                   . 'app' . DS . 'core'       . DS);
 define('LIB'       , ROOT                   . 'app' . DS . 'lib'        . DS);
@@ -16,9 +17,20 @@ define('MODEL'     , ROOT                   . 'app' . DS . 'model'      . DS);
 define('RESOURCES' , ROOT                   . 'app' . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app' . DS . 'view'       . DS);
 define('DATABASE'  , ROOT                                . 'database'   . DS);
+define('LOGGER'    , ROOT                                . 'logger'     . DS);
 define('ROUTE'     , ROOT                                . 'route'      . DS);
 
+// logger messages macros
+define('ERROR'     , '[ERROR] ');
+define('WARNING'   , '[WARNING] ');
+
+// glob input macros
 define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+foreach (glob(LOGGER . PHP_FILE) as $filename) {
+    require_once($filename);
+}
 
 foreach (glob(DATABASE . PHP_FILE) as $filename) {
     require_once($filename);

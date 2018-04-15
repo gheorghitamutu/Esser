@@ -1,0 +1,3 @@
+[ERROR] pg_query(): Query failed: ERROR:  syntax error at or near "/"
+LINE 1: CREATE DATABASE test_db/
+                               ^

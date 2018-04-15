@@ -15,14 +15,9 @@ class Database
     protected $user = 'postgres';
     protected $password = 'password';
 
-
     private static $instance = null;
 
-    /**
-     * Call this method to get singleton
-     *
-     * @return Database
-     */
+    // method used when class is used as singleton
     public static function getInstance()
     {
         if (Database::$instance === null)
@@ -48,18 +43,21 @@ class Database
             }
             if(!$this->databaseExists())
             {
-                // Create database
                 $sql = 'CREATE DATABASE ' . $this->dbname;
                 if (!pg_query($this->connection, $sql))
                 {
-                    echo "Error creating database: " . $this->dbname;
+                    Logger::getInstance()->log(ERROR, "Creating database: " . $this->dbname);
+                }
+                else
+                {
+                    // create all the required tables
+                    $this->createTables();
                 }
             }
         }
         catch (Exception $e)
         {
-            // should make a singleton logger for this
-            echo $e->getMessage() . '<br>';
+            Logger::getInstance()->log(ERROR, $e->getMessage());
         }
 
         pg_close($this->connection);
@@ -81,8 +79,7 @@ class Database
         }
         catch (Exception $e)
         {
-            // should make a singleton logger for this
-            echo $e->getMessage() . '<br>';
+            Logger::getInstance()->log(ERROR, $e->getMessage());
         }
     }
 
@@ -109,5 +106,10 @@ class Database
         $query = 'DROP DATABASE ' . $this->dbname;
         $cmd = sprintf($format, $this->password, $this->host, $this->user, $this->port, $query);
         shell_exec($cmd);
+    }
+
+    private function createTables()
+    {
+        // TO DO: create db required tables
     }
 }
