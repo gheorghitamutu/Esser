@@ -194,20 +194,20 @@ CREATE TABLE NOTIFICATIONS(
 );
 /
 CREATE TABLE UGRPNTFRELATIONS(
-  ugNRelId NUMBER(*,0) NOT NULL,
-  ugRNId NUMBER(*,0) NOT NULL,
-  ntfgrpId NUMBER(*,0) NOT NULL,
-  CONSTRAINT pk_ugNRelId PRIMARY KEY (ugNRelId),
-  CONSTRAINT fk_ntfgrpId FOREIGN KEY (ntfgrpId) REFERENCES USERGROUPS (uGroupId),
-  CONSTRAINT fk_ugRNId  FOREIGN KEY (ugRNId) REFERENCES NOTIFICATIONS (ntfId)
+  usrgnRelationId NUMBER(*,0) NOT NULL,
+  usrgnNotificationId NUMBER(*,0) NOT NULL,
+  usrgnNotifiedGroupId NUMBER(*,0) NOT NULL,
+  CONSTRAINT pk_ugNRelId PRIMARY KEY (usrgnRelationId),
+  CONSTRAINT fk_usrgnNotifiedGroupId FOREIGN KEY (usrgnNotifiedGroupId) REFERENCES USERGROUPS (uGroupId),
+  CONSTRAINT fk_usrgnNotificationId  FOREIGN KEY (usrgnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 );
 /
 CREATE TABLE USRNTFRELATIONS(
-  uNtfRelId NUMBER(*,0) NOT NULL,
-  uNtfId NUMBER(*,0) NOT NULL,
-  ntfUsrId NUMBER(*,0) NOT NULL,
-  CONSTRAINT pk_usrNRelId PRIMARY KEY (usrNRelId),
-  CONSTRAINT fk_ntfUsrId FOREIGN KEY (ntfUsrId) REFERENCES USERACCS (userId),
-  CONSTRAINT fk_uNtfId FOREIGN KEY (uNtfId) REFERENCES NOTIFICATIONS (ntfId)
+  usrnRelationId NUMBER(*,0) NOT NULL,
+  usrnNotifiedAccId NUMBER(*,0) NOT NULL,
+  usrnNotificationId NUMBER(*,0) NOT NULL,
+  CONSTRAINT pk_usrnRelationId PRIMARY KEY (usrnRelationId),
+  CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId),
+  CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 );
 /
