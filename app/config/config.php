@@ -9,7 +9,7 @@
  * Time: 2:23 PM
  */
 
-// application config
+// application configs
 define('INSTALLED', false);
 define('SYS_DB', 'XE');
 define('SYS_DB_USER', 'SYS');
@@ -21,22 +21,23 @@ define('MD5', true);
 define('SHA_256', false);
 define('SHA_512', false);
 
-// root settings
+// root configs
 define('ROOT_ADMIN_USER', 'EsseR');
 define('ROOT_ADMIN_PASS', 'EsserTest123');
 define('ROOT_ADMIN_GROUP', 'Admins');
 define('ROOT_MANAGER_GROUP', 'Managers');
  
 // paths macros
-define('CONTROLLER', ROOT                   . 'app' . DS . 'controller' . DS);
-define('CORE'      , ROOT                   . 'app' . DS . 'core'       . DS);
-define('LIB'       , ROOT                   . 'app' . DS . 'lib'        . DS);
-define('MODEL'     , ROOT                   . 'app' . DS . 'model'      . DS);
-define('RESOURCES' , ROOT                   . 'app' . DS . 'resources'  . DS);
-define('VIEW'      , ROOT                   . 'app' . DS . 'view'       . DS);
-define('DATABASE'  , ROOT                                . 'database'   . DS);
-define('LOGGER'    , ROOT                                . 'logger'     . DS);
-define('ROUTE'     , ROOT                                . 'route'      . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
 
 // logger messages macros
 define('ERROR'     , '[ERROR] ');
@@ -71,4 +72,10 @@ foreach (glob(CONTROLLER . DS . 'user' . DS . PHP_FILE) as $filename)
 
 foreach (glob(ROUTE . PHP_FILE) as $filename)
     require_once($filename);
+
+foreach (glob(DB_SCRIPTS . PHP_FILE) as $filename)
+{
+  require_once($filename);
+}
+
 

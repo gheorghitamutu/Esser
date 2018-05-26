@@ -5,7 +5,46 @@
  * Date: 4/11/2018
  * Time: 12:27 AM
  */
-
+ 
+class Database
+{
+  protected $host = HOST_IP;
+  protected $port = HOST_PORT;
+  protected $sys_db = SYS_DB;
+  protected $sys_user = SYS_DB_USER;
+  protected $sys_user_pass = SYS_DB_USER_PASS;
+  protected $installed = INSTALLED;
+  protected $connection = null;
+  protected $root_admin_user = ROOT_ADMIN_USER;
+  protected $root_admin_user_pass = ROOT_ADMIN_PASS;
+  protected $root_admin_group = ROOT_ADMIN_GROUP;
+  protected $root_manager_group = ROOT_MANAGER_GROUP;
+  
+  private static $instace = null;
+  
+  public static function getInstace()
+  {      
+    if (Database::$instance == null)
+    {
+      Database::$instance = new Database();
+    }
+    return Database::$instace;
+  }
+  
+  protected function __construct()
+  {      
+    if ($this->installed == false)
+    {
+      $this->connection = oci_pconnect('sys', 'Bg2017Fii', 'localhost/XE', 'UTF8', OCI_SYSDBA);
+      
+    }
+    else
+    {
+      echo 'MEHEHEHEHHEHEHEHEs';
+    }
+  }
+}
+/*
 class Database
 {
     protected $connection = null;
@@ -113,3 +152,4 @@ class Database
         // TO DO: create db required tables
     }
 }
+*/
