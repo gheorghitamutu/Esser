@@ -9,6 +9,24 @@
  * Time: 2:23 PM
  */
 
+// application config
+define('INSTALLED', false);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS' 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '');
+define('SQL_DRIVER', '');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+
+// root settings
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest123');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
 // paths macros
 define('CONTROLLER', ROOT                   . 'app' . DS . 'controller' . DS);
 define('CORE'      , ROOT                   . 'app' . DS . 'core'       . DS);
