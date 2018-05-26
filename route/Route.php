@@ -38,7 +38,7 @@ class Route
 
         foreach (Route::$_uri as $key => $value)
         {
-            if(ucfirst(explode('/', $uriGetParam)[0]) . 'Controller' == Route::$_method[$key])
+            if((ucfirst(explode('/', $uriGetParam)[0]) . 'Controller') == ucfirst(Route::$_method[$key]))
             {
                 $useMethod = Route::$_method[$key];
                 new $useMethod($uriGetParam);

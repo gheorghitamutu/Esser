@@ -33,6 +33,10 @@ class View
         {
             include VIEW . $this->view_file . '.phtml';
         }
+        else
+        {
+          echo 'View file doesn\'t exist: ' . VIEW . $this->view_file . '.phtml';
+        }
     }
 
     public function getAction() {

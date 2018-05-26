@@ -5,3 +5,70 @@
  * Date: 5/26/2018
  * Time: 3:56 PM
  */ ?>
+
+<?php include VIEW . 'admincp/header.phtml';?>
+
+<?php include VIEW . 'admincp/menu/header_bar.phtml';?>
+
+<div class="admcp-tables-body">
+    <?php include VIEW . 'admincp/menu/menu.phtml';?>
+    <div class="admcp-rt-box">
+        <div class="admcp-rt-cnt-box">
+            <div class="admcp-rt-content">
+                <h3 class="adm-rt-title"> Add New Database </h3>
+                <form type="POST" class="usr-edit-form">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="ctrl-group">
+                            <label> Database Name </label> <input type="text" name="NewDBName" id="new-db-name" value="">
+                        </div>
+                        <div class="ctrl-group">
+                            <label> Input New Owner </label> <input type="text" name="NewDBOwner" id="new-db-owner" value="">
+                        </div>
+                        <div class="ctrl-group">
+                            <label> Collation Type </label> <input type="text" name="NewDBColl" id="new-db-coll" value="">
+                        </div>
+                    </fieldset>
+                    <div class="ctrl-group">
+                        <button type="button" class="admcp-save-btn" onclick="createNewDB('new-db-name','new-db-owner','new-db-coll')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
+                    </div>
+                </form>
+                <h3 class="adm-rt-title"> In Use Database </h3>
+                <form type="POST" class="usr-edit-form">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="ctrl-group">
+                            <label> Database Name </label> <input type="text" name="UsedDBName" id="used-db-name" value="FirstUsedDB">
+                        </div>
+                        <div class="ctrl-group">
+                            <label> Input New Owner </label> <input type="text" name="UsedDBOwner" id="used-db-owner" value="Edward">
+                        </div>
+                    </fieldset>
+                    <div class="ctrl-group">
+                        <button type="button" class="admcp-save-btn" onclick="changeDBProps('used-db-name','used-db-owner')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
+                    </div>
+                </form>
+                <h3 class="adm-rt-title"> Backup Database </h3>
+                <form type="POST" class="usr-edit-form">
+                    <fieldset>
+                        <legend></legend>
+                        <div class="ctrl-group">
+                            <label> Database Name </label> <input type="text" name="UsedDBName" id="bckup-db-name" value="FirstUsedDB">
+                        </div>
+                        <div class="ctrl-group">
+                            <label> BackUp Name </label> <input type="text" name="UsedBkupName" id="bckup-file-name" value="Bkup_20_03_2018">
+                        </div>
+                    </fieldset>
+                    <div class="ctrl-group">
+                        <button type="button" class="admcp-save-btn" onclick="initBackUpDB('bckup-db-name','getBckUpPath('bckup-file-name')')"> Save </button>
+                        <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include VIEW . 'admincp/footer.phtml';?>

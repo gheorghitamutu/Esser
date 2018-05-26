@@ -1,7 +1,7 @@
 
 body{
     margin: auto;
-    background-color: #d3d0cb;
+    background-color: white;
 }
 
 .ProductGroups{
@@ -45,7 +45,6 @@ body{
     padding: 2% 2% 2% 2%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 1vw;
     border-radius: 35%;
     transition-duration: 0.2s;
@@ -110,7 +109,6 @@ body{
     background-color: #d3d0cb;
     border: none;
     color: black;
-    text-align: center;
     text-decoration: none;
     font-size: 16px;
     border-radius: 35%;
@@ -160,7 +158,6 @@ body{
     background-color: #2e5266;
     text-decoration:none; 
     color: white;
-    width:10%;
     text-align: left;
     width: 100%;
     
@@ -173,7 +170,6 @@ body{
     font-size: 16px;
     top: 5%;
     color: white;
-    width:10%;
     text-align: center;
     width: 100%;
 }
@@ -193,7 +189,6 @@ body{
     font-size: 16px;
     top: 5%;
     color: white;
-    width:10%;
     text-align: center;
     width: 100%;
 }
@@ -228,7 +223,6 @@ body{
     padding: 2% 2%;
     float:left;
     display: inline-flex;
-    height: 100%;
     justify-content: center;
     height: 8%;
     width: 8%;
@@ -412,7 +406,7 @@ body{
     }
     .ProductButton{
         line-height: 20px;
-        margin: 0% 0% 2% 0%;
+        margin: 0 0 2% 0;
         font-size: 12px;
         width: 100%;
         clear: both;
@@ -468,14 +462,12 @@ body{
     opacity: 1;
     position: relative;
     background-color: #d3d0cb;
-    opacity: 1;
 }
 
 .productFormContent{
     opacity: 1;
     position: relative;
     background-color: #d3d0cb;
-    opacity: 1;
 }
 
 .closeButton{

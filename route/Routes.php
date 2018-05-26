@@ -9,8 +9,9 @@
  * Time: 3:14 PM
  */
 
-Route::add('/', 'HomeController');
-Route::add('/home', 'HomeController');
-Route::add('/login', 'LoginController');
-Route::add('/user', 'UserController');
-Route::add('/user/alerts', 'UserController');
+Route::add('/',         'HomeController');
+Route::add('/home',     'HomeController');
+Route::add('/login',    'LoginController');
+Route::add('/register', 'RegisterController');
+Route::add('/user',     'UserController');
+Route::add('/admincp',  'AdmincpController');

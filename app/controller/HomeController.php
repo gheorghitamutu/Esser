@@ -26,12 +26,6 @@ class HomeController extends Controller
             case 'home/index':
                 $this->index();
                 break;
-            case 'home/login':
-                new LoginController();
-                break;
-            case 'home/register':
-                new RegisterController();
-                break;
             default:
                 $this->index();
                 break;

@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html>
-	<head>
-        <link rel="icon" href="/assets/admcp/images/favicon.png" />
-		<link rel="stylesheet" href="/assets/admcp/css/admcp_style.css" />
-		<meta charset="utf-8">
-		<meta name="author" content="Bugeag George Tiberiu">
-		<meta name="description" content="Web Technologies Project">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Esser AdminCP</title>
-	</head>
-    <body>
-        <div class="admcp-header-bar"> 
-            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website </button>
-            <button type="button" class="admcp-logout-btn" onclick="window.location='../index.phtml'"> Logout </button>
-        </div>
-        <div class="admcp-tables-body">
-            <div class="admcp-left-bar"> 
-                <div class="admc-left-menu">
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../dashboard/dashboard.phtml'"> Dashboard </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='view.admcp.users.manager.html'"> Manage Users </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='view.admcp.users.editor.html'"> Edit User </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../web_settings/view.admcp.settings.manager.html'"> Website Settings </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../web_settings/view.admcp.database.manager.html'"> Database Settings </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../logs/user_logs.phtml'"> User Logs </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../logs/login_logs.phtml'"> Login Logs </button>
-                    <button type="button" class="admcp-menu-option" onclick="window.location='../logs/data_logs.phtml'"> Product Logs </button>
-                </div>
-            </div>
+<?php include VIEW . 'admincp/header.phtml';?>
+
+<?php include VIEW . 'admincp/menu/header_bar.phtml';?>
+
+<div class="admcp-tables-body">
+    <?php include VIEW . 'admincp/menu/menu.phtml';?>
             <div class="admcp-rt-box">
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
@@ -46,7 +23,7 @@
                                     <div class="flex-table-td"> Edward </div>
                                     <div class="flex-table-td"> 28/02/2018 </div>
                                     <div class="flex-table-td"> Admin </div>
-                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="window.location='view.admcp.users.editor.html'"> Edit </button> </div>
+                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="window.location='editor'"> Edit </button> </div>
                                     <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="deleteUserByID('getUserID('Edward')')"> Delete </button> </div>    
                                 </div>
                             </div>
@@ -55,5 +32,5 @@
                 </div>
             </div>            
         </div>
-    </body>
-</html>
+
+<?php include VIEW . 'admincp/footer.phtml';?>

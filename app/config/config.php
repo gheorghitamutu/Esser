@@ -28,29 +28,32 @@ define('WARNING'   , '[WARNING] ');
 define('PHP_FILE'  , '*.php');
 
 // autoload purpose loops
-foreach (glob(LOGGER . PHP_FILE) as $filename) {
+foreach (glob(LOGGER        . PHP_FILE) as $filename) {
     require_once($filename);
 }
 
-foreach (glob(DATABASE . PHP_FILE) as $filename) {
+foreach (glob(DATABASE      . PHP_FILE) as $filename) {
     require_once($filename);
 }
 
-foreach (glob(CORE . PHP_FILE) as $filename)
+foreach (glob(CORE          . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(LIB . PHP_FILE) as $filename)
+foreach (glob(LIB           . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(CONTROLLER . PHP_FILE) as $filename)
+foreach (glob(CONTROLLER    . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(CONTROLLER . DS . 'auth' . DS . PHP_FILE) as $filename)
+foreach (glob(CONTROLLER    . DS . 'auth'       . DS . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(CONTROLLER . DS . 'user' . DS . PHP_FILE) as $filename)
+foreach (glob(CONTROLLER    . DS . 'user'       . DS . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(ROUTE . PHP_FILE) as $filename)
+foreach (glob(CONTROLLER    . DS . 'admincp'    . DS . PHP_FILE) as $filename)
+    require_once($filename);
+
+foreach (glob(ROUTE         . PHP_FILE) as $filename)
     require_once($filename);
 

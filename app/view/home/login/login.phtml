@@ -3,14 +3,14 @@
 <div class="main-container">
     <div class="lgn-box">
         <h1 class="main-text"> Login Menu </h1>
-        <form class="lgn-form" action="/login_script.php">
+        <form class="lgn-form" action="/login/check">
             <a class="main-text"> Username </a>
             <input class="fill-box" type="text" name="uname" value="" placeholder="Enter Your Username" required="required"/>
             <p class="main-text"> Password </p>
             <input class="fill-box" type="password" name="psw" value="" placeholder="Enter Your Password" required="required"/>
-            <a class="lgn-link" href="/login_forgot.phtml"> Oops! I forgot my password..</a>
+            <a class="lgn-link" href="/login/forgot"> Oops! I forgot my password..</a>
             <input type="submit" class="lgn-view-btn" value="Login">
-            <button type="button" class="lgn-view-btn" onclick="window.location='/index.phtml'">Cancel</button>
+            <button type="button" class="lgn-view-btn" onclick="window.location='/'">Cancel</button>
         </form>
     </div>
 </div>

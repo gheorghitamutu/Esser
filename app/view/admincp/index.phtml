@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html>
-	<head>
-        <link rel="icon" href="/assets/admcp/images/favicon.png" />
-		<link rel="stylesheet" href="/assets/admcp/css/admcp_style.css" />
-		<meta charset="utf-8">
-		<meta name="author" content="Bugeag George Tiberiu">
-		<meta name="description" content="Web Technologies Project">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Esser AdminCP</title>
-	</head>
-    <body>
+<?php include VIEW . 'admincp/header.phtml';?>
+
         <div class="admcp-header-bar"> 
-            <button type="button" class="back-to-website" onclick="window.location='/index.html'"> Back to Website! </button>
+            <button type="button" class="back-to-website" onclick="window.location='/'"> Back to Website! </button>
         </div>
         <div class="main-container">
             <h1 class="main-text"> Welcome to AdminCP </h1>
             <div class="lgn-box">
                 <h2 class="main-text"> Login Menu:</h2>
-                <form class="lgn-form" action="/application/controller/admcp_login_script.php">                 
+                <form class="lgn-form" action="/admincp/login">       <!-- TO DO: handle from controller! -->
                     <p class="main-text"> Username: </p>
                     <input class="fill-box" type="text" name="uname" value="" placeholder="Enter Your Username" required="required"/>	  	
                     <p class="main-text"> Password: </p>
@@ -25,9 +15,9 @@
                     <br />
                     <output class="bad-credentials">The username and/or password are/is incorrect!</output>
 		  	   	    <input type="submit" class="admcp-lgn-view-btn" value="Login">
-                    <button type="button" class="admcp-lgn-view-btn" onclick="window.location='/index.html'">Go Back</button>
+                    <button type="button" class="admcp-lgn-view-btn" onclick="window.location='/'">Go Back</button>
 		  	   </form>
             </div>
-        </div> 
-    </body>
-</html>
+        </div>
+
+<?php include VIEW . 'admincp/footer.phtml';?>
