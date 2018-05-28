@@ -1,11 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ghita
- * Date: 4/11/2018
- * Time: 12:27 AM
- */
- 
+<?php 
 class Database
 {
   protected $host = HOST_IP;
@@ -19,6 +12,8 @@ class Database
   protected $root_admin_user_pass = ROOT_ADMIN_PASS;
   protected $root_admin_group = ROOT_ADMIN_GROUP;
   protected $root_manager_group = ROOT_MANAGER_GROUP;
+  protected $char_encryption = DB_CHAR_ENCRYPTION;
+  protected $sysdba_flag = OCI_SYSDBA;
   
   private static $instace = null;
   
@@ -32,17 +27,64 @@ class Database
   }
   
   protected function __construct()
-  {      
-    if ($this->installed == false)
+  {
+    $format_connection = $host . '/' . $sys_db;
+    if ($this->installed === false)
     {
-      $this->connection = oci_pconnect('sys', 'Bg2017Fii', 'localhost/XE', 'UTF8', OCI_SYSDBA);
+      //Shell/Cmd approach.
+      $create_root_user_script = createDBUserPrc.sql;
+      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s \'%s\' \'%s\'';
+      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $create_root_user_script, $this->root_admin_user, $this->root_admin_user_pass);
+      $output = shell_exec($format);
+      $switch_to_root_user_cmd = 'SQLPLUS ' . $this->root_admin_user . '/' . $this->root_admin_user_pass . '@' . $this->host . '/'. $this->sys_db
       
+      //Connection approach.
+      //$this->connection = oci_pconnect($sys_user, $sys_user_pass, $format_connection , $char_encryption, $sysdba_flag);
+      //try 
+      //{
+      //  if ($this->connection === false)
+      //  {
+      //    $error = 'Could not connect to the database as sys user!';
+      //    throw new Exception($error);
+      //  }
+      //  if(!$this->databaseExists()) 
+      //  {
+      //    $error = 'Could not find the expected database: ' . $this->sys_db . ' !';
+      //    throw new Exception($error);
+      //  }
+      //  else
+      //  {          
+      //    // Run User Creation script
+      //    // $sql = createDBUserPrc.sql
+      //    // execute $sql
+      //    // execute querry call to DB for prc_esser_crt_root_user($this->root_admin_user, $this_root_admin_password);
+      //    // $this->createRootUser($this->root_admin_user, $this->root_admin_user_pass);
+      //    // Switch to the new user
+      //    // Create the DB
+      //  }
+      //}
+      //catch (Exception $e) {
+      //  Logger::getInstance()->log(ERROR, $e->getMessage());
+      //}
     }
-    else
+    //$this->close_connection(); 
+    
+    
+    $this->connection = oci_pconnect($root_admin_user, $root_admin_user_pass, $format_connection, $char_encryption);
+    try
     {
-      echo 'MEHEHEHEHHEHEHEHEs';
+      if ($this->connection === false) 
+      {
+        $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
+        throw new Exception($error);
+      }      
+    }
+    catch (Exception $e)
+    {
+      Logger::getInstance()->log(ERROR, $e->getMessage());
     }
   }
+  
 }
 /*
 class Database

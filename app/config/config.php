@@ -45,6 +45,7 @@ define('WARNING'   , '[WARNING] ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');
+define('SQL_FILE'  , '*.sql');
 
 // autoload purpose loops
 foreach (glob(LOGGER . PHP_FILE) as $filename) {
@@ -73,7 +74,7 @@ foreach (glob(CONTROLLER . DS . 'user' . DS . PHP_FILE) as $filename)
 foreach (glob(ROUTE . PHP_FILE) as $filename)
     require_once($filename);
 
-foreach (glob(DB_SCRIPTS . PHP_FILE) as $filename)
+foreach (glob(DB_SCRIPTS . SQL_FILE) as $filename)
 {
   require_once($filename);
 }
