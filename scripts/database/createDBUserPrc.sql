@@ -116,6 +116,6 @@ BEGIN
 END prc_esser_crt_root_user;
 /
 BEGIN
-  prc_esser_crt_root_user('&1', '&2');
+  prc_esser_crt_root_user('EsseR', 'EsseR1234');
 END;
 /

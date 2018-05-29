@@ -13,7 +13,6 @@ class Database
   protected $root_admin_group = ROOT_ADMIN_GROUP;
   protected $root_manager_group = ROOT_MANAGER_GROUP;
   protected $char_encryption = DB_CHAR_ENCRYPTION;
-  protected $sysdba_flag = OCI_SYSDBA;
   
   private static $instace = null;
   
@@ -28,25 +27,32 @@ class Database
   
   protected function __construct()
   {
-    $format_connection = $host . '/' . $sys_db;
+    $format_connection = $this->host . '/' . $this->sys_db;
     if ($this->installed === false)
     {
       //Shell/Cmd approach.
-      $create_root_user_script = getAbsolutePath(createDBUserPrc.sql);
-      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s \'%s\' \'%s\'';
-      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $create_root_user_script, $this->root_admin_user, $this->root_admin_user_pass);
-      $output = shell_exec($format);
+      //$create_root_user_script = DB_SCRIPTS.'createDBUserPrc.sql'
+      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA'; //@%s';// \'%s\' \'%s\'';
+      $path = DB_SCRIPTS . 'createDBUserPrc.sql';
+      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db);//, $path);// $this->root_admin_user, $this->root_admin_user_pass);
+      $output = '';
+      echo $format;
+      try {
+        $output = shell_exec($format); 
+      }
+      catch (Exception $e)
+      {
+        echo 'first: ' . $output;
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+      }
       
+       echo $output;
+       echo 'output length: ' . strlen($output);
       try 
       {
-        if ($this->connection === false)
-        {
-          $error = 'Could not connect to the database as ' . $this->root_admin_user . ' user!';
-          throw new Exception($error);
-        }
-        $create_db_script = getAbsolutePath(dbCreate.sql);
+        //$create_db_script = DB_SCRIPTS.'dbCreate'.SQL_FILE;
         $full_call = 'SQLPLUS %s/%s@%s/%s @%s';
-        $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, $create_db_script);
+        $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, (DB_SCRIPTS . 'dbCreate.sql'));
         $output = shell_exec($format);        
       }
       catch (Exception $e) 
@@ -56,14 +62,14 @@ class Database
     }
     
     //Connection approach.
-    $this->connection = oci_pconnect($this->root_admin_user, $this->root_admin_user_pass, $this->format_connection, $this->char_encryption);
     try
     {
+      $this->connection = oci_connect($this->root_admin_user, $this->root_admin_user_pass, $format_connection);
       if ($this->connection === false) 
       {
         $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
         throw new Exception($error);
-      }      
+      }
     }
     catch (Exception $e)
     {
@@ -71,26 +77,26 @@ class Database
     }
   }
   
-  public function dropDatabase()
-  {
-    $drop_db_script = getAbsolutePath(dbDrop.sql);
-    $full_call = 'SQLPLUS %s/%s@%s/%s @%s';
-    $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, $drop_db_script);
-    $output = shell_exec($format);
-  }
-  
-  public function changeUser($new_user, $new_pass)
-  {    
-    $create_root_user_script = getAbsolutePath(createDBUserPrc.sql);
-    $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s \'%s\' \'%s\'';
-    $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $create_root_user_script, $new_user, $new_pass);
-    $output = shell_exec($format);
-    
-    $change_user = getAbsolutePath(changeRootUser.sql);
-    $full_call = 'SQLPLUS %s/%s@%s/%s @%s \'%s\' \'%s\'';
-    $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, $change_user, $new_user, $new_pass);
-    $output = shell_exec($format);   
-  }
+  //public function dropDatabase()
+  //{
+  //  $drop_db_script = getAbsolutePath(dbDrop.sql);
+  //  $full_call = 'SQLPLUS %s/%s@%s/%s @%s';
+  //  $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, $drop_db_script);
+  //  $output = shell_exec($format);
+  //}
+  //
+  //public function changeUser($new_user, $new_pass)
+  //{    
+  //  //$create_root_user_script = getAbsolutePath(createDBUserPrc.sql);
+  //  $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s \'%s\' \'%s\'';
+  //  $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $create_root_user_script, $new_user, $new_pass);
+  //  $output = shell_exec($format);
+  //  
+  //  //$change_user = getAbsolutePath(changeRootUser.sql);
+  //  $full_call = 'SQLPLUS %s/%s@%s/%s @%s \'%s\' \'%s\'';
+  //  $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, $change_user, $new_user, $new_pass);
+  //  $output = shell_exec($format);   
+  //}
 }
 /*
 class Database

@@ -20,6 +20,7 @@ define('SQL_DRIVER', '');
 define('MD5', true);
 define('SHA_256', false);
 define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
 
 // root configs
 define('ROOT_ADMIN_USER', 'EsseR');
@@ -45,7 +46,6 @@ define('WARNING'   , '[WARNING] ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');
-define('SQL_FILE'  , '*.sql');
 
 // autoload purpose loops
 foreach (glob(LOGGER . PHP_FILE) as $filename)
@@ -84,11 +84,6 @@ foreach (glob(CONTROLLER . DS . 'user' . DS . PHP_FILE) as $filename)
 }
 
 foreach (glob(ROUTE . PHP_FILE) as $filename)
-{
-  require_once($filename);
-}
-
-foreach (glob(DB_SCRIPTS . SQL_FILE) as $filename)
 {
   require_once($filename);
 }
