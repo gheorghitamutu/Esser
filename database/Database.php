@@ -29,28 +29,24 @@ class Database
   {
     $format_connection = $this->host . '/' . $this->sys_db;
     if ($this->installed === false)
-    {
+    {      
       //Shell/Cmd approach.
-      //$create_root_user_script = DB_SCRIPTS.'createDBUserPrc.sql'
-      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA'; //@%s';// \'%s\' \'%s\'';
+      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s "%s" "%s"';
       $path = DB_SCRIPTS . 'createDBUserPrc.sql';
-      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db);//, $path);// $this->root_admin_user, $this->root_admin_user_pass);
+      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $path, $this->root_admin_user, $this->root_admin_user_pass);
       $output = '';
-      echo $format;
       try {
-        $output = shell_exec($format); 
+        $output = shell_exec($format);
+        //echo $output;
+        //echo 'output length: ' . strlen($output);
       }
       catch (Exception $e)
       {
         echo 'first: ' . $output;
         Logger::getInstance()->log(ERROR, $e->getMessage());
       }
-      
-       echo $output;
-       echo 'output length: ' . strlen($output);
       try 
       {
-        //$create_db_script = DB_SCRIPTS.'dbCreate'.SQL_FILE;
         $full_call = 'SQLPLUS %s/%s@%s/%s @%s';
         $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, (DB_SCRIPTS . 'dbCreate.sql'));
         $output = shell_exec($format);        
@@ -59,22 +55,32 @@ class Database
       {
         Logger::getInstance()->log(ERROR, $e->getMessage());
       }
-    }
     
+      //echo (ROOT . 'app' . DS . 'config' . DS . 'config.php');
+      $fname = ('' . ROOT . 'app' . DS . 'config' . DS . 'config.php');
+      echo $fname;
+      $fhandle = fopen($fname,"r");
+      $content = fread($fhandle,filesize($fname));
+      $content = str_replace("INSTALLED', false", "INSTALLED', true", $content);
+      
+      $fhandle = fopen($fname,"w");
+      fwrite($fhandle,$content);
+      fclose($fhandle);;
+    }
     //Connection approach.
-    try
-    {
-      $this->connection = oci_connect($this->root_admin_user, $this->root_admin_user_pass, $format_connection);
-      if ($this->connection === false) 
-      {
-        $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
-        throw new Exception($error);
-      }
-    }
-    catch (Exception $e)
-    {
-      Logger::getInstance()->log(ERROR, $e->getMessage());
-    }
+    //try
+    //{
+    //  $this->connection = oci_connect($this->root_admin_user, $this->root_admin_user_pass, $format_connection);
+    //  if ($this->connection === false) 
+    //  {
+    //    $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
+    //    throw new Exception($error);
+    //  }
+    //}
+    //catch (Exception $e)
+    //{
+    //  Logger::getInstance()->log(ERROR, $e->getMessage());
+    //}
   }
   
   //public function dropDatabase()
