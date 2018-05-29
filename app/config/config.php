@@ -10,7 +10,7 @@
  */
 
 // application configs
-define('INSTALLED', true);
+define('INSTALLED', false);
 define('SYS_DB', 'XE');
 define('SYS_DB_USER', 'SYS');
 define('SYS_DB_USER_PASS', 'SYS');

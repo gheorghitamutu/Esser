@@ -31,34 +31,33 @@ class Database
     if ($this->installed === false)
     {      
       //Shell/Cmd approach.
-      $full_call = 'SQLPLUS %s/%s@%s/%s AS SYSDBA @%s "%s" "%s"';
-      $path = DB_SCRIPTS . 'createDBUserPrc.sql';
-      $format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $path, $this->root_admin_user, $this->root_admin_user_pass);
-      $output = '';
-      try {
-        $output = shell_exec($format);
-        //echo $output;
-        //echo 'output length: ' . strlen($output);
-      }
-      catch (Exception $e)
+      $path = (DB_SCRIPTS . 'createDBUserPrc.sql');
+      //echo ($path);
+      $full_call =('SQLPLUS -silent ' . $this->sys_user . '/' . $this->sys_user_pass . '@' . $format_connection . ' AS SYSDBA @' . $path . ' ' . $this->root_admin_user . ' ' . $this->root_admin_user_pass);
+      echo ($full_call)."<br />";
+      //$format = sprintf($full_call, $this->sys_user, $this->sys_user_pass, $this->host, $this->sys_db, $path, $this->root_admin_user, $this->root_admin_user_pass);
+      $output = shell_exec($full_call);
+      
+      echo $output."<br />";
+      //echo 'output length: ' . strlen($output)."<br />";
+      $full_call = 'SQLPLUS -silent %s/%s@%s/%s @%s';
+      $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, (DB_SCRIPTS . 'dbCreate.sql'));
+      //echo $format."<br />";
+      $output = shell_exec($format);       
+      //echo $output."<br />";
+      //echo 'output length: ' . strlen($output)."<br />";
+    }
+    //Connection approach.
+    try
+    {
+      $this->connection = oci_connect($this->root_admin_user, $this->root_admin_user_pass, $format_connection);
+      if ($this->connection === false) 
       {
-        echo 'first: ' . $output;
-        Logger::getInstance()->log(ERROR, $e->getMessage());
+        $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
+        throw new Exception($error);
       }
-      try 
-      {
-        $full_call = 'SQLPLUS %s/%s@%s/%s @%s';
-        $format = sprintf($full_call, $this->root_admin_user, $this->root_admin_user_pass, $this->host, $this->sys_db, (DB_SCRIPTS . 'dbCreate.sql'));
-        $output = shell_exec($format);        
-      }
-      catch (Exception $e) 
-      {
-        Logger::getInstance()->log(ERROR, $e->getMessage());
-      }
-    
-      //echo (ROOT . 'app' . DS . 'config' . DS . 'config.php');
       $fname = ('' . ROOT . 'app' . DS . 'config' . DS . 'config.php');
-      echo $fname;
+      //echo $fname;
       $fhandle = fopen($fname,"r");
       $content = fread($fhandle,filesize($fname));
       $content = str_replace("INSTALLED', false", "INSTALLED', true", $content);
@@ -67,20 +66,10 @@ class Database
       fwrite($fhandle,$content);
       fclose($fhandle);;
     }
-    //Connection approach.
-    //try
-    //{
-    //  $this->connection = oci_connect($this->root_admin_user, $this->root_admin_user_pass, $format_connection);
-    //  if ($this->connection === false) 
-    //  {
-    //    $error = 'Could not connect to the database as user: ' . $this->root_admin_user . ' !';
-    //    throw new Exception($error);
-    //  }
-    //}
-    //catch (Exception $e)
-    //{
-    //  Logger::getInstance()->log(ERROR, $e->getMessage());
-    //}
+    catch (Exception $e)
+    {
+      Logger::getInstance()->log(ERROR, $e->getMessage());
+    }
   }
   
   //public function dropDatabase()
