@@ -235,11 +235,9 @@
     transform: translateY(-0.625rem) rotate(-45deg);
 }
 
-#sidebar-trigger-container {
-    display: inline-flex;
+#sidebar-trigger-container {/* si asta a fost modificat */
+    display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
     border: 1px solid;
     position: fixed;
     width: 100%;
@@ -249,14 +247,32 @@
     cursor: pointer;
     transition: .5s;
 }
-
+/* ---------------------------------------------------------------- begin  top nav bar ------------------------------------------------------------*/
+#top-nav-bar-user-landing-page{
+    display: flex;
+    width:40%;
+    margin-left:60%;
+    height:100%;
+    flex-direction:row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#admin-cp-container-user-landing-page{
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+    height: 60%;
+    transition: .5s;
+}
+#admin-cp-button{
+    font-size:140%;
+}
 #search-container {
     display: flex;
     justify-content: left;
     border: 1px solid white;
-    margin-left: 75%;
-    height: 50%;
-    width: 20%;
+    height: 60%;
+    width: 60%;
     transition: .5s;
 }
 
@@ -289,6 +305,19 @@
     width: 5%;
     transition: .5s;
 }
+
+@media screen and (max-width: 1024px) {
+    #top-nav-bar-user-landing-page{
+        width:55%;
+        margin-left:45%;
+    }
+}
+
+
+/*-------------------------------------------------------  end top nav bar ---------------------------------------------------------------------------*/
+
+
+
 
 /* -------------------------------------------------- footer ---------------------------------------------------------*/
 #footer-container {
