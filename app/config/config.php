@@ -89,6 +89,3 @@ foreach (glob(ROUTE . PHP_FILE) as $filename)
 {
   require_once($filename);
 }
-
->>>>>>> Database
-

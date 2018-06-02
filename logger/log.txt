@@ -1,8 +1,8 @@
-[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, switching to next phase.
-[APP_LOG: 02-06-2018 18:21:02] Executed createDBUserPrc.sql script output is: 
-===================================================================================================================================================
+[APP_LOG: 02-06-2018 22:07:10] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 22:07:10] Executed createDBUserPrc.sql script output is: 
+==============
 
-SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:02 2018
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 23:07:13 2018
 
 Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
@@ -26,12 +26,12 @@ Commit complete.
 
 SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
-===================================================================================================================================================
+==============
 
-[APP_LOG: 02-06-2018 18:21:02] Executed dbCreate.sql script output is: 
-===================================================================================================================================================
+[APP_LOG: 02-06-2018 22:07:10] Executed dbCreate.sql script output is: 
+==============
 
-SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:03 2018
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 23:07:13 2018
 
 Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
@@ -40,163 +40,244 @@ Connected to:
 Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
 
+PL/SQL procedure successfully completed.
+
+
 Procedure created.
 
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
 
 PL/SQL procedure successfully completed.
 
 
-Table created.
+Sequence created.
 
-CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
-                  *
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
 
-Table created.
+Trigger created.
 
 
-Table created.
+Sequence created.
 
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
 
-Table created.
-
-
-Table created.
-
-
-Table created.
 
 
 Table created.
 
 
-Table created.
+Trigger created.
 
 
-Warning: Function created with compilation errors.
+Function created.
 
 
 Commit complete.
@@ -206,18 +287,20 @@ Commit complete.
 
 SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
-===================================================================================================================================================
+==============
 
-[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, switching to next phase.
-[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, performing gracefull apache servervice restart.
-[APP_LOG: 02-06-2018 18:21:02] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
-[APP_LOG: 02-06-2018 18:21:02] Installation procedure exited. Error verification underway.
-[ERROR: 02-06-2018 18:21:02] Error at DB creation!
-[ERROR: 02-06-2018 18:21:02] Application is not installed! Restart the proccess with INSTALLED constat as false and INSTALL_PHASE equal to 1 in the confing.php file!
-[APP_LOG: 02-06-2018 18:21:03] Executed createDBUserPrc.sql script output is: 
-===================================================================================================================================================
+[APP_LOG: 02-06-2018 22:07:10] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 22:07:10] Completed install phase number: 1, performing gracefull apache servervice restart.
+[APP_LOG: 02-06-2018 22:07:10] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 02-06-2018 22:07:10] Installation procedure exited. Error verification underway.
+[APP_LOG: 02-06-2018 22:07:10] App successfully installed.
+[ERROR: 02-06-2018 22:07:10] Application is not installed! Restart the proccess with INSTALLED constat as false and INSTALL_PHASE equal to 1 in the confing.php file!
+[ERROR: 02-06-2018 22:07:19] Could not connect to the database as user:  !
+[APP_LOG: 02-06-2018 22:09:00] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 22:09:00] Executed createDBUserPrc.sql script output is: 
+==============
 
-SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:03 2018
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 23:09:01 2018
 
 Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
@@ -241,12 +324,12 @@ Commit complete.
 
 SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
-===================================================================================================================================================
+==============
 
-[APP_LOG: 02-06-2018 18:21:03] Executed dbCreate.sql script output is: 
-===================================================================================================================================================
+[APP_LOG: 02-06-2018 22:09:00] Executed dbCreate.sql script output is: 
+==============
 
-SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:04 2018
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 23:09:02 2018
 
 Copyright (c) 1982, 2014, Oracle.  All rights reserved.
 
@@ -255,163 +338,244 @@ Connected to:
 Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
 
+PL/SQL procedure successfully completed.
+
+
 Procedure created.
 
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
 
 PL/SQL procedure successfully completed.
 
 
-Table created.
+Sequence created.
 
-CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
-                  *
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
-CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
 
-CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
-                  *
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
 ERROR at line 1:
-ORA-00922: missing or invalid option
+ORA-00955: name is already used by an existing object
 
-
-
-Warning: Trigger created with compilation errors.
 
 
 Table created.
 
 
-Table created.
+Trigger created.
 
 
-Table created.
+Sequence created.
 
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
 
-Table created.
-
-
-Table created.
-
-
-Table created.
 
 
 Table created.
 
 
-Table created.
+Trigger created.
 
 
-Warning: Function created with compilation errors.
+Function created.
 
 
 Commit complete.
@@ -421,11 +585,11 @@ Commit complete.
 
 SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
 
-===================================================================================================================================================
+==============
 
-[APP_LOG: 02-06-2018 18:21:03] Completed install phase number: 2, switching to next phase.
-[APP_LOG: 02-06-2018 18:21:03] Completed install phase number: 2, performing gracefull apache servervice restart.
-[APP_LOG: 02-06-2018 18:21:03] Completed apache service gracefull restart. Left number of install phases is: 2. Exiting installation procedure.
-[APP_LOG: 02-06-2018 18:21:03] Installation procedure exited. Error verification underway.
-[ERROR: 02-06-2018 18:21:03] Error at DB creation!
-[ERROR: 02-06-2018 18:21:03] Application is not installed! Restart the proccess with INSTALLED constat as false and INSTALL_PHASE equal to 1 in the confing.php file!
+[APP_LOG: 02-06-2018 22:09:00] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 22:09:00] Completed install phase number: 1, performing gracefull apache servervice restart.
+[APP_LOG: 02-06-2018 22:09:00] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 02-06-2018 22:09:00] Installation procedure exited. Error verification underway.
+[APP_LOG: 02-06-2018 22:09:00] App successfully installed.
+[ERROR: 02-06-2018 22:09:00] Could not connect to the database as user:  !

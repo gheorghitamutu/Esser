@@ -73,11 +73,19 @@ if (INSTALLED === false)
       $fhandle = fopen($fname,"w");
       fwrite($fhandle,$content);
       fclose($fhandle);
-      Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");      
+      Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase."); 
     }
     case 2:
     {
       //Shell/Cmd approach.      
+      $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+      $fhandle = fopen($fname,"r");
+      $content = fread($fhandle,filesize($fname));
+      $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3", $content);
+      $fhandle = fopen($fname,"w");
+      fwrite($fhandle,$content);
+      fclose($fhandle);
+      
       $sys_user = SYS_DB_USER;
       $sys_user_pass = SYS_DB_USER_PASS;
       $root_admin_user = ROOT_ADMIN_USER;
@@ -87,25 +95,17 @@ if (INSTALLED === false)
       $full_call = 'SQLPLUS ' . $sys_user . '/' . $sys_user_pass . '@' . $format_connection . ' AS SYSDBA @' . $path . ' ' . $root_admin_user . ' ' . $root_admin_pass;
       $output = shell_exec($full_call);
       Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
-                                        . "\r\n===================================================================================================================================================\r\n" 
+                                        . "\r\n==============\r\n" 
                                         . $output 
-                                        . "\r\n===================================================================================================================================================\r\n");
+                                        . "\r\n==============\r\n");
       
       $full_call = 'SQLPLUS %s/%s@%s @%s';
       $format = sprintf($full_call, $root_admin_user, $root_admin_pass, $format_connection, (DB_SCRIPTS . 'dbCreate.sql'));
       $output = shell_exec($format);
       Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
-                                        . "\r\n===================================================================================================================================================\r\n" 
+                                        . "\r\n==============\r\n" 
                                         . $output 
-                                        . "\r\n===================================================================================================================================================\r\n");
-      
-      $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3", $content);
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);
+                                        . "\r\n==============\r\n" );      
       Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
     }
     case 3:
@@ -129,11 +129,10 @@ if (INSTALLED === false)
       fwrite($fhandle,$content);
       fclose($fhandle);
       Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", performing gracefull apache servervice restart.");
-      
-      shell_exec('httpd.exe -k restart');
     }
-    default:
+    case 0:
     {
+      shell_exec('httpd.exe -k restart');
       Logger::getInstance()->log(LOGGING, "Completed apache service gracefull restart. Left number of install phases is: " . INSTALL_PHASE . ". Exiting installation procedure."); 
       break;
     }
