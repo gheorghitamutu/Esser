@@ -1,0 +1,431 @@
+[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 18:21:02] Executed createDBUserPrc.sql script output is: 
+===================================================================================================================================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:02 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+===================================================================================================================================================
+
+[APP_LOG: 02-06-2018 18:21:02] Executed dbCreate.sql script output is: 
+===================================================================================================================================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:03 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Warning: Function created with compilation errors.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+===================================================================================================================================================
+
+[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, switching to next phase.
+[APP_LOG: 02-06-2018 18:21:02] Completed install phase number: 1, performing gracefull apache servervice restart.
+[APP_LOG: 02-06-2018 18:21:02] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 02-06-2018 18:21:02] Installation procedure exited. Error verification underway.
+[ERROR: 02-06-2018 18:21:02] Error at DB creation!
+[ERROR: 02-06-2018 18:21:02] Application is not installed! Restart the proccess with INSTALLED constat as false and INSTALL_PHASE equal to 1 in the confing.php file!
+[APP_LOG: 02-06-2018 18:21:03] Executed createDBUserPrc.sql script output is: 
+===================================================================================================================================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:03 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+===================================================================================================================================================
+
+[APP_LOG: 02-06-2018 18:21:03] Executed dbCreate.sql script output is: 
+===================================================================================================================================================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sat Jun 2 19:21:04 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+
+Warning: Trigger created with compilation errors.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Warning: Function created with compilation errors.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+===================================================================================================================================================
+
+[APP_LOG: 02-06-2018 18:21:03] Completed install phase number: 2, switching to next phase.
+[APP_LOG: 02-06-2018 18:21:03] Completed install phase number: 2, performing gracefull apache servervice restart.
+[APP_LOG: 02-06-2018 18:21:03] Completed apache service gracefull restart. Left number of install phases is: 2. Exiting installation procedure.
+[APP_LOG: 02-06-2018 18:21:03] Installation procedure exited. Error verification underway.
+[ERROR: 02-06-2018 18:21:03] Error at DB creation!
+[ERROR: 02-06-2018 18:21:03] Application is not installed! Restart the proccess with INSTALLED constat as false and INSTALL_PHASE equal to 1 in the confing.php file!
