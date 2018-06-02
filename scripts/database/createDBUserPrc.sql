@@ -28,7 +28,7 @@ BEGIN
   v_username := p_username;
   v_password := p_password;
   -- USER SQL
-  v_sql_cmd := 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password;
+  v_sql_cmd := 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password || ' DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP';
   DBMS_OUTPUT.PUT_LINE(v_sql_cmd);
   EXECUTE IMMEDIATE(v_sql_cmd);
   
@@ -106,8 +106,7 @@ BEGIN
     raise_application_error(-20004, 'Found illegal non-alpha-numeric character in the provided password: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
   WHEN OTHERS THEN  
     IF (SQLCODE = -1920) THEN
-      EXECUTE IMMEDIATE('DROP USER ' || p_username);
-      DBMS_OUTPUT.PUT_LINE('A user with the name: ' || p_username || ' already existed and was dropped!');
+      EXECUTE IMMEDIATE('DROP USER ' || p_username || ' CASCADE');
       prc_esser_crt_root_user(p_username, p_password);
     ELSE
       RAISE;
@@ -118,4 +117,6 @@ END prc_esser_crt_root_user;
 BEGIN
   prc_esser_crt_root_user('&1', '&2');
 END;
+/
+COMMIT;
 /
