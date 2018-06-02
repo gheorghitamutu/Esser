@@ -11,6 +11,7 @@
 
 // application configs
 define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
 define('SYS_DB', 'XE');
 define('SYS_DB_USER', 'SYS');
 define('SYS_DB_USER_PASS', 'SYS');
@@ -23,7 +24,7 @@ define('DB_CHAR_ENCRYPTION', 'UTF8');
 
 // root configs
 define('ROOT_ADMIN_USER', 'EsseR');
-define('ROOT_ADMIN_PASS', 'EsserTest123');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
 define('ROOT_ADMIN_GROUP', 'Admins');
 define('ROOT_MANAGER_GROUP', 'Managers');
  
@@ -40,8 +41,10 @@ define('ROUTE'     , ROOT                                     . 'route'      . D
 define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
 
 // logger messages macros
-define('ERROR'     , '[ERROR] ');
-define('WARNING'   , '[WARNING] ');
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');

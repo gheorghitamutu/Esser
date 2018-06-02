@@ -1,33 +1,70 @@
 -- Creation of the database; Need to remove the DROP TABLE STATEMENTS before live production
- DROP TABLE USERACCS CASCADE CONSTRAINTS PURGE
- /
- DROP TABLE ITEMGROUPS CASCADE CONSTRAINTS PURGE
- /
- DROP TABLE ITEMS CASCADE CONSTRAINTS PURGE
- /
- DROP TABLE USERGROUPS CASCADE CONSTRAINTS PURGE
+BEGIN
+  EXECUTE IMMEDIATE('DROP PROCEDURE prc_drop_all_obj');
+  EXCEPTION
+  WHEN OTHERS THEN 
+    IF SQLCODE = -4043 THEN
+      null;
+    ELSE
+      RAISE;
+    END IF;
+END;
 /
- DROP TABLE GROUPRELATIONS CASCADE CONSTRAINTS PURGE
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE prc_drop_all_obj(p_number NUMBER, p_type IN VARCHAR2)
+AS
+  v_i NUMBER := p_number;
+  v_type VARCHAR2(50) := p_type;
+  v_sql_drop VARCHAR2(1000);
+  TYPE obj_name_arr IS VARRAY(15) OF VARCHAR2(100);
+  v_tbl_name_arr obj_name_arr := obj_name_arr('USERACCS', 'ITEMGROUPS', 'ITEMS', 'USERGROUPS', 'GROUPRELATIONS', 'ITEMOWNERSHIPS', 'ITEMGROUPOWNERSHIPS', 'USERGROUPLOGS', 'ITEMGROUPLOGS', 'USERLOGS', 'ITEMLOGS', 'AUTOMATEDREPORTS', 'NOTIFICATIONS', 'UGRPNTFRELATIONS', 'USRNTFRELATIONS');
+  v_seq_name_arr obj_name_arr := obj_name_arr('INCR_USERACCS', 'INCR_ITMGRPS', 'INCR_ITMS', 'INCR_USERGRPS', 'INCR_GRPRELS', 'INCR_ITMOWNS', 'INCR_ITMGRPOWNS', 'INCR_USRGRPLOGS', 'INCR_ITMGRPLOGS', 'INCR_USRLOGS', 'INCR_ITMLOGS', 'INCR_AUTOREP', 'INCR_NOTIFS', 'INCR_UGRPNTFSREL', 'INCR_USRNTFREL');
+  v_trg_name_arr obj_name_arr := obj_name_arr('TRG_INCR_USERACCS', 'TRG_INCR_ITMGRPS', 'TRG_INCR_ITMS', 'TRG_INCR_USERGRPS', 'TRG_INCR_GRPRELS', 'TRG_INCR_ITMOWNS', 'TRG_INCR_ITMGRPOWNS', 'TRG_INCR_USRGRPLOGS', 'TRG_INCR_ITMGRPLOGS', 'TRG_INCR_USRLOGS', 'TRG_INCR_ITMLOGS', 'TRG_INCR_AUTOREP', 'TRG_INCR_NOTIFS', 'TRG_INCR_UGRPNTFSREL', 'TRG_INCR_USRNTFREL');
+BEGIN
+  IF (v_i < 1 or v_i > 16) THEN
+    raise_application_error(-20998, 'Bad number ("' || v_i || '")  selected! Only numbers allowed are from 1 to 15!');    
+  END IF;
+  IF (lower(v_type) LIKE 'all_tables')  THEN
+    v_type := 'all_tables';
+    WHILE (v_i <= v_tbl_name_arr.COUNT AND v_type LIKE 'all_tables') LOOP      
+      IF (v_tbl_name_arr.EXISTS(v_i)) THEN
+        v_sql_drop := 'DROP TABLE ' || v_tbl_name_arr(v_i) || ' CASCADE CONSTRAINTS PURGE';
+        EXECUTE IMMEDIATE(v_sql_drop);
+        DBMS_OUTPUT.PUT_LINE('Successfully droped table ' || v_tbl_name_arr(v_i) || '!');
+        v_i := v_i + 1;      
+      END IF;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('All table names have been cleaned');
+  ELSIF (lower(v_type) LIKE 'all_sequences') THEN
+    v_type := 'all_sequences';
+    WHILE (v_i <= v_seq_name_arr.COUNT AND v_type LIKE 'all_sequences') LOOP
+      IF (v_seq_name_arr.EXISTS(v_i)) THEN
+        v_sql_drop := 'DROP SEQUENCE ' || UPPER(v_seq_name_arr(v_i) || '');
+        EXECUTE IMMEDIATE(v_sql_drop);
+        DBMS_OUTPUT.PUT_LINE('Successfully droped sequence ' || v_seq_name_arr(v_i) || '!');
+        v_i := v_i + 1;
+      END IF;
+    END LOOP;
+  ELSE
+    raise_application_error(-20999, 'Bad type ("' || lower(v_type) || '")  selected! Only "all_tables" or "all_sequences" is allowed!');
+  END IF;
+  DBMS_OUTPUT.PUT_LINE('Procedure finished!');
+  EXCEPTION
+  WHEN OTHERS THEN
+    IF (SQLCODE = -942 OR SQLCODE = -2289 OR SQLCODE = -6512) THEN
+      prc_drop_all_obj(v_i + 1, v_type);
+    ELSE
+      raise;
+    END IF;
+END prc_drop_all_obj;
 /
- DROP TABLE ITEMOWNERSHIPS CASCADE CONSTRAINTS PURGE
+SET SERVEROUTPUT ON;
+BEGIN
+  prc_drop_all_obj(1, 'all_tables');
+  prc_drop_all_obj(1, 'all_sequences');
+END;
 /
- DROP TABLE ITEMGROUPOWNERSHIPS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE USERGROUPLOGS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE ITEMGROUPLOGS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE USERLOGS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE ITEMLOGS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE AUTOMATEDREPORTS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE NOTIFICATIONS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE UGRPNTFRELATIONS CASCADE CONSTRAINTS PURGE
-/
- DROP TABLE USRNTFRELATIONS CASCADE CONSTRAINTS PURGE
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1;
 /
 CREATE TABLE USERACCS(
   userId NUMBER(*,0) NOT NULL,
@@ -45,12 +82,14 @@ CREATE TABLE USERACCS(
   CONSTRAINT not_null_userstate CHECK (userState is not null)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_useraccs BEFORE INSERT ON USERACCS FOR EACH ROW
 BEGIN
-  SELECT INCR_USERACCS.NEXTVAL INTO :NEW.USERID FROM DUAL;
+  :NEW.USERID := incr_useraccs.NEXTVAL;
 END trg_incr_useraccs;
+/
+
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE ITEMGROUPS(
   iGroupId NUMBER(*,0) NOT NULL,
@@ -60,19 +99,22 @@ CREATE TABLE ITEMGROUPS(
   iGroupUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_iGroupId PRIMARY KEY(iGroupId),
   CONSTRAINT not_null_igrpname CHECK (iGroupName is not null),
+  CONSTRAINT unq_igrpname UNIQUE (iGroupName),
   CONSTRAINT not_null_igrpdescrp CHECK (iGroupDescription is not null)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_itmgrps BEFORE INSERT ON ITEMGROUPS FOR EACH ROW
 BEGIN
-  SELECT INCR_ITMGRPS.NEXTVAL INTO :NEW.IGROUPID FROM DUAL;
+  :NEW.IGROUPID := INCR_ITMGRPS.NEXTVAL;
 END trg_incr_itmgrps;
+/
+
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE ITEMS(
   itemId NUMBER(*,0) NOT NULL,
-  itemName VARCHAR2(48) DEFAULT 'An items',
+  itemName VARCHAR2(48) DEFAULT 'An item',
   itemDescription VARCHAR2(2000) DEFAULT 'Description about an item',
   itemQuantity NUMBER(*,0) DEFAULT 0,
   iGroupId NUMBER(*,0) NOT NULL,
@@ -87,12 +129,14 @@ CREATE TABLE ITEMS(
   CONSTRAINT not_null_itemdescrp CHECK (itemDescription is not null)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_itms BEFORE INSERT ON ITEMS FOR EACH ROW
 BEGIN
-  SELECT INCR_ITMS.NEXTVAL INTO :NEW.ITEMID FROM DUAL;
+  :NEW.ITEMID := INCR_ITMS.NEXTVAL;
 END trg_incr_itms;
+/
+
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE USERGROUPS(
   uGroupId NUMBER(*,0) NOT NULL,
@@ -109,12 +153,14 @@ CREATE TABLE USERGROUPS(
   CONSTRAINT not_null_ugrpdescrp CHECK (uGroupDescription is not null)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_usergrps BEFORE INSERT ON USERGROUPS FOR EACH ROW
 BEGIN
-  SELECT INCR_USERGRPS.NEXTVAL INTO :NEW.UGROUPID FROM DUAL;
+  :NEW.UGROUPID := INCR_USERGRPS.NEXTVAL;
 END trg_incr_usergrps;
+/
+
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE GROUPRELATIONS(
   relationId NUMBER(*,0) NOT NULL,
@@ -129,12 +175,14 @@ CREATE TABLE GROUPRELATIONS(
   CONSTRAINT not_null_canmngmbs CHECK (canMngMbs is not null)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_grprels BEFORE INSERT ON GROUPRELATIONS FOR EACH ROW
 BEGIN
-  SELECT incr_grprels.NEXTVAL INTO :NEW.RELATIONID FROM DUAL;
+  :NEW.RELATIONID := incr_grprels.NEXTVAL;
 END trg_incr_grprels;
+/
+
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE ITEMOWNERSHIPS(
   iOwnershipId NUMBER(*,0) NOT NULL,
@@ -145,12 +193,14 @@ CREATE TABLE ITEMOWNERSHIPS(
   CONSTRAINT fk_owneditmId FOREIGN KEY (iId) REFERENCES ITEMS(itemId)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_itmowns BEFORE INSERT ON ITEMOWNERSHIPS FOR EACH ROW
 BEGIN
-  SELECT INCR_ITMOWNS.NEXTVAL INTO :NEW.iOwnershipId FROM DUAL;
+  :NEW.iOwnershipId := INCR_ITMOWNS.NEXTVAL;
 END trg_incr_itmowns;
+/
+
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE ITEMGROUPOWNERSHIPS(
   igOwnershipId NUMBER(*,0) NOT NULL,
@@ -161,12 +211,14 @@ CREATE TABLE ITEMGROUPOWNERSHIPS(
   CONSTRAINT fk_igownedId FOREIGN KEY (igId) REFERENCES ITEMGROUPS(iGroupId)
 )
 /
-CREATE OR REPLACE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1 MINVALUE 1;
-/
 CREATE OR REPLACE TRIGGER trg_incr_itmgrpowns BEFORE INSERT ON ITEMGROUPOWNERSHIPS FOR EACH ROW
 BEGIN
-  SELECT incr_itmgrpowns.NEXTVAL INTO :NEW.igOwnershipId FROM DUAL;
+  :NEW.igOwnershipId := incr_itmgrpowns.NEXTVAL;
 END trg_incr_itmgrpowns;
+/
+
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE USERGROUPLOGS(
   ugLogId NUMBER(*,0) NOT NULL,
@@ -178,6 +230,15 @@ CREATE TABLE USERGROUPLOGS(
   CONSTRAINT not_null_ugip CHECK (ugLogSourceIP IS NOT NULL)
 )
 /
+CREATE OR REPLACE TRIGGER trg_incr_usrgrplogs BEFORE INSERT ON USERGROUPLOGS FOR EACH ROW
+BEGIN
+  :NEW.ugLogId := incr_usrgrplogs.NEXTVAL;
+END trg_incr_usrgrplogs;
+/
+
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1;
+/
 CREATE TABLE ITEMGROUPLOGS(
   igLogId NUMBER(*,0) NOT NULL,
   igLogDescription VARCHAR2(2000) DEfAULT 'Log about an item group',
@@ -187,6 +248,15 @@ CREATE TABLE ITEMGROUPLOGS(
   CONSTRAINT not_null_igdscr CHECK (igLogDescription IS NOT NULL),
   CONSTRAINT not_null_igip CHECK (igLogSourceIP IS NOT NULL)
 )
+/
+CREATE OR REPLACE TRIGGER trg_incr_itmgrplogs BEFORE INSERT ON ITEMGROUPLOGS FOR EACH ROW
+BEGIN
+  :NEW.igLogId := incr_itmgrplogs.NEXTVAL;
+END trg_incr_itmgrplogs;
+/
+
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE USERLOGS(
   uLogId NUMBER(*,0) NOT NULL,
@@ -198,6 +268,15 @@ CREATE TABLE USERLOGS(
   CONSTRAINT not_null_uip CHECK (uLogSourceIP IS NOT NULL)
 )
 /
+CREATE OR REPLACE TRIGGER trg_incr_usrlogs BEFORE INSERT ON USERLOGS FOR EACH ROW
+BEGIN
+  :NEW.uLogId := incr_usrlogs.NEXTVAL;
+END trg_incr_usrlogs;
+/
+
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1;
+/
 CREATE TABLE ITEMLOGS(
   iLogId NUMBER(*,0) NOT NULL,
   iLogDescription VARCHAR2(2000) DEfAULT 'Log about an item',
@@ -207,6 +286,15 @@ CREATE TABLE ITEMLOGS(
   CONSTRAINT not_null_ildscr CHECK (iLogDescription IS NOT NULL),
   CONSTRAINT not_null_ilip CHECK (iLogSourceIP IS NOT NULL)
 )
+/
+CREATE OR REPLACE TRIGGER trg_incr_itmlogs BEFORE INSERT ON ITEMLOGS FOR EACH ROW
+BEGIN
+  :NEW.iLogId := incr_itmlogs.NEXTVAL;
+END trg_incr_itmlogs;
+/
+
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE AUTOMATEDREPORTS(
   reportId NUMBER(*,0) NOT NULL,
@@ -220,6 +308,15 @@ CREATE TABLE AUTOMATEDREPORTS(
   CONSTRAINT not_null_rFormat CHECK (reportFormat IS NOT NULL)
 )
 /
+CREATE OR REPLACE TRIGGER trg_incr_autorep BEFORE INSERT ON AUTOMATEDREPORTS FOR EACH ROW
+BEGIN
+  :NEW.reportId := incr_autorep.NEXTVAL;
+END trg_incr_autorep;
+/
+
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1;
+/
 CREATE TABLE NOTIFICATIONS(
   ntfId NUMBER(*,0) NOT NULL,
   nItemId NUMBER(*,0) NOT NULL,
@@ -232,6 +329,15 @@ CREATE TABLE NOTIFICATIONS(
   CONSTRAINT not_null_ntfDscrp CHECK (ntfDscrp IS NOT NULL)
 )
 /
+CREATE OR REPLACE TRIGGER trg_incr_notifs BEFORE INSERT ON NOTIFICATIONS FOR EACH ROW
+BEGIN
+  :NEW.ntfId := incr_notifs.NEXTVAL;
+END trg_incr_notifs;
+/
+
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1;
+/
 CREATE TABLE UGRPNTFRELATIONS(
   usrgnRelationId NUMBER(*,0) NOT NULL,
   usrgnNotificationId NUMBER(*,0) NOT NULL,
@@ -240,6 +346,15 @@ CREATE TABLE UGRPNTFRELATIONS(
   CONSTRAINT fk_usrgnNotifiedGroupId FOREIGN KEY (usrgnNotifiedGroupId) REFERENCES USERGROUPS (uGroupId),
   CONSTRAINT fk_usrgnNotificationId  FOREIGN KEY (usrgnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 )
+/
+CREATE OR REPLACE TRIGGER trg_incr_ugrpntfsrel BEFORE INSERT ON UGRPNTFRELATIONS FOR EACH ROW
+BEGIN
+  :NEW.usrgnRelationId := incr_ugrpntfsrel.NEXTVAL;
+END trg_incr_ugrpntfsrel;
+/
+
+
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1;
 /
 CREATE TABLE USRNTFRELATIONS(
   usrnRelationId NUMBER(*,0) NOT NULL,
@@ -250,7 +365,14 @@ CREATE TABLE USRNTFRELATIONS(
   CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 )
 /
-CREATE OR REPLACE FUNCTION prc_addRootAdm(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_userImage VARCHAR2 DEFAULT 'undefined')
+CREATE OR REPLACE TRIGGER trg_incr_usrntfrel BEFORE INSERT ON USRNTFRELATIONS FOR EACH ROW
+BEGIN
+  :NEW.usrnRelationId := incr_usrntfrel.NEXTVAL;
+END trg_incr_usrntfrel;
+/
+
+
+CREATE OR REPLACE FUNCTION prc_addNewRootAdm(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_userImage VARCHAR2 DEFAULT 'undefined')
 RETURN BOOLEAN
 AS
   v_usernamae VARCHAR2(16);
@@ -297,12 +419,12 @@ BEGIN
     raise exc_bad_email_format;
   END IF;
   IF (REGEXP_SUBSTR(p_userImage, '[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') IS NOT NULL) THEN
-    raise exc_bad_image_path
+    raise exc_bad_image_path;
   END IF;
-  
-  EXECUTE IMMEDIATE();
-  
-  
+    
+  DBMS_OUTPUT.PUT_LINE('INSERT INTO 
+                     USERACCS (userId, userName, userEmail, userPass, userType, userState, userImage, userCreatedAt, userUpdatedAt) 
+                     VALUES (' || null || ', ' || p_username || ', ' || p_email || ', ' || p_password || ', ' || 3 || ', ' || 1 || ', ' || p_userImage || ', ' || SYSDATE || ', ' || SYSDATE ||')');
   EXCEPTION
   WHEN exc_username_length THEN
     raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');
@@ -317,17 +439,12 @@ BEGIN
   WHEN exc_img_path_length THEN
     raise_application_error(-20006, 'The provided image path length is: ' || length(p_userImage) || ' !. It needs to be between 12 and 256 alpha-numeric characters!');
   WHEN exc_bad_email_format THEN
-    raise_application_error(-20007, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') || '" !');
+    raise_application_error(-20007, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
   WHEN exc_bad_image_path THEN
-    raise_application_error(-20008, 'Found illegal character in the provided image path: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
-  WHEN OTHERS THEN  
-    IF (SQLCODE = -1920) THEN
-      EXECUTE IMMEDIATE('DROP USER ' || p_username || ' CASCADE');
-      prc_esser_crt_root_user(p_username, p_password);
-    ELSE
+    raise_application_error(-20008, 'Found illegal character in the provided image path: "' || REGEXP_SUBSTR(p_userImage, '[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
+  WHEN OTHERS THEN
       RAISE;
-    END IF; 
-END prc_addRootAdm;
+END prc_addNewRootAdm;
 /
 COMMIT;
 /
