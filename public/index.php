@@ -29,7 +29,7 @@ if (INSTALLED === false)
     switch (INSTALL_PHASE)
     {
       case 1:
-      {        
+      {
         $filename = ROOT . "database" . DS . "Database.php";
         $tobereplaced = array("protected \$username = null", "protected \$password = null");
         $replacewith = array("protected \$username = ROOT_ADMIN_USER", "protected \$password = ROOT_ADMIN_PASS");
@@ -109,19 +109,8 @@ if (INSTALLED === false)
       }
       case 2:
       {
-        //Shell/Cmd approach.      
-        $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-        $fhandle = fopen($fname,"r");
-        $content = fread($fhandle,filesize($fname));
-        $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3", $content);
-        $fhandle = fopen($fname,"w");
-        fwrite($fhandle,$content);
-        fclose($fhandle);
-        /*
-        $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-        FileWriter::stringReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3");
-        */      
-              
+        //Shell/Cmd approach.
+        //Need to find a way to detect errors
         $shellcmd = sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'), SYS_DB_USER, SYS_DB_USER_PASS, (HOST_IP.':'.HOST_PORT.'//'.SYS_DB), (DB_SCRIPTS.'createDBUserPrc.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
         $output = shell_exec($shellcmd);
         Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
@@ -134,72 +123,144 @@ if (INSTALLED === false)
         Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
                                           . "\r\n==============\r\n" 
                                           . $output 
-                                          . "\r\n==============\r\n" );      
-        Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
+                                          . "\r\n==============\r\n" );
+        $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        try
+        {
+          $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3");
+          if(!$goodinstall)
+          {
+            $error = "Couldn't set the INSTALL_PHASE 3 in the config file!";
+            throw new Exception($error);
+          }
+        }
+        catch (Exception $e)
+        {
+          Logger::getInstance()->log(ERROR, $e->getMessage());
+          break;
+        }
+        if (!goodinstall)
+        {
+          Logger::getInstance()->log(ERROR, "Installation failed at the second phase!");
+          $installing = false;
+          break;
+        }
+        else
+        {
+          Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
+        }        
       }
       case 3:
-      {  
-        $fname = ROOT;
-        $fname = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", $fname);
-        $fhandle = fopen($fname,"r");
-        $content = fread($fhandle,filesize($fname));
-        $content = preg_replace("/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n", $content);
-        
-        $fhandle = fopen($fname,"w");
-        fwrite($fhandle,$content);
-        fclose($fhandle);
-        /*
+      {
         $filename = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", ROOT);
-        FileWriter::regexReplace($filename, "/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");
-        */
-        
-        $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-        $fhandle = fopen($fname,"r");
-        $content = fread($fhandle,filesize($fname));
-        $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0", $content);
-        $fhandle = fopen($fname,"w");
-        fwrite($fhandle,$content);
-        fclose($fhandle);      
-        
-        /*
+        try
+        {
+          $goodinstall = inFileRegexReplace($filename, "/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");
+          if(!$goodinstall)
+          {
+            $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
+            throw new Exception($error);
+          }
+        }
+        catch (Exception $e)
+        {
+          LOGGER::getInstance()->log(ERROR, $e->getMessage());
+          break;
+        }        
         $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-        FileWriter::stringReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0");
-        */
-        
-        Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", performing gracefull apache servervice restart.");
+        try
+        {
+          $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0");
+          if(!$goodinstall)
+          {
+            $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
+            throw new Exception($error);
+          }
+        }
+        catch (Exception $e)
+        {
+          LOGGER::getInstance()->log(ERROR, $e->getMessage());
+          break;
+        }
+        if (!goodinstall)
+        {
+          Logger::getInstance()->log(ERROR, "Installation failed at the second phase!");
+          $installing = false;
+          break;
+        }
+        else
+        {
+          Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", proceeding to gracefull apache servervice restart.");
+        }
       }
       case 0:
       {
-        Logger::getInstance()->log(LOGGING, "Completed apache service gracefull restart. Left number of install phases is: " . INSTALL_PHASE . ". Exiting installation procedure."); 
-        shell_exec('httpd.exe -k restart');
-        break;
+        try
+        {
+          shell_exec('httpd.exe -k restart');        
+        }
+        catch (Exception $e)
+        {
+          LOGGER::getInstance()->log(ERROR, $e->getMessage());
+          break;
+        }
+        if (!goodinstall)
+        {
+          Logger::getInstance()->log(ERROR, "Installation failed at the second phase!");
+          $installing = false;
+          break;
+        }
+        else
+        {
+          Logger::getInstance()->log(LOGGING, "Completed apache service gracefull restart. Left number of install phases is: " . INSTALL_PHASE . ". Exiting installation procedure."); 
+          $installing = false;
+          break;
+        }
       }
     }
   }
   Logger::getInstance()->log(LOGGING, "Installation procedure exited. Error verification underway.");
-  //Need to implement a certain way to detect errors
-  if (strcmp("ERROR", $output) === 0) 
+  /* Implemented a certain way to detect errors, needs to be re-tested  */
+  if (!$goodinstall) 
   {
+    Logger::getInstance()->log(ERROR, "Bad installation detected!");
+    $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+    try
+    {
+      $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0");
+      if(!$goodinstall)
+      {
+        $error = "Couldn't reset the INSTALL_PHASE to 1, set it manually in the " . $filename ." confing file!";
+        throw new Exception($error);
+      }
+    }
+    catch (Exception $e)
+    {
+      LOGGER::getInstance()->log(ERROR, $e->getMessage());
+      break;
+    }
     //send to bad_installation page
-    Logger::getInstance()->log(ERROR, "Error at DB creation!");
   }
   else
   {
-    //Changing the value of the INSTALLED constant to "true"
-    $fname = '' . ROOT . 'app' . DS . 'config' . DS . 'config.php';
-    $fhandle = fopen($fname,"r");
-    $content = fread($fhandle,filesize($fname));
-    $content = str_replace("'INSTALLED', false);", "'INSTALLED', true);\nDEFINE('PLSQL_DRIVER', 'oci8');", $content);
-    
-    $fhandle = fopen($fname,"w");
-    fwrite($fhandle,$content);
-    fclose($fhandle);
-    /*
+    /* Changing the value of the INSTALLED constant to "true" */
     $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-    FileWritter::stringReplace($filename, ("'INSTALLED', false);"), ("'INSTALLED', true);\nDEFINE('PLSQL_DRIVER', 'oci8');"));
-    */
-    //send to successfully installed application page
+    try
+    {
+      $goodinstall = inFileStrReplace($filename, ("'INSTALLED', false);"), ("'INSTALLED', true);\nDEFINE('PLSQL_DRIVER', 'oci8');"));
+      if(!$goodinstall)
+      {
+        $error = "Couldn't set the INSTALLED constant to true, set it manually in the " . $filename ." confing file!";
+        throw new Exception($error);
+      }
+    }
+    catch (Exception $e)
+    {
+      LOGGER::getInstance()->log(ERROR, $e->getMessage());
+      break;
+    }
     Logger::getInstance()->log(LOGGING, "App successfully installed.");
+    //send to successfully installed application page
   }
 }
 

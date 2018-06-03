@@ -2,7 +2,7 @@
 class Database
 {
   protected $installed = INSTALLED;
-  protected $format_connection = HOST_IP . ':' . HOST_PORT . '/' . SYS_DB;
+  protected $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
   protected $username = ROOT_ADMIN_USER;
   protected $password = ROOT_ADMIN_PASS;
   protected $connection = null;  

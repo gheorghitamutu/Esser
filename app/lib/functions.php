@@ -140,3 +140,89 @@ function inFileRegexReplace($filename, $replacedstring, $replacewithstring)
   }
   return $noerror;
 }
+
+function firstPhase()
+{
+  $goodinstall = true;
+  $filename = ROOT . "database" . DS . "Database.php";
+  $tobereplaced = array("protected \$username = null", "protected \$password = null");
+  $replacewith = array("protected \$username = ROOT_ADMIN_USER", "protected \$password = ROOT_ADMIN_PASS");
+  /* Linking the database username and password to the ROOT_ADMIN constants */
+  for ($i = count($tobereplaced) - 1; --$i)
+  {
+    try
+    {
+      $goodinstall = inFileStrReplace($filename,$toBeReplace[i],$replacewith[i]);
+      if(!$goodinstall)
+      {
+        $error = "Couldn't set root admin user and password for the database!";
+        throw new Exception($error);
+      }
+    }
+    catch (Exception $e)
+    {
+      Logger::getInstance()->log(ERROR, $e->getMessage());
+      return false;
+    }
+  }
+  
+  /* Parsing all important constants defined with strings that may prove 'fatal' while installing */
+  $tobeparsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP);
+  $parsed = [];
+  for ($i = count($tobeparsed) - 1; --$i)
+  {
+    $parsed[i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[i]);
+  }
+  
+  /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
+  $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+  for ($i = count($tobeparsed) - 1; --$i)
+  {
+    try
+    {
+      $goodinstall = inFileStrReplace($filename, $tobeparsed[i], $parsed[i]);
+      if(!$goodinstall)
+      {
+        $error = "Couldn't finish replacing config constants with the parsed ones!";
+        throw new Exception($error);
+      }
+    }
+    catch (Exception $e)
+    {
+      Logger::getInstance()->log(ERROR, $e->getMessage());
+      return false;
+    }
+  }
+  
+  /* Trying to change the install phase to the next step */
+  try
+  {
+    $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 2");
+    if(!$goodinstall)
+    {
+      $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
+      throw new Exception($error);
+    }
+  }
+  catch (Exception $e)
+  {
+    Logger::getInstance()->log(ERROR, $e->getMessage());
+    return false;
+  }
+  return $goodinstall;
+}
+
+function secondPhase()
+{
+  
+}
+
+function thirdPhase()
+{
+  
+}
+
+function installPhase($phasenumber)
+{
+  
+}
