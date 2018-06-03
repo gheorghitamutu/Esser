@@ -19,122 +19,161 @@ require ROOT . 'app' . DS . 'config' . DS . 'config.php';
 //This whole thing should be moved outside the public area and modularized.
 if (INSTALLED === false)
 {
-  $fname = null;
-  $fhandle = null;
-  $content = null;
-  $sys_user = null;
-  $sys_user_pass = null;
-  $root_admin_user = null;
-  $root_admin_pass = null;
-  $root_admin_group = null;
-  $root_manager_group = null;
-  $format_connection = null;
-  $path = null;
-  $full_call = null;
-  $output = null;
+  $goodinstall = true;
+  $installing = true;
   
-  switch (INSTALL_PHASE)
+  //Looping through install stages
+  while ($goodinstall && $installing)
   {
-    case 1:
-    {      
-      $fname = ROOT."database".DS."Database.php";
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = str_replace("protected \$username = null", "protected \$username = ROOT_ADMIN_USER", $content);
-      $content = str_replace("protected \$password = null", "protected \$password = ROOT_ADMIN_PASS", $content);
-      
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);  
-      
-      $sys_user = SYS_DB_USER;
-      $sys_user_pass = SYS_DB_USER_PASS;
-      $root_admin_user = ROOT_ADMIN_USER;
-      $root_admin_pass = ROOT_ADMIN_PASS;
-      $root_admin_group = ROOT_ADMIN_GROUP;
-      $root_manager_group = ROOT_MANAGER_GROUP;
-      $sys_user = preg_replace("/[^a-zA-Z0-9]+/", "", $sys_user);
-      $sys_user_pass = preg_replace("/[^a-zA-Z0-9]+/", "", $sys_user_pass);
-      $root_admin_user = preg_replace("/[^a-zA-Z0-9]+/", "", $root_admin_user);
-      $root_admin_pass = preg_replace("/[^a-zA-Z0-9]+/", "", $root_admin_pass);
-      $root_admin_group = preg_replace("/[^a-zA-Z0-9]+/", "", $root_admin_group);
-      $root_manager_group = preg_replace("/[^a-zA-Z0-9]+/", "", $root_manager_group);
-      
-      $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = str_replace(SYS_DB_USER, $sys_user, $content);
-      $content = str_replace(SYS_DB_USER_PASS, $sys_user_pass, $content);
-      $content = str_replace(ROOT_ADMIN_USER, $root_admin_user, $content);
-      $content = str_replace(ROOT_ADMIN_PASS, $root_admin_pass, $content);
-      $content = str_replace(ROOT_ADMIN_GROUP, $root_admin_group, $content);
-      $content = str_replace(ROOT_MANAGER_GROUP, $root_manager_group, $content);
-      $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 2", $content);
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);
-      Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase."); 
-    }
-    case 2:
+    /* Should make an installer class that can be called from withing the app and that will use the switch on the INSTALL_PHASE */
+    switch (INSTALL_PHASE)
     {
-      //Shell/Cmd approach.      
-      $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3", $content);
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);
-      
-      $sys_user = SYS_DB_USER;
-      $sys_user_pass = SYS_DB_USER_PASS;
-      $root_admin_user = ROOT_ADMIN_USER;
-      $root_admin_pass = ROOT_ADMIN_PASS;
-      $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
-      $path = (DB_SCRIPTS . 'createDBUserPrc.sql');
-      $full_call = 'SQLPLUS ' . $sys_user . '/' . $sys_user_pass . '@' . $format_connection . ' AS SYSDBA @' . $path . ' ' . $root_admin_user . ' ' . $root_admin_pass;
-      $output = shell_exec($full_call);
-      Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
-                                        . "\r\n==============\r\n" 
-                                        . $output 
-                                        . "\r\n==============\r\n");
-      
-      $full_call = 'SQLPLUS %s/%s@%s @%s';
-      $format = sprintf($full_call, $root_admin_user, $root_admin_pass, $format_connection, (DB_SCRIPTS . 'dbCreate.sql'));
-      $output = shell_exec($format);
-      Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
-                                        . "\r\n==============\r\n" 
-                                        . $output 
-                                        . "\r\n==============\r\n" );      
-      Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
-    }
-    case 3:
-    {  
-      $fname = ROOT;
-      $fname = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", $fname);
-      
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = preg_replace("/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n", $content);
-      
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);  
-      
-      $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-      $fhandle = fopen($fname,"r");
-      $content = fread($fhandle,filesize($fname));
-      $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0", $content);
-      $fhandle = fopen($fname,"w");
-      fwrite($fhandle,$content);
-      fclose($fhandle);
-      Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", performing gracefull apache servervice restart.");
-    }
-    case 0:
-    {
-      shell_exec('httpd.exe -k restart');
-      Logger::getInstance()->log(LOGGING, "Completed apache service gracefull restart. Left number of install phases is: " . INSTALL_PHASE . ". Exiting installation procedure."); 
-      break;
+      case 1:
+      {        
+        $filename = ROOT . "database" . DS . "Database.php";
+        $tobereplaced = array("protected \$username = null", "protected \$password = null");
+        $replacewith = array("protected \$username = ROOT_ADMIN_USER", "protected \$password = ROOT_ADMIN_PASS");
+        /* Linking the database username and password to the ROOT_ADMIN constants */
+        for ($i = count($tobereplaced) - 1; --$i)
+        {
+          try
+          {
+            $goodinstall = inFileStrReplace($filename,$toBeReplace[i],$replacewith[i]);
+            if(!$goodinstall)
+            {
+              $error = "Couldn't set root admin user and password for the database!";
+              throw new Exception($error);
+            }
+          }
+          catch (Exception $e)
+          {
+            Logger::getInstance()->log(ERROR, $e->getMessage());
+            break;
+          }
+        }
+        
+        /* Parsing all important constants defined with strings that may prove 'fatal' while installing */
+        $tobeparsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP);
+        $parsed = [];
+        for ($i = count($tobeparsed) - 1; --$i)
+        {
+          $parsed[i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[i]);
+        }
+        
+        /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
+        $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        for ($i = count($tobeparsed) - 1; --$i)
+        {
+          try
+          {
+            $goodinstall = inFileStrReplace($filename, $tobeparsed[i], $parsed[i]);
+            if(!$goodinstall)
+            {
+              $error = "Couldn't finish replacing config constants with the parsed ones!";
+              throw new Exception($error);
+            }
+          }
+          catch (Exception $e)
+          {
+            Logger::getInstance()->log(ERROR, $e->getMessage());
+            break;
+          }
+        }
+        
+        /* Trying to change the install phase to the next step */
+        try
+        {
+          $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 2");
+          if(!$goodinstall)
+          {
+            $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
+            throw new Exception($error);
+          }
+        }
+        catch (Exception $e)
+        {
+          Logger::getInstance()->log(ERROR, $e->getMessage());
+          break;
+        }
+        
+        if (!goodinstall)
+        {
+          Logger::getInstance()->log(ERROR, "Installation failed at the first phase!");
+          $installing = false;
+          break;
+        }
+        else
+        {
+          Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
+        }
+      }
+      case 2:
+      {
+        //Shell/Cmd approach.      
+        $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        $fhandle = fopen($fname,"r");
+        $content = fread($fhandle,filesize($fname));
+        $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3", $content);
+        $fhandle = fopen($fname,"w");
+        fwrite($fhandle,$content);
+        fclose($fhandle);
+        /*
+        $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        FileWriter::stringReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 3");
+        */      
+              
+        $shellcmd = sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'), SYS_DB_USER, SYS_DB_USER_PASS, (HOST_IP.':'.HOST_PORT.'//'.SYS_DB), (DB_SCRIPTS.'createDBUserPrc.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
+        $output = shell_exec($shellcmd);
+        Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
+                                          . "\r\n==============\r\n" 
+                                          . $output 
+                                          . "\r\n==============\r\n");
+        
+        $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'));
+        $output = shell_exec($shellcmd);
+        Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+                                          . "\r\n==============\r\n" 
+                                          . $output 
+                                          . "\r\n==============\r\n" );      
+        Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", switching to next phase.");
+      }
+      case 3:
+      {  
+        $fname = ROOT;
+        $fname = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", $fname);
+        $fhandle = fopen($fname,"r");
+        $content = fread($fhandle,filesize($fname));
+        $content = preg_replace("/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n", $content);
+        
+        $fhandle = fopen($fname,"w");
+        fwrite($fhandle,$content);
+        fclose($fhandle);
+        /*
+        $filename = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", ROOT);
+        FileWriter::regexReplace($filename, "/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");
+        */
+        
+        $fname = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        $fhandle = fopen($fname,"r");
+        $content = fread($fhandle,filesize($fname));
+        $content = str_replace("define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0", $content);
+        $fhandle = fopen($fname,"w");
+        fwrite($fhandle,$content);
+        fclose($fhandle);      
+        
+        /*
+        $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+        FileWriter::stringReplace($filename, "define('INSTALL_PHASE', ".INSTALL_PHASE, "define('INSTALL_PHASE', 0");
+        */
+        
+        Logger::getInstance()->log(LOGGING, "Completed install phase number: " . INSTALL_PHASE . ", performing gracefull apache servervice restart.");
+      }
+      case 0:
+      {
+        Logger::getInstance()->log(LOGGING, "Completed apache service gracefull restart. Left number of install phases is: " . INSTALL_PHASE . ". Exiting installation procedure."); 
+        shell_exec('httpd.exe -k restart');
+        break;
+      }
     }
   }
   Logger::getInstance()->log(LOGGING, "Installation procedure exited. Error verification underway.");
@@ -155,6 +194,10 @@ if (INSTALLED === false)
     $fhandle = fopen($fname,"w");
     fwrite($fhandle,$content);
     fclose($fhandle);
+    /*
+    $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+    FileWritter::stringReplace($filename, ("'INSTALLED', false);"), ("'INSTALLED', true);\nDEFINE('PLSQL_DRIVER', 'oci8');"));
+    */
     //send to successfully installed application page
     Logger::getInstance()->log(LOGGING, "App successfully installed.");
   }
