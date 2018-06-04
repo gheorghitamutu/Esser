@@ -1,0 +1,1355 @@
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 1167 si acesta este: 
+<?php 
+class Database
+{
+  protected $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
+  protected $username = null;
+  protected $password = ROOT_ADMIN_PASS;
+  protected $connection = null;  
+  private static $instance = null;
+  
+  public static function getInstance()
+  {      
+    if (Database::$instance == null)
+    {
+      Database::$instance = new Database();
+    }
+    return Database::$instance;
+  }
+  
+  protected function __construct()
+  {
+    //if ($this->username === null or $this->password === null)
+    //{
+    //  shell_exec("httpd -k restart");
+    //}
+    //else
+    //{
+      try
+      {
+        $this->connection = oci_connect($this->username, $this->password, $this->format_connection);
+        if ($this->connection === false) 
+        {
+          $error = 'Could not connect to the database as user: ' . $this->username . ' !';
+          throw new Exception($error);
+        }
+      }
+      catch (Exception $e)
+      {
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+      }
+    //}
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////// !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\database\Database.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\database\Database.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\database\Database.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 1178 si acesta este: 
+<?php 
+class Database
+{
+  protected $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
+  protected $username = ROOT_ADMIN_USER;
+  protected $password = ROOT_ADMIN_PASS;
+  protected $connection = null;  
+  private static $instance = null;
+  
+  public static function getInstance()
+  {      
+    if (Database::$instance == null)
+    {
+      Database::$instance = new Database();
+    }
+    return Database::$instance;
+  }
+  
+  protected function __construct()
+  {
+    //if ($this->username === null or $this->password === null)
+    //{
+    //  shell_exec("httpd -k restart");
+    //}
+    //else
+    //{
+      try
+      {
+        $this->connection = oci_connect($this->username, $this->password, $this->format_connection);
+        if ($this->connection === false) 
+        {
+          $error = 'Could not connect to the database as user: ' . $this->username . ' !';
+          throw new Exception($error);
+        }
+      }
+      catch (Exception $e)
+      {
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+      }
+    //}
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////// !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\database\Database.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\database\Database.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\database\Database.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 1);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 2);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[APP_LOG: 04-06-2018 14:16:34] Completed install phase number 1. Switching to the next phase.
+[APP_LOG: 04-06-2018 14:16:34] Executed createDBUserPrc.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jun 4 15:16:35 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 04-06-2018 14:16:34] Executed dbCreate.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jun 4 15:16:36 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
+
+PL/SQL procedure successfully completed.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Function created.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 3);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[APP_LOG: 04-06-2018 14:16:34] Completed install phase number 2. Switching to the next phase.
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2151 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', false);
+define('INSTALL_PHASE', 0);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[APP_LOG: 04-06-2018 14:16:34] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
+[APP_LOG: 04-06-2018 14:16:34] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 04-06-2018 14:16:34] Installation procedure exited. Error verification underway.
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Contentul dupa replace si inainte de scriere are marimea: 2183 si acesta este: 
+<?php
+/**
+ * IDE: PhpStorm
+ * Project: esser
+ * Filename: config.php
+ * User: Gheorghita Mutu
+ * Email: gheorghitamutu@gmail.com
+ * Date: 4/6/2018
+ * Time: 2:23 PM
+ */
+
+// application configs
+define('INSTALLED', true);
+define('PLSQL_DRIVER', 'oci8');
+define('INSTALL_PHASE', 0);
+define('SYS_DB', 'XE');
+define('SYS_DB_USER', 'SYS');
+define('SYS_DB_USER_PASS', 'SYS');
+define('HOST_IP', 'localhost');
+define('HOST_PORT', '1521');
+define('MD5', true);
+define('SHA_256', false);
+define('SHA_512', false);
+define('DB_CHAR_ENCRYPTION', 'UTF8');
+
+// root configs
+define('ROOT_ADMIN_USER', 'EsseR');
+define('ROOT_ADMIN_PASS', 'EsserTest1234');
+define('ROOT_ADMIN_GROUP', 'Admins');
+define('ROOT_MANAGER_GROUP', 'Managers');
+ 
+// paths macros
+define('APP_INIT'  , ROOT                                     . 'app'        . DS);
+define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
+define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
+define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
+define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
+define('DATABASE'  , ROOT                                     . 'database'   . DS);
+define('LOGGER'    , ROOT                                     . 'logger'     . DS);
+define('ROUTE'     , ROOT                                     . 'route'      . DS);
+define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+
+// logger messages macros
+define('ERROR'     , '[ERROR: ' . date('d-m-Y H:i:s') . '] ');
+define('WARNING'   , '[WARNING: ' . date('d-m-Y H:i:s') . '] ');
+define('DEBUGING'   , '[DEBUG_MESSAGE: ' . date('d-m-Y H:i:s') . '] ');
+define('LOGGING'   , '[APP_LOG: ' . date('d-m-Y H:i:s') . '] ');
+
+// glob input macros
+define('PHP_FILE'  , '*.php');
+
+// autoload purpose loops
+//foreach (glob(APP_INIT . PHP_FILE) as $filename)
+//{
+//  require_once($filename);
+//}
+
+?>
+ !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a scris in fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] S-a inchis handlerul pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php !
+[DEBUG_MESSAGE: 04-06-2018 14:16:34] Finalul operatiunii pentru fisierul: E:\Programe\Xampp\htdocs\app\config\config.php este: 1 !
+
+
+[APP_LOG: 04-06-2018 14:16:34] App successfully installed.
+[APP_LOG: 04-06-2018 14:24:05] Completed install phase number 1. Switching to the next phase.
+[APP_LOG: 04-06-2018 14:24:05] Executed createDBUserPrc.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jun 4 15:24:05 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 04-06-2018 14:24:05] Executed dbCreate.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Jun 4 15:24:06 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
+
+PL/SQL procedure successfully completed.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Function created.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 04-06-2018 14:24:05] Completed install phase number 2. Switching to the next phase.
+[APP_LOG: 04-06-2018 14:24:05] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
+[APP_LOG: 04-06-2018 14:24:05] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 04-06-2018 14:24:05] Installation procedure exited. Error verification underway.
+[APP_LOG: 04-06-2018 14:24:05] App successfully installed.

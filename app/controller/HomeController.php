@@ -12,32 +12,38 @@
 
 class HomeController extends Controller
 {
+  protected $params = ["apptitle" => APP_TITLE];
+  
     public function __construct($uri)
     {
         Parent::__construct();
         switch($uri)
         {
-            case '/':
-                $this->index();
-                break;
-            case 'home':
-                $this->index();
-                break;
-            case 'home/index':
-                $this->index();
-                break;
-            default:
-                $this->index();
-                break;
-
+          case '/':
+          {
+              $this->index($this->params);
+              break;
+          }
+          case 'home':
+          {
+              $this->index($this->params);
+              break;
+          }
+          case 'home/index':
+          {
+              $this->index($this->params);
+              break;
+          }
+          default:
+          {
+              $this->index($this->params);
+              break;
+          }
         }
     }
 
-    private function index()
+    private function index($params)
     {
-        View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'index',
-            [],
-            'Esser');
+      View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $params, $params["apptitle"]);
     }
 }
