@@ -8,6 +8,11 @@
     *This stylesheet handles only min-width > 250px and min-height > 180px!
 */
 
+
+
+.html{
+    width:100%;
+}
 /* -------------------------------------------------- body -----------------------------------------------------------*/
 #body {
     background-color: white;
@@ -23,7 +28,7 @@
 /* -------------------------------------------------- sidenav --------------------------------------------------------*/
 .sidenav {
     height: 100%;
-    width: 20%;                         /* 0 width - change this with JavaScript */
+    width: 0;                         /* 0 width - change this with JavaScript */
     position: fixed;                    /* Stay in place */
     display: flex;
     flex-direction: column;
@@ -34,7 +39,6 @@
     overflow-x: hidden;                 /* Disable horizontal scroll */
     padding-top: 5rem;                  /* Place content 5rem = 80px from the top */
     transition: 0.5s;                   /* 0.5 second transition effect to slide in the sidenav */
-    margin-left: -20%;
 }
 
 .sidenav-container-item {
@@ -92,7 +96,7 @@
     transition: 0.5s;
 }
 
-/* -------------------------------------------------- main-container -------------------------------------------------*/
+/* -------------------------------------------------- main-container  si aici am modificat -------------------------------------------------*/
 #main {
     display: flex;
     flex-direction: column;
@@ -100,7 +104,8 @@
     transition: .5s;
     padding: 1.2rem;
     border: 1px solid;
-    margin: 3.7% 0 0 0.1%; /* 4.25rem = 68px */
+    width: 100%;
+    margin-top:1%;
 }
 
 /* ------------------------------------------------ main-container-first-row -----------------------------------------*/
@@ -208,7 +213,7 @@
 }
 
 .sidebar-trigger.active {
-    margin-left: 15.625rem;         /* 15.625rem = 250px */
+    /*margin-left: 15.625rem;         .625rem = 250px */
     transition: margin-left .5s;
 }
 
@@ -246,6 +251,7 @@
     z-index: 3;
     cursor: pointer;
     transition: .5s;
+
 }
 /* ---------------------------------------------------------------- begin  top nav bar ------------------------------------------------------------*/
 #top-nav-bar-user-landing-page{
@@ -291,7 +297,7 @@
     justify-content: center;
     flex-direction: row;
     border: 1px solid white;
-    height: 84%;
+    height: 100%;
     width: 95%;
     transition: .5s;
 }
@@ -301,7 +307,7 @@
     justify-content: center;
     flex-direction: row;
     border: 1px solid white;
-    height: 95%;
+    height: 100%;
     width: 5%;
     transition: .5s;
 }
@@ -358,8 +364,12 @@
 
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 900px) {
 
+ .sidenav-container-item > div{
+     width:100%;
+     margin:0;
+ }
 }
 
 @media screen and (max-width: 800px) {
@@ -367,7 +377,6 @@
 }
 
 @media screen and (max-width: 600px) {
-
 }
 
 @media screen and (max-width: 450px) {

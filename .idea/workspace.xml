@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b743e44d-48f2-4ffb-a709-1ae7a9695434" name="Default" comment="" />
+    <list default="true" id="b743e44d-48f2-4ffb-a709-1ae7a9695434" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/config/config.php" afterPath="$PROJECT_DIR$/app/config/config.php" />
+      <change beforePath="$PROJECT_DIR$/app/view/user/index.phtml" afterPath="$PROJECT_DIR$/app/view/user/index.phtml" />
+      <change beforePath="$PROJECT_DIR$/logger/log.txt" afterPath="$PROJECT_DIR$/logger/log.txt" />
+      <change beforePath="$PROJECT_DIR$/public/resources/css/user/user-landing-page.css" afterPath="$PROJECT_DIR$/public/resources/css/user/user-landing-page.css" />
+      <change beforePath="$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css" afterPath="$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css" />
+      <change beforePath="$PROJECT_DIR$/public/resources/js/user-landing-page.js" afterPath="$PROJECT_DIR$/public/resources/js/user-landing-page.js" />
+      <change beforePath="$PROJECT_DIR$/public/resources/js/user-nav-bar.js" afterPath="$PROJECT_DIR$/public/resources/js/user-nav-bar.js" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +27,8 @@
       <file leaf-file-name="user-landing-page.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/resources/css/user/user-landing-page.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+            <state relative-caret-position="-5609">
+              <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -38,48 +47,38 @@
       <file leaf-file-name="index.phtml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/user/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+            <state relative-caret-position="7667">
+              <caret line="451" column="40" lean-forward="false" selection-start-line="451" selection-start-column="40" selection-end-line="451" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="404.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/404.phtml">
+      <file leaf-file-name="items.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/user/items/items.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="footer.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/user/footer.phtml">
+      <file leaf-file-name="index.phtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/view/home/index.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="32" column="7" lean-forward="false" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+            <state relative-caret-position="187">
+              <caret line="19" column="81" lean-forward="false" selection-start-line="19" selection-start-column="81" selection-end-line="19" selection-end-column="81" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-landing-page.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/resources/js/user-landing-page.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user-nav-bar.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user-nav-bar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/resources/js/user-nav-bar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="3" column="34" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="34" />
+            <state relative-caret-position="-53">
+              <caret line="18" column="51" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="18" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -88,25 +87,35 @@
       <file leaf-file-name="header.phtml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/view/user/header.phtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="53" column="14" lean-forward="true" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="14" />
+            <state relative-caret-position="765">
+              <caret line="53" column="14" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-nav-bar.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user-landing-page.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/resources/js/user-landing-page.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user-nav-bar.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="309" column="4" lean-forward="false" selection-start-line="309" selection-start-column="4" selection-end-line="312" selection-end-column="5" />
+            <state relative-caret-position="401">
+              <caret line="302" column="1" lean-forward="true" selection-start-line="302" selection-start-column="1" selection-end-line="302" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="alerts.phtml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/view/user/alerts/alerts.phtml">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -128,9 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/assets/normal/images</find>
-      <find>shadow</find>
-      <find>#d3d0cb</find>
       <find>background</find>
       <find>gray</find>
       <find>add</find>
@@ -142,7 +148,6 @@
       <find>users-content-user-landing-page</find>
       <find>column</find>
       <find>min-height</find>
-      <find>search</find>
       <find>search-container</find>
       <find>font</find>
       <find>sidebar-trigger-container</find>
@@ -153,6 +158,15 @@
       <find>.title-statistics</find>
       <find>title-sta</find>
       <find>notifica</find>
+      <find>min</find>
+      <find>overf</find>
+      <find>content-user-landing-page</find>
+      <find>sidenav-c</find>
+      <find>ca</find>
+      <find>margin-left</find>
+      <find>21</find>
+      <find>search</find>
+      <find>main</find>
     </findStrings>
     <replaceStrings>
       <replace>white</replace>
@@ -172,7 +186,6 @@
         <option value="$PROJECT_DIR$/tests/Database/CustomDatabaseTest.php" />
         <option value="$PROJECT_DIR$/logger/Logger.php" />
         <option value="$PROJECT_DIR$/tests/Test.php" />
-        <option value="$PROJECT_DIR$/public/resources/js/user-nav-bar.js" />
         <option value="$PROJECT_DIR$/public/resources/css/user/pmc_groups_of_items_style.css" />
         <option value="$PROJECT_DIR$/public/resources/css/user/pmc_groups_of_users_style.css" />
         <option value="$PROJECT_DIR$/app/controller/admincp/AdminCPController.php" />
@@ -211,10 +224,11 @@
         <option value="$PROJECT_DIR$/app/view/user/header-user-landing-page.phtml" />
         <option value="$PROJECT_DIR$/app/view/user/footer.phtml" />
         <option value="$PROJECT_DIR$/app/view/user/header.phtml" />
-        <option value="$PROJECT_DIR$/public/resources/js/user-landing-page.js" />
-        <option value="$PROJECT_DIR$/app/view/user/index.phtml" />
-        <option value="$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css" />
         <option value="$PROJECT_DIR$/public/resources/css/user/user-landing-page.css" />
+        <option value="$PROJECT_DIR$/app/view/user/index.phtml" />
+        <option value="$PROJECT_DIR$/public/resources/js/user-landing-page.js" />
+        <option value="$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css" />
+        <option value="$PROJECT_DIR$/public/resources/js/user-nav-bar.js" />
       </list>
     </option>
   </component>
@@ -231,7 +245,7 @@
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 7.2.2" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-156" />
     <option name="y" value="64" />
     <option name="width" value="1616" />
@@ -271,6 +285,12 @@
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
               <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -278,7 +298,35 @@
               <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="home" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="user" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="user" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="items" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="view" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="user" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="logs" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
@@ -313,12 +361,17 @@
               <item name="resources" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="route" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -337,19 +390,19 @@
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\xampp\htdocs\esser\tests\Database" />
-      <recent name="D:\xampp\htdocs\esser" />
-      <recent name="D:\xampp\htdocs\esser\public\resources\images\user" />
-      <recent name="D:\xampp\htdocs\esser\public\resources\images\global" />
-      <recent name="D:\xampp\htdocs\esser\public\resources\images\home" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\xampp\htdocs\esser\app\controller\admincp" />
       <recent name="C:\xampp\htdocs\esser\app\view\user\alerts" />
       <recent name="C:\xampp\htdocs\esser\app\resources\assets\css\user" />
       <recent name="C:\xampp\htdocs\esser\app\resources\assets\js\normal" />
       <recent name="C:\xampp\htdocs\esser\app\resources\assets\images\normal" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\esser\tests\Database" />
+      <recent name="D:\xampp\htdocs\esser" />
+      <recent name="D:\xampp\htdocs\esser\public\resources\images\user" />
+      <recent name="D:\xampp\htdocs\esser\public\resources\images\global" />
+      <recent name="D:\xampp\htdocs\esser\public\resources\images\home" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -423,6 +476,7 @@
       <workItem from="1527692593293" duration="46000" />
       <workItem from="1527692641343" duration="11001000" />
       <workItem from="1527771753697" duration="4692000" />
+      <workItem from="1528194778160" duration="6312000" />
     </task>
     <servers />
   </component>
@@ -459,10 +513,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129451000" />
+    <option name="totallyTimeSpent" value="144253000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.180625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -526,34 +580,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logger/Logger.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="36" column="2" lean-forward="false" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/Application.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/admincp/footer.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/admincp/header.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/core/View.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -563,8 +589,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/route/Route.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+        <state relative-caret-position="200">
+          <caret line="32" column="9" lean-forward="false" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -719,8 +745,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="748">
+          <caret line="53" column="64" lean-forward="false" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -759,13 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/user/items/items.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/user/users/users.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -787,18 +806,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/view/home/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="19" column="81" lean-forward="false" selection-start-line="19" selection-start-column="81" selection-end-line="19" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/user/alerts/alerts.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,14 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/resources/css/user/pmc_groups_of_users_style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/view/user/footer.phtml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -827,50 +830,104 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/resources/js/user-nav-bar.js">
+    <entry file="file://$PROJECT_DIR$/app/appinit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="34" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="34" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/resources/js/user-landing-page.js">
+    <entry file="file://$PROJECT_DIR$/public/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/CustomDatabase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="2" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/user/items/items.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/home/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" column="81" lean-forward="false" selection-start-line="19" selection-start-column="81" selection-end-line="19" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resources/css/user/pmc_groups_of_users_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/user/index.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+        <state relative-caret-position="7667">
+          <caret line="451" column="40" lean-forward="false" selection-start-line="451" selection-start-column="40" selection-end-line="451" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/user/header.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="53" column="14" lean-forward="true" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="14" />
+        <state relative-caret-position="765">
+          <caret line="53" column="14" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/resources/css/user/user-landing-page.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        <state relative-caret-position="-5609">
+          <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/resources/css/user/user-nav-bar.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="309" column="4" lean-forward="false" selection-start-line="309" selection-start-column="4" selection-end-line="312" selection-end-column="5" />
+        <state relative-caret-position="401">
+          <caret line="302" column="1" lean-forward="true" selection-start-line="302" selection-start-column="1" selection-end-line="302" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resources/js/user-landing-page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/resources/js/user-nav-bar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="18" column="51" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="18" selection-end-column="51" />
           <folding />
         </state>
       </provider>

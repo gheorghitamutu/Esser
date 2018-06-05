@@ -20,15 +20,33 @@ function showHideAdminCpButton() {
 }
 
 function adjustTable(){
-    var table = document.getElementsByClassName("items-content-user-landing-page");
+    var table_products = document.getElementsByClassName("items-content-user-landing-page");
+    var table_users = document.getElementsByClassName("users-content-user-landing-page");
+    var height_table_products;
+    var height_table_users;
+    /*
     var item = document.getElementsByClassName("row-items");
-    if( table[0].clientHeight % item.clientHeight != 0) {
-        let result=table[0].clientHeight-(table[0].clientHeight % item.clientHeight);
-        table[0].setAttribute("style", "height:"+result);
+    if( table_products[0].clientHeight % item.clientHeight != 0) {
+        height_table_products=table_products[0].clientHeight-(table_products[0].clientHeight % item.clientHeight);
     }
 
-    var cv= document.getElementById("admin-cp-container-user-landing-page");
-    cv.setAttribute("style","text-color:red");
+    var user = document.getElementsByClassName("row-users");
+    if( table_userss[0].clientHeight % users.clientHeight != 0) {
+        height_table_users=table_users[0].clientHeight-(table_users[0].clientHeight % user.clientHeight);
+    }
+    */
+    height_table_products=table_products[0].clientHeight;
+    height_table_users=table_users[0].clientHeight;
+
+    if(height_table_products> height_table_users ) {
+        table_products[0].setAttribute("style", "height:" + height_table_products + "px");
+    }else{
+        table_users[0].setAttribute("style", "height:" + height_table_users + "px");
+    }
+
+    /*
+    var main_cointainer=document.getElementById("main");
+    if()*/
 }
 showHideAdminCpButton();
 showNewNotifications();
