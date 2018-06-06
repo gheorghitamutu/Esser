@@ -94,7 +94,7 @@ function firstPhaseInstall()
   }
   
   /* Parsing all important constants defined with strings that may prove 'fatal' while installing */
-  $tobeparsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP);
+  $tobeparsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
   $parsed = [];
   for ($i = count($tobeparsed) - 1; $i >= 0 ; --$i)
   {
@@ -110,9 +110,14 @@ function firstPhaseInstall()
   }
   else
   {
-    array_push($parsed, preg_replace("/[^a-zA-Z0-9@._]+/", "", $tobeparsed[count($tobeparsed)-1]));
     array_push($tobeparsed, ROOT_ADMIN_EMAIL);
+    array_push($parsed, preg_replace("/[^a-zA-Z0-9@._]+/", "", $tobeparsed[count($tobeparsed)-1]));
   }
+
+  array_push($tobeparsed, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
+  array_push($parsed, preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $tobeparsed[count($tobeparsed)-3]),
+                             preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $tobeparsed[count($tobeparsed)-2]),
+                             preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $tobeparsed[count($tobeparsed)-1]));
   
   /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
   $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
@@ -164,7 +169,7 @@ function secondPhaseInstall()
                                     . $output 
                                     . "\r\n==============\r\n");
   
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL);
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
   $output = shell_exec($shellcmd);
   Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
                                     . "\r\n==============\r\n" 
@@ -256,4 +261,6 @@ function thirdPhaseInstall()
 //
 //}
 //
+
 ?>
+

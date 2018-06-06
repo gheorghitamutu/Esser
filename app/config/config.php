@@ -35,7 +35,8 @@ define('ROOT_ADMIN_USER', 'EsseR');
 define('ROOT_ADMIN_PASS', 'EsserTest1234');
 define('ROOT_ADMIN_EMAIL', 'bugeag.george@info.uaic.ro');
 define('ROOT_ADMIN_GROUP', 'Admins');
-define('ROOT_MANAGER_GROUP', 'Manage4rs');
+define('ROOT_MANAGER_GROUP', 'Managers');
+define('ROOT_NORMAL_USER_GROUP', 'Normal Users');
  
 // paths macros
 define('APP_INIT'  , ROOT                                     . 'app'        . DS);

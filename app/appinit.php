@@ -34,6 +34,11 @@
     require_once($filename);
   }
   
+  foreach (glob(CONTROLLER . DS . 'admincp' . DS . PHP_FILE) as $filename)
+  {
+    require_once($filename);
+  }
+  
   foreach (glob(ROUTE . PHP_FILE) as $filename)
   {
     require_once($filename);
