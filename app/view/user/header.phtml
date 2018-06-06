@@ -14,12 +14,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/resources/css/user/user-nav-bar.css">
+        <link rel="stylesheet" type="text/css" href="/resources/css/user/user-landing-page.css">
         <title><?php echo (isset($this->page_title) ? $this->page_title : "Welcome!"); ?></title>
     </head>
 <body id="body">
 
-<!------------------------------------------- sidebar trigger ------------------------------------------------->
+<!------------------------------------------- sidebar trigger   aici am adaugat button admin------------------------------------------------->
 
 <div id="sidebar-trigger-container">
     <div class="sidebar-trigger" id="sidebar-trigger" >
@@ -27,12 +29,21 @@
         <div class="mid"></div>
         <div class="bottom"></div>
     </div>
-    <div id="search-container">
-        <form action="" id="search-form">
-            <input type="text" placeholder="Search.." name="search" id="search-input">
-            <button type="submit" id="search-button"></button>
-        </form>
+    <div id="top-nav-bar-user-landing-page">
+        <div id="search-container">
+            <form action="" id="search-form">
+                <input type="text" placeholder="Search.." name="search" id="search-input">
+                <button type="submit" id="search-button"></button>
+            </form>
+        </div>
+
+
+        <div id="admin-cp-container-user-landing-page">
+            <button type="button" id="admin-cp-button" onclick="alert('redirect to admin ')">Admin</button>
+        </div>
     </div>
+
+
 </div>
 
 <!-------------------------------------------------- sidebar -------------------------------------------------->

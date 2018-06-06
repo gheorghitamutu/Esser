@@ -5,7 +5,7 @@
  * Date: 4/13/2018
  * Time: 7:05 PM
  */
-
+/*
 require_once('Database.php');
 
 class CustomDatabase extends Database
@@ -27,3 +27,4 @@ class CustomDatabase extends Database
         shell_exec($cmd);
     }
 }
+*/
