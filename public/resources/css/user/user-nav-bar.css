@@ -54,8 +54,9 @@
     align-items: center;
     justify-content: center;
     transition: 0.5s;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
     border: 1px solid white;
 }
 
@@ -105,7 +106,7 @@
     padding: 1.2rem;
     border: 1px solid;
     width: 100%;
-    margin-top:1%;
+    margin-top:4.1rem;
 }
 
 /* ------------------------------------------------ main-container-first-row -----------------------------------------*/
@@ -312,12 +313,7 @@
     transition: .5s;
 }
 
-@media screen and (max-width: 1024px) {
-    #top-nav-bar-user-landing-page{
-        width:55%;
-        margin-left:45%;
-    }
-}
+
 
 
 /*-------------------------------------------------------  end top nav bar ---------------------------------------------------------------------------*/
@@ -356,20 +352,20 @@
 
 }
 
-@media screen and (max-width: 1200px) {
-
+@media screen and (max-width: 1024px) {
+    #top-nav-bar-user-landing-page{
+        width:55%;
+        margin-left:45%;
+    }
 }
 
-@media screen and (max-width: 1000px) {
-
-}
 
 @media screen and (max-width: 900px) {
-
- .sidenav-container-item > div{
-     width:100%;
-     margin:0;
- }
+    .sidenav-item {
+        width:96%;
+        margin-left:2%;
+        margin-right:2%;
+    }
 }
 
 @media screen and (max-width: 800px) {
