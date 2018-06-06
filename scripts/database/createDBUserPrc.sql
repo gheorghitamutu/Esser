@@ -27,7 +27,8 @@ BEGIN
   
   v_username := p_username;
   v_password := p_password;
-  -- USER SQL
+  
+-- USER SQL
   v_sql_cmd := 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password || ' DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP';
   DBMS_OUTPUT.PUT_LINE(v_sql_cmd);
   EXECUTE IMMEDIATE(v_sql_cmd);

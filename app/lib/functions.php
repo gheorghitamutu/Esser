@@ -71,14 +71,14 @@ function inFileRegexReplace($filename, $replacedstring, $replacewithstring)
 function firstPhaseInstall()
 {
   $goodinstall = true;
-  $tobereplaced = array("protected \$username = null", "protected \$password = null");
-  $replacewith = array("protected \$username = ROOT_ADMIN_USER", "protected \$password = ROOT_ADMIN_PASS");
+  $tobereplaced = array('protected $username = null', 'protected $password = null');
+  $replacewith = array('protected $username = ROOT_ADMIN_USER', 'protected $password = ROOT_ADMIN_PASS');
   /* Linking the database username and password to the ROOT_ADMIN constants */
   for ($i = count($tobereplaced) - 1; $i >= 0 ; --$i)
   {
     try
     {
-      $filename = ROOT . "database" . DS . "Database.php";
+      $filename = ROOT . 'database' . DS . 'Database.php';
       $goodinstall = inFileStrReplace($filename,$tobereplaced[$i],$replacewith[$i]);
       if(!$goodinstall)
       {
@@ -100,13 +100,16 @@ function firstPhaseInstall()
   {
     $parsed[$i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[$i]);
   }
+
+  array_push($tobeparsed, ROOT_ADMIN_EMAIL);
+  array_push($parsed, preg_replace("/[^a-zA-Z0-9@._]+/", "", $tobeparsed[count($tobeparsed)-1]));
   
   /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
+  $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
   for ($i = count($tobeparsed) - 1; $i >= 0 ; --$i)
   {
     try
     {
-      $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
       $goodinstall = inFileStrReplace($filename, $tobeparsed[$i], $parsed[$i]);
       if(!$goodinstall)
       {
@@ -144,14 +147,14 @@ function secondPhaseInstall()
   $goodinstall = true;
   //Shell/Cmd approach.
   //Need to find a way to detect errors
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'), SYS_DB_USER, SYS_DB_USER_PASS, (HOST_IP.':'.HOST_PORT.'//'.SYS_DB), (DB_SCRIPTS.'createDBUserPrc.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'), SYS_DB_USER, SYS_DB_USER_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBUserPrc.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
   $output = shell_exec($shellcmd);
   Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
                                     . "\r\n==============\r\n" 
                                     . $output 
                                     . "\r\n==============\r\n");
   
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'));
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL);
   $output = shell_exec($shellcmd);
   Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
                                     . "\r\n==============\r\n" 
@@ -178,7 +181,7 @@ function secondPhaseInstall()
 function thirdPhaseInstall()
 {
   $goodinstall = true;
-  $filename = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", ROOT);
+  $filename = preg_replace("/(?=htdocs).+/", "php" . DS . "php.ini", ROOT);
   try
   {
     $goodinstall = inFileRegexReplace($filename, "/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");

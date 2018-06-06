@@ -85,7 +85,14 @@ CREATE TABLE USERACCS(
 CREATE OR REPLACE TRIGGER trg_incr_useraccs BEFORE INSERT ON USERACCS FOR EACH ROW
 BEGIN
   :NEW.USERID := incr_useraccs.NEXTVAL;
+  :NEW.USERCREATEDAT := SYSDATE;  
+  :NEW.USERUPDATEDAT := SYSDATE;
 END trg_incr_useraccs;
+/
+CREATE OR REPLACE TRIGGER trg_upd_useraccs BEFORE UPDATE ON USERACCS FOR EACH ROW
+BEGIN
+  :NEW.USERUPDATEDAT := SYSDATE;
+END trg_upd_useraccs;
 /
 
 
@@ -105,8 +112,15 @@ CREATE TABLE ITEMGROUPS(
 /
 CREATE OR REPLACE TRIGGER trg_incr_itmgrps BEFORE INSERT ON ITEMGROUPS FOR EACH ROW
 BEGIN
-  :NEW.IGROUPID := INCR_ITMGRPS.NEXTVAL;
+  :NEW.iGroupId := INCR_ITMGRPS.NEXTVAL;
+  :NEW.iGroupCreatedAt := SYSDATE;
+  :NEW.iGroupUpdatedAtAt := SYSDATE;
 END trg_incr_itmgrps;
+/
+CREATE OR REPLACE TRIGGER trg_upd_itmgrps BEFORE UPDATE ON ITEMGROUPS FOR EACH ROW
+BEGIN 
+  :NEW.iGroupUpdatedAtAt := SYSDATE;
+END trg_upd_itmgrps;
 /
 
 
@@ -131,8 +145,15 @@ CREATE TABLE ITEMS(
 /
 CREATE OR REPLACE TRIGGER trg_incr_itms BEFORE INSERT ON ITEMS FOR EACH ROW
 BEGIN
-  :NEW.ITEMID := INCR_ITMS.NEXTVAL;
+  :NEW.itemId := INCR_ITMS.NEXTVAL;
+  :NEW.itemCreatedAt := SYSDATE;
+  :NEW.itemUpdatedAt := SYSDATE;
 END trg_incr_itms;
+/
+CREATE OR REPLACE TRIGGER trg_upd_itms BEFORE UPDATe ON ITEMS FOR EACH ROW
+BEGIN
+  :NEW.itemUpdatedAt := SYSDATE;
+END trg_upd_itms;
 /
 
 
@@ -155,8 +176,15 @@ CREATE TABLE USERGROUPS(
 /
 CREATE OR REPLACE TRIGGER trg_incr_usergrps BEFORE INSERT ON USERGROUPS FOR EACH ROW
 BEGIN
-  :NEW.UGROUPID := INCR_USERGRPS.NEXTVAL;
+  :NEW.uGroupId := INCR_USERGRPS.NEXTVAL;
+  :NEW.uGroupCreatedAt := SYSDATE;
+  :NEW.uGroupUpdatedAt := SYSDATE;
 END trg_incr_usergrps;
+/
+CREATE OR REPLACE TRIGGER trg_upd_usergrps BEFORE UPDATE ON USERGROUPS FOR EAC ROW
+BEGIN
+  :NEW.uGroupUpdatedAt := SYSDATE;
+END trg_upd_usergrps;
 /
 
 
@@ -168,6 +196,8 @@ CREATE TABLE GROUPRELATIONS(
   uGroupId NUMBER(*,0) NOT NULL,
   canUpdItm NUMBER(1) DEFAULT 1,
   canMngMbs NUMBER(1) DEFAULT 0,
+  grpRelCreatedAt DATE NOT NULL,
+  grpRelUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_relationId PRIMARY KEY(relationId),
   CONSTRAINT fk_rUserId FOREIGN KEY(userId) REFERENCES USERACCS(userId),
   CONSTRAINT fk_rGroupId FOREIGN KEY(uGroupId) REFERENCES USERGROUPS(uGroupId),
@@ -177,8 +207,15 @@ CREATE TABLE GROUPRELATIONS(
 /
 CREATE OR REPLACE TRIGGER trg_incr_grprels BEFORE INSERT ON GROUPRELATIONS FOR EACH ROW
 BEGIN
-  :NEW.RELATIONID := incr_grprels.NEXTVAL;
+  :NEW.relationId := incr_grprels.NEXTVAL;
+  :NEW.grpRelCreatedAt := SYSDATE;
+  :NEW.grpRelUpdatedAt := SYSDATE;
 END trg_incr_grprels;
+/
+CREATE OR REPLACE TRIGGER trg_upd_grprels BEFORE UPDATE ON GROUPRELATIONS FOR EACH ROW
+BEGIN
+  :NEW.grpRelUpdatedAt := SYSDATE;
+END trg_upd_grprels;
 /
 
 
@@ -233,6 +270,7 @@ CREATE TABLE USERGROUPLOGS(
 CREATE OR REPLACE TRIGGER trg_incr_usrgrplogs BEFORE INSERT ON USERGROUPLOGS FOR EACH ROW
 BEGIN
   :NEW.ugLogId := incr_usrgrplogs.NEXTVAL;
+  :NEW.ugLogCreatedAt := SYSDATE;
 END trg_incr_usrgrplogs;
 /
 
@@ -252,6 +290,7 @@ CREATE TABLE ITEMGROUPLOGS(
 CREATE OR REPLACE TRIGGER trg_incr_itmgrplogs BEFORE INSERT ON ITEMGROUPLOGS FOR EACH ROW
 BEGIN
   :NEW.igLogId := incr_itmgrplogs.NEXTVAL;
+  :NEW.igLogCreatedAt := SYSDATE;
 END trg_incr_itmgrplogs;
 /
 
@@ -271,6 +310,7 @@ CREATE TABLE USERLOGS(
 CREATE OR REPLACE TRIGGER trg_incr_usrlogs BEFORE INSERT ON USERLOGS FOR EACH ROW
 BEGIN
   :NEW.uLogId := incr_usrlogs.NEXTVAL;
+  :NEW.uLogCreatedAt := SYSDATE;
 END trg_incr_usrlogs;
 /
 
@@ -290,6 +330,7 @@ CREATE TABLE ITEMLOGS(
 CREATE OR REPLACE TRIGGER trg_incr_itmlogs BEFORE INSERT ON ITEMLOGS FOR EACH ROW
 BEGIN
   :NEW.iLogId := incr_itmlogs.NEXTVAL;
+  :NEW.iLogCreatedAt := SYSDATE;
 END trg_incr_itmlogs;
 /
 
@@ -311,6 +352,7 @@ CREATE TABLE AUTOMATEDREPORTS(
 CREATE OR REPLACE TRIGGER trg_incr_autorep BEFORE INSERT ON AUTOMATEDREPORTS FOR EACH ROW
 BEGIN
   :NEW.reportId := incr_autorep.NEXTVAL;
+  :NEW.rCreatedAt := SYSDATE;
 END trg_incr_autorep;
 /
 
@@ -332,6 +374,7 @@ CREATE TABLE NOTIFICATIONS(
 CREATE OR REPLACE TRIGGER trg_incr_notifs BEFORE INSERT ON NOTIFICATIONS FOR EACH ROW
 BEGIN
   :NEW.ntfId := incr_notifs.NEXTVAL;
+  :NEW.ntfCreatedAt := SYSDATE;
 END trg_incr_notifs;
 /
 
@@ -370,15 +413,15 @@ BEGIN
   :NEW.usrnRelationId := incr_usrntfrel.NEXTVAL;
 END trg_incr_usrntfrel;
 /
-
-
-CREATE OR REPLACE FUNCTION prc_addNewRootAdm(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_userImage VARCHAR2 DEFAULT 'undefined')
+CREATE OR REPLACE FUNCTION prc_addNewRootAdm(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2)
 RETURN BOOLEAN
 AS
   v_usernamae VARCHAR2(16);
   v_password VARCHAR2(16);
   v_email VARCHAR2(48);
   v_userImage VARCHAR2(256);
+  v_sql_cmd VARCHAR2(2000);
+  v_result BOOLEAN;
   exc_username_length exception;
   PRAGMA EXCEPTION_INIT(exc_username_length, -20001);
   exc_password_length exception;
@@ -389,13 +432,8 @@ AS
   PRAGMA EXCEPTION_INIT(exc_non_alpnum_password, -20004);
   exc_email_length exception;
   PRAGMA EXCEPTION_INIT(exc_email_length, -20005);
-  exc_img_path_length exception;
-  PRAGMA EXCEPTION_INIT(exc_img_path_length, -20006);
   exc_bad_email_format exception;
-  PRAGMA EXCEPTION_INIT(exc_bad_email_format, -20007);
-  exc_bad_image_path exception;
-  PRAGMA EXCEPTION_INIT(exc_bad_image_path, -20008);
-  v_sql_cmd VARCHAR2(2000);
+  PRAGMA EXCEPTION_INIT(exc_bad_email_format, -20006);
 BEGIN  
   IF (length(p_username) > 16 or length(p_username) < 4) THEN
     raise exc_username_length;
@@ -406,9 +444,6 @@ BEGIN
   IF (length(p_email) < 6 or length(p_email) > 48) THEN
     raise exc_email_length;
   END IF;
-  IF (length(p_userImage) < 12 or length(p_userImage) > 256) THEN
-    raise exc_img_path_length;
-  END IF;
   IF (REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') IS NOT NULL) THEN
     raise exc_non_alpnum_username;
   END IF;
@@ -418,16 +453,20 @@ BEGIN
   IF (REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') IS NOT NULL) THEN
     raise exc_bad_email_format;
   END IF;
-  IF (REGEXP_SUBSTR(p_userImage, '[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') IS NOT NULL) THEN
-    raise exc_bad_image_path;
+  
+  INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');
+  
+  IF (SQL%FOUND) THEN
+    v_result := TRUE;
+  ELSE
+    v_result := FALSE;
   END IF;
-    
-  DBMS_OUTPUT.PUT_LINE('INSERT INTO 
-                     USERACCS (userId, userName, userEmail, userPass, userType, userState, userImage, userCreatedAt, userUpdatedAt) 
-                     VALUES (' || null || ', ' || p_username || ', ' || p_email || ', ' || p_password || ', ' || 3 || ', ' || 1 || ', ' || p_userImage || ', ' || SYSDATE || ', ' || SYSDATE ||')');
+  
+  return v_result;
+  
   EXCEPTION
   WHEN exc_username_length THEN
-    raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');
+    raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');    
   WHEN exc_password_length THEN
     raise_application_error(-20002, 'The provided password length is: ' || length(p_password) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');
   WHEN exc_non_alpnum_username THEN
@@ -435,16 +474,18 @@ BEGIN
   WHEN exc_non_alpnum_password THEN
     raise_application_error(-20004, 'Found illegal non-alpha-numeric character in the provided password: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
   WHEN exc_email_length THEN
-    raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || ' !. It needs to be between 6 and 48 alpha-numeric characters!');
-  WHEN exc_img_path_length THEN
-    raise_application_error(-20006, 'The provided image path length is: ' || length(p_userImage) || ' !. It needs to be between 12 and 256 alpha-numeric characters!');
+    raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || ' !. It needs to be between 6 and 48 alpha-numeric characters!');  
   WHEN exc_bad_email_format THEN
-    raise_application_error(-20007, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
-  WHEN exc_bad_image_path THEN
-    raise_application_error(-20008, 'Found illegal character in the provided image path: "' || REGEXP_SUBSTR(p_userImage, '[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
+    raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
   WHEN OTHERS THEN
-      RAISE;
+      raise;
 END prc_addNewRootAdm;
+/
+DECLARE
+  v_result BOOLEAN;
+BEGIN
+  v_result := prc_addNewRootAdm('&i1', '&i2','&i3');
+END;
 /
 COMMIT;
 /
