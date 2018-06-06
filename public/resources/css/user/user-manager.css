@@ -1,0 +1,7 @@
+.nested {
+    display: grid;
+}
+
+.nested > div{
+    grid-template-columns: 1fr 1fr;
+}
