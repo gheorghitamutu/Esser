@@ -1,2 +1,5 @@
-.idea/fileTemplates/includes/PHP File Header.php
-logger/log.txt
+syntax: glob
+
+.idea/*
+.logger/*.txt
+.tests/Database/*.txt
