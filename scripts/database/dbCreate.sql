@@ -114,12 +114,12 @@ CREATE OR REPLACE TRIGGER trg_incr_itmgrps BEFORE INSERT ON ITEMGROUPS FOR EACH 
 BEGIN
   :NEW.iGroupId := INCR_ITMGRPS.NEXTVAL;
   :NEW.iGroupCreatedAt := SYSDATE;
-  :NEW.iGroupUpdatedAtAt := SYSDATE;
+  :NEW.iGroupUpdatedAt := SYSDATE;
 END trg_incr_itmgrps;
 /
 CREATE OR REPLACE TRIGGER trg_upd_itmgrps BEFORE UPDATE ON ITEMGROUPS FOR EACH ROW
 BEGIN 
-  :NEW.iGroupUpdatedAtAt := SYSDATE;
+  :NEW.iGroupUpdatedAt := SYSDATE;
 END trg_upd_itmgrps;
 /
 
@@ -181,7 +181,7 @@ BEGIN
   :NEW.uGroupUpdatedAt := SYSDATE;
 END trg_incr_usergrps;
 /
-CREATE OR REPLACE TRIGGER trg_upd_usergrps BEFORE UPDATE ON USERGROUPS FOR EAC ROW
+CREATE OR REPLACE TRIGGER trg_upd_usergrps BEFORE UPDATE ON USERGROUPS FOR EACH ROW
 BEGIN
   :NEW.uGroupUpdatedAt := SYSDATE;
 END trg_upd_usergrps;
@@ -450,7 +450,7 @@ BEGIN
   IF (REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') IS NOT NULL) THEN
     raise exc_non_alpnum_password;
   END IF;
-  IF (REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') IS NOT NULL) THEN
+  IF ((REGEXP_INSTR(p_email, '@', 1 , 1) = 0 AND REGEXP_INSTR(p_email, '@', 1 , 2) != 0) OR REGEXP_SUBSTR(p_email, '[^a-zA-Z0-9@._]+') IS NOT NULL) THEN
     raise exc_bad_email_format;
   END IF;
   
@@ -476,7 +476,7 @@ BEGIN
   WHEN exc_email_length THEN
     raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || ' !. It needs to be between 6 and 48 alpha-numeric characters!');  
   WHEN exc_bad_email_format THEN
-    raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._$+*#!%&(){}[]:<>?-]+') || '" !');
+    raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._]+') || '" !');
   WHEN OTHERS THEN
       raise;
 END prc_addNewRootAdm;
@@ -484,7 +484,7 @@ END prc_addNewRootAdm;
 DECLARE
   v_result BOOLEAN;
 BEGIN
-  v_result := prc_addNewRootAdm('&i1', '&i2','&i3');
+  v_result := prc_addNewRootAdm('test', 'test','test@.ro');
 END;
 /
 COMMIT;

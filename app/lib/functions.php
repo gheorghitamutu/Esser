@@ -101,8 +101,18 @@ function firstPhaseInstall()
     $parsed[$i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[$i]);
   }
 
-  array_push($tobeparsed, ROOT_ADMIN_EMAIL);
-  array_push($parsed, preg_replace("/[^a-zA-Z0-9@._]+/", "", $tobeparsed[count($tobeparsed)-1]));
+  if (preg_match)
+
+  $check = preg_match_all('/@/', ROOT_ADMIN_EMAIL);
+  if ($check !== 1) {
+    Logger::getInstance()->log(ERROR, "More than one '@' detected in defined ROOT_ADMIN_EMAIL from config file. Please correct this!");
+    return false;
+  }
+  else
+  {
+    array_push($parsed, preg_replace("/[^a-zA-Z0-9@._]+/", "", $tobeparsed[count($tobeparsed)-1]));
+    array_push($tobeparsed, ROOT_ADMIN_EMAIL);
+  }
   
   /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
   $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';

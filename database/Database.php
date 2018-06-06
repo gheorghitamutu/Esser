@@ -85,7 +85,6 @@ class Database
   /**
    * Connect to the DB
    *
-   * @param string $host
    * @param string $user
    * @param string $pass
    * @param int $mode (OCI_DEFAULT, OCI_SYSDBA, OCI_SYSOPER) In general will be OCI_DEFAULT! SYSDBA and SYSOPER require special php.ini permisions!
@@ -195,10 +194,10 @@ class Database
   /**
    * Fetch rows from select operation
    *
-   * @param resourse $statement valid OCI statement identifier
+   * @param resource $statement valid OCI statement identifier
    * @param int $skip number of initial rows to ignore when fetching the result (default value of 0, to start at the first line).
    * @param int $maxrows number of rows to read, starting at the skip th row (default to -1, meaning all the rows).
-   * $return array
+   * @return array
    */
   public function fetchAll($statement, $skip = 0, $maxrows = -1) {
     $rows = array();
@@ -278,15 +277,15 @@ class Database
     return oci_field_type($statement, $field);
   }
 
-  /**
-   * Insert row into table
-   *
-   * @param string $table name of table
-   * @param array $arrayFieldsValues define pair field => value
-   * @param array $bind define pairs holder => value for binding
-   * @param array $returning define fields for returning clause in insert statement
-   * @return mixed if $returnig is defined function return array of fields defined in $returning
-   */
+    /**
+     * Insert row into table
+     *
+     * @param string $table name of table
+     * @param array $arrayFieldsValues define pair field => value
+     * @param bool $bind define pairs holder => value for binding
+     * @param bool $returning define fields for returning clause in insert statement
+     * @return mixed if $returnig is defined function return array of fields defined in $returning
+     */
   public function insert($table, $arrayFieldsValues, &$bind = false, $returning = false) {
     if (empty($arrayFieldsValues)) {
       return false;
