@@ -484,7 +484,7 @@ END prc_addNewRootAdm;
 DECLARE
   v_result BOOLEAN;
 BEGIN
-  v_result := prc_addNewRootAdm('test', 'test','test@.ro');
+  v_result := prc_addNewRootAdm('&i1', '&i2','&i3');
 END;
 /
 COMMIT;
