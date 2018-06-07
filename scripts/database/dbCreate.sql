@@ -103,7 +103,7 @@ CREATE TABLE USERGROUPS(
   CONSTRAINT not_null_nrofmbs CHECK (nrOfMembers is not null),
   CONSTRAINT not_null_nrofmngs CHECK (nrOfManagers is not null),
   CONSTRAINT not_null_ugrpname CHECK (uGroupName is not null),
-  CONSTRAINT not_null_ugrpname UNIQUE (uGroupName),
+  CONSTRAINT uniq_ugrpname UNIQUE (uGroupName),
   CONSTRAINT not_null_ugrpdescrp CHECK (uGroupDescription is not null)
 )
 /
@@ -302,7 +302,7 @@ BEGIN
   :NEW.itemUpdatedAt := SYSDATE;
 END trg_upd_itms;
 /
-CREATE OR REPLACE TRIGGER trg_auto_warn AFTER UPDATE ON ITEMS FOR EACH ROW
+CREATE OR REPLACE TRIGGER trg_auto_warn BEFORE UPDATE ON ITEMS FOR EACH ROW
 DECLARE
   v_grp_id NUMBER(8,0) := 0;
   v_old_grp_id NUMBER(8,0) := 0;
@@ -364,10 +364,10 @@ BEGIN
       END IF;
       IF (:NEW.iWarnQnty < :NEW.itemQuantity) THEN
         LOOP
-          SELECT ntfId, COUNT(ntfId) into v_id, v_count FROM (SELECT ntfID FROM NOTIFICATIONS ORDER BY ntfId ASC) WHERE ROWNUM = 1 GROUP BY ntfId;
-          EXIT WHEN v_count := 0;
-          DELETE FROM USRNTFRELATIONS WHERE usrnNotificationId = v_id;
-          DELETE FRoM UGRPNTFRELATIONS WHERE usrgnNotificationId = v_id;
+          SELECT ntfId, COUNT(ntfId) into v_ntf_id, v_count FROM (SELECT ntfID FROM NOTIFICATIONS ORDER BY ntfId ASC) WHERE ROWNUM = 1 GROUP BY ntfId;
+          EXIT WHEN v_count = 0;
+          DELETE FROM USRNTFRELATIONS WHERE usrnNotificationId = v_ntf_id;
+          DELETE FRoM UGRPNTFRELATIONS WHERE usrgnNotificationId = v_ntf_id;
         END LOOP;
         DELETE FROM NOTIFICATIONS WHERE nItemId = :NEW.itemId;
       end if;
@@ -376,12 +376,12 @@ BEGIN
       UPDATE NOTIFICATIONS SET ntfDscrp = v_text WHERE nItemId = :NEW.itemId;
   END CASE;
 END trg_auto_warn;
-
+/
 CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1;
 /
 CREATE OR REPLACE TRIGGER trg_incr_usergrps BEFORE INSERT ON USERGROUPS FOR EACH ROW
 BEGIN
-  :NEW.uGroupId := INCR_USERGRPS.NEXTVAL;
+  :NEW.uGroupId := incr_usergrps.NEXTVAL;
   :NEW.uGroupCreatedAt := SYSDATE;
   :NEW.uGroupUpdatedAt := SYSDATE;
 END trg_incr_usergrps;
@@ -443,41 +443,43 @@ BEGIN
   CASE
     WHEN INSERTING THEN
       IF (:NEW.canMngMbs NOT IN (0,1)) THEN
-        v_error = 'You can only disable(0) or enable(1) a members ability to manage members from his group!';
+        v_error := 'You can only disable(0) or enable(1) a members ability to manage members from his group!';
         raise_application_error(-20999, v_error);
       ELSIF (:NEW.canUpdItm NOT IN (0,1)) THEN
-        v_error = 'You can only disable(0) or enable(1) a members ability to manage items in his group!';
+        v_error := 'You can only disable(0) or enable(1) a members ability to manage items in his group!';
         raise_application_error(-20999, v_error);
-      end if;
-      SELECT COUNT(relationId) INTO v_count FROM GROUPRELATIONS WHERE uGroupID = :NEW.uGroupId;
-      UPDATE USERGROUPS SET nrOfMembers = v_count WHERE uGroupId = :NEW.uGroupId;
+      END IF;
       IF (:NEW.canMngMbs = 1) THEN
-        SELECT COUNT(relationId) INTO v_count FROM GROUPRELATIONS WHERE uGroupID = :NEW.uGroupId AND canMngMbs = 1;
-        UPDATE USERGROUPS SET nrOfManagers = v_count WHERE uGroupId = :NEW.uGroupId;
+        UPDATE USERGROUPS SET nrOfManagers = nrOfManagers + 1, nrOfMembers = nrOfMembers + 1 WHERE uGroupId = :NEW.uGroupId;
+      ELSE
+        UPDATE USERGROUPS SET nrOfMembers = nrOfMembers + 1 WHERE uGroupId = :NEW.uGroupId;
       END IF;
     WHEN UPDATING('CANUPDITM') THEN
       IF (:NEW.canUpdItm NOT IN (0,1)) THEN
-        v_error = 'You can only disable(0) or enable(1) a members ability to manage items in his group!';
+        v_error := 'You can only disable(0) or enable(1) a members ability to manage items in his group!';
         raise_application_error(-20999, v_error);
-      end if;
+      END IF;
     WHEN UPDATING('CANMNGMBS') THEN
-      v_error = 'You can only disable(0) or enable(1) a members ability to manage members from his group!';
+      v_error := 'You can only disable(0) or enable(1) a members ability to manage members from his group!';
       IF (:NEW.canMngMbs NOT IN (0,1)) THEN
         raise_application_error(-20999, v_error);
-      end if;
-      SELECT COUNT(relationId) INTO v_count FROM GROUPRELATIONS WHERE uGroupID = :NEW.uGroupId AND canMngMbs = 1;
-      UPDATE USERGROUPS SET nrOfManagers = v_count WHERE uGroupId = :NEW.uGroupId;
+      END IF;
+      IF (:NEW.canMngMbs = 0 AND :OLD.canMngMbs = 1) THEN
+        UPDATE USERGROUPS SET nrOfManagers = nrOfManagers - 1 WHERE uGroupId = :NEW.uGroupId;
+      END IF;
+      IF (:NEW.canMngMbs = 1 AND :OLD.canMngMbs = 0) THEN
+        UPDATE USERGROUPS SET nrOfManagers = nrOfManagers + 1 WHERE uGroupId = :NEW.uGroupId;
+      END IF;
     WHEN DELETING THEN
-      SELECT COUNT(relationId) INTO v_count FROM GROUPRELATIONS WHERE uGroupID = :OLD.uGroupId;
-      UPDATE USERGROUPS SET nrOfMembers = v_count WHERE uGroupId = :OLD.uGroupId;
       IF (:OLD.canMngMbs = 1) THEN
-        SELECT COUNT(relationId) INTO v_count FROM GROUPRELATIONS WHERE uGroupID = :OLD.uGroupId AND canMngMbs = 1;
-        UPDATE USERGROUPS SET nrOfManagers = v_count WHERE uGroupId = :OLD.uGroupId;
+        UPDATE USERGROUPS SET nrOfManagers = nrOfManagers - 1, nrOfMembers = nrOfMembers - 1 WHERE uGroupId = :OLD.uGroupId;
+      ELSE
+        UPDATE USERGROUPS SET nrOfMembers = nrOfMembers - 1 WHERE uGroupId = :OLD.uGroupId;
       END IF;
   END CASE;
 END trg_auto_nrOf;
 
-
+/
 CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1;
 /
 CREATE OR REPLACE TRIGGER trg_incr_itmgrpowns BEFORE INSERT ON ITEMGROUPOWNERSHIPS FOR EACH ROW
@@ -670,26 +672,26 @@ END fct_addRootGrps;
 /
 DECLARE
   v_result BOOLEAN;
-  v_adm_root_id USERACCS%TYPE;
-  v_grp_id USERGROUPS%TYPE;
+  v_adm_root_id USERACCS.USERID%TYPE;
+  v_grp_id USERGROUPS.UGROUPID%TYPE;
 BEGIN
-  v_result := fct_addNewRootAdm('&i1', '&i2','&i3');
+  v_result := fct_addNewRootAdm('Esser', 'EsserTest1234','test@test.ro');
   IF (v_result = true) THEN
-    v_result := fct_addRootGrps('&i4', 'Root admins group');
+    v_result := fct_addRootGrps('Admins', 'Root admins group');
     IF (v_result = true) THEN
-    v_result := fct_addRootGrps('&i5', 'Root managers group');
+    v_result := fct_addRootGrps('Managers', 'Root managers group');
       IF (v_result = true) THEN
-      v_result := fct_addRootGrps('&i6', 'Root normal users group');
+      v_result := fct_addRootGrps('Normal Users', 'Root normal users group');
         IF (v_result = true) THEN
-          SELECT userId INTO v_adm_root_id FROM USERACCS WHERE userName = '&i1' AND userEmail = '&i3';
+          SELECT userId INTO v_adm_root_id FROM USERACCS WHERE userName = 'Esser' AND userEmail = 'test@test.ro';
           IF (SQL%FOUND) THEN
             COMMIT;
           ELSE
             ROLLBACK;
-          end if;
+          END IF;
         ELSE
           ROLLBACK;
-        end if;
+        END IF;
       ELSE
         ROLLBACK;
       END IF;
