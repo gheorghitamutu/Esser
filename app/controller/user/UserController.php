@@ -13,6 +13,13 @@ class UserController extends Controller
 {
     public function __construct($uri)
     {
+        Parent::__construct();
+
+        if(!Auth::sessionAuthenticate())
+        {
+            return;
+        }
+
         switch($uri)
         {
             case 'user':
@@ -82,6 +89,7 @@ class UserController extends Controller
 
     public function logout()
     {
+        session_destroy();
         Controller::redirect('/home');
     }
 }
