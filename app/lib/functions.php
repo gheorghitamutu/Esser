@@ -168,8 +168,32 @@ function secondPhaseInstall()
                                     . "\r\n==============\r\n" 
                                     . $output 
                                     . "\r\n==============\r\n");
-  
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
+  //$shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBTables.sql'));    
+  $output = shell_exec($shellcmd);
+  Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+                                    . "\r\n==============\r\n" 
+                                    . $output 
+                                    . "\r\n==============\r\n" );
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBSequences.sql'));  
+  $output = shell_exec($shellcmd);
+  Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+                                    . "\r\n==============\r\n" 
+                                    . $output 
+                                    . "\r\n==============\r\n" );
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBAutoInsTriggers.sql'));
+  $output = shell_exec($shellcmd);
+  Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+                                    . "\r\n==============\r\n" 
+                                    . $output 
+                                    . "\r\n==============\r\n" );
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBComplexTriggers.sql'));
+  $output = shell_exec($shellcmd);
+  Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+                                    . "\r\n==============\r\n" 
+                                    . $output 
+                                    . "\r\n==============\r\n" );
+  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'createDBPrcsFcts.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_EMAIL, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
   $output = shell_exec($shellcmd);
   Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
                                     . "\r\n==============\r\n" 

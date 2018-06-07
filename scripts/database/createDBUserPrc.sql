@@ -1,3 +1,4 @@
+-- Database creation script part!; Creation of the root_user_admin as an ORACLE XE DB user-account! (STEP1)
 CREATE OR REPLACE PROCEDURE prc_esser_crt_root_user(p_username VARCHAR2, p_password VARCHAR2)
 AS
   v_username VARCHAR2(16);
