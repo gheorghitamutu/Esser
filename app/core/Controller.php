@@ -11,7 +11,8 @@
 
 class Controller extends Database
 {
-    public static function redirect($url){
+    public static function redirect($url)
+    {
         header("location: {$url}");
     }
 }

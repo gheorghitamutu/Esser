@@ -9,6 +9,9 @@
  * Date: 4/5/2018
  * Time: 12:50 PM
  */
+
+session_start();
+
 const DS = DIRECTORY_SEPARATOR;
 
 define('ROOT', dirname(__DIR__) . DS);

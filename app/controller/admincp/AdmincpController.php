@@ -15,18 +15,23 @@ class AdmincpController extends Controller
     public function __construct($uri)
     {
         Parent::__construct();
-        echo $uri;
+
+        // no logincontroller here so handle this in a messy way
+        if($uri !== 'admincp' && $uri !== 'admincp/login')
+        {
+            if(!Auth::sessionAuthenticate())
+            {
+                return;
+            }
+        }
+
         switch($uri)
         {
             case 'admincp':
                 $this->index();
                 break;
             case 'admincp/login':
-                // getting here means you have params in your admincp link (eg. admincp?param1=value)
-                $uname = $_GET["uname"];
-                $pass = $_GET["psw"];
-
-                $this->login($uname, $pass);
+                $this->login($_POST["uname"], $_POST["psw"]);
                 break;
             case 'admincp/logout':
                 echo 'logout';
@@ -75,15 +80,13 @@ class AdmincpController extends Controller
         // if login true, redirect to dashboard
         $md5_pass = md5($pass);
 
-
-        self::redirect('dashboard');
-
-
-
+        if(Auth::auth_user("connection", $uname, $pass))
+            self::redirect('dashboard');
     }
 
     private function logout()
     {
+        session_destroy();
         self::redirect('/admincp');
     }
 
