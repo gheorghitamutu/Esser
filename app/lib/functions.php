@@ -101,8 +101,6 @@ function firstPhaseInstall()
     $parsed[$i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[$i]);
   }
 
-  if (preg_match)
-
   $check = preg_match_all('/@/', ROOT_ADMIN_EMAIL);
   if ($check !== 1) {
     Logger::getInstance()->log(ERROR, "More than one '@' detected in defined ROOT_ADMIN_EMAIL from config file. Please correct this!");

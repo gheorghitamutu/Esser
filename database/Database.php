@@ -232,7 +232,8 @@ class Database
    * @param mixed $field Can be either use the column number (1-based) or the column name (in uppercase).
    * @return mixed
    */
-  public function result($statement, $field) {
+
+  public function getResult($statement, $field) {
     return oci_result($statement, $field);
   }
 
@@ -408,17 +409,17 @@ class Database
    * @param resource $statement
    * @return int
    */
-  public function getNumRows($statement) {
+  private function getNumRows($statement) {
     return oci_num_rows($statement);
   }
 
   /**
-   * Synonym for NumRows()
+   * Synonym for getNumRows()
    *
    * @param resource $statement
    * @return int
    */
-  public function getRowsAffected($statement) {
+  public function countRowsAffected($statement) {
     return $this->getNumRows($statement);
   }
 
@@ -428,22 +429,21 @@ class Database
    * @param resource $statement
    * @return int
    */
-  public function getNumFields($statement) {
+  private function getNumFields($statement) {
     return oci_num_fields($statement);
   }
 
   /**
-   * Synonym for NumFields()
+   * Synonym for getNumFields()
    *
    * @param resource $statement
    * @return int
    */
-  public function getFieldsCount($statement) {
+  public function countFieldsAffected($statement) {
     return $this->getNumFields($statement);
   }
 
-  // Support Lob
-
+  // Support for Lob
   /**
    * Allocates resources to hold descriptor or LOB locator.
    *
@@ -466,8 +466,7 @@ class Database
     return oci_new_collection($this->conn_handle, $typename, $schema);
   }
 
-  // Support stored procedures and functions
-
+  // Support for stored procedures and functions
   /**
    * Method to execute stored procedure
    *
@@ -556,7 +555,7 @@ class Database
    * @param array $array_stid
    * @return bool
    */
-  public function sreeStatements($array_stid) {
+  public function freeStatements($array_stid) {
     if (is_array($array_stid))
       foreach ($array_stid as $stid) {
         unset($this->statements[$stid]);
