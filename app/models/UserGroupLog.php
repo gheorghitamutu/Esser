@@ -1,7 +1,8 @@
 <?php
 
-namespace ModelProxy;
+namespace AppModel;
 
-class UserGroupLog {
+class UserGroupLog extends AbstractEntity
+{
 
 }

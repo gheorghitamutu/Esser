@@ -1,7 +1,8 @@
 <?php
 
-namespace ModelProxy;
+namespace AppModel;
 
-class Itemgroup {
+class Itemgroup extends AbstractEntity
+{
 
 }
