@@ -13,7 +13,7 @@
 // All declared constant MUST BE ALPHA-NUMERIC ONLY!
 // ROOT_ADMIN_USER and ROOT_ADMIN_PASS Need to be between 4 and 16 char long!
 define('INSTALLED'                          , false);
-define('INSTALL_PHASE', 2);
+define('INSTALL_PHASE'                      , 1);
 define('APP_TITLE'                          , 'BMCP EsseR');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');

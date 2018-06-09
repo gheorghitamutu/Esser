@@ -1,7 +1,4 @@
 -- Creation of the database; Creation of triggers that have a complex functionality and automation (Step 5);
--- Automatic addition of root_admins and managers to all groups and ownerships;
-
-
 -- Auto addition of the root admins and managers groups as owners for every item group that's created
 CREATE OR REPLACE TRIGGER trg_auto_own_igrp AFTER INSERT ON ITEMGROUPS FOR EACH ROW
 BEGIN
@@ -24,7 +21,7 @@ BEGIN
     END LOOP;
   END IF;
 END trg_auto_root_add;
-
+/
 -- Automatic issueing of warning notifications for items that arrive at or lower than the warning treshold
 CREATE OR REPLACE TRIGGER trg_auto_warn BEFORE UPDATE ON ITEMS FOR EACH ROW
 DECLARE
@@ -101,7 +98,6 @@ BEGIN
   END CASE;
 END trg_auto_warn;
 /
-
 -- Automatic calculation of the nr of members in a group and nr of managers in a group -- Erroneous for now --
 --CREATE OR REPLACE TYPE nrOfMbsMngs_line AS OBJECT (
 --  uGroupId     NUMBER,
@@ -300,3 +296,4 @@ END trg_auto_warn;
 --  END AFTER STATEMENT;
 --END trg_auto_nrOf;
 --/
+COMMIT;

@@ -146,8 +146,8 @@ function first_phase_install()
     {
         $good_install = inFileStrReplace(
             $filename,
-            "define('INSTALL_PHASE', 1",
-            "define('INSTALL_PHASE', 2");
+            "define('INSTALL_PHASE'                      , 1",
+            "define('INSTALL_PHASE'                      , 2");
         if(!$good_install)
         {
             $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
@@ -203,7 +203,7 @@ function second_phase_install()
             (DB_SCRIPTS . 'createDBTables.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBTables.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
@@ -216,7 +216,7 @@ function second_phase_install()
             (DB_SCRIPTS . 'createDBSequences.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBSequences.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
@@ -229,7 +229,7 @@ function second_phase_install()
             (DB_SCRIPTS . 'createDBAutoInsTriggers.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBAutoInsTriggers.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
@@ -242,26 +242,19 @@ function second_phase_install()
             (DB_SCRIPTS . 'createDBComplexTriggers.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: "
+        "Executed createDBComplexTriggers.sql script output is: "
                                     . "\r\n==============\r\n" 
                                     . $output 
                                     . "\r\n==============\r\n" );
 
-    $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'),
-            ROOT_ADMIN_USER,
-            ROOT_ADMIN_PASS,
-            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
-            (DB_SCRIPTS . 'createDBPrcsFcts.sql'),
-            ROOT_ADMIN_USER,
-            ROOT_ADMIN_PASS,
-            ROOT_ADMIN_EMAIL,
-            ROOT_ADMIN_GROUP,
-            ROOT_MANAGER_GROUP,
-            ROOT_NORMAL_USER_GROUP);
+    $command = 'SQLPLUS '.ROOT_ADMIN_USER.'/'.ROOT_ADMIN_PASS.'@'.HOST_IP.':'.HOST_PORT.'//'.SYS_DB.' @"'.DB_SCRIPTS.'createDBPrcsFcts.sql"'.' '.ROOT_ADMIN_USER.' '.ROOT_ADMIN_PASS.' '.ROOT_ADMIN_EMAIL.' '."\"".'Admins'."\"".' '."\"".'Managers'."\"".' '."\"".'Normal Users'."\"";
+    echo $command."<br />";
+    Logger::getInstance()->log(LOGGING,
+        "Executed command for the createDBPrcsFcts.sql script output is: " .
+        $command );
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBPrcsFcts.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
@@ -271,8 +264,8 @@ function second_phase_install()
     {
         $good_install = inFileStrReplace(
             $filename,
-            "define('INSTALL_PHASE', 2",
-            "define('INSTALL_PHASE', 3");
+            "define('INSTALL_PHASE'                      , 2",
+            "define('INSTALL_PHASE'                      , 3");
         if(!$good_install)
         {
             $error = "Couldn't set the INSTALL_PHASE 3 in the config file!";
@@ -315,8 +308,8 @@ function third_phase_install()
         $good_install =
             inFileStrReplace(
                 $filename,
-                "define('INSTALL_PHASE', 3",
-                "define('INSTALL_PHASE', 0");
+                "define('INSTALL_PHASE'                      , 3",
+                "define('INSTALL_PHASE'                      , 0");
         if(!$good_install)
         {
             $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
