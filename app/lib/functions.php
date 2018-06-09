@@ -247,7 +247,7 @@ function second_phase_install()
                                     . $output 
                                     . "\r\n==============\r\n" );
 
-    $command = 'SQLPLUS '.ROOT_ADMIN_USER.'/'.ROOT_ADMIN_PASS.'@'.HOST_IP.':'.HOST_PORT.'//'.SYS_DB.' @"'.DB_SCRIPTS.'createDBPrcsFcts.sql"'.' '.ROOT_ADMIN_USER.' '.ROOT_ADMIN_PASS.' '.ROOT_ADMIN_EMAIL.' '."\"".'Admins'."\"".' '."\"".'Managers'."\"".' '."\"".'Normal Users'."\"";
+    $command = 'SQLPLUS '.ROOT_ADMIN_USER.'/'.ROOT_ADMIN_PASS.'@'.HOST_IP.':'.HOST_PORT.'//'.SYS_DB.' @"'.DB_SCRIPTS.'createDBPrcsFcts.sql"'.' '.'\''.ROOT_ADMIN_USER.'\''.' '.'\''.ROOT_ADMIN_PASS.'\''.' '.'\''.ROOT_ADMIN_EMAIL.'\''.' '.'\''.ROOT_ADMIN_GROUP.'\''.' '.'\''.ROOT_MANAGER_GROUP.'\''.' '.'\''.ROOT_NORMAL_USER_GROUP.'\'';
     echo $command."<br />";
     Logger::getInstance()->log(LOGGING,
         "Executed command for the createDBPrcsFcts.sql script output is: " .

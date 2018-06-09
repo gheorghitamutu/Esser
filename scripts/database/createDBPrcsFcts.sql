@@ -1,13 +1,14 @@
--- Creation of the database; Creation of DB procedures, functions and the rest of the lot (STEP 6);
+-- Creation of the database; Creation of DB procedures, functions and the rest of the lot (STEP 6)
 SET SERVEROUTPUT ON;
-CREATE OR REPLACE PROCEDURE prc_addMainRoots(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_rootadmgrp VARCHAR2, p_rootmnggrp VARCHAR2, p_rootusrsgrp VARCHAR2)
+CREATE OR REPLACE FUNCTION fct_addMainRoots(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_rootadmgrp VARCHAR2, p_rootmnggrp VARCHAR2, p_rootusrsgrp VARCHAR2)
+RETURN BOOLEAN
 AS
+  v_result BOOLEAN;
   v_usernamae VARCHAR2(16);
   v_password VARCHAR2(16);
   v_email VARCHAR2(48);
   v_userImage VARCHAR2(256);
   v_sql_cmd VARCHAR2(2000);
-  v_result BOOLEAN;
   v_rootadmgrp VARCHAR2(16);
   v_rootmnggrp VARCHAR2(16);
   v_rootusrsgrp VARCHAR2(16);
@@ -24,49 +25,59 @@ AS
   PRAGMA EXCEPTION_INIT(exc_email_length, -20005);
   PRAGMA EXCEPTION_INIT(exc_bad_email_format, -20006);
 BEGIN --
-  IF (length(p_username) > 16 or length(p_username) < 4) THEN raise exc_username_length; END IF;
-  IF (length(p_password) > 16 or length(p_password) < 4) THEN raise exc_password_length; END IF;
-  IF (length(p_email) < 6 or length(p_email) > 48) THEN raise exc_email_length; END IF;
-  IF (REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') IS NOT NULL) THEN raise exc_non_alpnum_username; END IF;
+  IF (length(p_username) > 16 or length(p_username) < 4) THEN 
+    raise exc_username_length; 
+  END IF;
+  IF (length(p_password) > 16 or length(p_password) < 4) THEN 
+   raise exc_password_length; 
+  END IF;
+  IF (length(p_email) < 6 or length(p_email) > 48) THEN 
+    raise exc_email_length; 
+  END IF;
+  IF (REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') IS NOT NULL) THEN
+    raise exc_non_alpnum_username; 
+  END IF;
   IF (REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') IS NOT NULL) THEN raise exc_non_alpnum_password; END IF;
-  IF ((REGEXP_INSTR(p_email, '@', 1 , 1) = 0 AND REGEXP_INSTR(p_email, '@', 1 , 2) != 0) OR REGEXP_SUBSTR(p_email, '[^a-zA-Z0-9@._]+') IS NOT NULL) THEN raise exc_bad_email_format; END IF;
-  IF (length(p_rootadmgrp) > 48 or length(p_rootadmgrp) < 4) THEN raise_application_error(-20007, 'The root admins group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootadmgrp) || ' !'); END IF;
-  IF (length(p_rootmnggrp) > 48 or length(p_rootmnggrp) < 4) THEN raise_application_error(-20007, 'The root managers group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootmnggrp) || ' !'); END IF;
-  IF (length(p_rootusrsgrp) > 48 or length(p_rootusrsgrp) < 4) THEN raise_application_error(-20007, 'The root normal users group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootusrsgrp) || ' !'); END IF;
+  IF ((REGEXP_INSTR(p_email, '@', 1 , 1) = 0 AND REGEXP_INSTR(p_email, '@', 1 , 2) != 0) OR REGEXP_SUBSTR(p_email, '[^a-zA-Z0-9@._]+') IS NOT NULL) THEN 
+    raise exc_bad_email_format; 
+  END IF;
+  IF (length(p_rootadmgrp) > 48 or length(p_rootadmgrp) < 4) THEN 
+    raise_application_error(-20007, 'The root admins group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootadmgrp) || ' !'); 
+  END IF;
+  IF (length(p_rootmnggrp) > 48 or length(p_rootmnggrp) < 4) THEN 
+    raise_application_error(-20007, 'The root managers group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootmnggrp) || ' !'); 
+  END IF;
+  IF (length(p_rootusrsgrp) > 48 or length(p_rootusrsgrp) < 4) THEN 
+    raise_application_error(-20007, 'The root normal users group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootusrsgrp) || ' !'); 
+  END IF;
   
   v_rootadmgrp := REGEXP_REPLACE(p_rootadmgrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');
   v_rootmnggrp := REGEXP_REPLACE(p_rootmnggrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');
-  v_rootusrsgrp := REGEXP_REPLACE(p_rootusrsgrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');
+  v_rootusrsgrp := REGEXP_REPLACE(p_rootusrsgrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');  
   
-  --INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');  
-  --IF (SQL%FOUND) THEN
-  --  INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootadmgrp, 'Root admins group', 0, 0);
-  --  IF (SQL%FOUND) THEN
-  --    INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootmnggrp, 'Root managers group', 0, 0);
-  --    IF (SQL%FOUND) THEN
-  --      INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootusrsgrp, 'Root normal users group', 0, 0);
-  --      IF (SQL%FOUND) THEN
-  --        v_result := TRUE;
-  --      ELSE
-  --        v_result := FALSE;
-  --      END IF;      
-  --    ELSE
-  --      v_result := FALSE;
-  --    END IF;
-  --  ELSE
-  --    v_result := FALSE;
-  --  END IF;
-  --ELSE
-  --  v_result := FALSE;
-  --END IF;
+  INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');  
+  IF (SQL%FOUND) THEN
+    INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootadmgrp, 'Root admins group', 0, 0);
+    IF (SQL%FOUND) THEN
+      INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootmnggrp, 'Root managers group', 0, 0);
+      IF (SQL%FOUND) THEN
+        INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootusrsgrp, 'Root normal users group', 0, 0);
+        IF (SQL%FOUND) THEN
+          v_result := TRUE;
+        ELSE
+          v_result := FALSE;
+        END IF;      
+      ELSE
+        v_result := FALSE;
+      END IF;
+    ELSE
+      v_result := FALSE;
+    END IF;
+  ELSE
+    v_result := FALSE;
+  END IF;
   
-  --RETURN v_result;
-  --INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');  
-  --INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootadmgrp, 'Root admins group', 0, 0);
-  --INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootmnggrp, 'Root managers group', 0, 0);
-  --INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootusrsgrp, 'Root normal users group', 0, 0);
-  
-  
+  RETURN v_result; 
   
   EXCEPTION
   WHEN exc_username_length THEN
@@ -83,14 +94,17 @@ BEGIN --
     raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._]+') || '" !');
   WHEN OTHERS THEN    
       RAISE;
-END prc_addMainRoots;
+END fct_addMainRoots;
 /
 SET SERVEROUTPUT ON;
 DECLARE
   v_result BOOLEAN;
 BEGIN
-  prc_addMainRoots('&i1','&i2','&i3','&i4','&i5','&i7');
-END
-/
-COMMIT
+  v_result := fct_addMainRoots('&i1','&i2','&i3','&i4','*i5','&i6');
+  IF (v_result = TRUE) THEN
+    COMMIT;
+  ELSE
+    ROLLBACK;
+  END IF;
+END;
 /

@@ -79,7 +79,7 @@ abstract class AbstractMapper implements MapperInterface
     /**
      * Reconstitute an entity with the data retrieved from the storage (implementation delegated to concrete mappers)
      */
-    abstract protected function _createEntity($data);
+    abstract protected function _createEntity(array $data);
 
     /**
      * Find an entity by its ID
