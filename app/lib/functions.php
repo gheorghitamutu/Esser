@@ -117,9 +117,9 @@ function first_phase_install()
 
     array_push($to_be_parsed, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
     array_push($parsed,
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-3]),
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-2]),
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-3]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-2]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
   
     /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
     $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';

@@ -7,7 +7,7 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, ModelProxy, OCI_Collection,
+use DatabaseConnectivity, AppModel, OCI_Collection,
     http\Exception\InvalidArgumentException,
     http\Exception\RuntimeException;
 

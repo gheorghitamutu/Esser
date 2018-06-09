@@ -7,7 +7,7 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, ModelProxy, OCI_Collection;
+use DatabaseConnectivity, AppModel, OCI_Collection;
 
 class UseraccMapper extends AbstractMapper
 {
@@ -19,7 +19,7 @@ class UseraccMapper extends AbstractMapper
     */
     protected function _createEntity(array $data)
     {
-        $author = new $this->_entityClass(array(
+        $useracc = new $this->_entityClass(array(
             'userId'    => $data['userId'],
             'userName'  => $data['userName'],
             'userEmail' => $data['userEmail'],
@@ -30,6 +30,6 @@ class UseraccMapper extends AbstractMapper
             'userCreatedAt' => $data['userCreatedAt'],
             'userUpdatedAt' => $data['userUpdatedAt']
         ));
-        return $author;
+        return $useracc;
     }
 }

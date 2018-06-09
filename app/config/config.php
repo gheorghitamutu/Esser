@@ -12,8 +12,9 @@
 // application configs
 // All declared constant MUST BE ALPHA-NUMERIC ONLY!
 // ROOT_ADMIN_USER and ROOT_ADMIN_PASS Need to be between 4 and 16 char long!
-define('INSTALLED'                          , false);
-define('INSTALL_PHASE'                      , 1);
+define('INSTALLED'                          , true);
+define('PLSQL_DRIVER'                       , 'oci8');
+define('INSTALL_PHASE'                      , 0);
 define('APP_TITLE'                          , 'BMCP EsseR');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');

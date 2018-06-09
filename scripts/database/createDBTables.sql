@@ -96,7 +96,7 @@ CREATE TABLE USERACCS(
   userId NUMBER(*,0) NOT NULL,
   userName VARCHAR2(16) NOT NULL,
   userEmail VARCHAR2(48) NOT NULL,
-  userPass VARCHAR2(16) NOT NULL,
+  userPass VARCHAR2(512) NOT NULL,
   userType  NUMBER(1) DEFAULT 0,
   userState NUMBER(1) DEFAULT 1,
   userImage varchar2(256) DEFAULT NULL,
