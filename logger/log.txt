@@ -590,3 +590,11 @@ SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 
 [APP_LOG: 06-06-2018 21:19:25] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
 [APP_LOG: 06-06-2018 21:19:25] Installation procedure exited. Error verification underway.
 [APP_LOG: 06-06-2018 21:19:25] App successfully installed.
+[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:13] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:14] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
+[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
