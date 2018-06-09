@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 // dependencies required by the test
 // for this test we change the path for log file to tests\Database\log.txt modifying the macro
-define('LOGGER'    , './');
 
 // logger messages macros
 define('ERROR'     , '[ERROR] ');

@@ -2,8 +2,8 @@
 class Database 
 {
   protected $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
-  protected $username = ROOT_ADMIN_USER;
-  protected $password = ROOT_ADMIN_PASS;
+  protected $username = null;
+  protected $password = null;
   protected $connection = null;
   private static $_instance;
   private $conn_handle;
