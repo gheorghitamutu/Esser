@@ -39,6 +39,11 @@
         require_once($filename);
     }
   
+  foreach (glob(CONTROLLER . DS . 'admincp' . DS . PHP_FILE) as $filename)
+  {
+    require_once($filename);
+  }
+  
   foreach (glob(ROUTE . PHP_FILE) as $filename)
   {
     require_once($filename);
@@ -48,9 +53,4 @@
   set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $modules));
   
   spl_autoload_register('spl_autoload', false);
-  
-  use Application as App;
-  
-  new App;
 
-?>
