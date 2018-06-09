@@ -1,5 +1,5 @@
 -- Creation of the database; Creation of Tables with the previously-created ORACLE Account Phase (step 2);
-SET SERVEROUTPUT ON;
+-- SET SERVEROUTPUT ON;
 DECLARE
   v_i NUMBER(8,0);
   v_j NUMBER(8,0);
@@ -19,7 +19,7 @@ BEGIN
         WHEN OTHERS THEN
           null;
       END;
-    END IF;  
+    END IF;
   END LOOP;
   DBMS_OUTPUT.PUT_LINE('All table names have been cleaned');
   FOR v_j IN v_seq_name_arr.FIRST..v_seq_name_arr.LAST LOOP
@@ -34,7 +34,7 @@ BEGIN
         WHEN OTHERS THEN
           null;
       END;
-    END IF;  
+    END IF;
   END LOOP;
   DBMS_OUTPUT.PUT_LINE('All sequence names have been cleaned');
 END;
@@ -50,16 +50,16 @@ END;
 --  v_trg_name_arr obj_name_arr := obj_name_arr('TRG_INCR_USERACCS', 'TRG_INCR_ITMGRPS', 'TRG_INCR_ITMS', 'TRG_INCR_USERGRPS', 'TRG_INCR_GRPRELS', 'TRG_INCR_ITMOWNS', 'TRG_INCR_ITMGRPOWNS', 'TRG_INCR_USRGRPLOGS', 'TRG_INCR_ITMGRPLOGS', 'TRG_INCR_USRLOGS', 'TRG_INCR_ITMLOGS', 'TRG_INCR_AUTOREP', 'TRG_INCR_NOTIFS', 'TRG_INCR_UGRPNTFSREL', 'TRG_INCR_USRNTFREL');
 --BEGIN
 --  IF (v_i < 1 or v_i > 16) THEN
---    raise_application_error(-20998, 'Bad number ("' || v_i || '")  selected! Only numbers allowed are from 1 to 15!');    
+--    raise_application_error(-20998, 'Bad number ("' || v_i || '")  selected! Only numbers allowed are from 1 to 15!');
 --  END IF;
 --  IF (lower(v_type) LIKE 'all_tables')  THEN
 --    v_type := 'all_tables';
---    WHILE (v_i <= v_tbl_name_arr.COUNT AND v_type LIKE 'all_tables') LOOP      
+--    WHILE (v_i <= v_tbl_name_arr.COUNT AND v_type LIKE 'all_tables') LOOP
 --      IF (v_tbl_name_arr.EXISTS(v_i)) THEN
 --        v_sql_drop := 'DROP TABLE ' || v_tbl_name_arr(v_i) || ' CASCADE CONSTRAINTS PURGE';
 --        EXECUTE IMMEDIATE(v_sql_drop);
 --        DBMS_OUTPUT.PUT_LINE('Successfully droped table ' || v_tbl_name_arr(v_i) || '!');
---        v_i := v_i + 1;      
+--        v_i := v_i + 1;
 --      END IF;
 --    END LOOP;
 --    DBMS_OUTPUT.PUT_LINE('All table names have been cleaned');
@@ -101,7 +101,7 @@ CREATE TABLE USERACCS(
   userState NUMBER(1) DEFAULT 1,
   userImage varchar2(256) DEFAULT NULL,
   userCreatedAt DATE NOT NULL,
-  userUpdatedAt DATE NOT NULL,  
+  userUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_userId PRIMARY KEY(userId),
   CONSTRAINT unq_useremail UNIQUE(userEmail),
   CONSTRAINT not_null_usertype CHECK (userType is not null),
@@ -275,3 +275,4 @@ CREATE TABLE USRNTFRELATIONS(
 --/
 COMMIT
 /
+

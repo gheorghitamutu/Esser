@@ -24,6 +24,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     /**
      * Constructor function
      * @config parameter type array of 4 ELEMENTS! [user, pass, connection mode, and connection type!
+     * @param array $config
      */
     public function __construct(array $config)
     {
