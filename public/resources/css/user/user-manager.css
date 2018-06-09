@@ -1,7 +1,33 @@
+.main{
+	background-color: #80ced6;
+}
+
 .nested {
-    display: grid;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    display:grid;
+	grid-template-columns:1fr;
+	grid-gap: 1em;
+	padding: 1em;
+}
+
+.nested > div:nth-child(1){
+	color: white;
+	background:#618685;
+	padding:1em;
 }
 
 .nested > div{
-    grid-template-columns: 1fr 1fr;
+	font-size: 1.5vw;
+	border-radius: 10% 10%;
+	background:#d5f4e6;
+	padding:1em;
 }
+
+.nested > div:hover{
+	background:#fefbd8;
+}
+
+.nested > div:nth-child(1):hover{
+	background:#618685;
+}
+

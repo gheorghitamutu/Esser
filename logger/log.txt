@@ -1,0 +1,592 @@
+[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 1. Switching to the next phase.
+[APP_LOG: 06-06-2018 21:17:56] Executed createDBUserPrc.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:56 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 06-06-2018 21:17:56] Executed dbCreate.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:57 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
+
+PL/SQL procedure successfully completed.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Function created.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 2. Switching to the next phase.
+[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
+[APP_LOG: 06-06-2018 21:17:56] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 06-06-2018 21:17:56] Installation procedure exited. Error verification underway.
+[APP_LOG: 06-06-2018 21:17:56] App successfully installed.
+[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 1. Switching to the next phase.
+[APP_LOG: 06-06-2018 21:19:25] Executed createDBUserPrc.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:25 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+
+PL/SQL procedure successfully completed.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 06-06-2018 21:19:25] Executed dbCreate.sql script output is: 
+==============
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:26 2018
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+
+PL/SQL procedure successfully completed.
+
+
+Procedure created.
+
+All table names have been cleaned
+Procedure finished!
+Procedure finished!
+
+PL/SQL procedure successfully completed.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Sequence created.
+
+CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+
+Table created.
+
+
+Trigger created.
+
+
+Function created.
+
+
+Commit complete.
+
+
+Commit complete.
+
+SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+==============
+
+[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 2. Switching to the next phase.
+[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
+[APP_LOG: 06-06-2018 21:19:25] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
+[APP_LOG: 06-06-2018 21:19:25] Installation procedure exited. Error verification underway.
+[APP_LOG: 06-06-2018 21:19:25] App successfully installed.
