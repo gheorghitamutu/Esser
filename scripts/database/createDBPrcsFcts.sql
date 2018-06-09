@@ -1,5 +1,4 @@
 -- Creation of the database; Creation of DB procedures, functions and the rest of the lot (STEP 6);
-
 CREATE OR REPLACE FUNCTION fct_addNewRootAdm(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2)
 RETURN BOOLEAN
 AS

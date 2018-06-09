@@ -1,9 +1,3 @@
--- noinspection SqlResolveForFile
-
--- noinspection SqlResolveForFile
-
--- noinspection SqlResolveForFile
-
 -- Creation of the database; Creation of Tables with the previously-created ORACLE Account Phase (step 2);
 SET SERVEROUTPUT ON;
 DECLARE
@@ -112,7 +106,7 @@ CREATE TABLE USERACCS(
   CONSTRAINT unq_useremail UNIQUE(userEmail),
   CONSTRAINT not_null_usertype CHECK (userType is not null),
   CONSTRAINT not_null_userstate CHECK (userState is not null)
-);
+)
 /
 CREATE TABLE USERLOGS(
   uLogId NUMBER(*,0) NOT NULL,
@@ -122,7 +116,7 @@ CREATE TABLE USERLOGS(
   CONSTRAINT pk_uLogId PRIMARY KEY (uLogId),
   CONSTRAINT not_null_udscr CHECK (uLogDescription IS NOT NULL),
   CONSTRAINT not_null_uip CHECK (uLogSourceIP IS NOT NULL)
-);
+)
 /
 CREATE TABLE USERGROUPS(
   uGroupId NUMBER(*,0) NOT NULL,
@@ -138,7 +132,7 @@ CREATE TABLE USERGROUPS(
   CONSTRAINT not_null_ugrpname CHECK (uGroupName is not null),
   CONSTRAINT uniq_ugrpname UNIQUE (uGroupName),
   CONSTRAINT not_null_ugrpdescrp CHECK (uGroupDescription is not null)
-);
+)
 /
 CREATE TABLE USERGROUPLOGS(
   ugLogId NUMBER(*,0) NOT NULL,
@@ -148,7 +142,7 @@ CREATE TABLE USERGROUPLOGS(
   CONSTRAINT pk_ugLogId PRIMARY KEY (ugLogId),
   CONSTRAINT not_null_ugdscr CHECK (ugLogDescription IS NOT NULL),
   CONSTRAINT not_null_ugip CHECK (ugLogSourceIP IS NOT NULL)
-);
+)
 /
 CREATE TABLE GROUPRELATIONS(
   relationId NUMBER(*,0) NOT NULL,
@@ -163,7 +157,7 @@ CREATE TABLE GROUPRELATIONS(
   CONSTRAINT fk_rGroupId FOREIGN KEY(uGroupId) REFERENCES USERGROUPS(uGroupId),
   CONSTRAINT not_null_canupditm CHECK (canUpdItm is not null),
   CONSTRAINT not_null_canmngmbs CHECK (canMngMbs is not null)
-);
+)
 /
 CREATE TABLE ITEMGROUPS(
   iGroupId NUMBER(*,0) NOT NULL,
@@ -175,7 +169,7 @@ CREATE TABLE ITEMGROUPS(
   CONSTRAINT not_null_igrpname CHECK (iGroupName is not null),
   CONSTRAINT unq_igrpname UNIQUE (iGroupName),
   CONSTRAINT not_null_igrpdescrp CHECK (iGroupDescription is not null)
-);
+)
 /
 CREATE TABLE ITEMGROUPLOGS(
   igLogId NUMBER(*,0) NOT NULL,
@@ -185,7 +179,7 @@ CREATE TABLE ITEMGROUPLOGS(
   CONSTRAINT pk_igLogId PRIMARY KEY (igLogId),
   CONSTRAINT not_null_igdscr CHECK (igLogDescription IS NOT NULL),
   CONSTRAINT not_null_igip CHECK (igLogSourceIP IS NOT NULL)
-);
+)
 /
 CREATE TABLE ITEMGROUPOWNERSHIPS(
   igOwnershipId NUMBER(*,0) NOT NULL,
@@ -194,7 +188,7 @@ CREATE TABLE ITEMGROUPOWNERSHIPS(
   CONSTRAINT pk_igownId PRIMARY KEY (igOwnershipId),
   CONSTRAINT fk_igownerId FOREIGN KEY (igOwnerId) REFERENCES USERGROUPS(uGroupId),
   CONSTRAINT fk_igownedId FOREIGN KEY (igId) REFERENCES ITEMGROUPS(iGroupId)
-);
+)
 /
 CREATE TABLE ITEMS(
   itemId NUMBER(*,0) NOT NULL,
@@ -211,7 +205,7 @@ CREATE TABLE ITEMS(
   CONSTRAINT not_null_itemqnty CHECK (itemQuantity is not null),
   CONSTRAINT not_null_itemname CHECK (itemName is not null),
   CONSTRAINT not_null_itemdescrp CHECK (itemDescription is not null)
-);
+)
 /
 CREATE TABLE ITEMLOGS(
   iLogId NUMBER(*,0) NOT NULL,
@@ -221,7 +215,7 @@ CREATE TABLE ITEMLOGS(
   CONSTRAINT pk_iLogId PRIMARY KEY (iLogId),
   CONSTRAINT not_null_ildscr CHECK (iLogDescription IS NOT NULL),
   CONSTRAINT not_null_ilip CHECK (iLogSourceIP IS NOT NULL)
-);
+)
 /
 CREATE TABLE AUTOMATEDREPORTS(
   reportId NUMBER(*,0) NOT NULL,
@@ -233,7 +227,7 @@ CREATE TABLE AUTOMATEDREPORTS(
   CONSTRAINT not_null_rPath CHECK (reportPath IS NOT NULL),
   CONSTRAINT not_null_rType CHECK (reportType IS NOT NULL),
   CONSTRAINT not_null_rFormat CHECK (reportFormat IS NOT NULL)
-);
+)
 /
 CREATE TABLE NOTIFICATIONS(
   ntfId NUMBER(*,0) NOT NULL,
@@ -245,7 +239,7 @@ CREATE TABLE NOTIFICATIONS(
   CONSTRAINT fk_nItemId  FOREIGN KEY (nItemId) REFERENCES ITEMS (itemId),
   CONSTRAINT not_null_ntfType CHECK (ntfType IS NOT NULL),
   CONSTRAINT not_null_ntfDscrp CHECK (ntfDscrp IS NOT NULL)
-);
+)
 /
 CREATE TABLE UGRPNTFRELATIONS(
   usrgnRelationId NUMBER(*,0) NOT NULL,
@@ -254,7 +248,7 @@ CREATE TABLE UGRPNTFRELATIONS(
   CONSTRAINT pk_ugNRelId PRIMARY KEY (usrgnRelationId),
   CONSTRAINT fk_usrgnNotifiedGroupId FOREIGN KEY (usrgnNotifiedGroupId) REFERENCES USERGROUPS (uGroupId),
   CONSTRAINT fk_usrgnNotificationId  FOREIGN KEY (usrgnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
-);
+)
 /
 CREATE TABLE USRNTFRELATIONS(
   usrnRelationId NUMBER(*,0) NOT NULL,
@@ -263,7 +257,7 @@ CREATE TABLE USRNTFRELATIONS(
   CONSTRAINT pk_usrnRelationId PRIMARY KEY (usrnRelationId),
   CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId),
   CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
-);
+)
 /
 --CREATE TABLE ITEMOWNERSHIPS(
 --  iOwnershipId NUMBER(*,0) NOT NULL,
@@ -279,5 +273,5 @@ CREATE TABLE USRNTFRELATIONS(
 --  :NEW.iOwnershipId := INCR_ITMOWNS.NEXTVAL;
 --END trg_incr_itmowns;
 --/
-COMMIT;
+COMMIT
 /
