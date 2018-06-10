@@ -8,7 +8,8 @@
 
 namespace ModelMapper;
 
-use DatabaseConnectivity, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 
 abstract class AbstractMapper implements MapperInterface

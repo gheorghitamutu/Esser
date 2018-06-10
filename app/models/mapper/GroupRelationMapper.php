@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class GroupRelationMapper extends AbstractMapper
 {
@@ -15,20 +16,19 @@ class GroupRelationMapper extends AbstractMapper
     protected $_entityClass = 'Grouprelation';
 
     /**
-     * Create an useracc entity with the supplied data
+     * Create an grouprelation entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
-        $grouprelation = new $this->_entityClass(array(
-            'relationId'      => $data['relationId'],
-            'userId'    => $data['userId'],
-            'uGroupId'    => $data['uGroupId'],
-            'canUpdItm'  => $data['canUpdItm'],
-            'canMngMbs'    => $data['canMngMbs'],
-            'grpRelCreatedAt'    => $data['grpRelCreatedAt'],
-            'grpRelUpdatedAt'    => $data['grpRelUpdatedAt']
-        ));
+        $grouprelation = array(
+            'relationId'      => $data['RELATIONID'],
+            'userId'    => $data['USERID'],
+            'uGroupId'    => $data['UGROUPID'],
+            'canUpdItm'  => $data['CANUPDITM'],
+            'canMngMbs'    => $data['CANMNGMBS'],
+            'grpRelCreatedAt'    => $data['GRPRELCREATEDAT'],
+            'grpRelUpdatedAt'    => $data['GRPRELUPDATEDAT']
+        );
         return $grouprelation;
     }
-
 }

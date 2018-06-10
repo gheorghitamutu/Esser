@@ -2,11 +2,26 @@
 
 namespace AppModel;
 
+use DatabaseConnectivity\DatabaseAdapterInterface;
+use ModelMapper;
 use InvalidArgumentException;
 
 class Ugrpntfrelation extends AbstractEntity
 {
     protected $_allowedFields = array('usrGrpRelationId', 'usrGNNotificationId', 'usrGNNotifiedGroupId');
+    public $mapper = null;
+
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\UGrpNtfRelationMapper($adapter);
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
+    }
+
 
     public function setId($id = false) {
         if (!$id) {

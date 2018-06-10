@@ -1,11 +1,26 @@
 <?php
 
 namespace AppModel;
+
+use DatabaseConnectivity\DatabaseAdapterInterface;
 use InvalidArgumentException;
+use ModelMapper;
 
 class Grouprelation extends AbstractEntity
 {
     protected $_allowedFields = array('relationId','userId','uGroupId','canUpdItm','canMngMbs','grpRelCreatedAt','grpRelUpdatedAt');
+    public $mapper = null;
+
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\GroupRelationMapper($adapter);
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
+    }
 
     public function setId($id = false) {
         if (!$id) {
@@ -65,3 +80,4 @@ class Grouprelation extends AbstractEntity
         }
     }
 }
+

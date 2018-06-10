@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UserLogMapper extends AbstractMapper
 {
@@ -20,10 +21,10 @@ class UserLogMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $userlog = new $this->_entityClass(array(
-            'ULOGID'     => $data['uLogId'],
-            'ULOGDESCRIPTION'   => $data['uLogDescription'],
-            'ULOGSOURCEIP'   => $data['uLogSourceIP'],
-            'ULOGCREATEDAT'   => $data['uLogCreatedAt']
+            'uLogId'     => $data['ULOGID'],
+            'uLogDescription'   => $data['ULOGDESCRIPTION'],
+            'uLogSourceIP'   => $data['ULOGSOURCEIP'],
+            'uLogCreatedAt'   => $data['ULOGCREATEDAT']
         ));
         return $userlog;
     }

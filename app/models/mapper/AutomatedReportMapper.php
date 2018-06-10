@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class AutomatedReportMapper extends AbstractMapper
 {
@@ -15,17 +16,17 @@ class AutomatedReportMapper extends AbstractMapper
     protected $_entityClass = 'AutomatedReport';
 
     /**
-     * Create an useracc entity with the supplied data
+     * Create an automatedreport entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
-        $automatedreport = new $this->_entityClass(array(
-            'reportId'      => $data['reportId'],
-            'reportPath'    => $data['reportPath'],
-            'reportType'    => $data['reportType'],
-            'reportFormat'  => $data['reportFormat'],
-            'rCreatedAt'    => $data['rCreatedAt']
-        ));
+        $automatedreport = array(
+            'reportId'      => $data['REPORTID'],
+            'reportPath'    => $data['REPORTPATH'],
+            'reportType'    => $data['REPORTTYPE'],
+            'reportFormat'  => $data['REPORTFORMAT'],
+            'rCreatedAt'    => $data['RCREATEDAT']
+        );
         return $automatedreport;
     }
 }

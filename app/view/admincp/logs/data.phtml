@@ -28,38 +28,13 @@
                         </div>
                     </div>
                     <div class="flex-table-body">
-                        <div class="flex-table-row">
-                            <div class="flex-table-td"> Becuri </div>
-                            <div class="flex-table-td"> 19/03/2018 22:16:43.850 </div>
-                            <div class="flex-table-td"> Updated quantity </div>
-                            <div class="flex-table-td"> +14 </div>
-                            <div class="flex-table-td"> Edward </div>
-                            <div class="flex-table-td"> 162.163.235.18 </div>
-                        </div>
-                        <div class="flex-table-row">
-                            <div class="flex-table-td"> Electronice </div>
-                            <div class="flex-table-td"> 19/03/2018 22:22:05.350 </div>
-                            <div class="flex-table-td"> New group creation </div>
-                            <div class="flex-table-td"> +1 </div>
-                            <div class="flex-table-td"> Edward </div>
-                            <div class="flex-table-td"> 162.163.235.18 </div>
-                        </div>
-                        <div class="flex-table-row">
-                            <div class="flex-table-td"> Notebook Dell Aspire 4500U </div>
-                            <div class="flex-table-td"> 19/03/2018 22:27:18.820 </div>
-                            <div class="flex-table-td"> New Product Insertion </div>
-                            <div class="flex-table-td"> +15 </div>
-                            <div class="flex-table-td"> Edward </div>
-                            <div class="flex-table-td"> 162.163.235.18 </div>
-                        </div>
-                        <div class="flex-table-row">
-                            <div class="flex-table-td"> Chestii </div>
-                            <div class="flex-table-td"> 19/03/2018 22:22:05.350 </div>
-                            <div class="flex-table-td"> Group has been deleted </div>
-                            <div class="flex-table-td"> -1 </div>
-                            <div class="flex-table-td"> Edward </div>
-                            <div class="flex-table-td"> 162.163.235.18 </div>
-                        </div>
+                        <?php foreach ($this->param[1] as $rows) {
+                            echo "<div class=\"flex-table-row\">";
+                            foreach ($rows as $row => $value) {
+                                echo "<div class=\"flex-table-td\"> $value </div >";
+                            }
+                            echo "</div >";
+                        }?>
                     </div>
                 </div>
             </div>

@@ -2,11 +2,26 @@
 
 namespace AppModel;
 
+use DatabaseConnectivity\DatabaseAdapterInterface;
+use ModelMapper;
 use InvalidArgumentException;
 
 class UserGroupLog extends AbstractEntity
 {
     protected $_allowedFields = array('uGLogId', 'uGLogDescription', 'uGLogSourceIP', 'uGLogCreatedAt');
+    public $mapper = null;
+
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\UserGroupLogMapper($adapter);
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
+    }
+
 
     public function setId($id = false) {
         if (!$id) {

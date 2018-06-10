@@ -2,11 +2,25 @@
 
 namespace AppModel;
 
+use DatabaseConnectivity\DatabaseAdapterInterface;
 use InvalidArgumentException;
+use ModelMapper;
 
 class Itemgroup extends AbstractEntity
 {
     protected $_allowedFields = array('iGroupId','iGroupName','iGroupDescription','iGroupCreatedAt','iGroupUpdatedAt');
+    public $mapper = null;
+
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\ItemGroupMapper($adapter);
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
+    }
 
     public function setId($id = false) {
         if (!$id) {

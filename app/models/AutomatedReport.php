@@ -2,12 +2,20 @@
 
 namespace AppModel;
 
+use DatabaseConnectivity\DatabaseAdapterInterface;
 use InvalidArgumentException;
+use ModelMapper;
 
 class AutomatedReport extends AbstractEntity
 {
     protected $_allowedFields = array('reportId','reportPath','reportType','reportFormat','rCreatedAt');
+    public $mapper = null;
 
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\AutomatedReportMapper($adapter);
+    }
     /**
      * Set the entry ID
      * @param bool $id = false Method implemented but should not be used. Id's are generated automatically and should remain the value generated!
@@ -62,5 +70,10 @@ class AutomatedReport extends AbstractEntity
         else {
             $this->_values['rCreatedAt'] = null;
         }
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
     }
 }

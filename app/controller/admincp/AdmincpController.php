@@ -12,6 +12,7 @@
 
 class AdmincpController extends Controller
 {
+    protected $params = array(array(array()));
     public function __construct($uri)
     {
         // no logincontroller here so handle this in a messy way
@@ -39,7 +40,7 @@ class AdmincpController extends Controller
                 $this->dashboard();
                break;
             case 'admincp/activity':
-                $this->activity();
+                $this->activity($this->params[1], $this->params[0]);
                 break;
             case 'admincp/data':
                 $this->data();
@@ -108,7 +109,7 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'activity',
-            [],
+            $this->params,
             'AdminCP');
     }
 
