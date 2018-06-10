@@ -1,5 +1,4 @@
 -- Creation of the database; Creation of DB procedures, functions and the rest of the lot (STEP 6)
-SET SERVEROUTPUT ON;
 CREATE OR REPLACE FUNCTION fct_addMainRoots(p_username VARCHAR2, p_password VARCHAR2, p_email VARCHAR2, p_rootadmgrp VARCHAR2, p_rootmnggrp VARCHAR2, p_rootusrsgrp VARCHAR2)
 RETURN BOOLEAN
 AS
@@ -28,7 +27,7 @@ BEGIN --
   IF (length(p_username) > 16 or length(p_username) < 4) THEN 
     raise exc_username_length; 
   END IF;
-  IF (length(p_password) > 16 or length(p_password) < 4) THEN 
+  IF (length(p_password) < 32) THEN
    raise exc_password_length; 
   END IF;
   IF (length(p_email) < 6 or length(p_email) > 48) THEN 
@@ -51,9 +50,9 @@ BEGIN --
     raise_application_error(-20007, 'The root normal users group name length must be between 4 and 48 characters! It currently has: ' || length(p_rootusrsgrp) || ' !'); 
   END IF;
   
-  v_rootadmgrp := REGEXP_REPLACE(p_rootadmgrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');
-  v_rootmnggrp := REGEXP_REPLACE(p_rootmnggrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');
-  v_rootusrsgrp := REGEXP_REPLACE(p_rootusrsgrp,'[^][,.?:+{}!@#$%^&()_=[:alpha:][:digit:] -]*','',1,0,'imx');  
+  v_rootadmgrp := REGEXP_REPLACE(p_rootadmgrp,'[^[:alpha:][:digit:]._ -]*','',1,0,'imx');
+  v_rootmnggrp := REGEXP_REPLACE(p_rootmnggrp,'[^[:alpha:][:digit:]._ -]*','',1,0,'imx');
+  v_rootusrsgrp := REGEXP_REPLACE(p_rootusrsgrp,'[^[:alpha:][:digit:]._ -]*','',1,0,'imx');
   
   INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');  
   IF (SQL%FOUND) THEN
@@ -83,11 +82,11 @@ BEGIN --
   WHEN exc_username_length THEN
     raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');    
   WHEN exc_password_length THEN
-    raise_application_error(-20002, 'The provided password length is: ' || length(p_password) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');
+    raise_application_error(-20002, 'The provided password hash value length is too small: ' || length(p_password) || ' !. It should be at least 32 alpha-numeric characters long!');
   WHEN exc_non_alpnum_username THEN
     raise_application_error(-20003, 'Found illegal non-alpha-numeric character in the provided username: "' || REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') || '" !');
   WHEN exc_non_alpnum_password THEN
-    raise_application_error(-20004, 'Found illegal non-alpha-numeric character in the provided password: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
+    raise_application_error(-20004, 'Found illegal non-alpha-numeric character in the provided password hash value: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
   WHEN exc_email_length THEN
     raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || ' !. It needs to be between 6 and 48 alpha-numeric characters!');  
   WHEN exc_bad_email_format THEN
@@ -96,11 +95,12 @@ BEGIN --
       RAISE;
 END fct_addMainRoots;
 /
+SET VERIFY ON;
 SET SERVEROUTPUT ON;
 DECLARE
   v_result BOOLEAN;
 BEGIN
-  v_result := fct_addMainRoots('&i1','&i2','&i3','&i4','*i5','&i6');
+  v_result := fct_addMainRoots(&i1,&i2,&i3,&i4,&i5,&i6);
   IF (v_result = TRUE) THEN
     COMMIT;
   ELSE
