@@ -14,8 +14,6 @@ class AdmincpController extends Controller
 {
     public function __construct($uri)
     {
-        Parent::__construct();
-
         // no logincontroller here so handle this in a messy way
         if($uri !== 'admincp' && $uri !== 'admincp/login')
         {

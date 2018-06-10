@@ -7,12 +7,22 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UseraccMapper extends AbstractMapper
 {
     protected $_entityTable = 'USERACCS';
-    protected $_entityClass = 'UserAcc';
+    protected $_entityClass = 'Useracc';
+
+
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => 'USERACCS',
+            'entityClass' => 'Useracc'
+        ));
+    }
 
     /**
     * Create an useracc entity with the supplied data

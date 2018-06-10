@@ -13,9 +13,7 @@ class UserController extends Controller
 {
     public function __construct($uri)
     {
-        Parent::__construct();
-
-        if(!Auth::sessionAuthenticate())
+        if(!$this->session_authenticate())
         {
             return;
         }
@@ -46,6 +44,7 @@ class UserController extends Controller
 
         }
     }
+
     public function index()
     {
         View::CreateView(

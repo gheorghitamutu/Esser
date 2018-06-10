@@ -8,9 +8,6 @@
 
 namespace AppModel;
 
-
-use http\Exception\InvalidArgumentException;
-
 abstract class AbstractEntity
 {
     protected $_values = array();
@@ -19,10 +16,11 @@ abstract class AbstractEntity
     /**
      * Constructor
      */
-    public function __construct(array $fields)
+    public function __construct($fields)
     {
-        foreach ($fields as $name => $value) {
-            $this->$name = $value;
+        $this->_allowedFields = $fields;
+        foreach ($fields as $name) {
+            $this->$name = $name;
         }
     }
 
@@ -32,8 +30,11 @@ abstract class AbstractEntity
      */
     public function __set($name, $value)
     {
+        //echo $name . ' ' . $value;
+
+
         if (!in_array($name, $this->_allowedFields)) {
-            throw new InvalidArgumentException("Setting the field $name is not allowed for this entity.");
+            throw new \InvalidArgumentException("Setting the field $name is not allowed for this entity.");
         }
         $mutator = 'set' . ucfirst($name);
         if (method_exists($this, $mutator) && is_callable(array($this, $mutator))) {
@@ -50,7 +51,7 @@ abstract class AbstractEntity
     public function __get($name)
     {
         if (!in_array($name, $this->_allowedFields)) {
-            throw new InvalidArgumentException("Getting the field '$name' is not allowed for this entity.");
+            throw new \InvalidArgumentException("Getting the field '$name' is not allowed for this entity.");
         }
         $accessor = 'get' . ucfirst($name);
         if (method_exists($this, $accessor) && is_callable(array($this, $accessor))) {
@@ -59,7 +60,7 @@ abstract class AbstractEntity
         if (isset($this->_values[$name])) {
             return $this->_values[$name];
         }
-        throw new InvalidArgumentException("The field '$name' has not been set for this entity yet.");
+        throw new \InvalidArgumentException("The field '$name' has not been set for this entity yet.");
     }
 
     /**
@@ -68,7 +69,7 @@ abstract class AbstractEntity
     public function __isset($name)
     {
         if (!in_array($name, $this->_allowedFields)) {
-            throw new InvalidArgumentException("The field '$name' is not allowed for this entity.");
+            throw new \InvalidArgumentException("The field '$name' is not allowed for this entity.");
         }
         return isset($this->_values[$name]);
     }
@@ -79,13 +80,13 @@ abstract class AbstractEntity
     public function __unset($name)
     {
         if (!in_array($name, $this->_allowedFields)) {
-            throw new InvalidArgumentException("Unsetting the field '$name' is not allowed for this entity.");
+            throw new \InvalidArgumentException("Unsetting the field '$name' is not allowed for this entity.");
         }
         if (isset($this->_values[$name])) {
             unset($this->_values[$name]);
             return true;
         }
-        throw new InvalidArgumentException("The field '$name' has not been set for this entity yet.");
+        throw new \InvalidArgumentException("The field '$name' has not been set for this entity yet.");
     }
 
     /**
