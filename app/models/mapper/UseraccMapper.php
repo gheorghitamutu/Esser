@@ -7,25 +7,29 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, ModelProxy, OCI_Collection;
+use DatabaseConnectivity, AppModel, OCI_Collection;
 
 class UseraccMapper extends AbstractMapper
 {
-    protected $_somethingThatMadeTheUser;//(Exists???)
     protected $_entityTable = 'USERACCS';
     protected $_entityClass = 'UserAcc';
 
-    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter, SomethingThatMadeTheUser $somethingThatMadeTheUser)
-    {
-        $this->_somethingThatMadeTheUser = $somethingThatMadeTheUser;
-        parent::__construct($adapter);
-    }
-
     /**
-     * Reconstitute an entity with the data retrieved from the storage (implementation delegated to concrete mappers)
-     */
-    protected function _createEntity($data)
+    * Create an useracc entity with the supplied data
+    */
+    protected function _createEntity(array $data)
     {
-        // TODO: Implement _createEntity() method.
+        $useracc = new $this->_entityClass(array(
+            'userId'    => $data['userId'],
+            'userName'  => $data['userName'],
+            'userEmail' => $data['userEmail'],
+            'userPass'  => $data['userPass'],
+            'userType'  => $data['userType'],
+            'userState' => $data['userState'],
+            'userImage' => $data['userImage'],
+            'userCreatedAt' => $data['userCreatedAt'],
+            'userUpdatedAt' => $data['userUpdatedAt']
+        ));
+        return $useracc;
     }
 }

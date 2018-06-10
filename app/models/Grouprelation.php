@@ -1,7 +1,8 @@
 <?php
 
-namespace ModelProxy;
+namespace AppModel;
 
-class Grouprelation {
+class Grouprelation extends AbstractEntity
+{
 
 }

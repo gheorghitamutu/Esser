@@ -1,7 +1,8 @@
 <?php
 
-namespace ModelProxy;
+namespace AppModel;
 
-class Notification {
+class Notification extends AbstractEntity
+{
 
 }

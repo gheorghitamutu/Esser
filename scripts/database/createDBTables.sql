@@ -1,9 +1,3 @@
--- noinspection SqlResolveForFile
-
--- noinspection SqlResolveForFile
-
--- noinspection SqlResolveForFile
-
 -- Creation of the database; Creation of Tables with the previously-created ORACLE Account Phase (step 2);
 -- SET SERVEROUTPUT ON;
 DECLARE
@@ -102,7 +96,7 @@ CREATE TABLE USERACCS(
   userId NUMBER(*,0) NOT NULL,
   userName VARCHAR2(16) NOT NULL,
   userEmail VARCHAR2(48) NOT NULL,
-  userPass VARCHAR2(16) NOT NULL,
+  userPass VARCHAR2(512) NOT NULL,
   userType  NUMBER(1) DEFAULT 0,
   userState NUMBER(1) DEFAULT 1,
   userImage varchar2(256) DEFAULT NULL,
@@ -264,7 +258,7 @@ CREATE TABLE USRNTFRELATIONS(
   CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId),
   CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 )
-
+/
 --CREATE TABLE ITEMOWNERSHIPS(
 --  iOwnershipId NUMBER(*,0) NOT NULL,
 --  iOwnerId NUMBER(*,0) NOT NULL,
@@ -279,6 +273,6 @@ CREATE TABLE USRNTFRELATIONS(
 --  :NEW.iOwnershipId := INCR_ITMOWNS.NEXTVAL;
 --END trg_incr_itmowns;
 --/
-
+COMMIT
 /
-commit;
+

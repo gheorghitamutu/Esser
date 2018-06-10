@@ -1,7 +1,8 @@
 <?php
 
-namespace ModelProxy;
+namespace AppModel;
 
-class Usrntfrelation {
+class Usrntfrelation extends AbstractEntity
+{
 
 }

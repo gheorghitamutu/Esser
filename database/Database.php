@@ -666,7 +666,6 @@ class Database
   public function get_handle() {
     return $this->conn_handle;
   }
-
 }
 
 ?>
