@@ -7,9 +7,7 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection,
-    http\Exception\InvalidArgumentException,
-    http\Exception\RuntimeException;
+use DatabaseConnectivity, AppModel, OCI_Collection, InvalidArgumentException, RuntimeException;
 
 abstract class AbstractMapper implements MapperInterface
 {
@@ -65,7 +63,8 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     public function setEntityClass($entityclass) {
-        if(!is_subclass_of($entityclass,'ModelAbstractEntity')){
+        echo $entityclass;
+        if(!is_subclass_of((string)$entityclass,'AbstractEntity')){
             throw new InvalidArgumentException('The entity class is invalid!');
         }
         $this->_entityclass = $entityclass;

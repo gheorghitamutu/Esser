@@ -7,9 +7,7 @@
  */
 
 namespace AppModel;
-
-
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 abstract class AbstractEntity
 {

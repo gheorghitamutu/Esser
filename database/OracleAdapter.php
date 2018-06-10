@@ -1,9 +1,7 @@
 <?php
 
 namespace DatabaseConnectivity;
-
-use http\Exception\InvalidArgumentException;
-use http\Exception\RuntimeException;
+use InvalidArgumentException;
 
 class OracleAdapter implements DatabaseAdapterInterface {
 

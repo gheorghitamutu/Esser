@@ -2,7 +2,7 @@
 
 namespace AppModel;
 
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class Item extends AbstractEntity
 {
@@ -14,7 +14,15 @@ class Item extends AbstractEntity
      */
     public function setId($id = false)
     {
-        $this->_values['userId'] = null;
+        if (!$id) {
+            $this->_values['itemId'] = null;
+        }
+        else {
+            if(!filter_var($id, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
+                throw new InvalidArgumentException('Item id can only be between 1 and 999999999!');
+            }
+            $this->_values['itemId'] = null;
+        }
     }
 
     public function setName($name) {
@@ -75,11 +83,21 @@ class Item extends AbstractEntity
         $this->_values['itemImage'] = $image;
     }
 
-    public function setCreatedAt($usercreatedat = false) {
-        $this->_values['itemCreatedAt'] = null;
+    public function setCreatedAt($date = false) {
+        if (!$date) {
+            $this->_values['itemCreatedAt'] = null;
+        }
+        else {
+            $this->_values['itemId'] = null;
+        }
     }
 
-    public function setUpdatedAt($userupdatedat = false) {
-        $this->_values['itemUpdatedAt'] = null;
+    public function setUpdatedAt($date = false) {
+        if (!$date) {
+            $this->_values['itemUpdatedAt'] = null;
+        }
+        else {
+            $this->_values['itemUpdatedAt'] = null;
+        }
     }
 }

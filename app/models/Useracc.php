@@ -2,7 +2,7 @@
 
 namespace AppModel;
 
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class Useracc extends AbstractEntity
 {
@@ -12,12 +12,17 @@ class Useracc extends AbstractEntity
      * Set the entry ID
      * @param bool $id = false Method implemented but should not be used. Id's are generated automatically and should remain the value generated!
      */
-    public function setId($userid)
+    public function setId($userid = false)
     {
-        if (!filter_var($userid, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
-            throw new InvalidArgumentException('User id can only be between 1 and 999999999!');
+        if (!$userid) {
+            $this->_values['userId'] = null;
         }
-        $this->_values['userId'] = $userid;
+        else {
+            if (!filter_var($userid, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
+                throw new InvalidArgumentException('User id can only be between 1 and 999999999!');
+            }
+            $this->_values['userId'] = $userid;
+        }
     }
 
     public function setName($username) {
@@ -91,10 +96,20 @@ class Useracc extends AbstractEntity
     }
 
     public function setCreatedAt($usercreatedat = false) {
-        $this->_values['userCreatedAt'] = date("Y-m-d H:i:s");
+        if(!$usercreatedat) {
+            $this->_values['userCreatedAt'] = null;
+        }
+        else {
+            $this->_values['userCreatedAt'] = $usercreatedat;
+        }
     }
 
     public function setUpdatedAt($userupdatedat = false) {
-        $this->_values['userUpdatedAt'] = date("Y-m-d H:i:s");
+        if(!$userupdatedat) {
+            $this->_values['userUpdatedAt'] = null;
+        }
+        else {
+            $this->_values['userUpdatedAt'] = $userupdatedat;
+        }
     }
 }
