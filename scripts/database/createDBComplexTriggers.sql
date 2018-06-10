@@ -296,4 +296,5 @@ END trg_auto_warn;
 --  END AFTER STATEMENT;
 --END trg_auto_nrOf;
 --/
+
 COMMIT;
