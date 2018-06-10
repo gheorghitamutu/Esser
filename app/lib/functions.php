@@ -168,7 +168,7 @@ function second_phase_install()
     //Shell/Cmd approach.
     //Need to find a way to detect errors
     $command =
-        sprintf(('SQLPLUS -s %s/%s@%s AS SYSDBA @%s %s %s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s AS SYSDBA @%s %s %s'),
             SYS_DB_USER,
             SYS_DB_USER_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -182,7 +182,7 @@ function second_phase_install()
         $output .
         "\r\n==============\r\n");
     $command =
-        sprintf(('SQLPLUS -s %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -195,7 +195,7 @@ function second_phase_install()
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS -s %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -208,7 +208,7 @@ function second_phase_install()
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS -s %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -221,7 +221,7 @@ function second_phase_install()
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS -s %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -233,13 +233,12 @@ function second_phase_install()
                                     . $output 
                                     . "\r\n==============\r\n" );
 
-    //$command = 'SQLPLUS -s '.ROOT_ADMIN_USER.'/'.ROOT_ADMIN_PASS.'@'.HOST_IP.':'.HOST_PORT.'//'.SYS_DB.' @'.DB_SCRIPTS.'createDBPrcsFcts.sql'.' '. '\\"\\\''.ROOT_ADMIN_USER.'\\\'\\"'.' '.'\\"\\\''.ROOT_ADMIN_PASS.'\\\'\\"'.' '.'\\"\\\''.ROOT_ADMIN_EMAIL.'\\\'\\"'.' '.'\\"\\\''.ROOT_ADMIN_GROUP.'\\\'\\"'.' '.'\\"\\\''.ROOT_MANAGER_GROUP.'\\\'\\"'.' '.'\\"\\\''.ROOT_NORMAL_USER_GROUP.'\\\'\\"';
     $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
     $script = DB_SCRIPTS.'createDBPrcsFcts.sql';
     $salt = '$1_2jlh83#@J^Q';
     $passhash = hash('sha512', ROOT_ADMIN_USER. $salt . ROOT_ADMIN_PASS);
     $command = sprintf(
-                'SQLPLUS %s/%s@%s @%s "\'%s\'" "\'%s\'" "\'%s\'" "\'%s\'" "\'%s\'" "\'%s\'"',
+                'SQLPLUS -S -L %s/%s@%s @%s \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\"',
                 ROOT_ADMIN_USER,
                 ROOT_ADMIN_PASS,
                 $format_connection,
@@ -250,10 +249,6 @@ function second_phase_install()
                 ROOT_ADMIN_GROUP,
                 ROOT_MANAGER_GROUP,
                 ROOT_NORMAL_USER_GROUP);
-    echo $command."<br />";
-    Logger::getInstance()->log(LOGGING,
-        "Executed command for the createDBPrcsFcts.sql script output is: " .
-        $command );
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
         "Executed createDBPrcsFcts.sql script output is: " .
@@ -327,7 +322,7 @@ function third_phase_install()
     return true;
 }
 
-
+//
 //function threadExec(function())
 //{
 //  $thread = new class extends Thread
@@ -354,12 +349,12 @@ function third_phase_install()
 //			We check the precondition in a loop because a Thread can be awoken
 //			by signals other than the one you are waiting for.
 //		*/
-//		$thread->wait();
-//	     }
+//		    $thread->wait();
+//	    }
 //  });
 //
-//  $thread->join();
 //
+//  $thread->join();//
 //}
 //
 

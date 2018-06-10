@@ -23,8 +23,8 @@ AS
   PRAGMA EXCEPTION_INIT(exc_non_alpnum_password, -20004);
   PRAGMA EXCEPTION_INIT(exc_email_length, -20005);
   PRAGMA EXCEPTION_INIT(exc_bad_email_format, -20006);
-BEGIN --
-  IF (length(p_username) > 16 or length(p_username) < 4) THEN 
+BEGIN
+  IF (length(p_username) > 16 or length(p_username) < 4) THEN
     raise exc_username_length; 
   END IF;
   IF (length(p_password) < 32) THEN
@@ -54,53 +54,51 @@ BEGIN --
   v_rootmnggrp := REGEXP_REPLACE(p_rootmnggrp,'[^[:alpha:][:digit:]._ -]*','',1,0,'imx');
   v_rootusrsgrp := REGEXP_REPLACE(p_rootusrsgrp,'[^[:alpha:][:digit:]._ -]*','',1,0,'imx');
   
-  INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');  
+  INSERT INTO USERACCS (userName, userEmail, userPass, userType, userState, userImage) VALUES (p_username, p_email, p_password, 3, 1, 'undefined');
   IF (SQL%FOUND) THEN
     INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootadmgrp, 'Root admins group', 0, 0);
-    IF (SQL%FOUND) THEN
-      INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootmnggrp, 'Root managers group', 0, 0);
+    IF (SQL%FOUND) THEN    
+    INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootmnggrp, 'Root managers group', 0, 0);
       IF (SQL%FOUND) THEN
         INSERT INTO USERGROUPS (uGroupName, uGroupDescription, nrOfMembers, nrOfManagers) VALUES (v_rootusrsgrp, 'Root normal users group', 0, 0);
         IF (SQL%FOUND) THEN
-          v_result := TRUE;
+          v_result := TRUE;        
         ELSE
-          v_result := FALSE;
-        END IF;      
+          v_result := FALSE;        
+        END IF;
       ELSE
-        v_result := FALSE;
+        v_result := FALSE;        
       END IF;
     ELSE
       v_result := FALSE;
-    END IF;
+    END IF;      
   ELSE
     v_result := FALSE;
   END IF;
   
-  RETURN v_result; 
+  RETURN v_result;
   
   EXCEPTION
   WHEN exc_username_length THEN
-    raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || ' !. It needs to be between 4 and 16 alpha-numeric characters!');    
+    raise_application_error(-20001, 'The provided username length is: ' || length(p_username) || '! It needs to be between 4 and 16 alpha-numeric characters!');
   WHEN exc_password_length THEN
-    raise_application_error(-20002, 'The provided password hash value length is too small: ' || length(p_password) || ' !. It should be at least 32 alpha-numeric characters long!');
+    raise_application_error(-20002, 'The provided password hash value length is too small: ' || length(p_password) || '! It should be at least 32 alpha-numeric characters long!');
   WHEN exc_non_alpnum_username THEN
     raise_application_error(-20003, 'Found illegal non-alpha-numeric character in the provided username: "' || REGEXP_SUBSTR(p_username,'[^a-zA-Z0-9]+') || '" !');
   WHEN exc_non_alpnum_password THEN
     raise_application_error(-20004, 'Found illegal non-alpha-numeric character in the provided password hash value: "' || REGEXP_SUBSTR(p_password,'[^a-zA-Z0-9]+') || '" !');
   WHEN exc_email_length THEN
-    raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || ' !. It needs to be between 6 and 48 alpha-numeric characters!');  
+    raise_application_error(-20005, 'The provided email length is: ' || length(p_email) || '! It needs to be between 6 and 48 alpha-numeric characters!');
   WHEN exc_bad_email_format THEN
-    raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._]+') || '" !');
+    raise_application_error(-20006, 'Found illegal character in the provided email: "' || REGEXP_SUBSTR(p_email,'[^a-zA-Z0-9@._]+') || '"!');
   WHEN OTHERS THEN    
       RAISE;
 END fct_addMainRoots;
 /
-SET VERIFY ON;
-SET SERVEROUTPUT ON;
 DECLARE
   v_result BOOLEAN;
 BEGIN
-  v_result := fct_addMainRoots(&i1,&i2,&i3,&i4,&i5,&i6);
+  v_result := fct_addMainRoots(&&1,&&2,&&3,&&4,&&5,&&6);
   IF (v_result = TRUE) THEN
     COMMIT;
   ELSE
