@@ -12,8 +12,9 @@
 // application configs
 // All declared constant MUST BE ALPHA-NUMERIC ONLY!
 // ROOT_ADMIN_USER and ROOT_ADMIN_PASS Need to be between 4 and 16 char long!
-define('INSTALLED'                          , false);
-define('INSTALL_PHASE', 2);
+define('INSTALLED'                          , true);
+define('PLSQL_DRIVER'                       , 'oci8');
+define('INSTALL_PHASE'                      , 0);
 define('APP_TITLE'                          , 'BMCP EsseR');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');
@@ -44,7 +45,7 @@ define('APP_INIT'  , ROOT                                     . 'app'        . D
 define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
 define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
 define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
-define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('MODELS'    , ROOT                   . 'app'      . DS . 'models'     . DS);
 define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
 define('DATABASE'  , ROOT                                     . 'database'   . DS);

@@ -13,7 +13,8 @@ class LoginController extends Controller
 {
     public function __construct($uri)
     {
-        Parent::__construct();
+        $this->model('Useracc');
+
         switch($uri)
         {
             case 'login':
@@ -58,7 +59,7 @@ class LoginController extends Controller
     private function check_login($uname, $pass)
     {
 
-        if(Auth::auth_user("connection", $uname, $pass))
+        if($this->auth_user($uname, $pass))
             self::redirect('/login/success');
         else
             self::redirect('/login/fail');
