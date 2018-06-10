@@ -30,9 +30,6 @@ abstract class AbstractEntity
      */
     public function __set($name, $value)
     {
-        //echo $name . ' ' . $value;
-
-
         if (!in_array($name, $this->_allowedFields)) {
             throw new \InvalidArgumentException("Setting the field $name is not allowed for this entity.");
         }

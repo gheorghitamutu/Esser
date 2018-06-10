@@ -69,7 +69,6 @@ abstract class AbstractMapper implements MapperInterface
         //    throw new \InvalidArgumentException('The entity class is invalid!');
         //}
         $this->_entityclass = $entityclass;
-        echo $entityclass;
         return $this;
     }
 
@@ -101,15 +100,8 @@ abstract class AbstractMapper implements MapperInterface
      */
     public function findAll($criteria = '')
     {
-        $collection = array();
         $selectstmt = $this->_adapter->select($this->_entitytable, $criteria);
-        $data = $this->_adapter->fetch($selectstmt);
-        echo 'TEEEEEEEEEEEEEST' . $data;
-        if($data != null)
-        {
-            $collection = array_push($collection, $this->_createEntity([$data]));
-        }
-
+        $collection = $this->_createEntity($this->_adapter->fetchArray($selectstmt));
         return $collection;
     }
 

@@ -15,7 +15,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     protected $connection = null;
     private $statements = array();
     private $autocommit = true;
-    private $fetch_mode = OCI_BOTH;
+    private $fetch_mode = OCI_ASSOC;
     private $last_query;
     private $var_max_size = 1000;
     private $execute_status = false;
@@ -31,7 +31,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
 
         $this->setNlsLang('WE8MSWIN1252');
         $this->setFetchMode(OCI_ASSOC);
-        $this->setAutoCommit(false);
+        $this->setAutoCommit(true);
         if (count($config) !== 4) {
             throw new InvalidArgumentException('Invalid number of connection parameters!');
         }
@@ -169,10 +169,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @return resource | false
      */
     private function execute($sql_text, &$bind = false) {
-        echo $sql_text . ' ' . $bind;
         if (!is_resource($this->connection))
         {
-            echo 'Invalid connection!';
             return false;
         }
         $this->last_query = $sql_text;
@@ -314,7 +312,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
-        //echo $table . ' ' . $where . ' ' . $fields . ' ' . $order . ' ' . $limit . ' ' . $offset . ' ' . $bind . ' ';
         $query = 'SELECT ' . $fields . ' FROM ' . $table
             . (($where) ? ' WHERE ' . $where : '');
 

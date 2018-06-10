@@ -22,10 +22,6 @@ class Controller
 
     public function model($model)
     {
-        //  require_once MODELS . $model . '.php';
-        //  $this->model_name = MODELS . $model . '.php';
-        //  echo $this->model_name;
-
         // array of 4 ELEMENTS -> user, pass, connection mode, and connection type!
         $adapter = new DatabaseConnectivity\OracleAdapter(
             [
@@ -74,17 +70,9 @@ class Controller
         $password_hash = hash('sha512', $username. $salt . $password);
 
         $user_found = $this->model_class->get_mapper()->findAll('userName = \'' . $username . '\' and userPass = \'' . $password_hash.  '\'');
+        // check if $user_found not empty
 
-        foreach ($user_found as $user)
-        {
-            echo $user . ' ';
-        }
-
-
-
-        exit(0);
-
-        return true;
+        return $username === $user_found['userName'];
     }
 
     // Connects to a session and checks that the user has
