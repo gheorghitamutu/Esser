@@ -80,7 +80,7 @@ function first_phase_install()
     {
         try
         {
-            $filename = ROOT . 'database' . DS . 'Database.php';
+            $filename = ROOT . 'database' . DS . 'OracleAdapter.php';
             $good_install = inFileStrReplace($filename, $to_be_replaced[$i], $replace_with[$i]);
             if(!$good_install)
             {
