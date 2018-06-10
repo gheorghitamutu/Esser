@@ -7,29 +7,41 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UseraccMapper extends AbstractMapper
 {
     protected $_entityTable = 'USERACCS';
-    protected $_entityClass = 'UserAcc';
+    protected $_entityClass = 'Useracc';
+
+
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => 'USERACCS',
+            'entityClass' => 'Useracc'
+        ));
+    }
 
     /**
-    * Create an useracc entity with the supplied data
-    */
+     * Create an useracc entity with the supplied data
+     * @param array $data
+     * @return array
+     */
     protected function _createEntity(array $data)
     {
-        $useracc = new $this->_entityClass(array(
-            'userId'    => $data['userId'],
-            'userName'  => $data['userName'],
-            'userEmail' => $data['userEmail'],
-            'userPass'  => $data['userPass'],
-            'userType'  => $data['userType'],
-            'userState' => $data['userState'],
-            'userImage' => $data['userImage'],
-            'userCreatedAt' => $data['userCreatedAt'],
-            'userUpdatedAt' => $data['userUpdatedAt']
-        ));
+        $useracc = array(
+            'userId'    => $data['USERID'],
+            'userName'  => $data['USERNAME'],
+            'userEmail' => $data['USEREMAIL'],
+            'userPass'  => $data['USERPASS'],
+            'userType'  => $data['USERTYPE'],
+            'userState' => $data['USERSTATE'],
+            'userImage' => $data['USERIMAGE'],
+            'userCreatedAt' => $data['USERCREATEDAT'],
+            'userUpdatedAt' => $data['USERUPDATEDAT']
+        );
         return $useracc;
     }
 }

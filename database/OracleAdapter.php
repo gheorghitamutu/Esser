@@ -12,8 +12,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
     protected $password = ROOT_ADMIN_PASS;
     protected $connection = null;
     private $statements = array();
-    private $autocommit = false;
-    private $fetch_mode = OCI_BOTH;
+    private $autocommit = true;
+    private $fetch_mode = OCI_ASSOC;
     private $last_query;
     private $var_max_size = 1000;
     private $execute_status = false;
@@ -29,7 +29,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
 
         $this->setNlsLang('WE8MSWIN1252');
         $this->setFetchMode(OCI_ASSOC);
-        $this->setAutoCommit(false);
+        $this->setAutoCommit(true);
         if (count($config) !== 4) {
             throw new InvalidArgumentException('Invalid number of connection parameters!');
         }
@@ -168,13 +168,17 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     private function execute($sql_text, &$bind = false) {
         if (!is_resource($this->connection))
+        {
             return false;
+        }
         $this->last_query = $sql_text;
 
         $stid = @oci_parse($this->connection, $sql_text);
 
-        $this->statements[$stid]['text'] = $sql_text;
-        $this->statements[$stid]['bind'] = $bind;
+        $sd_id_int = (int)$stid;
+
+        $this->statements[$sd_id_int]['text'] = $sql_text;
+        $this->statements[$sd_id_int]['bind'] = $bind;
 
         if ($bind && is_array($bind)) {
             foreach ($bind as $k => $v) {
@@ -182,7 +186,10 @@ class OracleAdapter implements DatabaseAdapterInterface {
             }
         }
         $com_mode = $this->autocommit ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT;
+
         $this->execute_status = oci_execute($stid, $com_mode);
+
+
         return $this->execute_status ? $stid : false;
     }
 
@@ -301,13 +308,14 @@ class OracleAdapter implements DatabaseAdapterInterface {
     /**
      * Perform a SELECT statement
      */
-    public function select($table, $where = '', $fields = ''*'', $order = '', $limit = null, $offset = null, $bind = false)
+    public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
         $query = 'SELECT ' . $fields . ' FROM ' . $table
-    . (($where) ? ' WHERE ' . $where : '')
-               . (($limit) ? ' LIMIT ' . $limit : '')
-               . (($offset && $limit) ? ' OFFSET ' . $offset : '')
-               . (($order) ? ' ORDER BY ' . $order : '');
+            . (($where) ? ' WHERE ' . $where : '');
+
+              // . (($limit) ? ' LIMIT ' . $limit : '')
+             //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
+             //  . (($order) ? ' ORDER BY ' . $order : '');
         return $this->parseSelect($query, $bind);
     }
 
@@ -369,7 +377,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function update($table, array $arrayFieldsValues, $condition = false, &$bind = false, $returning = false) {
         if (empty($arrayFieldsValues)) {
-            return false;
+            return null;
         }
         $fields = array();
         $values = array();
@@ -392,7 +400,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
         $sql = "update $table set $fields where $condition $ret";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
-            return false;
+            return null;
         }
         if ($returning === false) {
             return $result;
@@ -631,7 +639,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     }
 
     public function getStatement($stid) {
-        return $this->statements[$stid] ? $this->statements[$stid] : false;
+        return $this->statements[(int)$stid] ? $this->statements[(int)$stid] : false;
     }
 
     /**
@@ -702,6 +710,11 @@ class OracleAdapter implements DatabaseAdapterInterface {
     }
 
     public function getConnection() {
+        if($this->connection === null)
+        {
+            $this->connect();
+        }
+
         return $this->connection;
     }
 
