@@ -21,7 +21,7 @@ class UserController extends Controller
         switch($uri)
         {
             case 'user':
-                $this->index();
+                $this->index($this->getUsers());
                 break;
             case 'user/alerts':
                 $this->alerts();
@@ -39,18 +39,38 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                $this->index($this->getUsers());
                 break;
 
         }
     }
 
-    public function index()
+    public function index($users)
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            [],
+            array('users' => $users),
             'Welcome Username');
+    }
+    private function getUsers()
+    {
+
+        /*
+        $user_current=$this->model_class->get_mapper()->findById($_SESSION['userid']);
+
+*/
+        $this->model('Useracc');
+        $query_users = $this->model_class->get_mapper()->findAll(
+            $where='',
+            $fields= false,
+            $order = " USERUPDATEDAT DESC "
+        );
+        $users=array();
+        for($i=0;$i<count($query_users);++$i){
+            $users[$i]=array('userName'=>$query_users["$i"]['userName'],'userId'=>$query_users["$i"]['userId']);
+        }
+        // limit 25-30
+        return $users;
     }
 
     public function alerts()

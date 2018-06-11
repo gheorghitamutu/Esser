@@ -105,10 +105,12 @@ abstract class AbstractMapper implements MapperInterface
      * @param string $criteria
      * @return array|OCI_Collection(not available - yet)findAll
      */
-    public function findAll($criteria = '')
+    public function findAll($criteria = '', $fields = false, $order=false, $limit=false)
     {
-        $selectstmt = $this->_adapter->select($this->_entitytable, $criteria);
+        $selectstmt = $this->_adapter->select($this->_entitytable, $criteria, $fields ? $fields : '*', $order ? $order : '', $limit ? $limit : '');
+
         $collection = array();
+
         if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
         {
             for ($i = 0; $i < count($data); ++$i){
