@@ -12,18 +12,19 @@
 
 class AdmincpController extends Controller
 {
-    protected $params = array(array(array()));
+    protected $params = array();
+
     public function __construct($uri)
     {
         // no logincontroller here so handle this in a messy way
-        if($uri !== 'admincp' && $uri !== 'admincp/login')
+        /**if($uri !== 'admincp' && $uri !== 'admincp/login')
         {
             if(!Auth::sessionAuthenticate())
             {
                 return;
             }
-        }
 
+        }*/
         switch($uri)
         {
             case 'admincp':
@@ -37,7 +38,7 @@ class AdmincpController extends Controller
                 $this->logout();
                 break;
             case 'admincp/dashboard':
-                $this->dashboard();
+                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline());
                break;
             case 'admincp/activity':
                 $this->activity($this->params[1], $this->params[0]);
@@ -65,6 +66,24 @@ class AdmincpController extends Controller
         }
     }
 
+    private function getTotalUsers()
+    {
+        $this->model('Useracc');
+        $total_users = $this->model_class->get_mapper()->countAll('');
+        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
+        //echo "Total Users = $total_users <br />";
+        return $total_users;
+    }
+
+    private function getTotalOnline()
+    {
+        $this->model('Useracc');
+        $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
+        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
+        //echo "Online Users = $online_users <br />";
+        return $online_users;
+    }
+
     private function index()
     {
         View::CreateView(
@@ -89,11 +108,11 @@ class AdmincpController extends Controller
         self::redirect('/admincp');
     }
 
-    private function dashboard()
+    private function dashboard($total_users, $online_users)
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
-            [],
+            array('totalUsers' => $total_users, 'onlineUsers' => $online_users),
             'AdminCP');
     }
 

@@ -12,9 +12,9 @@
                         <label> User count: </label>
                     </div>
                     <div class="info-result">
-                        <output class="dshb-online-usrs" value="getOnlineUsers()">60000 (Online)</output>
+                        <output class="dshb-online-usrs"><?php echo $this->view_data['onlineUsers']?> (Online)</output>
                         <label class="separator"> / </label>
-                        <output class="dshb-total-usrs" value="getOnlineUsers()">60000 (Total)</output>
+                        <output class="dshb-total-usrs"><?php echo $this->view_data['totalUsers']?> (Total)</output>
                     </div>
                 </div>
                 <div class="dshb-cnt-line">
