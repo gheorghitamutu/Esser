@@ -43,6 +43,6 @@ class HomeController extends Controller
 
     private function index($params)
     {
-      View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $params, $params["apptitle"]);
+        View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $params, $params["apptitle"]);
     }
 }

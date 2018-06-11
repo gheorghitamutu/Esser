@@ -50,7 +50,7 @@ class UserController extends Controller
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
             [],
-            'Welcome Username');
+            'Welcome ' . $_SESSION["uname"]);
     }
 
     public function alerts()

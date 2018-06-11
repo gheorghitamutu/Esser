@@ -2,8 +2,8 @@
 
 namespace DatabaseConnectivity;
 
-use http\Exception\InvalidArgumentException;
-use http\Exception\RuntimeException;
+use InvalidArgumentException;
+use RuntimeException;
 
 class OracleAdapter implements DatabaseAdapterInterface {
 
