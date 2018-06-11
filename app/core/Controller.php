@@ -55,7 +55,7 @@ class Controller
         }
         else
         {
-            // The authentication failed
+            echo "The authentication failed!<br />";
             return false;
         }
     }
@@ -63,16 +63,15 @@ class Controller
     protected function authenticate_user($username, $password)
     {
         // Test the username and password parameters
-        if (!isset($username) || !isset($password))
+        if (!isset($username) || !isset($password)) {
             return false;
-
+        }
         $salt = '$1_2jlh83#@J^Q';
         $password_hash = hash('sha512', $username. $salt . $password);
 
-        $user_found = $this->model_class->get_mapper()->findAll('userName = \'' . $username . '\' and userPass = \'' . $password_hash.  '\'');
-        // check if $user_found not empty
-
-        return $username === $user_found['userName'];
+        $user_found = $this->model_class->get_mapper()->findAll("userName = '$username' AND userPass = '$password_hash'");
+        echo var_dump($user_found);
+        //return $username === $user_found['userName'];
     }
 
     // Connects to a session and checks that the user has

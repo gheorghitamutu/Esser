@@ -91,7 +91,7 @@ abstract class AbstractMapper implements MapperInterface
     public function findById($id)
     {
         $selectstmt = $this->_adapter->select($this->_entitytable, "id = $id");
-        if ($data = $this->_adapter->fetch($selectstmt)) {
+        if (($data = $this->_adapter->fetch($selectstmt)) !== false) {
             return $this->_createEntity($data);
         }
         return null;
@@ -105,8 +105,29 @@ abstract class AbstractMapper implements MapperInterface
     public function findAll($criteria = '')
     {
         $selectstmt = $this->_adapter->select($this->_entitytable, $criteria);
-        $collection = $this->_createEntity($this->_adapter->fetchArray($selectstmt));
+        $collection = array();
+        if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
+        {
+            for($i=0; $i<count($data); ++$i) {
+                //echo var_dump($data[$i]) . " and i este: $i " . "<br />";
+                $collection[$i] = array_push($collection, $this->_createEntity($data[$i]));
+            }
+        }
+        $this->_adapter->disconnect();
         return $collection;
+    }
+
+    public function countAll($criteria = '')
+    {
+        $selectstmt = $this->_adapter->selectCount($this->_entitytable, $criteria);
+        if (($data = $this->_adapter->fetch($selectstmt)) !== false) {
+            $result = $this->_adapter->getResult($selectstmt,1);
+        }
+        else {
+            $result = 0;
+        }
+        $this->_adapter->disconnect();
+        return $result;
     }
 
     public function insert($entity)

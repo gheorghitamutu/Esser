@@ -14,7 +14,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     protected $connection = null;
     private $statements = array();
     private $autocommit = true;
-    private $fetch_mode = OCI_ASSOC;
+    private $fetch_mode = OCI_ASSOC+OCI_RETURN_NULLS;
     private $last_query;
     private $var_max_size = 1000;
     private $execute_status = false;
@@ -29,7 +29,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     {
 
         $this->setNlsLang('WE8MSWIN1252');
-        $this->setFetchMode(OCI_ASSOC);
+        $this->setFetchMode(OCI_ASSOC+OCI_RETURN_NULLS);
         $this->setAutoCommit(true);
         if (count($config) !== 4) {
             throw new InvalidArgumentException('Invalid number of connection parameters!');
@@ -317,6 +317,20 @@ class OracleAdapter implements DatabaseAdapterInterface {
               // . (($limit) ? ' LIMIT ' . $limit : '')
              //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
              //  . (($order) ? ' ORDER BY ' . $order : '');
+        return $this->parseSelect($query, $bind);
+    }
+
+    /**
+     * Perform a COUNT SELECT ON A TABLE
+     */
+    public function selectCount($table, $where = '', $fields = 'COUNT(*)', $order = '', $limit = null, $offset = null, $bind = false)
+    {
+        $query = 'SELECT ' . 'COUNT(*)' . ' FROM ' . $table
+            . (($where) ? ' WHERE ' . $where : '');
+
+        // . (($limit) ? ' LIMIT ' . $limit : '')
+        //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
+        //  . (($order) ? ' ORDER BY ' . $order : '');
         return $this->parseSelect($query, $bind);
     }
 
