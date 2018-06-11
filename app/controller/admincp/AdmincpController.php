@@ -13,18 +13,12 @@
 class AdmincpController extends Controller
 {
     protected $params = array();
+    protected $currentuser = array();
 
     public function __construct($uri)
     {
-        // no logincontroller here so handle this in a messy way
-        /**if($uri !== 'admincp' && $uri !== 'admincp/login')
-        {
-            if(!Auth::sessionAuthenticate())
-            {
-                return;
-            }
+        $this->model('Useracc');
 
-        }*/
         switch($uri)
         {
             case 'admincp':
@@ -38,7 +32,7 @@ class AdmincpController extends Controller
                 $this->logout();
                 break;
             case 'admincp/dashboard':
-                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline());
+                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline(), $this->getUserLastLoginDate($this->currentuser));
                break;
             case 'admincp/activity':
                 $this->activity($this->params[1], $this->params[0]);
@@ -63,6 +57,27 @@ class AdmincpController extends Controller
                 break;
             default:
                 break;
+        }
+    }
+
+    private function getUserLastLoginDate(array $user) {
+        $userid = $_SESSION['userid'];
+        $username= $_SESSION['uname'];
+        $this->model('Userlog');
+        $queryresult =
+            $this->model_class->get_mapper()->findAll(
+                $where = "ULOGDESCRIPTION like '%$userid%' AND ULOGDESCRIPTION like '%$username%' AND ULOGDESCRIPTION like '%has logged in%'",
+                $fields = 'ULOGCREATEDAT',
+                $order = "BY ID DESC",
+                $limit = '< 1');
+        if (count($queryresult) > 1) {
+            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
+        }
+        else if (count($queryresult) === 0) {
+            return 'N/A';
+        }
+        else {
+            return $queryresult['uLogCreatedAt'];
         }
     }
 
@@ -94,12 +109,13 @@ class AdmincpController extends Controller
 
     private function login($uname, $pass)
     {
-        // TO DO: check login
-        // if login true, redirect to dashboard
-        $md5_pass = md5($pass);
-
-        if(Auth::auth_user("connection", $uname, $pass))
-            self::redirect('dashboard');
+        if(($result['0']['0'] = $this->auth_user($uname, $pass, $isadmcp = true)) !== false) {
+            $this->currentuser = $result['1'];
+            self::redirect('/admincp/dashboard');
+        }
+        else {
+            self::redirect('/admincp');
+        }
     }
 
     private function logout()

@@ -236,7 +236,15 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchAll($statement, $skip = 0, $maxrows = -1) {
         $rows = array();
-        oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW);
+        oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
+        /**foreach($rows as $k => $v) {
+            echo "Row number: $k";
+            foreach ($v as $r => $rv) {
+                echo " $r: $rv ";
+            }
+            echo "<br />";
+        }
+        */
         return $rows;
     }
 
@@ -312,11 +320,11 @@ class OracleAdapter implements DatabaseAdapterInterface {
     public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
         $query = 'SELECT ' . $fields . ' FROM ' . $table
-            . (($where) ? ' WHERE ' . $where : '');
-
-              // . (($limit) ? ' LIMIT ' . $limit : '')
-             //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
-             //  . (($order) ? ' ORDER BY ' . $order : '');
+                . (($where) ? ' WHERE ' . $where : '')
+                . (($limit) ? ' AND ROWNUM ' . $limit : '')
+                //. (($offset && $limit) ? ' OFFSET ' . $offset : '')
+                . (($order) ? ' ORDER BY ' . $order : '');
+        echo "QUERYUL ESTE: $query <br /><br /><br />";
         return $this->parseSelect($query, $bind);
     }
 

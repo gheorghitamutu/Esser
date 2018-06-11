@@ -15,7 +15,6 @@ class UseraccMapper extends AbstractMapper
     protected $_entityTable = 'USERACCS';
     protected $_entityClass = 'Useracc';
 
-
     public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
     {
         parent::__construct($adapter, array(
