@@ -12,7 +12,6 @@
 
 class Controller
 {
-    //protected $model_name = '';
     protected $model_class = null;
 
     public static function redirect($url)

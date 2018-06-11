@@ -42,7 +42,7 @@ class HomeController extends Controller
     }
 
     private function index()
-    {
+    {      
       View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $this->params, $this->params["apptitle"]);
     }
 }
