@@ -12,31 +12,30 @@
 
 class AdmincpController extends Controller
 {
+    protected $params = array();
+    protected $currentuser = array();
+
     public function __construct($uri)
     {
-        Parent::__construct();
-        echo $uri;
+        $this->model('Useracc');
+
         switch($uri)
         {
             case 'admincp':
                 $this->index();
                 break;
             case 'admincp/login':
-                // getting here means you have params in your admincp link (eg. admincp?param1=value)
-                $uname = $_GET["uname"];
-                $pass = $_GET["psw"];
-
-                $this->login($uname, $pass);
+                $this->login($_POST["uname"], $_POST["psw"]);
                 break;
             case 'admincp/logout':
                 echo 'logout';
                 $this->logout();
                 break;
             case 'admincp/dashboard':
-                $this->dashboard();
+                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline(), $this->getUserLastLoginDate($this->currentuser));
                break;
             case 'admincp/activity':
-                $this->activity();
+                $this->activity($this->params[1], $this->params[0]);
                 break;
             case 'admincp/data':
                 $this->data();
@@ -61,6 +60,45 @@ class AdmincpController extends Controller
         }
     }
 
+    private function getUserLastLoginDate(array $user) {
+        $userid = $_SESSION['userid'];
+        $username= $_SESSION['uname'];
+        $this->model('Userlog');
+        $queryresult =
+            $this->model_class->get_mapper()->findAll(
+                $where = "ULOGDESCRIPTION like '%$userid%' AND ULOGDESCRIPTION like '%$username%' AND ULOGDESCRIPTION like '%has logged in%'",
+                $fields = 'ULOGCREATEDAT',
+                $order = "BY ID DESC",
+                $limit = '< 1');
+        if (count($queryresult) > 1) {
+            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
+        }
+        else if (count($queryresult) === 0) {
+            return 'N/A';
+        }
+        else {
+            return $queryresult['uLogCreatedAt'];
+        }
+    }
+
+    private function getTotalUsers()
+    {
+        $this->model('Useracc');
+        $total_users = $this->model_class->get_mapper()->countAll('');
+        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
+        //echo "Total Users = $total_users <br />";
+        return $total_users;
+    }
+
+    private function getTotalOnline()
+    {
+        $this->model('Useracc');
+        $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
+        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
+        //echo "Online Users = $online_users <br />";
+        return $online_users;
+    }
+
     private function index()
     {
         View::CreateView(
@@ -71,27 +109,26 @@ class AdmincpController extends Controller
 
     private function login($uname, $pass)
     {
-        // TO DO: check login
-        // if login true, redirect to dashboard
-        $md5_pass = md5($pass);
-
-
-        self::redirect('dashboard');
-
-
-
+        if(($result['0']['0'] = $this->auth_user($uname, $pass, $isadmcp = true)) !== false) {
+            $this->currentuser = $result['1'];
+            self::redirect('/admincp/dashboard');
+        }
+        else {
+            self::redirect('/admincp');
+        }
     }
 
     private function logout()
     {
+        session_destroy();
         self::redirect('/admincp');
     }
 
-    private function dashboard()
+    private function dashboard($total_users, $online_users)
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
-            [],
+            array('totalUsers' => $total_users, 'onlineUsers' => $online_users),
             'AdminCP');
     }
 
@@ -107,7 +144,7 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'activity',
-            [],
+            $this->params,
             'AdminCP');
     }
 

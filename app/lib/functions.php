@@ -17,217 +17,331 @@ function getParams($name, $default = '')
     return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
 }
 
-function inFileStrReplace($filename, $replacedstring, $replacewithstring)
+function inFileStrReplace($filename, $replaced_string, $replace_with_string)
 {
-  $filehandler = null;
-  $content = null;
-  $noerror = true;
-  try
-  {
-    clearstatcache(true, $filename);
-    $filehandler = fopen($filename,"r");
-    $content = fread($filehandler,filesize($filename));
-    fclose($filehandler);
-    $filehandler = null;
-    $content = str_replace($replacedstring, $replacewithstring, $content);
-    $filehandler = fopen($filename,"w");
-    fwrite($filehandler, $content, strlen($content));
-    fclose($filehandler);
-    $filehandler = null;
-  }
-  catch (Exception $e)
-  {
-    Logger::getInstance()->log(ERROR, $e->getMessage());
-    $noerror = false;
-  }
-  return $noerror;
-}
-
-function inFileRegexReplace($filename, $replacedstring, $replacewithstring)
-{
-  $filehandler = null;
-  $content = null;
-  $noerror = true;
-  try
-  {
-    clearstatcache(true, $filename);
-    $filehandler = fopen($filename,"r");
-    $content = fread($filehandler,filesize($filename));
-    fclose($filehandler);
-    $filehandler = null;
-    $content = preg_replace($replacedstring, $replacewithstring, $content);
-    $filehandler = fopen($filename,"w");
-    fwrite($filehandler, $content);
-    fclose($filehandler);
-  }
-  catch (Exception $e)
-  {
-    Logger::getInstance()->log(ERROR, $e->getMessage());
-    $noerror = false;
-  }
-  return $noerror;
-}
-
-function firstPhaseInstall()
-{
-  $goodinstall = true;
-  $tobereplaced = array("protected \$username = null", "protected \$password = null");
-  $replacewith = array("protected \$username = ROOT_ADMIN_USER", "protected \$password = ROOT_ADMIN_PASS");
-  /* Linking the database username and password to the ROOT_ADMIN constants */
-  for ($i = count($tobereplaced) - 1; $i >= 0 ; --$i)
-  {
+    $file_handler = null;
+    $content = null;
+    $no_error = true;
     try
     {
-      $filename = ROOT . "database" . DS . "Database.php";
-      $goodinstall = inFileStrReplace($filename,$tobereplaced[$i],$replacewith[$i]);
-      if(!$goodinstall)
-      {
-        $error = "Couldn't set root admin user and password for the database!";
-        throw new Exception($error);
-      }
+        clearstatcache(true, $filename);
+        $file_handler = fopen($filename,"r");
+        $content = fread($file_handler,filesize($filename));
+        fclose($file_handler);
+        $file_handler = null;
+        $content = str_replace($replaced_string, $replace_with_string, $content);
+
+        $file_handler = fopen($filename,"w");
+        fwrite($file_handler, $content, strlen($content));
+        fclose($file_handler);
+        $file_handler = null;
     }
     catch (Exception $e)
     {
-      Logger::getInstance()->log(ERROR, $e->getMessage());
-      return false;
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+        $no_error = false;
     }
-  }
-  
-  /* Parsing all important constants defined with strings that may prove 'fatal' while installing */
-  $tobeparsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP);
-  $parsed = [];
-  for ($i = count($tobeparsed) - 1; $i >= 0 ; --$i)
-  {
-    $parsed[$i] = preg_replace("/[^a-zA-Z0-9]+/", "", $tobeparsed[$i]);
-  }
-  
-  /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
-  for ($i = count($tobeparsed) - 1; $i >= 0 ; --$i)
-  {
+    return $no_error;
+}
+
+function inFileRegexReplace($filename, $replaced_string, $replace_with_string)
+{
+    $file_handler = null;
+    $content = null;
+    $no_error = true;
     try
     {
-      $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-      $goodinstall = inFileStrReplace($filename, $tobeparsed[$i], $parsed[$i]);
-      if(!$goodinstall)
-      {
-        $error = "Couldn't finish replacing config constants with the parsed ones!";
-        throw new Exception($error);
-      }
+        clearstatcache(true, $filename);
+        $file_handler = fopen($filename,"r");
+        $content = fread($file_handler,filesize($filename));
+        fclose($file_handler);
+        $file_handler = null;
+        $content = preg_replace($replaced_string, $replace_with_string, $content);
+
+        $file_handler = fopen($filename,"w");
+        fwrite($file_handler, $content);
+        fclose($file_handler);
     }
     catch (Exception $e)
     {
-      Logger::getInstance()->log(ERROR, $e->getMessage());
-      return false;
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+        $no_error = false;
     }
-  }
-  
-  /* Trying to change the install phase to the next step */
-  try
-  {
-    $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', 1", "define('INSTALL_PHASE', 2");
-    if(!$goodinstall)
-    {
-      $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
-      throw new Exception($error);
-    }
-  }
-  catch (Exception $e)
-  {
-    Logger::getInstance()->log(ERROR, $e->getMessage());
-    return false;
-  }
-  return $goodinstall;
+    return $no_error;
 }
 
-function secondPhaseInstall()
+function first_phase_install()
 {
-  $goodinstall = true;
-  //Shell/Cmd approach.
-  //Need to find a way to detect errors
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'), SYS_DB_USER, SYS_DB_USER_PASS, (HOST_IP.':'.HOST_PORT.'//'.SYS_DB), (DB_SCRIPTS.'createDBUserPrc.sql'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
-  $output = shell_exec($shellcmd);
-  Logger::getInstance()->log(LOGGING, "Executed createDBUserPrc.sql script output is: " 
-                                    . "\r\n==============\r\n" 
-                                    . $output 
-                                    . "\r\n==============\r\n");
+    $to_be_replaced = array('protected $username = null', 'protected $password = null');
+    $replace_with = array('protected $username = ROOT_ADMIN_USER', 'protected $password = ROOT_ADMIN_PASS');
+
+    /* Linking the database username and password to the ROOT_ADMIN constants */
+    for ($i = count($to_be_replaced) - 1; $i >= 0 ; --$i)
+    {
+        try
+        {
+            $filename = ROOT . 'database' . DS . 'OracleAdapter.php';
+            $good_install = inFileStrReplace($filename, $to_be_replaced[$i], $replace_with[$i]);
+            if(!$good_install)
+            {
+                $error = "Couldn't set root admin user and password for the database!";
+                throw new Exception($error);
+            }
+        }
+        catch (Exception $e)
+        {
+            Logger::getInstance()->log(ERROR, $e->getMessage());
+            return false;
+        }
+    }
   
-  $shellcmd = sprintf(('SQLPLUS %s/%s@%s @%s'), ROOT_ADMIN_USER, ROOT_ADMIN_PASS, (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB), (DB_SCRIPTS . 'dbCreate.sql'));
-  $output = shell_exec($shellcmd);
-  Logger::getInstance()->log(LOGGING, "Executed dbCreate.sql script output is: " 
+    /* Parsing all important constants defined with strings that may prove 'fatal' while installing */
+    $to_be_parsed = array(SYS_DB_USER, SYS_DB_USER_PASS, ROOT_ADMIN_USER, ROOT_ADMIN_PASS);
+    $parsed = [];
+    for ($i = count($to_be_parsed) - 1; $i >= 0 ; --$i)
+    {
+        $parsed[$i] = preg_replace("/[^a-zA-Z0-9]+/", "", $to_be_parsed[$i]);
+    }
+
+    $check = preg_match_all('/@/', ROOT_ADMIN_EMAIL);
+    if ($check !== 1) {
+        Logger::getInstance()->log(ERROR, "More than one '@' detected in defined ROOT_ADMIN_EMAIL from config file. Please correct this!");
+        return false;
+    }
+    else
+    {
+        array_push($to_be_parsed, ROOT_ADMIN_EMAIL);
+        array_push($parsed,
+            preg_replace("/[^a-zA-Z0-9@._]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
+    }
+
+    array_push($to_be_parsed, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
+    array_push($parsed,
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-3]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-2]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
+  
+    /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
+    $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+    for ($i = count($to_be_parsed) - 1; $i >= 0 ; --$i)
+    {
+        try
+        {
+            $good_install = inFileStrReplace($filename, $to_be_parsed[$i], $parsed[$i]);
+            if(!$good_install)
+            {
+                $error = "Couldn't finish replacing config constants with the parsed ones!";
+                throw new Exception($error);
+            }
+        }
+        catch (Exception $e)
+        {
+            Logger::getInstance()->log(ERROR, $e->getMessage());
+            return false;
+        }
+    }
+  
+    /* Trying to change the install phase to the next step */
+    try
+    {
+        $good_install = inFileStrReplace(
+            $filename,
+            "define('INSTALL_PHASE'                      , 1",
+            "define('INSTALL_PHASE'                      , 2");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
+            throw new Exception($error);
+        }
+    }
+    catch (Exception $e)
+    {
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+        return false;
+    }
+
+    return true;
+}
+
+function second_phase_install()
+{
+    //Shell/Cmd approach.
+    //Need to find a way to detect errors
+    $command =
+        sprintf(('SQLPLUS -S -L %s/%s@%s AS SYSDBA @%s %s %s'),
+            SYS_DB_USER,
+            SYS_DB_USER_PASS,
+            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
+            (DB_SCRIPTS . 'createDBUserPrc.sql'),
+            ROOT_ADMIN_USER,
+            ROOT_ADMIN_PASS);
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBUserPrc.sql script output is: " .
+        "\r\n==============\r\n" .
+        $output .
+        "\r\n==============\r\n");
+    $command =
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
+            ROOT_ADMIN_USER,
+            ROOT_ADMIN_PASS,
+            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
+            (DB_SCRIPTS . 'createDBTables.sql'));
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBTables.sql script output is: " .
+        "\r\n==============\r\n" .
+        $output .
+        "\r\n==============\r\n" );
+
+    $command =
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
+            ROOT_ADMIN_USER,
+            ROOT_ADMIN_PASS,
+            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
+            (DB_SCRIPTS . 'createDBSequences.sql'));
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBSequences.sql script output is: " .
+        "\r\n==============\r\n" .
+        $output .
+        "\r\n==============\r\n" );
+
+    $command =
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
+            ROOT_ADMIN_USER,
+            ROOT_ADMIN_PASS,
+            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
+            (DB_SCRIPTS . 'createDBAutoInsTriggers.sql'));
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBAutoInsTriggers.sql script output is: " .
+        "\r\n==============\r\n" .
+        $output .
+        "\r\n==============\r\n" );
+
+    $command =
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
+            ROOT_ADMIN_USER,
+            ROOT_ADMIN_PASS,
+            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
+            (DB_SCRIPTS . 'createDBComplexTriggers.sql'));
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBComplexTriggers.sql script output is: "
                                     . "\r\n==============\r\n" 
                                     . $output 
                                     . "\r\n==============\r\n" );
-  $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-  try
-  {
-    $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', 2", "define('INSTALL_PHASE', 3");
-    if(!$goodinstall)
+
+    $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
+    $script = DB_SCRIPTS.'createDBPrcsFcts.sql';
+    $salt = '$1_2jlh83#@J^Q';
+    $passhash = hash('sha512', ROOT_ADMIN_USER. $salt . ROOT_ADMIN_PASS);
+    $command = sprintf(
+                'SQLPLUS -S -L %s/%s@%s @%s \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\"',
+                ROOT_ADMIN_USER,
+                ROOT_ADMIN_PASS,
+                $format_connection,
+                $script,
+                ROOT_ADMIN_USER,
+                $passhash,
+                ROOT_ADMIN_EMAIL,
+                ROOT_ADMIN_GROUP,
+                ROOT_MANAGER_GROUP,
+                ROOT_NORMAL_USER_GROUP);
+    $output = shell_exec($command);
+    Logger::getInstance()->log(LOGGING,
+        "Executed createDBPrcsFcts.sql script output is: " .
+        "\r\n==============\r\n" .
+        $output .
+        "\r\n==============\r\n" );
+
+    $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+    try
     {
-      $error = "Couldn't set the INSTALL_PHASE 3 in the config file!";
-      throw new Exception($error);
+        $good_install = inFileStrReplace(
+            $filename,
+            "define('INSTALL_PHASE'                      , 2",
+            "define('INSTALL_PHASE'                      , 3");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the INSTALL_PHASE 3 in the config file!";
+            throw new Exception($error);
+        }
     }
-  }
-  catch (Exception $e)
-  {
-    Logger::getInstance()->log(ERROR, $e->getMessage());
-    return false;
-  }
-  return $goodinstall;
+    catch (Exception $e)
+    {
+        Logger::getInstance()->log(ERROR, $e->getMessage());
+        return false;
+    }
+
+    return true;
 }
 
-function thirdPhaseInstall()
+function third_phase_install()
 {
-  $goodinstall = true;
-  $filename = preg_replace("/(?=htdocs).+/", "php".DS."php.ini", ROOT);
-  try
-  {
-    $goodinstall = inFileRegexReplace($filename, "/(?=\;extension=oci8_).+?(?=\;)/", "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");
-    if(!$goodinstall)
+    $filename = preg_replace("/(?=htdocs).+/", "php" . DS . "php.ini", ROOT);
+    try
     {
-      $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
-      throw new Exception($error);
+        $good_install =
+            inFileRegexReplace(
+                $filename,
+                "/(?=\;extension=oci8_).+?(?=\;)/",
+                "extension=php_oci8.dll;\r\nextension=php_oci8_11g.dll;\r\n");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
+            throw new Exception($error);
+        }
     }
-  }
-  catch (Exception $e)
-  {
-    LOGGER::getInstance()->log(ERROR, $e->getMessage());
-    return false;
-  }        
-  $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
-  try
-  {
-    $goodinstall = inFileStrReplace($filename, "define('INSTALL_PHASE', 3", "define('INSTALL_PHASE', 0");
-    if(!$goodinstall)
+    catch (Exception $e)
     {
-      $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
-      throw new Exception($error);
+        LOGGER::getInstance()->log(ERROR, $e->getMessage());
+        return false;
     }
-  }
-  catch (Exception $e)
-  {
-    LOGGER::getInstance()->log(ERROR, $e->getMessage());
-    return false;
-  }
-  return $goodinstall;
+    $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+    try
+    {
+        $good_install =
+            inFileStrReplace(
+                $filename,
+                "define('INSTALL_PHASE'                      , 3",
+                "define('INSTALL_PHASE'                      , 0");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
+            throw new Exception($error);
+        }
+    }
+    catch (Exception $e)
+    {
+        LOGGER::getInstance()->log(ERROR, $e->getMessage());
+        return false;
+    }
+
+    return true;
 }
 
-
-//function threadExec(function()) {
-//  $thread = new class extends Thread 
-//  {
-//	  public function run() 
-//    {
-//      $this->synchronized(function()
-//      {
-//        $this->awake = true;
-//        $this->notify();
-//      });
-//	}
-//};
 //
-//$thread->start();
-//$thread->synchronized(function() use($thread) {
-//	while (!$thread->awake) {
+//function threadExec(function())
+//{
+//  $thread = new class extends Thread
+//  {
+//	    public function run()
+//      {
+//          $this->synchronized(function()
+//          {
+//              $this->awake = true;
+//              $this->notify();
+//          });
+//	     }
+//   };
+//
+//  $thread->start();
+//  $thread->synchronized(function() use($thread)
+//  {
+//	    while (!$thread->awake)
+//      {
 //		/*
 //			If there was no precondition above and the Thread
 //			managed to send notification before we entered this synchronized block
@@ -235,12 +349,13 @@ function thirdPhaseInstall()
 //			We check the precondition in a loop because a Thread can be awoken
 //			by signals other than the one you are waiting for.
 //		*/
-//		$thread->wait();
-//	}
-//});
+//		    $thread->wait();
+//	    }
+//  });
 //
-//$thread->join();
 //
+//  $thread->join();//
 //}
 //
-?>
+
+

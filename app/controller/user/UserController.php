@@ -13,6 +13,11 @@ class UserController extends Controller
 {
     public function __construct($uri)
     {
+        if(!$this->session_authenticate())
+        {
+            return;
+        }
+
         switch($uri)
         {
             case 'user':
@@ -39,12 +44,13 @@ class UserController extends Controller
 
         }
     }
+
     public function index()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
             [],
-            'Welcome Username');
+            'Welcome ' . $_SESSION["uname"]);
     }
 
     public function alerts()
@@ -82,6 +88,7 @@ class UserController extends Controller
 
     public function logout()
     {
+        session_destroy();
         Controller::redirect('/home');
     }
 }

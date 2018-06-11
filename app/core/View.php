@@ -15,7 +15,7 @@ class View
     protected $view_data;
     protected $page_title;
 
-    public function setPageTitle($page_title): void
+    public function setPageTitle($page_title)
     {
         $this->page_title = $page_title;
     }

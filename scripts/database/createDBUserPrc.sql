@@ -1,3 +1,4 @@
+-- Database creation script part!; Creation of the root_user_admin as an ORACLE XE DB user-account! (STEP1)
 CREATE OR REPLACE PROCEDURE prc_esser_crt_root_user(p_username VARCHAR2, p_password VARCHAR2)
 AS
   v_username VARCHAR2(16);
@@ -27,7 +28,8 @@ BEGIN
   
   v_username := p_username;
   v_password := p_password;
-  -- USER SQL
+  
+-- USER SQL
   v_sql_cmd := 'CREATE USER ' || v_username || ' IDENTIFIED BY ' || v_password || ' DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP';
   DBMS_OUTPUT.PUT_LINE(v_sql_cmd);
   EXECUTE IMMEDIATE(v_sql_cmd);

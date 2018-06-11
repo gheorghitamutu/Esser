@@ -16,7 +16,6 @@ class HomeController extends Controller
   
     public function __construct($uri)
     {
-        Parent::__construct();
         switch($uri)
         {
           case '/':
@@ -44,6 +43,6 @@ class HomeController extends Controller
 
     private function index($params)
     {
-      View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $params, $params["apptitle"]);
+        View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $params, $params["apptitle"]);
     }
 }

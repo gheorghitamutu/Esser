@@ -9,21 +9,19 @@
  * Time: 12:48 PM
  */
 
-
 class LoginController extends Controller
 {
     public function __construct($uri)
     {
-        Parent::__construct();
+        $this->model('Useracc');
+
         switch($uri)
         {
             case 'login':
                 $this->index();
                 break;
             case 'login/check':
-                $uname = $_GET["uname"];
-                $pass = $_GET["psw"];
-                $this->check_login($uname, $pass);
+                $this->check_login($_POST["uname"], $_POST["psw"]);
                 break;
             case 'login/fail':
                 $this->fail();
@@ -60,11 +58,13 @@ class LoginController extends Controller
 
     private function check_login($uname, $pass)
     {
-        // if login successfull call user landing page controller
-        $this->redirect('success');
-        //$this->redirect('/login/fail');
-        // else call login failed controller
-        // ...
+//        echo $this->auth_user($uname, $pass, $isadmcp = false);
+        if($this->auth_user($uname, $pass, $isadmcp = false)) {
+            self::redirect('/login/success');
+        }
+        else {
+            self::redirect('/login/fail');
+        }
     }
 
     private function fail()
