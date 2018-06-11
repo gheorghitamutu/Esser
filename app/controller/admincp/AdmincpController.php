@@ -32,7 +32,7 @@ class AdmincpController extends Controller
                 $this->logout();
                 break;
             case 'admincp/dashboard':
-                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline(), $this->getUserLastLoginDate($this->currentuser));
+                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline(), $this->getUserLastLoginDate($_SESSION), $this->getDBTimeZone());
                break;
             case 'admincp/activity':
                 $this->activity($this->params[1], $this->params[0]);
@@ -60,16 +60,16 @@ class AdmincpController extends Controller
         }
     }
 
-    private function getUserLastLoginDate(array $user) {
-        $userid = $_SESSION['userid'];
-        $username= $_SESSION['uname'];
+    private function getUserLastLoginDate(array $session) {
+        $userid = $session['userid'];
+        $username= $session['uname'];
         $this->model('Userlog');
         $queryresult =
             $this->model_class->get_mapper()->findAll(
                 $where = "ULOGDESCRIPTION like '%$userid%' AND ULOGDESCRIPTION like '%$username%' AND ULOGDESCRIPTION like '%has logged in%'",
                 $fields = 'ULOGCREATEDAT',
-                $order = "BY ID DESC",
-                $limit = '< 1');
+                $order = "uLogId DESC",
+                $limit = " = 1");
         if (count($queryresult) > 1) {
             throw new RuntimeException('Something went wrong during the fetch of of last login date!');
         }
@@ -79,14 +79,19 @@ class AdmincpController extends Controller
         else {
             return $queryresult['uLogCreatedAt'];
         }
+        //return 'N/A';
+    }
+
+    private function getDBTimeZone() {
+        $this->model('Dual');
+        $result = $this->model_class->get_mapper()->findAll();
+        return $result['timezonestamp'];
     }
 
     private function getTotalUsers()
     {
         $this->model('Useracc');
         $total_users = $this->model_class->get_mapper()->countAll('');
-        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
-        //echo "Total Users = $total_users <br />";
         return $total_users;
     }
 
@@ -94,8 +99,6 @@ class AdmincpController extends Controller
     {
         $this->model('Useracc');
         $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
-        //echo hash('sha512','Tester1'.'$1_2jlh83#@J^Q'.'tester1');
-        //echo "Online Users = $online_users <br />";
         return $online_users;
     }
 
@@ -124,11 +127,16 @@ class AdmincpController extends Controller
         self::redirect('/admincp');
     }
 
-    private function dashboard($total_users, $online_users)
+    private function dashboard($total_users, $online_users, $last_login, $time_zone)
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
-            array('totalUsers' => $total_users, 'onlineUsers' => $online_users),
+            array(
+                'totalUsers' => $total_users,
+                'onlineUsers' => $online_users,
+                'lastLogin' => $last_login,
+                'timeZone' => $time_zone
+            ),
             'AdminCP');
     }
 

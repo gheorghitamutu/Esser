@@ -190,7 +190,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
 
         $this->execute_status = oci_execute($stid, $com_mode);
 
-
         return $this->execute_status ? $stid : false;
     }
 
@@ -237,14 +236,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
     public function fetchAll($statement, $skip = 0, $maxrows = -1) {
         $rows = array();
         oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
-        /**foreach($rows as $k => $v) {
-            echo "Row number: $k";
-            foreach ($v as $r => $rv) {
-                echo " $r: $rv ";
-            }
-            echo "<br />";
-        }
-        */
         return $rows;
     }
 
@@ -319,11 +310,18 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
-        $query = 'SELECT ' . $fields . ' FROM ' . $table
+        if (!$limit) {
+            $query = 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
-                . (($limit) ? ' AND ROWNUM ' . $limit : '')
-                //. (($offset && $limit) ? ' OFFSET ' . $offset : '')
-                . (($order) ? ' ORDER BY ' . $order : '');
+                . (($limit) ? ' AND ROWNUM ' . $limit : '');
+        }
+        if ($limit) {
+            $query = 'SELECT ' . $fields . ' FROM ( '
+                . 'SELECT ' . $fields . ' FROM ' . $table
+                . (($where) ? ' WHERE ' . $where : '')
+                . (($order) ? ' ORDER BY ' . $order : '')
+                . ') WHERE ROWNUM ' . $limit ;
+        }
         echo "QUERYUL ESTE: $query <br /><br /><br />";
         return $this->parseSelect($query, $bind);
     }

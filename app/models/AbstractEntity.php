@@ -7,6 +7,7 @@
  */
 
 namespace AppModel;
+use ModelMapper;
 
 abstract class AbstractEntity
 {
@@ -16,12 +17,13 @@ abstract class AbstractEntity
     /**
      * Constructor
      */
-    public function __construct($fields)
+    public function __construct($fields)//, ModelMapper\AbstractMapper $mapper)
     {
         $this->_allowedFields = $fields;
         foreach ($fields as $name) {
             $this->$name = $name;
         }
+        //$this->_values = $mapper->getValues();
     }
 
     /**
