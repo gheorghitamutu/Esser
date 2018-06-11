@@ -91,16 +91,19 @@ abstract class AbstractMapper implements MapperInterface
     public function findById($id)
     {
         $selectstmt = $this->_adapter->select($this->_entitytable, "id = $id");
-        if (($data = $this->_adapter->fetch($selectstmt)) !== false) {
-            return $this->_createEntity($data);
+        if (($data = $this->_adapter->fetchRow($selectstmt)) !== false) {
+            $result = $this->_createEntity($data);
+            $this->_adapter->disconnect();
+            return $result;
         }
+        $this->_adapter->disconnect();
         return null;
     }
 
     /**
      * Find entities according to the given criteria (all entities will be fetched if no criteria are specified)
      * @param string $criteria
-     * @return array|OCI_Collection
+     * @return array|OCI_Collection(not available - yet)findAll
      */
     public function findAll($criteria = '')
     {
@@ -108,9 +111,8 @@ abstract class AbstractMapper implements MapperInterface
         $collection = array();
         if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
         {
-            for($i=0; $i<count($data); ++$i) {
-                //echo var_dump($data[$i]) . " and i este: $i " . "<br />";
-                $collection[$i] = array_push($collection, $this->_createEntity($data[$i]));
+            for ($i = 0; $i < count($data); ++$i){
+                $collection[$i] = $this->_createEntity($data[$i]);
             }
         }
         $this->_adapter->disconnect();
@@ -135,7 +137,9 @@ abstract class AbstractMapper implements MapperInterface
         if (!$entity instanceof $this->_entityclass) {
             throw new \InvalidArgumentException('The entity that needs to be inserted must be an instance of ' . $this->_entityclass . '!');
         }
-        return $this->_adapter->insert($this->_entitytable, $entity->toArray());
+        $result = $this->_adapter->insert($this->_entitytable, $entity->toArray());
+        $this->_adapter->disconnect();
+        return $result;
     }
 
     public function update($entity)
@@ -146,7 +150,9 @@ abstract class AbstractMapper implements MapperInterface
         $id = $entity->id;
         $data = $entity->toArray();
         unset($data['id']);
-        return $this->_adapter->update($this->_entitytable, $data, "id = $id");
+        $result = $this->_adapter->update($this->_entitytable, $data, "id = $id");
+        $this->_adapter->disconnect();
+        return $result;
     }
 
     public function delete($id, $col = 'id')
@@ -154,6 +160,8 @@ abstract class AbstractMapper implements MapperInterface
         if ($id instanceof $this->_entityclass) {
             $id = $id->id;
         }
-        return $this->_adapter->delete($this->_entitytable, "$col = $id");
+        $result = $this->_adapter->delete($this->_entitytable, "$col = $id");
+        $this->_adapter->disconnect();
+        return $result;
     }
 }
