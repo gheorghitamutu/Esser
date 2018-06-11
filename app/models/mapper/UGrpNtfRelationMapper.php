@@ -7,7 +7,9 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UGrpNtfRelationMapper extends AbstractMapper
 {
@@ -19,11 +21,11 @@ class UGrpNtfRelationMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $ugrpntfrelation = new $this->_entityClass(array(
-            'USRGNRELATIONID'     => $data['usrGNRelationId'],
-            'USRGNNOTIFICATIONID'   => $data['usrGNNotificationId'],
-            'USRGNNOTIFIEDGROUPID'   => $data['usrGNNotifiedGroupId']
-        ));
+        $ugrpntfrelation = array(
+            'usrGNRelationId'     => $data['USRGNRELATIONID'],
+            'usrGNNotificationId'   => $data['USRGNNOTIFICATIONID'],
+            'usrGNNotifiedGroupId'   => $data['USRGNNOTIFIEDGROUPID']
+        );
         return $ugrpntfrelation;
     }
 }

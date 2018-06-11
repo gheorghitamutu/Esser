@@ -7,24 +7,33 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UserLogMapper extends AbstractMapper
 {
     protected $_entityTable = 'USERLOGS';
     protected $_entityClass = 'UserLog';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
-        $userlog = new $this->_entityClass(array(
-            'ULOGID'     => $data['uLogId'],
-            'ULOGDESCRIPTION'   => $data['uLogDescription'],
-            'ULOGSOURCEIP'   => $data['uLogSourceIP'],
-            'ULOGCREATEDAT'   => $data['uLogCreatedAt']
-        ));
+        $userlog = array(
+            'uLogId'     => $data['ULOGID'],
+            'uLogDescription'   => $data['ULOGDESCRIPTION'],
+            'uLogSourceIP'   => $data['ULOGSOURCEIP'],
+            'uLogCreatedAt'   => $data['ULOGCREATEDAT']
+        );
         return $userlog;
     }
 }

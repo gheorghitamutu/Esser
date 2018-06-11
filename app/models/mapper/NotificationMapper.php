@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class NotificationMapper extends AbstractMapper
 {
@@ -19,13 +20,13 @@ class NotificationMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $notification = new $this->_entityClass(array(
+        $notification = array(
             'NTFID'     => $data['ntfId'],
             'NITEMID'   => $data['nItemId'],
             'NTFTYPE'   => $data['ntfType'],
             'NTFDSCRP'  => $data['ntfDscrp'],
             'NTFCREATEDAT' => $data['ntfCreatedAt']
-        ));
+        );
         return $notification;
     }
 }

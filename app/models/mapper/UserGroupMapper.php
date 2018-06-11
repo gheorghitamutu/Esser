@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class UserGroupMapper extends AbstractMapper
 {
@@ -20,13 +21,13 @@ class UserGroupMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $usergroup = new $this->_entityClass(array(
-            'UGROUPID'     => $data['uGroupId'],
-            'UGROUPNAME'   => $data['uGroupName'],
-            'UGROUPDESCRIPTION'   => $data['uGroupDescription'],
-            'NROFMEMBERS'   => $data['nrOfMembers'],
-            'NROFMANAGERS'   => $data['nrOfManagers'],
-            'UGROUPCREATEDAT'   => $data['uGroupCreatedAt'],
-            'UGROUPUPDATEDAT'   => $data['uGroupUpdatedAt']
+            'uGroupId'     => $data['UGROUPID'],
+            'uGroupName'   => $data['UGROUPNAME'],
+            'uGroupDescription'   => $data['UGROUPDESCRIPTION'],
+            'nrOfMembers'   => $data['NROFMEMBERS'],
+            'nrOfManagers'   => $data['NROFMANAGERS'],
+            'uGroupCreatedAt'   => $data['UGROUPCREATEDAT'],
+            'uGroupUpdatedAt'   => $data['UGROUPUPDATEDAT']
         ));
         return $usergroup;
     }

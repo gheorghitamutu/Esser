@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class ItemGroupOwnerShipMapper extends AbstractMapper
 {
@@ -19,11 +20,11 @@ class ItemGroupOwnerShipMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $itmgrpown = new $this->_entityClass(array(
-            'IGOWNERSHIPID'     => $data['iGOwnershipId'],
-            'IGOWNERID'         => $data['iGOwnerId'],
-            'IGID'              => $data['iGId']
-        ));
+        $itmgrpown = array(
+            'iGOwnershipId'     => $data['IGOWNERSHIPID'],
+            'iGOwnerId'         => $data['IGOWNERID'],
+            'iGId'              => $data['IGID']
+        );
         return $itmgrpown;
     }
 }

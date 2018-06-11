@@ -2,22 +2,35 @@
 
 namespace AppModel;
 
-use http\Exception\InvalidArgumentException;
+use DatabaseConnectivity\DatabaseAdapterInterface;
+use InvalidArgumentException;
+use ModelMapper;
 
 class AutomatedReport extends AbstractEntity
 {
     protected $_allowedFields = array('reportId','reportPath','reportType','reportFormat','rCreatedAt');
+    public $mapper = null;
 
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\AutomatedReportMapper($adapter);
+    }
     /**
      * Set the entry ID
      * @param bool $id = false Method implemented but should not be used. Id's are generated automatically and should remain the value generated!
      */
     public function setId($id)
     {
-        if (!filter_var($id, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
-            throw new InvalidArgumentException('Report id can only be between 1 and 999999999!');
+        if (!$id) {
+            $this->_values['reportId'] = null;
         }
-        $this->_values['reportId'] = $id;
+        else {
+            if (!filter_var($id, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
+                throw new InvalidArgumentException('Report id can only be between 1 and 999999999!');
+            }
+            $this->_values['reportId'] = null;
+        }
     }
 
     public function setPath($path) {
@@ -51,6 +64,16 @@ class AutomatedReport extends AbstractEntity
     }
 
     public function setCreatedAt($createdAt = false) {
-        $this->_values['rCreatedAt'] = date("Y-m-d H:i:s");
+        if (!$createdAt) {
+            $this->_values['rCreatedAt'] = null;
+        }
+        else {
+            $this->_values['rCreatedAt'] = null;
+        }
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
     }
 }

@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class ItemGroupLogMapper extends AbstractMapper
 {
@@ -19,12 +20,12 @@ class ItemGroupLogMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $grouprelation = new $this->_entityClass(array(
-            'IGLOGID'      => $data['iGLogId'],
-            'IGLOGDESCRIPTION'    => $data['IGLogDescription'],
-            'IGLOGSOURCEIP'    => $data['iGLogSourceIP'],
-            'IGLOGCREATEDAT'  => $data['iGLogCreatedAt']
-        ));
+        $grouprelation = array(
+            'iGLogId'   =>  $data['IGLOGID'],
+            'IGLogDescription'    => $data['IGLOGDESCRIPTION'],
+            'iGLogSourceIP'    => $data['IGLOGSOURCEIP'],
+            'iGLogCreatedAt'  => $data['IGLOGCREATEDAT']
+        );
         return $grouprelation;
     }
 }

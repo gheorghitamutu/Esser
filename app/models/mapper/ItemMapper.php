@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class ItemMapper extends AbstractMapper
 {
@@ -19,17 +20,17 @@ class ItemMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $useracc = new $this->_entityClass(array(
-            'itemId'            => $data['itemId'],
-            'itemDescription'   => $data['itemDescription'],
-            'itemQuantity'      => $data['itemQuantity'],
-            'iGroupId'          => $data['iGroupId'],
-            'iWarnQnty'         => $data['iWarnQnty'],
-            'itemImage'         => $data['itemImage'],
-            'itemCreatedAt'     => $data['itemCreatedAt'],
-            'itemUpdatedAt'     => $data['itemUpdatedAt'],
-            'userUpdatedAt'     => $data['userUpdatedAt']
-        ));
+        $useracc = array(
+            'itemId'            => $data['ITEMID'],
+            'itemDescription'   => $data['ITEMDESCRIPTION'],
+            'itemQuantity'      => $data['ITEMQUANTITY'],
+            'iGroupId'          => $data['IGROUPID'],
+            'iWarnQnty'         => $data['IWARNQNTY'],
+            'itemImage'         => $data['ITEMIMAGE'],
+            'itemCreatedAt'     => $data['ITEMCREATEDAT'],
+            'itemUpdatedAt'     => $data['ITEMUPDATEDAT'],
+            'userUpdatedAt'     => $data['USERUPDATEDAT']
+        );
         return $useracc;
     }
 }

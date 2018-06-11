@@ -2,11 +2,25 @@
 
 namespace AppModel;
 
-use http\Exception\InvalidArgumentException;
+use DatabaseConnectivity\DatabaseAdapterInterface;
+use InvalidArgumentException;
+use ModelMapper;
 
 class Item extends AbstractEntity
 {
     protected $_allowedFields = array('itemId','itemName','itemDescription','itemQuantity','iGroupId','iWarnQnty','itemImage','itemCreatedAt','itemUpdatedAt');
+    public $mapper = null;
+
+    public function __construct(DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($this->_allowedFields);
+        $this->mapper = new ModelMapper\Item($adapter);
+    }
+
+    public function get_mapper()
+    {
+        return $this->mapper;
+    }
 
     /**
      * Set the entry ID
@@ -14,7 +28,15 @@ class Item extends AbstractEntity
      */
     public function setId($id = false)
     {
-        $this->_values['userId'] = null;
+        if (!$id) {
+            $this->_values['itemId'] = null;
+        }
+        else {
+            if(!filter_var($id, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 999999999)))) {
+                throw new InvalidArgumentException('Item id can only be between 1 and 999999999!');
+            }
+            $this->_values['itemId'] = null;
+        }
     }
 
     public function setName($name) {
@@ -75,11 +97,21 @@ class Item extends AbstractEntity
         $this->_values['itemImage'] = $image;
     }
 
-    public function setCreatedAt($usercreatedat = false) {
-        $this->_values['itemCreatedAt'] = null;
+    public function setCreatedAt($date = false) {
+        if (!$date) {
+            $this->_values['itemCreatedAt'] = null;
+        }
+        else {
+            $this->_values['itemId'] = null;
+        }
     }
 
-    public function setUpdatedAt($userupdatedat = false) {
-        $this->_values['itemUpdatedAt'] = null;
+    public function setUpdatedAt($date = false) {
+        if (!$date) {
+            $this->_values['itemUpdatedAt'] = null;
+        }
+        else {
+            $this->_values['itemUpdatedAt'] = null;
+        }
     }
 }

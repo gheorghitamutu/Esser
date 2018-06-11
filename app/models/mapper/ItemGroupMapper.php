@@ -7,7 +7,8 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, AppModel, OCI_Collection;
+use AppModel\Useracc;
+use DatabaseConnectivity;
 
 class ItemGroupMapper extends AbstractMapper
 {
@@ -19,13 +20,13 @@ class ItemGroupMapper extends AbstractMapper
      */
     protected function _createEntity(array $data)
     {
-        $itemgroup = new $this->_entityClass(array(
-            'IGROUPID'      => $data['iGroupId'],
-            'IGROUPNAME'    => $data['iGroupName'],
-            'IGROUPDESCRIPTION'    => $data['iGroupDescription'],
-            'IGROUPCREATEDAT'  => $data['iGroupCreatedAt'],
-            'IGROUPUPDATEDAT'  => $data['iGroupUpdatedAt'],
-        ));
+        $itemgroup = array(
+            'iGroupId'      => $data['IGROUPID'],
+            'iGroupName'    => $data['IGROUPNAME'],
+            'iGroupDescription'    => $data['IGROUPDESCRIPTION'],
+            'iGroupCreatedAt'  => $data['IGROUPCREATEDAT'],
+            'iGroupUpdatedAt'  => $data['IGROUPUPDATEDAT'],
+        );
         return $itemgroup;
     }
 }

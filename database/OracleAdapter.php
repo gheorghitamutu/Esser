@@ -1,7 +1,6 @@
 <?php
 
 namespace DatabaseConnectivity;
-
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -15,7 +14,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     protected $connection = null;
     private $statements = array();
     private $autocommit = true;
-    private $fetch_mode = OCI_ASSOC;
+    private $fetch_mode = OCI_ASSOC+OCI_RETURN_NULLS;
     private $last_query;
     private $var_max_size = 1000;
     private $execute_status = false;
@@ -30,7 +29,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
     {
 
         $this->setNlsLang('WE8MSWIN1252');
-        $this->setFetchMode(OCI_ASSOC);
+        $this->setFetchMode(OCI_ASSOC+OCI_RETURN_NULLS);
         $this->setAutoCommit(true);
         if (count($config) !== 4) {
             throw new InvalidArgumentException('Invalid number of connection parameters!');
@@ -237,7 +236,15 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchAll($statement, $skip = 0, $maxrows = -1) {
         $rows = array();
-        oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW);
+        oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
+        /**foreach($rows as $k => $v) {
+            echo "Row number: $k";
+            foreach ($v as $r => $rv) {
+                echo " $r: $rv ";
+            }
+            echo "<br />";
+        }
+        */
         return $rows;
     }
 
@@ -313,11 +320,25 @@ class OracleAdapter implements DatabaseAdapterInterface {
     public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
         $query = 'SELECT ' . $fields . ' FROM ' . $table
+                . (($where) ? ' WHERE ' . $where : '')
+                . (($limit) ? ' AND ROWNUM ' . $limit : '')
+                //. (($offset && $limit) ? ' OFFSET ' . $offset : '')
+                . (($order) ? ' ORDER BY ' . $order : '');
+        echo "QUERYUL ESTE: $query <br /><br /><br />";
+        return $this->parseSelect($query, $bind);
+    }
+
+    /**
+     * Perform a COUNT SELECT ON A TABLE
+     */
+    public function selectCount($table, $where = '', $fields = 'COUNT(*)', $order = '', $limit = null, $offset = null, $bind = false)
+    {
+        $query = 'SELECT ' . 'COUNT(*)' . ' FROM ' . $table
             . (($where) ? ' WHERE ' . $where : '');
 
-              // . (($limit) ? ' LIMIT ' . $limit : '')
-             //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
-             //  . (($order) ? ' ORDER BY ' . $order : '');
+        // . (($limit) ? ' LIMIT ' . $limit : '')
+        //  . (($offset && $limit) ? ' OFFSET ' . $offset : '')
+        //  . (($order) ? ' ORDER BY ' . $order : '');
         return $this->parseSelect($query, $bind);
     }
 
