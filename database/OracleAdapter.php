@@ -316,13 +316,13 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 . (($limit) ? ' AND ROWNUM ' . $limit : '');
         }
         if ($limit) {
-            $query = 'SELECT ' . $fields . ' FROM ( '
+            $query = 'SELECT ' . '*' . ' FROM ( '
                 . 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
                 . (($order) ? ' ORDER BY ' . $order : '')
                 . ') WHERE ROWNUM ' . $limit ;
         }
-        echo "QUERYUL ESTE: $query <br /><br /><br />";
+        //echo "QUERYUL ESTE: $query <br /><br /><br />";
         return $this->parseSelect($query, $bind);
     }
 

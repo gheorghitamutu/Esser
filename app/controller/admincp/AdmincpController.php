@@ -32,7 +32,7 @@ class AdmincpController extends Controller
                 $this->logout();
                 break;
             case 'admincp/dashboard':
-                $this->dashboard($this->getTotalUsers(), $this->getTotalOnline(), $this->getUserLastLoginDate($_SESSION), $this->getDBTimeZone());
+                $this->dashboard();
                break;
             case 'admincp/activity':
                 $this->activity($this->params[1], $this->params[0]);
@@ -66,40 +66,21 @@ class AdmincpController extends Controller
         $this->model('Userlog');
         $queryresult =
             $this->model_class->get_mapper()->findAll(
-                $where = "ULOGDESCRIPTION like '%$userid%' AND ULOGDESCRIPTION like '%$username%' AND ULOGDESCRIPTION like '%has logged in%'",
+                $where = "ULOGDESCRIPTION like '%$userid%' "
+                        ."AND ULOGDESCRIPTION like '%$username%' "
+                        ."AND ULOGDESCRIPTION like '%has logged in%' ",
                 $fields = 'ULOGCREATEDAT',
                 $order = "uLogId DESC",
                 $limit = " = 1");
         if (count($queryresult) > 1) {
             throw new RuntimeException('Something went wrong during the fetch of of last login date!');
         }
-        else if (count($queryresult) === 0) {
+        elseif (empty($queryresult)) {
             return 'N/A';
         }
         else {
             return $queryresult['uLogCreatedAt'];
         }
-        //return 'N/A';
-    }
-
-    private function getDBTimeZone() {
-        $this->model('Dual');
-        $result = $this->model_class->get_mapper()->findAll();
-        return $result['timezonestamp'];
-    }
-
-    private function getTotalUsers()
-    {
-        $this->model('Useracc');
-        $total_users = $this->model_class->get_mapper()->countAll('');
-        return $total_users;
-    }
-
-    private function getTotalOnline()
-    {
-        $this->model('Useracc');
-        $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
-        return $online_users;
     }
 
     private function index()
@@ -127,15 +108,18 @@ class AdmincpController extends Controller
         self::redirect('/admincp');
     }
 
-    private function dashboard($total_users, $online_users, $last_login, $time_zone)
+    private function dashboard()
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
             array(
-                'totalUsers' => $total_users,
-                'onlineUsers' => $online_users,
-                'lastLogin' => $last_login,
-                'timeZone' => $time_zone
+                'totalUsers' => $this->getTotalUsers(),
+                'onlineUsers' => $this->getTotalOnline(),
+                'lastLogin' => $this->getUserLastLoginDate($_SESSION),
+                'timeZone' =>  $this->getDBTimeZone(),
+                'lastDBBackupTime' => $this->getLastDBBackupTime(),
+                'totalItemGroups' => $this->getTotalItemGroups(),
+                'avgItemPerGroup' =>  $this->getTotalItemGroups() ? ($this->getTotalItems()/$this->getTotalItemGroups()) : 'N/A'
             ),
             'AdminCP');
     }
@@ -194,5 +178,62 @@ class AdmincpController extends Controller
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'settings',
             [],
             'AdminCP');
+    }
+
+    private function getDBTimeZone() {
+        $this->model('Dual');
+        $result = $this->model_class->get_mapper()->findAll();
+        return $result['timezonestamp'];
+    }
+
+    private function getTotalUsers()
+    {
+        $this->model('Useracc');
+        $total_users = $this->model_class->get_mapper()->countAll('');
+        return $total_users;
+    }
+
+    private function getTotalOnline()
+    {
+        $this->model('Useracc');
+        $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
+        return $online_users;
+    }
+
+    private function getLastDBBackupTime()
+    {
+        $this->model('AutomatedReport');
+        $dbbkuptime = $this->model_class->get_mapper()->findAll(
+            $where = "REPORTTYPE = 3 "
+                ."AND REPORTFORMAT like '.xml' ",
+            $fields = "TO_CHAR(\"RCREATEDAT\", 'DD-MM-YYYY HH24:MI:SS') ",
+            $order = " 1 DESC",
+            $limit = " = 1");
+        if (count($dbbkuptime) > 1) {
+            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
+        }
+        elseif(empty($dbbkuptime)) {
+            return 'N/A';
+        }
+        else {
+            return $dbbkuptime['RCREATEDAT'];
+        }
+    }
+
+    private function getTotalItems() {
+        $this->model('Item');
+        $total = $this->model_class->get_mapper()->countAll();
+        return $total;
+    }
+
+    private function getTotalItemGroups() {
+        $this->model('ItemGroup');
+        $total = $this->model_class->get_mapper()->countAll();
+        if ($total === 0) {
+            return false;
+        }
+        else {
+            return $total;
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 namespace ModelMapper;
 
+use AppModel\AutomatedReport;
 use AppModel\Useracc;
 use DatabaseConnectivity;
 
@@ -127,12 +128,10 @@ abstract class AbstractMapper implements MapperInterface
 
     public function countAll($criteria = '')
     {
+        $result = 0;
         $selectstmt = $this->_adapter->selectCount($this->_entitytable, $criteria);
         if (($data = $this->_adapter->fetch($selectstmt)) !== false) {
             $result = $this->_adapter->getResult($selectstmt,1);
-        }
-        else {
-            $result = 0;
         }
         $this->_adapter->disconnect();
         return $result;

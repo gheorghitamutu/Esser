@@ -15,15 +15,23 @@ class ItemGroupOwnerShipMapper extends AbstractMapper
     protected $_entityTable = 'ITEMGROUPOWNERSHIPS';
     protected $_entityClass = 'Itemgroupownership';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
         $itmgrpown = array(
-            'iGOwnershipId'     => $data['IGOWNERSHIPID'],
-            'iGOwnerId'         => $data['IGOWNERID'],
-            'iGId'              => $data['IGID']
+            'iGOwnershipId'     => $data['IGOWNERSHIPID'] ? $data['IGOWNERSHIPID'] : '',
+            'iGOwnerId'         => $data['IGOWNERID'] ? $data['IGOWNERID'] : '',
+            'iGId'              => $data['IGID'] ? $data['IGID'] : ''
         );
         return $itmgrpown;
     }

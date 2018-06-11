@@ -29,10 +29,10 @@ class UserLogMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $userlog = array(
-            'uLogId'     => $data['ULOGID'],
-            'uLogDescription'   => $data['ULOGDESCRIPTION'],
-            'uLogSourceIP'   => $data['ULOGSOURCEIP'],
-            'uLogCreatedAt'   => $data['ULOGCREATEDAT']
+            'uLogId'     => $data['ULOGID'] ? $data['ULOGID'] : '',
+            'uLogDescription'   => $data['ULOGDESCRIPTION'] ? $data['ULOGDESCRIPTION'] : '',
+            'uLogSourceIP'   => $data['ULOGSOURCEIP'] ? $data['ULOGSOURCEIP'] : '',
+            'uLogCreatedAt'   => $data['ULOGCREATEDAT'] ? $data['ULOGCREATEDAT'] : ''
         );
         return $userlog;
     }

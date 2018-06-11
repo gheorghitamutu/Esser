@@ -15,21 +15,28 @@ class ItemMapper extends AbstractMapper
     protected $_entityTable = 'ITEMS';
     protected $_entityClass = 'Item';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
         $useracc = array(
-            'itemId'            => $data['ITEMID'],
-            'itemDescription'   => $data['ITEMDESCRIPTION'],
-            'itemQuantity'      => $data['ITEMQUANTITY'],
-            'iGroupId'          => $data['IGROUPID'],
-            'iWarnQnty'         => $data['IWARNQNTY'],
-            'itemImage'         => $data['ITEMIMAGE'],
-            'itemCreatedAt'     => $data['ITEMCREATEDAT'],
-            'itemUpdatedAt'     => $data['ITEMUPDATEDAT'],
-            'userUpdatedAt'     => $data['USERUPDATEDAT']
+            'itemId'            => $data['ITEMID'] ? $data['ITEMID'] : '',
+            'itemDescription'   => $data['ITEMDESCRIPTION'] ? $data['ITEMDESCRIPTION'] : '',
+            'itemQuantity'      => $data['ITEMQUANTITY'] ? $data['ITEMQUANTITY'] : '',
+            'iGroupId'          => $data['IGROUPID'] ? $data['IGROUPID'] : '',
+            'iWarnQnty'         => $data['IWARNQNTY'] ? $data['IWARNQNTY'] : '',
+            'itemImage'         => $data['ITEMIMAGE'] ? $data['ITEMIMAGE'] : '',
+            'itemCreatedAt'     => $data['ITEMCREATEDAT'] ? $data['ITEMCREATEDAT'] : '',
+            'itemUpdatedAt'     => $data['ITEMUPDATEDAT'] ? $data['ITEMUPDATEDAT'] : ''
         );
         return $useracc;
     }

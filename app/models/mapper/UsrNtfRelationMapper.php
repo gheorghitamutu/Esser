@@ -15,15 +15,23 @@ class UsrNtfRelationMapper extends AbstractMapper
     protected $_entityTable = 'USRNTFRELATIONS';
     protected $_entityClass = 'Usrntfrelation';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
         $usrntfrelation = new $this->_entityClass(array(
-            'usrNtfRelationId'     => $data['USRNRELATIONID'],
-            'usrNNotifiedAccId'   => $data['USRNNOTIFIEDACCID'],
-            'usrNNotificationId'   => $data['USRNNOTIFICATIONID']
+            'usrNtfRelationId'     => $data['USRNRELATIONID'] ? $data['USRNRELATIONID'] : '',
+            'usrNNotifiedAccId'   => $data['USRNNOTIFIEDACCID'] ? $data['USRNNOTIFIEDACCID'] : '',
+            'usrNNotificationId'   => $data['USRNNOTIFICATIONID'] ? $data['USRNNOTIFICATIONID'] : ''
         ));
         return $usrntfrelation;
     }
