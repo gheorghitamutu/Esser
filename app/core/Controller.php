@@ -12,7 +12,6 @@
 
 class Controller
 {
-    //protected $model_name = '';
     protected $model_class = null;
 
     public static function redirect($url)
@@ -45,14 +44,17 @@ class Controller
     protected function auth_user($uname, $psw, $isadmcp)
     {
         if ($isadmcp) {
-            if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false) {
+            if (($result = $this->authenticate_admcp($uname, $psw)) !== false) {
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
-                echo $_SESSION["uname"];
                 $_SESSION["userid"] = $result['1']['userId'];
-                echo $_SESSION["userid"];
-                echo $_SESSION["login_ip"];
+                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model('UserLog');
+                echo $this->model_class->get_mapper()->insert(
+                    'USERLOGS',
+                    array('uLogDescription' => "'".$_SESSION['uname']." has logged in!'",
+                        'uLogSourceIP' => "'".$_SESSION['login_ip']."'"));
                 return $result;
             }
             else {
@@ -60,12 +62,13 @@ class Controller
             }
         }
         else if (!$isadmcp) {
-            if (($result = $this->authenticate_user($uname, $psw))['0'] !== false) {
+            if (($result = $this->authenticate_user($uname, $psw)) !== false) {
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
                 $_SESSION["userid"] = $result['1']['userId'];
+                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
                 return true;
             }
             else
@@ -94,11 +97,6 @@ class Controller
             //No match, so failed login;
             return false;
         }
-//        echo "Row nr 0: ";
-//        forEach($queryres['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
-//        echo "<br />";
         $result =  array(($queryres['0']['userName'] === $uname), $queryres['0'] );
         return $result;
     }
@@ -117,10 +115,6 @@ class Controller
             //No match, so failed login;
             return false;
         }
-//        echo "Row nr 0: ";
-//        forEach($user_found['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
         $result = array(($user_found['0']['userName'] === $username), $user_found['0']);
         return $result;
     }

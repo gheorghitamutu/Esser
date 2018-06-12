@@ -90,8 +90,8 @@ class Useracc extends AbstractEntity
     }
 
     public function setState($userstate) {
-        if (!filter_var($userstate, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 1)))) {
-            throw new \InvalidArgumentException('User state can only be 0 (for suspended users) or 1 (for active users)!');
+        if (!filter_var($userstate, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 2)))) {
+            throw new \InvalidArgumentException('User state can only be 0 (for suspended users) or 1 (for inactive users), or 2 (for active user)!');
         }
         $this->_values['userState'] = $userstate;
     }

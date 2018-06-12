@@ -58,7 +58,6 @@ class LoginController extends Controller
 
     private function check_login($uname, $pass)
     {
-//        echo $this->auth_user($uname, $pass, $isadmcp = false);
         if($this->auth_user($uname, $pass, $isadmcp = false)) {
             self::redirect('/login/success');
         }

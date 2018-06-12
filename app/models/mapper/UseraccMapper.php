@@ -31,15 +31,15 @@ class UseraccMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $useracc = array(
-            'userId'    => $data['USERID']? $data['USERID']: '',
-            'userName'  => $data['USERNAME']? $data['USERNAME']: '',
-            'userEmail' => $data['USEREMAIL']? $data['USEREMAIL']: '',
-            'userPass'  => $data['USERPASS']? $data['USERPASS']: '',
-            'userType'  => $data['USERTYPE']? $data['USERTYPE']: '',
-            'userState' => $data['USERSTATE']? $data['USERSTATE']: '',
-            'userImage' => $data['USERIMAGE']? $data['USERIMAGE']: '',
-            'userCreatedAt' => $data['USERCREATEDAT']? $data['USERCREATEDAT']: '',
-            'userUpdatedAt' => $data['USERUPDATEDAT']? $data['USERUPDATEDAT']: ''
+            'userId'    => array_key_exists('USERID', $data) ? $data['USERID'] : '',
+            'userName'  => array_key_exists('USERNAME', $data) ? $data['USERNAME'] : '',
+            'userEmail' => array_key_exists('USEREMAIL', $data) ? $data['USEREMAIL'] : '',
+            'userPass'  => array_key_exists('USERPASS', $data) ? $data['USERPASS'] : '',
+            'userType'  => array_key_exists('USERTYPE', $data) ? $data['USERTYPE'] : '',
+            'userState' => array_key_exists('USERSTATE', $data) ? $data['USERSTATE'] : '',
+            'userImage' => array_key_exists('USERIMAGE', $data) ? $data['USERIMAGE'] : '',
+            'userCreatedAt' => array_key_exists('USERCREATEDAT', $data) ? $data['USERCREATEDAT'] : '',
+            'userUpdatedAt' => array_key_exists('USERUPDATEDAT', $data) ? $data['USERUPDATEDAT'] : ''
         );
         return $useracc;
     }
