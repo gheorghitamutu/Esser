@@ -1,0 +1,45 @@
+<?php include VIEW . 'admincp/header.phtml';?>
+
+<?php include VIEW . 'admincp/menu/header_bar.phtml';?>
+
+<div class="admcp-tables-body">
+    <?php include VIEW . 'admincp/menu/menu.phtml';?>
+            <div class="admcp-rt-box">
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Search logs of a specifc user </h3>
+                        <form class="srch-layout" action="/admincp/userlogs/">
+                            <input class="adm-srch-box" required="required" placeholder="Insert User">
+                            <button type="submit" class="admcp-srch-btn"> Search </button>
+                        </form>
+                    </div>    
+                </div>
+                <div class="admcp-rt-result-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Logs List </h3>
+                        <div class="flex-table">
+                            <div class="flex-table-head">
+								<div class="flex-table-row">
+									<div class="flex-table-th">Account</div>
+									<div class="flex-table-th">Date</div>
+									<div class="flex-table-th">Action Info</div>
+									<div class="flex-table-th">IP</div>
+								</div>
+                            </div>
+                            <div class="flex-table-body">
+                            <?php for($i = 0; $i < count($this->log); ++$i) {
+                                echo "<div class=\"flex-table-row\">";
+								    echo "<div class=\"flex-table-td\">" . $this->log['IdName']     . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->log['datetime']   . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->log['action']     . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->log['IP']         . "</div>";
+								echo "</div>";
+							}?>                            
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+<?php include VIEW . 'admincp/footer.phtml';?>
