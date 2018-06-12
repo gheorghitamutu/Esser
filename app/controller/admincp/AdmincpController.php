@@ -34,23 +34,23 @@ class AdmincpController extends Controller
             case 'admincp/dashboard':
                 $this->dashboard();
                break;
-            case 'admincp/activity':
-                $this->activity($this->params[1], $this->params[0]);
+            case 'admincp/loginlogs':
+                $this->loginlogs();
                 break;
-            case 'admincp/data':
-                $this->data();
+            case 'admincp/itemlogs':
+                $this->itemlogs();
                 break;
-            case 'admincp/user':
-                $this->user();
+            case 'admincp/userlogs':
+                $this->userlogs();
                 break;
-            case 'admincp/editor':
-                $this->editor();
+            case 'admincp/usereditor':
+                $this->usereditor();
                 break;
-            case 'admincp/manager':
-                $this->manager();
+            case 'admincp/usermanager':
+                $this->usermanager();
                 break;
-            case 'admincp/database':
-                $this->database();
+            case 'admincp/databaseeditor':
+                $this->databaseeditor();
                 break;
             case 'admincp/settings':
                 $this->settings();
@@ -101,31 +101,31 @@ class AdmincpController extends Controller
             'AdminCP');
     }
 
-    private function data()
+    private function itemlogs()
     {
         View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'data',
+            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
             [],
             'AdminCP');
     }
 
-    private function activity()
+    private function loginlogs()
     {
         View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'activity',
+            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
             $this->params,
             'AdminCP');
     }
 
-    private function user()
+    private function userlogs()
     {
         View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'user',
+            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
             [],
             'AdminCP');
     }
 
-    private function editor()
+    private function usereditor()
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
@@ -133,7 +133,7 @@ class AdmincpController extends Controller
             'AdminCP');
     }
 
-    private function manager()
+    private function usermanager()
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
@@ -141,7 +141,7 @@ class AdmincpController extends Controller
             'AdminCP');
     }
 
-    private function database()
+    private function databaseeditor()
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'database',
