@@ -70,8 +70,8 @@ class AdmincpController extends Controller
 
     private function login($uname, $pass)
     {
-        if(($result['0']['0'] = $this->auth_user($uname, $pass, $isadmcp = true)) !== false) {
-            $this->currentuser = $result['1'];
+        if(($result = $this->auth_user($uname, $pass, $isadmcp = true))[0] !== false) {
+            $this->currentuser = $result[1];
             self::redirect('/admincp/dashboard');
         }
         else {
@@ -92,7 +92,7 @@ class AdmincpController extends Controller
             array(
                 'totalUsers' => $this->getTotalUsers(),
                 'onlineUsers' => $this->getTotalOnline(),
-                'lastLogin' => $this->getUserLastLoginDate($_SESSION),
+                'lastLogin' => $this->getUserLastLoginDate(),
                 'timeZone' =>  $this->getDBTimeZone(),
                 'lastDBBackupTime' => $this->getLastDBBackupTime(),
                 'totalItemGroups' => $this->getTotalItemGroups(),
@@ -158,9 +158,10 @@ class AdmincpController extends Controller
     }
 
     private function getDBTimeZone() {
-        $this->model('Dual');
-        $result = $this->model_class->get_mapper()->findAll();
-        return $result['timezonestamp'];
+        //$this->model('Dual');
+//        $result = $this->model_class->get_mapper()->findAlls('DUAL','DUAL');
+//        return $result['timezonestamp'];
+        return date_default_timezone_get();
     }
 
     private function getTotalUsers()
@@ -177,28 +178,26 @@ class AdmincpController extends Controller
         return $online_users;
     }
 
-    private function getUserLastLoginDate(array $session) {
-        $userid = $session['userid'];
-        $username= $session['uname'];
+    private function getUserLastLoginDate() {
         $this->model('Userlog');
         $queryresult =
             $this->model_class->get_mapper()->findAll(
-                $where = "ULOGDESCRIPTION like '%$username%' "
+                $where = "ULOGDESCRIPTION like '%" . $_SESSION['uname'] . "%' "
                     ."AND ULOGDESCRIPTION like '%has logged in%' ",
                 $fields = 'to_char(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
                 $order = "ULOGID DESC",
-                $limit = " = 1");
+                $limit = " < 3");
 //        echo var_dump($queryresult)."<br /><br />";
 //        echo $queryresult[0]['uLogCreatedAt']."<br /><br />";
 //        $queryresult = array();
-        if (count($queryresult) > 1) {
+        if (count($queryresult) > 2) {
             throw new RuntimeException('Something went wrong during the fetch of of last login date!');
         }
-        elseif (empty($queryresult) || count($queryresult) === 0) {
+        if (empty($queryresult) || count($queryresult) === 0) {
             return 'N/A';
         }
         else {
-            return $queryresult[0]['uLogCreatedAt'];
+            return $queryresult[1]['uLogCreatedAt'];
         }
     }
 

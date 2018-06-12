@@ -44,11 +44,11 @@ class Controller
     protected function auth_user($uname, $psw, $isadmcp)
     {
         if ($isadmcp) {
-            if (($result = $this->authenticate_admcp($uname, $psw)) !== false) {
+            if (($result = $this->authenticate_admcp($uname, $psw))[0] !== false) {
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result['1']['userName'];
-                $_SESSION["userid"] = $result['1']['userId'];
+                $_SESSION["uname"] = $result[1]['userName'];
+                $_SESSION["userid"] = $result[1]['userId'];
                 //aici deja e incarcat modeul de Useracc $this->model('Useracc');
                 $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
                 $this->model('UserLog');
@@ -59,29 +59,29 @@ class Controller
                 return $result;
             }
             else {
-                  return array('0' => false);
+                  return array(0 => false);
             }
         }
         else if (!$isadmcp) {
-            if (($result = $this->authenticate_user($uname, $psw)) !== false) {
+            if (($result = $this->authenticate_user($uname, $psw))[0] !== false) {
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
                 $_SESSION["userid"] = $result['1']['userId'];
                 $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
-                return true;
+                return $result;
             }
             else
             {
                 // The authentication failed
-                return false;
+                return array(0 => false);
             }
 
         }
         else {
             // The authentication failed
-            return false;
+            return array(0 => false);
         }
     }
 
@@ -98,7 +98,7 @@ class Controller
             //No match, so failed login;
             return false;
         }
-        $result =  array(($queryres['0']['userName'] === $uname), $queryres['0'] );
+        $result = [($queryres['0']['userName'] === $uname), $queryres['0']];
         return $result;
     }
 
