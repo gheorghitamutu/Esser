@@ -313,7 +313,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
         if (!$limit) {
             $query = 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
-                . (($limit) ? ' AND ROWNUM ' . $limit : '');
+                . (($order) ? ' ORDER BY ' . $order : '');
         }
         if ($limit) {
             $query = 'SELECT ' . '*' . ' FROM ( '
@@ -322,7 +322,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 . (($order) ? ' ORDER BY ' . $order : '')
                 . ') WHERE ROWNUM ' . $limit ;
         }
-//        echo "Query de select este: $query <br /><br />";
+        echo "Query de select este: $query <br /><br />";
         return $this->parseSelect($query, $bind);
     }
 
