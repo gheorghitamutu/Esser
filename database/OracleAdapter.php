@@ -313,7 +313,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
         if (!$limit) {
             $query = 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
-                . (($limit) ? ' AND ROWNUM ' . $limit : '');
+                . ((order) ? ' ORDER BY ' . $order : '');
         }
         if ($limit) {
             $query = 'SELECT ' . '*' . ' FROM ( '
