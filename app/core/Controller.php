@@ -67,8 +67,8 @@ class Controller
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result['1']['userName'];
-                $_SESSION["userid"] = $result['1']['userId'];
+                $_SESSION["uname"] = $result[1]['userName'];
+                $_SESSION["userid"] = $result[1]['userId'];
                 $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
                 return $result;
             }
@@ -98,7 +98,7 @@ class Controller
             //No match, so failed login;
             return false;
         }
-        $result = [($queryres['0']['userName'] === $uname), $queryres['0']];
+        $result = [($queryres[0]['userName'] === $uname), $queryres[0]];
         return $result;
     }
 
@@ -116,7 +116,7 @@ class Controller
             //No match, so failed login;
             return false;
         }
-        $result = array(($user_found['0']['userName'] === $username), $user_found['0']);
+        $result = [($user_found[0]['userName'] === $username), $user_found[0]];
         return $result;
     }
 

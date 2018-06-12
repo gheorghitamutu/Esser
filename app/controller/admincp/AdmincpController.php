@@ -12,8 +12,6 @@
 
 class AdmincpController extends Controller
 {
-    protected $params = array();
-    protected $currentuser = array();
 
     public function __construct($uri)
     {
@@ -113,7 +111,7 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
-            $this->params,
+            [0=>'first',1=>'second'],
             'AdminCP');
     }
 
