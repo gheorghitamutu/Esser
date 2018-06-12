@@ -30,9 +30,9 @@ class UGrpNtfRelationMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $ugrpntfrelation = array(
-            'usrGNRelationId'     => $data['USRGNRELATIONID'] ? $data['USRGNRELATIONID'] : '',
-            'usrGNNotificationId'   => $data['USRGNNOTIFICATIONID'] ? $data['USRGNNOTIFICATIONID'] : '',
-            'usrGNNotifiedGroupId'   => $data['USRGNNOTIFIEDGROUPID'] ? $data['USRGNNOTIFIEDGROUPID'] : ''
+            'usrGNRelationId'     => array_key_exists('USRGNRELATIONID', $data) ? $data['USRGNRELATIONID'] : '',
+            'usrGNNotificationId'   => array_key_exists('USRGNNOTIFICATIONID', $data) ? $data['USRGNNOTIFICATIONID'] : '',
+            'usrGNNotifiedGroupId'   => array_key_exists('USRGNNOTIFIEDGROUPID', $data) ? $data['USRGNNOTIFIEDGROUPID'] : ''
         );
         return $ugrpntfrelation;
     }

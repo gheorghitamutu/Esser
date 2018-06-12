@@ -49,6 +49,12 @@ class Controller
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
                 $_SESSION["userid"] = $result['1']['userId'];
+                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model('UserLog');
+                echo $this->model_class->get_mapper()->insert(
+                    'USERLOGS',
+                    array('uLogDescription' => "'".$_SESSION['uname']." has logged in!'",
+                        'uLogSourceIP' => "'".$_SESSION['login_ip']."'"));
                 return $result;
             }
             else {
@@ -62,6 +68,7 @@ class Controller
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
                 $_SESSION["userid"] = $result['1']['userId'];
+                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
                 return true;
             }
             else

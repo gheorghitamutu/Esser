@@ -14,9 +14,9 @@ interface MapperInterface
 
     public function findAll($criteria = '');
 
-    public function insert($entity);
+    public function insert($table, array $fieldsandvalues);
 
-    public function update($entity);
+    public function update($table, array $fieldsandvalues, $criteria);
 
-    public function delete($entity);
+    public function delete($table, $criteria);
 }

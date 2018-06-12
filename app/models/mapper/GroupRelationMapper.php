@@ -29,13 +29,13 @@ class GroupRelationMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $grouprelation = array(
-            'relationId'      => $data['RELATIONID'] ? $data['RELATIONID'] : '',
-            'userId'    => $data['USERID'] ? $data['USERID'] : '',
-            'uGroupId'    => $data['UGROUPID'] ? $data['UGROUPID'] : '',
-            'canUpdItm'  => $data['CANUPDITM'] ? $data['CANUPDITM'] : '',
-            'canMngMbs'    => $data['CANMNGMBS'] ? $data['CANMNGMBS'] : '',
-            'grpRelCreatedAt'    => $data['GRPRELCREATEDAT'] ? $data['GRPRELCREATEDAT'] : '',
-            'grpRelUpdatedAt'    => $data['GRPRELUPDATEDAT'] ? $data['GRPRELUPDATEDAT'] : ''
+            'relationId'      => array_key_exists('RELATIONID', $data) ? $data['RELATIONID'] : '',
+            'userId'    => array_key_exists('USERID', $data) ? $data['USERID'] : '',
+            'uGroupId'    => array_key_exists('UGROUPID', $data) ? $data['UGROUPID'] : '',
+            'canUpdItm'  => array_key_exists('CANUPDITM', $data) ? $data['CANUPDITM'] : '',
+            'canMngMbs'    => array_key_exists('CANMNGMBS', $data) ? $data['CANMNGMBS'] : '',
+            'grpRelCreatedAt'    => array_key_exists('GRPRELCREATEDAT', $data) ? $data['GRPRELCREATEDAT'] : '',
+            'grpRelUpdatedAt'    => array_key_exists('GRPRELUPDATEDAT', $data) ? $data['GRPRELUPDATEDAT'] : ''
         );
         return $grouprelation;
     }

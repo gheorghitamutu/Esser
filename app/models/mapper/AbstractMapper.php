@@ -137,37 +137,40 @@ abstract class AbstractMapper implements MapperInterface
         return $result;
     }
 
-    public function insert($entity)
+    public function insert($table, array $fields)
     {
-        if (!$entity instanceof $this->_entityclass) {
-            throw new \InvalidArgumentException('The entity that needs to be inserted must be an instance of ' . $this->_entityclass . '!');
+        //if (!$entity instanceof $this->_entityclass) {
+        //    throw new \InvalidArgumentException('The entity that needs to be inserted must be an instance of ' . $this->_entityclass . '!');
+        //}
+        if (empty($fields)) {
+            throw new \RuntimeException('You\'re calling an insert without anything to insert!');
         }
-        $result = $this->_adapter->insert($this->_entitytable, $entity->toArray());
+        $result = $this->_adapter->insert($table, $fields);
         $this->_adapter->disconnect();
         return $result;
     }
 
-    public function update($entity, $fields = false, $criteria = false)
+    public function update($table, array $fields, $criteria = false)
     {
 //        if (!$entity instanceof $this->_entityclass) {
 //            throw new \InvalidArgumentException('The entity that needs to be updated must be an instance of ' . $this->_entityclass . '!');
 //        }
 //        $id = $entity->id;
 //        unset($data['id']);
-        if (!$fields) {
+        if (empty($fields)) {
             throw new \RuntimeException('You\'re calling an update without anything to update!');
         }
-        $result = $this->_adapter->update($this->_entitytable, $fields, $criteria);
+        $result = $this->_adapter->update($table, $fields, $criteria);
         $this->_adapter->disconnect();
         return $result;
     }
 
-    public function delete($id, $col = 'id')
+    public function delete($table, $criteria)
     {
-        if ($id instanceof $this->_entityclass) {
-            $id = $id->id;
-        }
-        $result = $this->_adapter->delete($this->_entitytable, "$col = $id");
+//        if ($id instanceof $this->_entityclass) {
+//            $id = $id->id;
+//        }
+        $result = $this->_adapter->delete($table, $criteria);
         $this->_adapter->disconnect();
         return $result;
     }

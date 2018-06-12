@@ -29,10 +29,10 @@ class ItemLogMapper
     protected function _createEntity(array $data)
     {
         $grouprelation = array(
-            'iLogId'      => $data['ILOGID'] ? $data['ILOGID'] : '',
-            'iLogDescription'    => $data['ILOGDESCRIPTION'] ? $data['ILOGDESCRIPTION'] : '',
-            'iLogSourceIP'    => $data['ILOGSOURCEIP'] ? $data['ILOGSOURCEIP'] : '',
-            'iLogCreatedAt'  => $data['ILOGCREATEDAT'] ? $data['ILOGCREATEDAT'] : ''
+            'iLogId'      => array_key_exists('ILOGID', $data) ? $data['ILOGID'] : '',
+            'iLogDescription'    => array_key_exists('ILOGDESCRIPTION', $data) ? $data['ILOGDESCRIPTION'] : '',
+            'iLogSourceIP'    => array_key_exists('ILOGSOURCEIP', $data) ? $data['ILOGSOURCEIP'] : '',
+            'iLogCreatedAt'  => array_key_exists('ILOGCREATEDAT', $data) ? $data['ILOGCREATEDAT'] : ''
         );
         return $grouprelation;
     }

@@ -29,11 +29,11 @@ class NotificationMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $notification = array(
-            'ntfId'     => $data['NTFID'] ? $data['NTFID'] : '',
-            'nItemId'   => $data['NITEMID'] ? $data['NITEMID'] : '',
-            'ntfType'   => $data['NTFTYPE'] ? $data['NTFTYPE'] : '',
-            'ntfDscrp'  => $data['NTFDSCRP'] ? $data['NTFDSCRP'] : '',
-            'ntfCreatedAt' => $data['NTFCREATEDAT'] ? $data['NTFCREATEDAT'] : ''
+            'ntfId'    => array_key_exists('NTFID', $data) ? $data['NTFID'] : '',
+            'nItemId'  => array_key_exists('NITEMID', $data) ? $data['NITEMID'] : '',
+            'ntfType'  => array_key_exists('NTFTYPE', $data) ? $data['NTFTYPE'] : '',
+            'ntfDscrp' => array_key_exists('NTFDSCRP', $data) ? $data['NTFDSCRP'] : '',
+            'ntfCreatedAt' => array_key_exists('NTFCREATEDAT', $data) ? $data['NTFCREATEDAT'] : ''
         );
         return $notification;
     }

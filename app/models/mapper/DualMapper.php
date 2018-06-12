@@ -53,8 +53,8 @@ class DualMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $dual = array(
-            'sysdatetime' => $data['0'] ? $data['0'] : '',
-            'timezonestamp' => $data['1'] ? $data['1'] : ''
+            'sysdatetime' => array_key_exists('0',$data) ? $data['0'] : '',
+            'timezonestamp' => array_key_exists('1',$data) ? $data['1'] : ''
         );
         return $dual;
     }

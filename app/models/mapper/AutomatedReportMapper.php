@@ -29,11 +29,11 @@ class AutomatedReportMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $automatedreport = array(
-            'reportId'      => $data['REPORTID'] ? $data['REPORTID'] : '',
-            'reportPath'    => $data['REPORTPATH'] ? $data['REPORTPATH'] : '',
-            'reportType'    => $data['REPORTTYPE'] ? $data['REPORTTYPE'] : '',
-            'reportFormat'  => $data['REPORTFORMAT'] ? $data['REPORTFORMAT'] : '',
-            'rCreatedAt'    => $data['RCREATEDAT'] ? $data['RCREATEDAT'] : ''
+            'reportId'      => array_key_exists ('REPORTID',$data) ? $data['REPORTID'] : '',
+            'reportPath'    => array_key_exists ('REPORTPATH',$data) ? $data['REPORTPATH'] : '',
+            'reportType'    => array_key_exists ('REPORTTYPE',$data) ? $data['REPORTTYPE'] : '',
+            'reportFormat'  => array_key_exists ('REPORTFORMAT',$data) ? $data['REPORTFORMAT'] : '',
+            'rCreatedAt'    => array_key_exists ('RCREATEDAT',$data) ? $data['RCREATEDAT'] : ''
         );
         return $automatedreport;
     }

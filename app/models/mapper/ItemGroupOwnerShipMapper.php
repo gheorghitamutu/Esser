@@ -29,9 +29,9 @@ class ItemGroupOwnerShipMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $itmgrpown = array(
-            'iGOwnershipId'     => $data['IGOWNERSHIPID'] ? $data['IGOWNERSHIPID'] : '',
-            'iGOwnerId'         => $data['IGOWNERID'] ? $data['IGOWNERID'] : '',
-            'iGId'              => $data['IGID'] ? $data['IGID'] : ''
+            'iGOwnershipId'     =>  array_key_exists('IGOWNERSHIPID', $data) ? $data['IGOWNERSHIPID'] : '',
+            'iGOwnerId'         =>  array_key_exists('IGOWNERID', $data) ? $data['IGOWNERID'] : '',
+            'iGId'              =>  array_key_exists('IGID', $data) ? $data['IGID'] : ''
         );
         return $itmgrpown;
     }

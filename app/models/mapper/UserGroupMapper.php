@@ -29,13 +29,13 @@ class UserGroupMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $usergroup = new $this->_entityClass(array(
-            'uGroupId'     => $data['UGROUPID'] ? $data['UGROUPID'] : '',
-            'uGroupName'   => $data['UGROUPNAME'] ? $data['UGROUPNAME'] : '',
-            'uGroupDescription'   => $data['UGROUPDESCRIPTION'] ? $data['UGROUPDESCRIPTION'] : '',
-            'nrOfMembers'   => $data['NROFMEMBERS'] ? $data['NROFMEMBERS'] : '',
-            'nrOfManagers'   => $data['NROFMANAGERS'] ? $data['NROFMANAGERS'] : '',
-            'uGroupCreatedAt'   => $data['UGROUPCREATEDAT'] ? $data['UGROUPCREATEDAT'] : '',
-            'uGroupUpdatedAt'   => $data['UGROUPUPDATEDAT'] ? $data['UGROUPUPDATEDAT'] : ''
+            'uGroupId'     => array_key_exists('UGROUPID', $data) ? $data['UGROUPID'] : '',
+            'uGroupName'   => array_key_exists('UGROUPNAME', $data) ? $data['UGROUPNAME'] : '',
+            'uGroupDescription'   => array_key_exists('UGROUPDESCRIPTION', $data) ? $data['UGROUPDESCRIPTION'] : '',
+            'nrOfMembers'   => array_key_exists('NROFMEMBERS', $data) ? $data['NROFMEMBERS'] : '',
+            'nrOfManagers'   => array_key_exists('NROFMANAGERS', $data) ? $data['NROFMANAGERS'] : '',
+            'uGroupCreatedAt'   => array_key_exists('UGROUPCREATEDAT', $data) ? $data['UGROUPCREATEDAT'] : '',
+            'uGroupUpdatedAt'   => array_key_exists('UGROUPUPDATEDAT', $data) ? $data['UGROUPUPDATEDAT'] : ''
         ));
         return $usergroup;
     }

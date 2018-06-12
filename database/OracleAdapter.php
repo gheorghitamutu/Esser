@@ -322,7 +322,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 . (($order) ? ' ORDER BY ' . $order : '')
                 . ') WHERE ROWNUM ' . $limit ;
         }
-        //echo "QUERYUL ESTE: $query <br /><br /><br />";
+//        echo "Query de select este: $query <br /><br />";
         return $this->parseSelect($query, $bind);
     }
 
@@ -371,6 +371,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "insert into $table ($fields) values($values) $ret";
+//        echo "Query de insert este: $sql <br /><br />";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return false;
@@ -407,8 +408,17 @@ class OracleAdapter implements DatabaseAdapterInterface {
         }
         $fields = implode(",", $fields);
         if ($condition === false) {
-            $condition = "true";
+            $where = "true";
         }
+        else {
+            foreach ($condition as $c => $v) {
+                $where[] = "$c = $v";
+            }
+            $where = implode(' AND ', $where);
+        }
+//        echo $fields . "<br />";
+//        echo $where . "<br />";
+
         $ret = "";
         if ($returning) {
             foreach ($returning as $f => $h) {
@@ -418,7 +428,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             }
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
-        $sql = "update $table set $fields where $condition $ret";
+        $sql = "update $table set $fields where $where $ret";
+//        echo "Query de update este: $sql<br /><br />";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return null;

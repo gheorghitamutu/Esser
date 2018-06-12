@@ -29,9 +29,9 @@ class UsrNtfRelationMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $usrntfrelation = new $this->_entityClass(array(
-            'usrNtfRelationId'     => $data['USRNRELATIONID'] ? $data['USRNRELATIONID'] : '',
-            'usrNNotifiedAccId'   => $data['USRNNOTIFIEDACCID'] ? $data['USRNNOTIFIEDACCID'] : '',
-            'usrNNotificationId'   => $data['USRNNOTIFICATIONID'] ? $data['USRNNOTIFICATIONID'] : ''
+            'usrNtfRelationId'     => array_key_exists('USRNRELATIONID', $data) ? $data['USRNRELATIONID'] : '',
+            'usrNNotifiedAccId'   => array_key_exists('USRNNOTIFIEDACCID', $data) ? $data['USRNNOTIFIEDACCID'] : '',
+            'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID', $data) ? $data['USRNNOTIFICATIONID'] : ''
         ));
         return $usrntfrelation;
     }

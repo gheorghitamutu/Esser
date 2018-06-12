@@ -29,11 +29,11 @@ class ItemGroupMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $itemgroup = array(
-            'iGroupId'      => $data['IGROUPID'] ? $data['IGROUPID'] : '',
-            'iGroupName'    => $data['IGROUPNAME'] ? $data['IGROUPNAME'] : '',
-            'iGroupDescription'    => $data['IGROUPDESCRIPTION'] ? $data['IGROUPDESCRIPTION'] : '',
-            'iGroupCreatedAt'  => $data['IGROUPCREATEDAT'] ? $data['IGROUPCREATEDAT'] : '',
-            'iGroupUpdatedAt'  => $data['IGROUPUPDATEDAT'] ? $data['IGROUPUPDATEDAT'] : ''
+            'iGroupId'      => array_key_exists('IGROUPID', $data) ? $data['IGROUPID'] : '',
+            'iGroupName'    => array_key_exists('IGROUPNAME', $data) ? $data['IGROUPNAME'] : '',
+            'iGroupDescription'    => array_key_exists('IGROUPDESCRIPTION', $data) ? $data['IGROUPDESCRIPTION'] : '',
+            'iGroupCreatedAt'  => array_key_exists('IGROUPCREATEDAT', $data) ? $data['IGROUPCREATEDAT'] : '',
+            'iGroupUpdatedAt'  => array_key_exists('IGROUPUPDATEDAT', $data) ? $data['IGROUPUPDATEDAT'] : ''
         );
         return $itemgroup;
     }

@@ -60,29 +60,6 @@ class AdmincpController extends Controller
         }
     }
 
-    private function getUserLastLoginDate(array $session) {
-        $userid = $session['userid'];
-        $username= $session['uname'];
-        $this->model('Userlog');
-        $queryresult =
-            $this->model_class->get_mapper()->findAll(
-                $where = "ULOGDESCRIPTION like '%$userid%' "
-                        ."AND ULOGDESCRIPTION like '%$username%' "
-                        ."AND ULOGDESCRIPTION like '%has logged in%' ",
-                $fields = 'ULOGCREATEDAT',
-                $order = "uLogId DESC",
-                $limit = " = 1");
-        if (count($queryresult) > 1) {
-            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
-        }
-        elseif (empty($queryresult)) {
-            return 'N/A';
-        }
-        else {
-            return $queryresult['uLogCreatedAt'];
-        }
-    }
-
     private function index()
     {
         View::CreateView(
@@ -198,6 +175,31 @@ class AdmincpController extends Controller
         $this->model('Useracc');
         $online_users = $this->model_class->get_mapper()->countAll("userState = '2'");
         return $online_users;
+    }
+
+    private function getUserLastLoginDate(array $session) {
+        $userid = $session['userid'];
+        $username= $session['uname'];
+        $this->model('Userlog');
+        $queryresult =
+            $this->model_class->get_mapper()->findAll(
+                $where = "ULOGDESCRIPTION like '%$username%' "
+                    ."AND ULOGDESCRIPTION like '%has logged in%' ",
+                $fields = 'to_char(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+                $order = "ULOGID DESC",
+                $limit = " = 1");
+//        echo var_dump($queryresult)."<br /><br />";
+//        echo $queryresult[0]['uLogCreatedAt']."<br /><br />";
+//        $queryresult = array();
+        if (count($queryresult) > 1) {
+            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
+        }
+        elseif (empty($queryresult) || count($queryresult) === 0) {
+            return 'N/A';
+        }
+        else {
+            return $queryresult[0]['uLogCreatedAt'];
+        }
     }
 
     private function getLastDBBackupTime()

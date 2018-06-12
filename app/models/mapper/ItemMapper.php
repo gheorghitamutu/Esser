@@ -29,14 +29,14 @@ class ItemMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $useracc = array(
-            'itemId'            => $data['ITEMID'] ? $data['ITEMID'] : '',
-            'itemDescription'   => $data['ITEMDESCRIPTION'] ? $data['ITEMDESCRIPTION'] : '',
-            'itemQuantity'      => $data['ITEMQUANTITY'] ? $data['ITEMQUANTITY'] : '',
-            'iGroupId'          => $data['IGROUPID'] ? $data['IGROUPID'] : '',
-            'iWarnQnty'         => $data['IWARNQNTY'] ? $data['IWARNQNTY'] : '',
-            'itemImage'         => $data['ITEMIMAGE'] ? $data['ITEMIMAGE'] : '',
-            'itemCreatedAt'     => $data['ITEMCREATEDAT'] ? $data['ITEMCREATEDAT'] : '',
-            'itemUpdatedAt'     => $data['ITEMUPDATEDAT'] ? $data['ITEMUPDATEDAT'] : ''
+            'itemId'            =>  array_key_exists('ITEMID', $data) ? $data['ITEMID'] : '',
+            'itemDescription'   =>  array_key_exists('ITEMDESCRIPTION', $data) ? $data['ITEMDESCRIPTION'] : '',
+            'itemQuantity'      =>  array_key_exists('ITEMQUANTITY', $data) ? $data['ITEMQUANTITY'] : '',
+            'iGroupId'          =>  array_key_exists('IGROUPID', $data) ? $data['IGROUPID'] : '',
+            'iWarnQnty'         =>  array_key_exists('IWARNQNTY', $data) ? $data['IWARNQNTY'] : '',
+            'itemImage'         =>  array_key_exists('ITEMIMAGE', $data) ? $data['ITEMIMAGE'] : '',
+            'itemCreatedAt'     =>  array_key_exists('ITEMCREATEDAT', $data) ? $data['ITEMCREATEDAT'] : '',
+            'itemUpdatedAt'     =>  array_key_exists('ITEMUPDATEDAT', $data) ? $data['ITEMUPDATEDAT'] : ''
         );
         return $useracc;
     }

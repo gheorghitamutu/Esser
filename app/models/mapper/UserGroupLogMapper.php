@@ -30,10 +30,10 @@ class UserGroupLogMapper
     protected function _createEntity(array $data)
     {
         $grouprelation = array(
-            'uGLogId'      => $data['UGLOGID'] ? $data['UGLOGID'] : '',
-            'uGLogDescription'    => $data['UGLOGDESCRIPTION'] ? $data['UGLOGDESCRIPTION'] : '',
-            'uGLogSourceIP'    => $data['UGLOGSOURCEIP'] ? $data['UGLOGSOURCEIP'] : '',
-            'uGLogCreatedAt'  => $data['UGLOGCREATEDAT'] ? $data['UGLOGCREATEDAT'] : ''
+            'uGLogId'      => array_key_exists('UGLOGID', $data) ? $data['UGLOGID'] : '',
+            'uGLogDescription'    => array_key_exists('UGLOGDESCRIPTION', $data) ? $data['UGLOGDESCRIPTION'] : '',
+            'uGLogSourceIP'    => array_key_exists('UGLOGSOURCEIP', $data) ? $data['UGLOGSOURCEIP'] : '',
+            'uGLogCreatedAt'  => array_key_exists('UGLOGCREATEDAT', $data) ? $data['UGLOGCREATEDAT'] : ''
         );
         return $grouprelation;
     }

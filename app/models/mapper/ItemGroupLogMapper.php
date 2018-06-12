@@ -28,10 +28,10 @@ class ItemGroupLogMapper extends AbstractMapper
     protected function _createEntity(array $data)
     {
         $grouprelation = array(
-            'iGLogId'   =>  $data['IGLOGID'] ? $data['IGLOGID'] : '',
-            'IGLogDescription'    => $data['IGLOGDESCRIPTION'] ? $data['IGLOGDESCRIPTION'] : '',
-            'iGLogSourceIP'    => $data['IGLOGSOURCEIP'] ? $data['IGLOGSOURCEIP'] : '',
-            'iGLogCreatedAt'  => $data['IGLOGCREATEDAT'] ? $data['IGLOGCREATEDAT'] : ''
+            'iGLogId'   => array_key_exists('IGLOGID', $data) ? $data['IGLOGID'] : '',
+            'IGLogDescription'   => array_key_exists('IGLOGDESCRIPTION', $data) ? $data['IGLOGDESCRIPTION'] : '',
+            'iGLogSourceIP'   => array_key_exists('IGLOGSOURCEIP', $data) ? $data['IGLOGSOURCEIP'] : '',
+            'iGLogCreatedAt' => array_key_exists('IGLOGCREATEDAT', $data) ? $data['IGLOGCREATEDAT'] : ''
         );
         return $grouprelation;
     }
