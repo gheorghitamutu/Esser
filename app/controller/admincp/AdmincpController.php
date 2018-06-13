@@ -46,8 +46,23 @@ class AdmincpController extends Controller
             case 'admincp/usereditor':
                 $this->usereditor();
                 break;
+            case 'admincp/usereditor/edituser':
+                $this->edituser();
+                break;
+            case 'admincp/usereditor/getuser':
+                $this->goToUserEditor();
+                break;
             case 'admincp/usermanager':
                 $this->usermanager();
+                break;
+            case 'admincp/usermanager/deleteuser':
+                $this->deleteuser();
+                break;
+            case 'admincp/usermanager/approveuser':
+                $this->approveuser();
+                break;
+            case 'admincp/usermanager/suspenduser':
+                $this->suspenduser();
                 break;
             case 'admincp/databaseeditor':
                 $this->databaseeditor();
@@ -62,6 +77,9 @@ class AdmincpController extends Controller
 
     private function index()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'index',
             [],
@@ -70,6 +88,9 @@ class AdmincpController extends Controller
 
     private function login()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = true))
         {
             self::redirect('/admincp/dashboard');
@@ -82,6 +103,9 @@ class AdmincpController extends Controller
 
     private function logout()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         $this->model('UserLog');
         $this->model_class->get_mapper()->insert
         (
@@ -99,6 +123,9 @@ class AdmincpController extends Controller
 
     private function dashboard()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
             array
@@ -116,6 +143,9 @@ class AdmincpController extends Controller
 
     private function itemlogs()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
             [],
@@ -124,6 +154,9 @@ class AdmincpController extends Controller
 
     private function loginlogs()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
             [0=>'first',1=>'second'],
@@ -132,6 +165,9 @@ class AdmincpController extends Controller
 
     private function userlogs()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
             ['userLogs' => $this->getUserLogs()],
@@ -140,22 +176,99 @@ class AdmincpController extends Controller
 
     private function usereditor()
     {
-        View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
-            [],
-            'AdminCP');
+        if ($_SESSION['userToEdit']) {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
+                ['userToEdit' => $_SESSION['userToEdit']],
+                'AdminCP');
+        }
+        else {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
+                [],
+                'AdminCP');
+        }
+    }
+
+    private function goToUserEditor() {
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = ' USERID = '.$_POST['edituser'],
+            $fields = 'USERNAME, USERTYPE, USEREMAIL'
+        );
+        switch($user[0]['userType']){
+            case 0:
+                $user[0]['userType'] = 'Unapproved';
+                break;
+            case 1:
+                $user[0]['userType'] = 'User';
+                break;
+            case 2:
+                $user[0]['userType'] = 'Root Manager';
+                break;
+            case 3:
+                $user[0]['userType'] = 'Root Admin';
+                break;
+        }
+        $_SESSION['userToEdit'] = $user[0];
+        self::redirect('/admincp/usereditor');
     }
 
     private function usermanager()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
             ['approvedUsers' => $this->getActiveUserList(), 'unapprovedUsers' => $this->getUnapprovedUserList()],
             'AdminCP');
     }
 
+    private function deleteuser()
+    {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = 'USERID = '.$_POST['deleteuser']
+        );
+
+        if ($_SESSION['userid'] === $user[0]['userId'])
+        {
+            // Need to implement a fail message delivery .. (Cannot delete or suspend your own account!)
+            self::redirect('/admincp/usermanager');
+        }
+        else {
+            $query = $this->model_class->get_mapper()->delete(
+                $table = 'USERACCS',
+                $where = ' USERID = '.$_POST['edituser']
+            );
+            if ($query) {
+                $this->model('UserLog');
+                $this->model_class->get_mapper()->insert(
+                    array(
+                        'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
+                            ' has deleted user ' . $user[0]['userName'] . ' !',
+                        'uLogSourceIP' => $_SESSION['login_ip']
+                    )
+                );
+                // Need to implement a success message delivery .. (User was deleted succesfully!)
+                self::redirect('/admincp/usermanager');
+            }
+            else {
+                // Need to implement a fail message delivery .. (Could not delete because some reasons!)
+                self::redirect('/admincp/usermanager');
+            }
+        }
+    }
+
     private function databaseeditor()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'database',
             [],
@@ -164,6 +277,9 @@ class AdmincpController extends Controller
 
     private function settings()
     {
+        if($_SESSION['userToEdit']) {
+            unset($_SESSION['userToEdit']);
+        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'settings',
             [],
@@ -249,8 +365,8 @@ class AdmincpController extends Controller
         $this->model('Useracc');
         $query = $this->model_class->get_mapper()->findAll(
             $where = 'userType > 0',
-            $fields = '*',
-            $order = 'userCreatedAt ASC'
+            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $order = 'userCreatedAt DESC'
         );
         for($i = 0; $i < count($query); ++$i) {
             switch($query[$i]['userType']) {
@@ -268,12 +384,12 @@ class AdmincpController extends Controller
         return $query;
     }
 
-    public function getUnapprovedUserList() {
+    private function getUnapprovedUserList() {
         $this->model('Useracc');
         $query = $this->model_class->get_mapper()->findAll(
             $where = 'userType = 0',
-            $fields = '*',
-            $order = 'userCreatedAt ASC'
+            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $order = 'userCreatedAt DESC'
         );
         for($i = 0; $i < count($query); ++$i) {
             $query[$i]['userType'] = 'Unapproved';
@@ -304,4 +420,5 @@ class AdmincpController extends Controller
 //        }
 
     }
+
 }

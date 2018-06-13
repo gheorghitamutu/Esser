@@ -35,7 +35,8 @@ class UsrNtfRelationMapper extends AbstractMapper
             (
                 'usrNtfRelationId'     => array_key_exists('USRNRELATIONID',        $data) ? $data['USRNRELATIONID'] : '',
                 'usrNNotifiedAccId'    => array_key_exists('USRNNOTIFIEDACCID',     $data) ? $data['USRNNOTIFIEDACCID'] : '',
-                'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID',    $data) ? $data['USRNNOTIFICATIONID'] : ''
+                'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID',    $data) ? $data['USRNNOTIFICATIONID'] : '',
+                'usrNIsRead'           => array_key_exists('USRNISREAD',            $data) ? $data['USRNISREAD'] : ''
             );
         return $usrntfrelation;
     }

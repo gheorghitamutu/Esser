@@ -254,7 +254,9 @@ CREATE TABLE USRNTFRELATIONS(
   usrnRelationId NUMBER(*,0) NOT NULL,
   usrnNotifiedAccId NUMBER(*,0) NOT NULL,
   usrnNotificationId NUMBER(*,0) NOT NULL,
+  usrnNIsRead         NUMBER(*,0) DEFAULT 0,
   CONSTRAINT pk_usrnRelationId PRIMARY KEY (usrnRelationId),
+  CONSTRAINT not_null_ntfIsRead CHECK (usrnNIsRead IS NOT NULL),
   CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId),
   CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
 )

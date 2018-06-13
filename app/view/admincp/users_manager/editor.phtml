@@ -21,16 +21,16 @@
                             <fieldset>
                             <legend></legend>    
                                 <div class="ctrl-group">                                
-                                    <label> Account Name </label> <input type="text" name="Username" id="acc-username" value="Edward">
+                                    <label> Account Name </label> <input type="text" name="Username" id="acc-username" value="<?php echo (!empty($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userName'] : ''; ?>">
                                 </div>
                                 <div class="ctrl-group">                                
-                                    <label> Account Level </label> <input type="text" name="AccLevel" id="acc-level" value="Admin">
+                                    <label> Account Level </label> <input type="text" name="AccLevel" id="acc-level" value="<?php echo (!empty($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userType'] : ''; ?>">
                                 </div>
                                 <div class="ctrl-group"> 
-                                    <label> Account Email </label> <input type="email" name="AccEmail" id="acc-email" value="edward@company.com">
+                                    <label> Account Email </label> <input type="email" name="AccEmail" id="acc-email" value="<?php echo (!empty($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ''; ?>">
                                 </div>
                                 <div class="ctrl-group"> 
-                                    <label> New Password </label> <input type="password" name="NewPswd" id="acc-password" placeholder="Insert New Password">
+                                    <label> New Password </label> <input type="password" name="NewPswd" id="acc-password" value="" placeholder="Insert New Password">
                                 </div>
                             </fieldset>
                             <button type="button" class="admcp-save-btn" onclick="editUser('Edward')"> Save </button>

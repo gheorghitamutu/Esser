@@ -24,6 +24,7 @@ define('HOST_PORT'                          , '1521');
 define('MD5'                                , false);
 define('SHA_256'                            , false);
 define('SHA_512'                            , true);
+define('SERVERTIMEZONE'                     , 'Europe/Bucharest');
 define('ORA_CHARSET_DEFAULT'                , 'AMERICAN_AMERICA.WE8MSWIN1252');
 define('ORA_CONNECTION_TYPE_DEFAULT'        , 1);
 define('ORA_CONNECTION_TYPE_PERSISTENT'     , 2);
