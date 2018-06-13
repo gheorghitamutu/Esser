@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         if(!$this->session_authenticate())
         {
-            //new ForbiddenController();
+            new ForbiddenController();
             return;
         }
 
@@ -52,11 +52,6 @@ class UserController extends Controller
             'user' . DIRECTORY_SEPARATOR . 'index',
             [],
             'Welcome ' . $_SESSION["uname"]);
-        $this->model('GroupRelation');
-        $result = $this->model_class->get_mapper()->findAll();
-        echo var_dump($result);
-        exit(0);
-
     }
 
     public function alerts()
@@ -94,8 +89,8 @@ class UserController extends Controller
 
     public function logout()
     {
-        $this->model_class->setState(1);
-        $this->model_class->get_mapper()->update($this->model_class);
+        $this->model('Useracc');
+        $this->model_class->get_mapper()->update('USERACCS', array('userState' => 1), array('userId' => $_SESSION['userid']));
 
         $_SESSION['login_failed'] = true;
         session_destroy();

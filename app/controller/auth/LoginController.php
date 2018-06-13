@@ -77,9 +77,6 @@ class LoginController extends Controller
     private function success()
     {
         $_SESSION['login_failed'] = false;
-
-        //$this->model_class->setState(["userState" => 2]);
-        $this->model_class->get_mapper()->update($this->model_class);
         self::redirect('/user/index');
     }
 
