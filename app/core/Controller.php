@@ -129,7 +129,7 @@ class Controller
         {
             //Forbidden/Internal Server Error(500)!
             new InternalServerErrorController();
-            throw new RuntimeException('Multiple matches in login! Please check either code source or database!');
+            throw new RuntimeException('Multiple matches in login! Please check database!');
         }
 
         if (count($queries) === 0 || count($queries) === null)

@@ -38,10 +38,19 @@
             </form>
         </div>
 
+        <?php
+        echo (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"]) ?
+            '<div id="admin-cp-container-user-landing-page">
+                <button type="button" id="admin-cp-button" onclick="window.location.href = \'/admincp\'">
+                    Admin
+                </button>
+             </div>' :
+        '';
+        ?>
 
-        <div id="admin-cp-container-user-landing-page">
-            <button type="button" id="admin-cp-button" onclick="alert('redirect to admin ')">Admin</button>
-        </div>
+
+        ?>
+
     </div>
 
 

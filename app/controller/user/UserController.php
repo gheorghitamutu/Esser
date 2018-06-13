@@ -18,6 +18,10 @@ class UserController extends Controller
             new ForbiddenController();
             return;
         }
+        else
+        {
+            $this->check_admin();
+        }
 
         switch($uri)
         {
@@ -95,5 +99,23 @@ class UserController extends Controller
         $_SESSION['login_failed'] = true;
         session_destroy();
         Controller::redirect('/home');
+    }
+
+    private function check_admin()
+    {
+        $this->model('Useracc');
+
+        $user_id = $_SESSION['userid'];
+        $queries = $this->model_class->get_mapper()->findAll(
+            "userId = $user_id AND userType = 3");
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
+            $_SESSION["is_admin"] = false;
+        }
+        else
+        {
+            $_SESSION["is_admin"] = true;
+        }
     }
 }
