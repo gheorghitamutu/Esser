@@ -29,20 +29,35 @@ class OracleAdapter implements DatabaseAdapterInterface {
     {
 
         $this->setNlsLang('WE8MSWIN1252');
-        $this->setFetchMode(OCI_ASSOC+OCI_RETURN_NULLS);
+        $this->setFetchMode(OCI_ASSOC + OCI_RETURN_NULLS);
         $this->setAutoCommit(true);
-        if (count($config) !== 4) {
+
+        if (count($config) !== 4)
+        {
+            new \InternalServerErrorController();
             throw new InvalidArgumentException('Invalid number of connection parameters!');
         }
-        $this->_config = array ($config[0], $config[1], $this->format_connection, $this->charset, $config[2], $config[3]);
+
+        $this->_config =
+            array
+            (
+                $config[0],
+                $config[1],
+                $this->format_connection,
+                $this->charset,
+                $config[2],
+                $config[3]
+            );
     }
 
     /**
      * Destructor
      *
      */
-    public function __destruct() {
-        if (is_resource($this->connection)) {
+    public function __destruct()
+    {
+        if (is_resource($this->connection))
+        {
             @oci_close($this->connection);
         }
     }
@@ -51,7 +66,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * Returns the last error found.
      *
      */
-    public function getError() {
+    public function getError()
+    {
         return @oci_error($this->connection);
     }
 
@@ -60,7 +76,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      *
      * @param mixed $mode
      */
-    public function setFetchMode($mode = OCI_BOTH) {
+    public function setFetchMode($mode = OCI_BOTH)
+    {
         $this->fetch_mode = $mode;
     }
 
@@ -69,7 +86,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      *
      * @param string $charset
      */
-    public function setNlsLang($charset = ORA_CHARSET_DEFAULT) {
+    public function setNlsLang($charset = ORA_CHARSET_DEFAULT)
+    {
         $this->charset = $charset;
     }
 
@@ -78,7 +96,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      *
      * @param bool $mode
      */
-    public function setAutoCommit($mode = true) {
+    public function setAutoCommit($mode = true)
+    {
         $this->autocommit = $mode;
     }
 
@@ -87,34 +106,70 @@ class OracleAdapter implements DatabaseAdapterInterface {
      *
      * @param int $size
      */
-    public function setVarMaxSize($size) {
+    public function setVarMaxSize($size)
+    {
         $this->var_max_size = $size;
     }
 
     public function connect()
     {
         // Connection only once!
-        if ($this->connection === null) {
-            switch ($this->_config[5]) {
+        if ($this->connection === null)
+        {
+            switch ($this->_config[5])
+            {
                 case ORA_CONNECTION_TYPE_PERSISTENT:
-                    list($user, $password, $format, $charset, $mode) = array($this->_config[0], $this->_config[1], $this->_config[2], $this->_config[3], $this->_config[4]);
+                    list($user, $password, $format, $charset, $mode) =
+                        array
+                        (
+                            $this->_config[0],
+                            $this->_config[1],
+                            $this->_config[2],
+                            $this->_config[3],
+                            $this->_config[4]
+                        );
+
                     $this->connection = @oci_pconnect($user, $password, $format, $charset, $mode);
-                    if (!$this->connection) {
+                    if (!$this->connection)
+                    {
+                        new \InternalServerErrorController();
                         throw new RuntimeException('Error connection to the server: ' . oci_error());
                     }
                     break;
+
                 case ORA_CONNECTION_TYPE_NEW:
-                    list($user, $password, $format, $charset, $mode) = array($this->_config[0], $this->_config[1], $this->_config[2], $this->_config[3], $this->_config[4]);
+                    list($user, $password, $format, $charset, $mode) =
+                        array
+                        (
+                            $this->_config[0],
+                            $this->_config[1],
+                            $this->_config[2],
+                            $this->_config[3],
+                            $this->_config[4]
+                        );
                     $this->connection = @oci_new_connect($user, $password, $format, $charset, $mode);
-                    if (!$this->connection) {
-                        throw new RuntimeException('Error connection to the server: ' . oci_error());
+                    if (!$this->connection)
+                    {
+                        new \InternalServerErrorController();
+                        throw new RuntimeException('Failed connecting to database: ' . oci_error());
                     }
                     break;
+
                 default:
-                    list($user, $password, $format, $charset, $mode) = array($this->_config[0], $this->_config[1], $this->_config[2], $this->_config[3], $this->_config[4]);
+                    list($user, $password, $format, $charset, $mode) =
+                        array
+                        (
+                            $this->_config[0],
+                            $this->_config[1],
+                            $this->_config[2],
+                            $this->_config[3],
+                            $this->_config[4]
+                        );
                     $this->connection = @oci_connect($user, $password, $format, $charset, $mode);
-                    if (!$this->connection) {
-                        throw new RuntimeException('Error connection to the server: ' . oci_error());
+                    if (!$this->connection)
+                    {
+                        new \InternalServerErrorController();
+                        throw new RuntimeException('Failed connecting to database: ' . oci_error());
                     }
                     break;
             }
@@ -131,32 +186,44 @@ class OracleAdapter implements DatabaseAdapterInterface {
     /**
      * Force execute the specified query
      * Not safe - Prune to execution errors - Use execute($sql_text, $bind) instead;
+     * @param $query
+     * @return resource
      */
     private function query($query)
     {
-        if (!is_string($query) || empty($query)) {
+        if (!is_string($query) || empty($query))
+        {
+            new \InternalServerErrorController();
             throw new InvalidArgumentException('The specified query is not valid.');
         }
+
         // lazy connect to MySQL
         $this->connect();
-        if (!$this->_result = oci_parse($this->connection, $query)) {
+        if (!$this->_result = oci_parse($this->connection, $query))
+        {
             throw new RuntimeException('Error executing the specified query ' . $query . oci_error($this->connection));
         }
+
         return $this->_result;
     }
 
-    private function getBindingType($var) {
-        if (is_a($var, "OCI-Collection")) {
+    private function getBindingType($var)
+    {
+        if (is_a($var, "OCI-Collection"))
+        {
             $bind_type = SQLT_NTY;
             $this->setVarMaxSize(-1);
         }
-        elseif (is_a($var, "OCI-Lob")) {
+        else if (is_a($var, "OCI-Lob"))
+        {
             $bind_type = SQLT_CLOB;
             $this->setVarMaxSize(-1);
         }
-        else {
+        else
+        {
             $bind_type = SQLT_CHR;
         }
+
         return $bind_type;
     }
 
@@ -167,13 +234,14 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param array | false $bind
      * @return resource | false
      */
-    private function execute($sql_text, &$bind = false) {
+    private function execute($sql_text, &$bind = [])
+    {
         if (!is_resource($this->connection))
         {
             return false;
         }
-        $this->last_query = $sql_text;
 
+        $this->last_query = $sql_text;
         $stid = @oci_parse($this->connection, $sql_text);
 
         $sd_id_int = (int)$stid;
@@ -181,11 +249,19 @@ class OracleAdapter implements DatabaseAdapterInterface {
         $this->statements[$sd_id_int]['text'] = $sql_text;
         $this->statements[$sd_id_int]['bind'] = $bind;
 
-        if ($bind && is_array($bind)) {
-            foreach ($bind as $k => $v) {
-                oci_bind_by_name($stid, $k, $bind[$k], $this->var_max_size, $this->getBindingType($bind[$k]));
+        if (!empty($bind))
+        {
+            foreach ($bind as $k => $v)
+            {
+                oci_bind_by_name(
+                    $stid,
+                    $k,
+                    $bind[$k],
+                    $this->var_max_size,
+                    $this->getBindingType($bind[$k]));
             }
         }
+
         $com_mode = $this->autocommit ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT;
 
         $this->execute_status = oci_execute($stid, $com_mode);
@@ -199,7 +275,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param resource $statement valid OCI statement id
      * @return bool
      */
-    public function fetch($statement) {
+    public function fetch($statement)
+    {
         return oci_fetch($statement);
     }
 
@@ -209,7 +286,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param resource $statement valid OCI statement id
      * @return array
      */
-    public function fetchArray($statement) {
+    public function fetchArray($statement)
+    {
         return oci_fetch_array($statement, $this->fetch_mode);
     }
 
@@ -221,7 +299,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param resource $statement valid OCI statement id
      * @return array Returns a numerically indexed array. If there are no more rows in the statement then FALSE is returned.
      */
-    public function fetchRow($statement) {
+    public function fetchRow($statement)
+    {
         return oci_fetch_row($statement);
     }
 
@@ -233,9 +312,16 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param int $maxrows number of rows to read, starting at the skip th row (default to -1, meaning all the rows).
      * @return array
      */
-    public function fetchAll($statement, $skip = 0, $maxrows = -1) {
+    public function fetchAll($statement, $skip = 0, $maxrows = -1)
+    {
         $rows = array();
-        oci_fetch_all($statement, $rows, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
+        oci_fetch_all(
+            $statement,
+            $rows,
+            $skip,
+            $maxrows,
+            OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+
         return $rows;
     }
 
@@ -245,11 +331,13 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param resource $statement valid OCI statement identifier
      * @return object
      */
-    public function fetchObject($statement) {
+    public function fetchObject($statement)
+    {
         return oci_fetch_object($statement);
     }
 
-    public function getResult($statement, $field) {
+    public function getResult($statement, $field)
+    {
         return oci_result($statement, $field);
     }
 
@@ -262,35 +350,43 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param int $type The data type to be returned.
      * @return bool
      */
-    public function defineByName($statement, $column_name, &$variable, $type = SQLT_CHR) {
+    public function defineByName($statement, $column_name, &$variable, $type = SQLT_CHR)
+    {
         return oci_define_by_name($statement, $column_name, $variable, $type);
     }
 
-    public function getFieldIsNull($statement, $field) {
+    public function getFieldIsNull($statement, $field)
+    {
         return oci_field_is_null($statement, $field);
     }
 
-    public function getFieldName($statement, int $field) {
+    public function getFieldName($statement, int $field)
+    {
         return oci_field_name($statement, $field);
     }
 
-    public function getFieldPrecision($statement, int $field) {
+    public function getFieldPrecision($statement, int $field)
+    {
         return oci_field_precision($statement, $field);
     }
 
-    public function getFieldScale($statement, int $field) {
+    public function getFieldScale($statement, int $field)
+    {
         return oci_field_scale($statement, $field);
     }
 
-    public function getFieldSize($statement, $field) {
+    public function getFieldSize($statement, $field)
+    {
         return oci_field_size($statement, $field);
     }
 
-    public function getFieldTypeRaw($statement, int $field) {
+    public function getFieldTypeRaw($statement, int $field)
+    {
         return oci_field_type_raw($statement, $field);
     }
 
-    public function getFieldType($statement, int $field) {
+    public function getFieldType($statement, int $field)
+    {
         return oci_field_type($statement, $field);
     }
 
@@ -301,28 +397,39 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param array | false $bind array of pairs binding variables
      * @return resource | false
      */
-    private function parseSelect($sql, $bind = false) {
+    private function parseSelect($sql, $bind = false)
+    {
         return $this->execute($sql, $bind);
     }
 
     /**
      * Perform a SELECT statement
+     * @param $table
+     * @param string $where
+     * @param string $fields
+     * @param string $order
+     * @param null $limit
+     * @param null $offset
+     * @param bool $bind
+     * @return false|resource
      */
     public function select($table, $where = '', $fields = '*', $order = '', $limit = null, $offset = null, $bind = false)
     {
-        if (!$limit) {
+        if (!$limit || $limit == null)
+        {
             $query = 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
                 . (($order) ? ' ORDER BY ' . $order : '');
         }
-        if ($limit) {
+        else
+        {
             $query = 'SELECT ' . '*' . ' FROM ( '
                 . 'SELECT ' . $fields . ' FROM ' . $table
                 . (($where) ? ' WHERE ' . $where : '')
                 . (($order) ? ' ORDER BY ' . $order : '')
                 . ') WHERE ROWNUM ' . $limit ;
         }
-//        echo "Query de select este: $query <br /><br />";
+
         return $this->parseSelect($query, $bind);
     }
 
@@ -346,44 +453,60 @@ class OracleAdapter implements DatabaseAdapterInterface {
      * @param string $table name of table
      * @param array $arrayFieldsValues define pair field => value
      * @param bool $bind define pairs holder => value for binding
-     * @param bool $returning define fields for returning clause in insert statement
-     * @return mixed if $returnig is defined function return array of fields defined in $returning
+     * @param array $returning define fields for returning clause in insert statement
+     * @return mixed if $returning is defined function return array of fields defined in $returning
      */
-    public function insert($table, array $arrayFieldsValues, &$bind = false, $returning = false) {
-        if (empty($arrayFieldsValues)) {
+    public function insert($table, array $arrayFieldsValues, &$bind = false, $returning = [])
+    {
+        if (empty($arrayFieldsValues))
+        {
             return false;
         }
+
         $fields = array();
         $values = array();
-        foreach ($arrayFieldsValues as $f => $v) {
+
+        foreach ($arrayFieldsValues as $f => $v)
+        {
             $fields[] = $f;
             $values[] = $v;
         }
+
         $fields = implode(",", $fields);
         $values = implode(",", $values);
         $ret = "";
-        if ($returning) {
-            foreach ($returning as $f => $h) {
+        if (!empty($returning))
+        {
+            foreach ($returning as $f => $h)
+            {
                 $ret_fields[] = $f;
                 $ret_binds[] = ":$h";
                 $bind[":$h"] = "";
             }
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
+
         $sql = "insert into $table ($fields) values($values) $ret";
-//        echo "Query de insert este: $sql <br /><br />";
+
         $result = $this->execute($sql, $bind);
-        if ($result === false) {
+
+        if ($result === false)
+        {
             return false;
         }
-        if ($returning === false) {
+
+        if (empty($returning))
+        {
             return $result;
         }
-        else {
+        else
+        {
             $result = array();
-            foreach ($returning as $f => $h) {
+            foreach ($returning as $f => $h)
+            {
                 $result[$f] = $bind[":$h"];
             }
+
             return $result;
         }
     }
@@ -393,27 +516,38 @@ class OracleAdapter implements DatabaseAdapterInterface {
      *
      * @param string $table
      * @param array $arrayFieldsValues
-     * @param string | false $condition
+     * @param array $condition
      * @param array | false $bind
+     * @param array $returning
      * @return resource
      */
-    public function update($table, array $arrayFieldsValues, $condition = false, &$bind = false, $returning = false) {
-        if (empty($arrayFieldsValues)) {
+    public function update($table, array $arrayFieldsValues, $condition =  [], &$bind = false, $returning = [])
+    {
+        if (empty($arrayFieldsValues))
+        {
             return null;
         }
+
         $fields = array();
         $values = array();
-        foreach ($arrayFieldsValues as $f => $v) {
+
+        foreach ($arrayFieldsValues as $f => $v)
+        {
             $fields[] = "$f = $v";
         }
+
         $fields = implode(",", $fields);
-        if ($condition === false) {
+        if (empty($condition))
+        {
             $where = "true";
         }
-        else {
-            foreach ($condition as $c => $v) {
+        else
+        {
+            foreach ($condition as $c => $v)
+            {
                 $where[] = "$c = $v";
             }
+
             $where = implode(' AND ', $where);
         }
 //        echo $fields . "<br />";

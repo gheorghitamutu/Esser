@@ -100,7 +100,7 @@ class RegisterController extends Controller
             'USERACCS',
             array
             (
-                'userName'  => "'" . $username         . "'",
+                'userName'  => "'" . $username      . "'",
                 'userEmail' => "'" . $email         . "'",
                 'userPass'  => "'" . $password_hash . "'",
                 'userType'  => 0,

@@ -12,7 +12,6 @@
 
 class AdmincpController extends Controller
 {
-
     public function __construct($uri)
     {
         $this->model('Useracc');
@@ -23,7 +22,7 @@ class AdmincpController extends Controller
                 $this->index();
                 break;
             case 'admincp/login':
-                $this->login($_POST["uname"], $_POST["psw"]);
+                $this->login();
                 break;
             case 'admincp/logout':
                 echo 'logout';
@@ -66,19 +65,31 @@ class AdmincpController extends Controller
             'AdminCP');
     }
 
-    private function login($uname, $pass)
+    private function login()
     {
-        if(($result = $this->try_authenticate($uname, $pass, $isadmcp = true))[0] !== false) {
-            $this->currentuser = $result[1];
+        if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = true))
+        {
             self::redirect('/admincp/dashboard');
         }
-        else {
+        else
+        {
             self::redirect('/admincp');
         }
     }
 
     private function logout()
     {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert
+        (
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'Admin user " . $_SESSION['uname']     . " has logged out!'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+            )
+        );
+
         session_destroy();
         self::redirect('/admincp');
     }
@@ -87,7 +98,8 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
-            array(
+            array
+            (
                 'totalUsers' => $this->getTotalUsers(),
                 'onlineUsers' => $this->getTotalOnline(),
                 'lastLogin' => $this->getUserLastLoginDate(),
@@ -185,9 +197,7 @@ class AdmincpController extends Controller
                 $fields = 'to_char(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
                 $order = "ULOGID DESC",
                 $limit = " < 3");
-//        echo var_dump($queryresult)."<br /><br />";
-//        echo $queryresult[0]['uLogCreatedAt']."<br /><br />";
-//        $queryresult = array();
+
         if (count($queryresult) > 2) {
             throw new RuntimeException('Something went wrong during the fetch of of last login date!');
         }

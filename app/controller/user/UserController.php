@@ -43,6 +43,10 @@ class UserController extends Controller
             case 'user/users':
                 $this->users();
                 break;
+            case 'user/admincp':
+                $this->logout();
+                self::redirect('/admincp');
+                break;
             case 'user/logout':
                 $this->logout();
                 break;
@@ -111,6 +115,16 @@ class UserController extends Controller
 
         $_SESSION['login_failed'] = true;
         session_destroy();
+
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'Normal user " . $_SESSION['uname']     . " has logged out!'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+            )
+        );
         Controller::redirect('/home');
     }
 
