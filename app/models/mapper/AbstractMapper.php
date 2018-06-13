@@ -124,8 +124,6 @@ abstract class AbstractMapper implements MapperInterface
         foreach($this->_adapter->fetchAll($selectstmt) as $row)
         {
             array_push($collection, $this->_createEntity($row));
-            echo var_dump($collection);
-            exit(0);
         }
 
         $this->_adapter->disconnect();

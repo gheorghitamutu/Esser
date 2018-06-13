@@ -150,7 +150,7 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
-            [],
+            ['approvedUsers' => $this->getActiveUserList(), 'unapprovedUsers' => $this->getUnapprovedUserList()],
             'AdminCP');
     }
 
@@ -245,19 +245,63 @@ class AdmincpController extends Controller
         }
     }
 
-    private function getUserLogs() {
-        $this->model('UserLog');
+    private function getActiveUserList() {
+        $this->model('Useracc');
         $query = $this->model_class->get_mapper()->findAll(
-            $where = '',
+            $where = 'userType > 0',
             $fields = '*',
-            $order = ''
+            $order = 'userCreatedAt ASC'
         );
-
         for($i = 0; $i < count($query); ++$i) {
-            $result[$i]['userName'] = substr($query[$i]['uLogDescription'], 0, strpos($query[$i]['uLogDescription'],' '));
-            $result[$i]['logDescription'] = substr($query[$i]['uLogDescription'], strpos($query[$i]['uLogDescription'],' '));
+            switch($query[$i]['userType']) {
+                case '1':
+                    $query[$i]['userType'] = 'User';
+                    break;
+                case '2':
+                    $query[$i]['userType'] = 'Root Manager';
+                    break;
+                case '3':
+                    $query[$i]['userType'] = 'Root Admin';
+                    break;
+            }
         }
+        return $query;
+    }
 
-        //return $result;
+    public function getUnapprovedUserList() {
+        $this->model('Useracc');
+        $query = $this->model_class->get_mapper()->findAll(
+            $where = 'userType = 0',
+            $fields = '*',
+            $order = 'userCreatedAt ASC'
+        );
+        for($i = 0; $i < count($query); ++$i) {
+            $query[$i]['userType'] = 'Unapproved';
+        }
+        return $query;
+    }
+
+
+    private function getUserLogs() {
+//        $this->model('UserLog');
+//        $query = $this->model_class->get_mapper()->findAll(
+//            $where = '',
+//            $fields = '*',
+//            $order = 'uLogCreatedAt DESC'
+//        );
+//
+//        $this->model('Useracc');
+//
+//        for($i = 0; $i < count($query); ++$i) {
+//            $result[$i]['userName'] = substr($query[$i]['uLogDescription'], 0, strpos($query[$i]['uLogDescription'],' '));
+//            $result[$i]['uLogDescription'] = substr($query[$i]['uLogDescription'], strpos($query[$i]['uLogDescription'],' '));
+//            //$result[$i]['']
+//            $temp_result = $this->model_class->get_mapper()->findAll(
+//                $where = " userName = '".$result[$i]['userName']."''"
+//            );
+//            $result[$i]['userId'] = $temp_result['userName'];
+//            $result[$i]['']
+//        }
+
     }
 }
