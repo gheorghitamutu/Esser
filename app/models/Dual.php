@@ -27,11 +27,11 @@ class Dual extends AbstractEntity
         return $this->mapper;
     }
 
-    public function getTimezone() {
-        return $this->_allowedFields['TIMEZONE'];
-    }
-
-    public function getSysDateTime() {
-        return $this->_allowedFields['SYSDATETIME'];
-    }
+//    public function getTimezone() {
+//        return $this->_allowedFields['TIMEZONE'];
+//    }
+//
+//    public function getSysDateTime() {
+//        return $this->_allowedFields['SYSDATETIME'];
+//    }
 }
