@@ -28,8 +28,8 @@ class UserController extends Controller
             case 'user':
                 $this->index();
                 break;
-            case 'user/alerts':
-                $this->alerts();
+            case 'user/notifications':
+                $this->notifications();
                 break;
             case 'user/logs':
                 $this->logs();
@@ -44,7 +44,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                new PageNotFoundController();
                 break;
 
         }
@@ -58,13 +58,13 @@ class UserController extends Controller
             'Welcome ' . $_SESSION["uname"]);
     }
 
-    public function alerts()
+    public function notifications()
     {
         // maybe macros for cats?
         View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'alerts' . DIRECTORY_SEPARATOR . 'alerts',
+            'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             [],
-            'You have alerts!');
+            'Notifications!');
     }
 
     public function logs()
