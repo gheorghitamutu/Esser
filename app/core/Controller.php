@@ -58,8 +58,12 @@ class Controller
                 $this->model('UserLog');
                 $this->model_class->get_mapper()->insert(
                     'USERLOGS',
-                    array('uLogDescription' => "'".$_SESSION['uname']." has logged in!'",
-                        'uLogSourceIP' => "'".$_SESSION['login_ip']."'"));
+                    array
+                    (
+                        'uLogDescription'   => "'".$_SESSION['uname']   ." has logged in!'",
+                        'uLogSourceIP'      => "'".$_SESSION['login_ip']."'"
+                    )
+                );
                 return $result;
             }
             else
@@ -77,7 +81,17 @@ class Controller
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result[1]['userName'];
                 $_SESSION["userid"] = $result[1]['userId'];
-                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model_class->get_mapper()->update(
+                    'USERACCS',
+                    array
+                    (
+                        'userState' => 2
+                    ),
+                    array
+                    (
+                        'userId' => $_SESSION['userid']
+                    )
+                );
                 return $result;
             }
             else
@@ -96,13 +110,14 @@ class Controller
     protected function authenticate_admcp($uname, $psw)
     {
         $salt = '$1_2jlh83#@J^Q';
-        $passhash = hash('sha512', $uname . $salt . $psw);
-        $queries = $this->model_class->get_mapper()->findAll("userName = '$uname' AND userPass = '$passhash' and userType = 3");
+        $password_hash = hash('sha512', $uname . $salt . $psw);
+        $queries = $this->model_class->get_mapper()->findAll(
+            "userName = '$uname' AND userPass = '$password_hash' and userType = 3");
 
         if (count($queries) > 1)
         {
             //Forbidden/Internal Server Error(500)!
-            //new ForbiddenController();
+            new InternalServerErrorController();
             throw new RuntimeException('Multiple matches in login! Please check either code source or database!');
         }
 
@@ -126,7 +141,7 @@ class Controller
         if (count($user_found) > 1)
         {
             //Forbidden/Internal server error(500)!
-            //new ForbiddenController();
+            new InternalServerErrorController();
             throw new RuntimeException('Multiple matches in login! Please contact an administrator!');
         }
 
