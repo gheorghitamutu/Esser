@@ -598,3 +598,235 @@ SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 
 [ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
 [ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
 [ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
+[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 1. Switching to the next phase.
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBUserPrc.sql script output is: 
+==============
+
+Procedure created.
+
+old   2:   prc_esser_crt_root_user('&1', '&2');
+new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
+BEGIN
+*
+ERROR at line 1:
+ORA-01940: cannot drop a user that is currently connected
+ORA-06512: at "SYS.PRC_ESSER_CRT_ROOT_USER", line 110
+ORA-01920: user name 'ESSER' conflicts with another user or role name
+ORA-06512: at line 2
+
+
+
+Commit complete.
+
+
+Commit complete.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBTables.sql script output is: 
+==============
+
+PL/SQL procedure successfully completed.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Commit complete.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBSequences.sql script output is: 
+==============
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Sequence created.
+
+
+Commit complete.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBAutoInsTriggers.sql script output is: 
+==============
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Commit complete.
+
+
+Commit complete.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBComplexTriggers.sql script output is: 
+==============
+
+Trigger created.
+
+
+Trigger created.
+
+
+Trigger created.
+
+
+Commit complete.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Executed createDBPrcsFcts.sql script output is: 
+==============
+
+Function created.
+
+old   4:   v_result := fct_addMainRoots(&&1,&&2,&&3,&&4,&&5,&&6);
+new   4:   v_result := fct_addMainRoots('EsseR','c7acc0543b43a90847c443a9b5720121a33ae08e52ffbc0671a351e471221512dcc530352c87bdfb0036b860ffba8f354510a6a4b58192be5e3232e6b6bea407','bugeag.george@info.uaic.ro','Admins','Managers','Normal Users');
+
+PL/SQL procedure successfully completed.
+
+
+==============
+
+[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 2. Switching to the next phase.
+[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 3. Restarting apache...
+[APP_LOG: 13-06-2018 18:42:18]: Apache restarted. Left number of install phases is: 0. Exiting installation procedure.
+[APP_LOG: 13-06-2018 18:42:18]: Installation procedure exited. Error verification underway.
+[APP_LOG: 13-06-2018 18:42:18]: App successfully installed.

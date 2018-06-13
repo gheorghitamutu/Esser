@@ -10,9 +10,17 @@
 			<div class="main" >
 				<div class="nested">
 					<div>Choose the user group</div>
-					<div><?php echo $this->view_data['memberGroup']?></div>
+					<?php 
+					$grupulete->view_data['memberGroup'];
+					if (is_array($grupulete) || is_object($grupulet))
+						{
+							foreach($grupulete as $grupulet){
+								echo "<div>" . $grupulet['groupName'] . "</div>";
+						}
+					
+                } ?>
 				</div>
-				<div class="menu">
+				<!--<div class="menu">
 					<div class="menu-button">
 						<div>Group 1</div>
 						<div>Add user</div>
@@ -24,7 +32,7 @@
 						<div>Added</div>
 						<div></div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 			
         </body>

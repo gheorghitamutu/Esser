@@ -58,19 +58,34 @@ class UserController extends Controller
     }
 	
 	private function getUserGroups() {
+		
+		$groupsResult=array();
+		
         $userid = $_SESSION['userid'];
         $this->model('Grouprelation');
-        $queryresult =
+        $groupsOfInterest =
             $this->model_class->get_mapper()->findAll(
                 $where = "USERID=" . $userid,
-                $fields = null
+                $fields = false
 				);
-        if (count($queryresult) === 0) {
-            return 'N/A';
+				
+		foreach($groupsOfInterest as $grupulet){
+			$this->model('Usergroup');
+			$querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$grupulet['uGroupId'],
+                $fields = false
+            );
+		}
+		
+		foreach($querry_groups as $groupInstance){
+                array_push($groupsResult, array
+                (
+                    'groupName'=>$groupInstance['uGroupName']
+                ));
+
         }
-        else {
-            return $queryresult['uGroupId'];
-        }
+        return $groupsResult;
+		
     }
 
     public function index()
@@ -150,7 +165,7 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
-            array('memberGroup' => $grupuri),
+            ["memberGroup" => $grupuri],
             'Users area');
     }
 
