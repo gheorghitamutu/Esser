@@ -28,6 +28,9 @@ class UserController extends Controller
             case 'user':
                 $this->index();
                 break;
+            case 'user/index':
+                self::redirect('/user');
+                break;
             case 'user/notifications':
                 $this->notifications();
                 break;
@@ -94,7 +97,17 @@ class UserController extends Controller
     public function logout()
     {
         $this->model('Useracc');
-        $this->model_class->get_mapper()->update('USERACCS', array('userState' => 1), array('userId' => $_SESSION['userid']));
+        $this->model_class->get_mapper()->update(
+            'USERACCS',
+            array
+            (
+                'userState' => 1
+            ),
+            array
+            (
+                'userId' => $_SESSION['userid']
+            )
+        );
 
         $_SESSION['login_failed'] = true;
         session_destroy();
@@ -107,7 +120,8 @@ class UserController extends Controller
 
         $user_id = $_SESSION['userid'];
         $queries = $this->model_class->get_mapper()->findAll(
-            "userId = $user_id AND userType = 3");
+            $where = "userId = ". $user_id ." AND userType = 3",
+            $fields = false);
 
         if (count($queries) === 0 || count($queries) === null)
         {

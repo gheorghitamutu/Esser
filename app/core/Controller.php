@@ -147,7 +147,8 @@ class Controller
         $salt = '$1_2jlh83#@J^Q';
         $password_hash = hash('sha512', $username. $salt . $password);
 
-        $user_found = $this->model_class->get_mapper()->findAll("userName = '$username' AND userPass = '$password_hash'");
+        $user_found = $this->model_class->get_mapper()->findAll(
+            "userName = '$username' AND userPass = '$password_hash'");
 
         if (count($user_found) > 1)
         {
