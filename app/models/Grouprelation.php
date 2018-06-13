@@ -21,7 +21,6 @@ class Grouprelation extends AbstractEntity
     {
         return $this->mapper;
     }
-
     public function setId($id = false) {
         if (!$id) {
             $this->_values['relationId'] = null;

@@ -33,7 +33,7 @@ class UserController extends Controller
                 $this->items();
                 break;
             case 'user/users':
-                $this->users();
+                $this->users($this->getUserGroups());
                 break;
             case 'user/logout':
                 $this->logout();
@@ -42,6 +42,24 @@ class UserController extends Controller
                 $this->index();
                 break;
 
+        }
+    }
+	
+	private function getUserGroups() {
+        $userid = $_SESSION['userid'];
+		var_dump($userid);
+		exit(0);
+        $this->model('Grouprelation');
+        $queryresult =
+            $this->model_class->get_mapper()->findAll(
+                $where = "USERID=" . $userid,
+                $fields = null
+				);
+        if (count($queryresult) === 0) {
+            return 'N/A';
+        }
+        else {
+            return $queryresult['uGroupId'];
         }
     }
 
@@ -78,11 +96,11 @@ class UserController extends Controller
             'Items area');
     }
 
-    public function users()
+    public function users($grupuri)
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
-            [],
+            array('memberGroup' => $grupuri),
             'Users area');
     }
 
