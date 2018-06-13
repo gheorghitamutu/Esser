@@ -51,11 +51,6 @@ class UserController extends Controller
             'user' . DIRECTORY_SEPARATOR . 'index',
             [],
             'Welcome ' . $_SESSION["uname"]);
-        $this->model('GroupRelation');
-        $result = $this->model_class->get_mapper()->findAll();
-        echo var_dump($result);
-        exit(0);
-
     }
 
     public function alerts()

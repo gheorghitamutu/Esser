@@ -41,6 +41,9 @@ class AdmincpController extends Controller
             case 'admincp/userlogs':
                 $this->userlogs();
                 break;
+            case 'admincp/userlogs/search':
+                $this->userlogs();
+                break;
             case 'admincp/usereditor':
                 $this->usereditor();
                 break;
