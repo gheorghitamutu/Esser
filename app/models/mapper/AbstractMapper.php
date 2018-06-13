@@ -115,6 +115,7 @@ abstract class AbstractMapper implements MapperInterface
                 ($order) ? $order : '',
                 ($limit) ? $limit : null);
         $collection = array();
+
         if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
         {
             for ($i = 0; $i < count($data); ++$i){

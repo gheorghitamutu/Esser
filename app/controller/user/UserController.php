@@ -26,7 +26,7 @@ class UserController extends Controller
         switch($uri)
         {
             case 'user':
-                $this->index();
+                $this->index($this->getUsers());
                 break;
             case 'user/index':
                 self::redirect('/user');
@@ -47,18 +47,58 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                new PageNotFoundController();
+                $this->index($this->getUsers());
                 break;
 
         }
     }
 
-    public function index()
+    public function index($users)
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            [],
+            array('users'=>$users),
             'Welcome ' . $_SESSION["uname"]);
+    }
+
+    private function getUsers()
+    {
+        $users=array();//result (userName,userEmail,userGroup)
+
+        $this->model('GroupRelation');
+        $query_group_relations = $this->model_class->get_mapper()->findAll(
+            $where=" USERID= ". $_SESSION['userid'],
+            $fields=false
+        );
+
+        foreach($query_group_relations as $relation){ // foreach group that current user is in relation with,
+            // find all users(name,email) and their group(groupName)
+
+            $this->model('Usergroup');
+            $querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$relation['uGroupId'],
+                $fields=false
+            );
+
+            $this->model('Useracc');// findById => return 1 user
+            $querry_users=$this->model_class->get_mapper()->findAll(
+                $where=" USERID= ".$relation['userId'],
+                $fields=false
+            );
+
+            // creating result
+            foreach($querry_users as $user ){
+                array_push($users, array
+                (
+                    'userName'=>$user['userName'],
+                    'userGroup' => $querry_groups['0']['uGroupName'],
+                    'userEmail'=>$user['userEmail']
+                ));
+
+            }
+        }
+
+        return $users;
     }
 
     public function notifications()
