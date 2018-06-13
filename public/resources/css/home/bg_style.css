@@ -1,6 +1,6 @@
 body {
     font-family: "Arial", Helvetica, serif;
-    background: cyan url('../resources/assets/images/normal/main_page_background.jpg') center center no-repeat fixed;
+    background: cyan url('../../images/home/main_page_background.jpg') center center no-repeat fixed;
     background-size: cover;
     margin: 0 auto;
     border: 0;
@@ -160,7 +160,7 @@ body {
 
     body {
         font-family: "Arial", Helvetica, serif;
-        background: cyan url('../resources/assets/images/normal/main_page_background.jpg') center center no-repeat fixed;
+        background: cyan url('../../images/home/main_page_background.jpg') center center no-repeat fixed;
         background-size: cover;
         margin: 0 auto;
         border: 0;

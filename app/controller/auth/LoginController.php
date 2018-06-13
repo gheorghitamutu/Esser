@@ -21,7 +21,7 @@ class LoginController extends Controller
                 $this->index();
                 break;
             case 'login/check':
-                $this->check_login($_POST["uname"], $_POST["psw"]);
+                $this->check_login();
                 break;
             case 'login/fail':
                 $this->fail();
@@ -33,8 +33,7 @@ class LoginController extends Controller
                 $this->forgot();
                 break;
             case 'login/forgot/check':
-                $uname = $_GET["uname"];
-                $this->check_forgot($uname);
+                $this->check_forgot($_GET["uname"]);
                 break;
             case 'login/forgot/fail':
                 $this->forgot_fail();
@@ -56,23 +55,28 @@ class LoginController extends Controller
             'Esser');
     }
 
-    private function check_login($uname, $pass)
+    private function check_login()
     {
-        if($this->auth_user($uname, $pass, $isadmcp = false)) {
+        if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = false))
+        {
             self::redirect('/login/success');
         }
-        else {
+        else
+        {
             self::redirect('/login/fail');
         }
     }
 
     private function fail()
     {
+        $_SESSION['login_failed'] = true;
+
         self::redirect('/login');
     }
 
     private function success()
     {
+        $_SESSION['login_failed'] = false;
         self::redirect('/user/index');
     }
 
