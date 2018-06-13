@@ -79,6 +79,5 @@ class Grouprelation extends AbstractEntity
 //            $this->_values['grpRelUpdatedAt'] = null;
 //        }
 //    }
->>>>>>> origin/FullDatabaseFuncitonality
 }
 

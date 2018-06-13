@@ -59,8 +59,6 @@ class UserController extends Controller
 	
 	private function getUserGroups() {
         $userid = $_SESSION['userid'];
-		var_dump($userid);
-		exit(0);
         $this->model('Grouprelation');
         $queryresult =
             $this->model_class->get_mapper()->findAll(
