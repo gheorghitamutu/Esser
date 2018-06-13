@@ -56,7 +56,9 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     public function setEntityTable($entitytable) {
-        if (!is_string($entitytable) || empty($entitytable)) {
+        if (!is_string($entitytable) || empty($entitytable))
+        {
+            new \InternalServerErrorController();
             throw new \InvalidArgumentException('The entity table is invalid!');
         }
         $this->_entitytable = $entitytable;
@@ -103,6 +105,9 @@ abstract class AbstractMapper implements MapperInterface
     /**
      * Find entities according to the given criteria (all entities will be fetched if no criteria are specified)
      * @param string $criteria
+     * @param bool $fields
+     * @param bool $order
+     * @param null $limit
      * @return array|OCI_Collection(not available - yet)findAll
      */
     public function findAll($criteria = '', $fields = false, $order = false, $limit = null)
@@ -116,13 +121,15 @@ abstract class AbstractMapper implements MapperInterface
                 ($limit) ? $limit : null);
         $collection = array();
 
-        if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
+        foreach($this->_adapter->fetchAll($selectstmt) as $row)
         {
-            for ($i = 0; $i < count($data); ++$i){
-                $collection[$i] = $this->_createEntity($data[$i]);
-            }
+            array_push($collection, $this->_createEntity($row));
+            echo var_dump($collection);
+            exit(0);
         }
+
         $this->_adapter->disconnect();
+
         return $collection;
     }
 
@@ -130,7 +137,8 @@ abstract class AbstractMapper implements MapperInterface
     {
         $result = 0;
         $selectstmt = $this->_adapter->selectCount($this->_entitytable, $criteria);
-        if (($data = $this->_adapter->fetch($selectstmt)) !== false) {
+        if (($data = $this->_adapter->fetch($selectstmt)) !== false)
+        {
             $result = $this->_adapter->getResult($selectstmt,1);
         }
         $this->_adapter->disconnect();
@@ -139,10 +147,9 @@ abstract class AbstractMapper implements MapperInterface
 
     public function insert($table, array $fields)
     {
-        //if (!$entity instanceof $this->_entityclass) {
-        //    throw new \InvalidArgumentException('The entity that needs to be inserted must be an instance of ' . $this->_entityclass . '!');
-        //}
-        if (empty($fields)) {
+        if (empty($fields))
+        {
+            new \InternalServerErrorController();
             throw new \RuntimeException('You\'re calling an insert without anything to insert!');
         }
         $result = $this->_adapter->insert($table, $fields);
@@ -152,12 +159,9 @@ abstract class AbstractMapper implements MapperInterface
 
     public function update($table, array $fields, $criteria = false)
     {
-//        if (!$entity instanceof $this->_entityclass) {
-//            throw new \InvalidArgumentException('The entity that needs to be updated must be an instance of ' . $this->_entityclass . '!');
-//        }
-//        $id = $entity->id;
-//        unset($data['id']);
-        if (empty($fields)) {
+        if (empty($fields))
+        {
+            new \InternalServerErrorController();
             throw new \RuntimeException('You\'re calling an update without anything to update!');
         }
         $result = $this->_adapter->update($table, $fields, $criteria);
@@ -167,9 +171,6 @@ abstract class AbstractMapper implements MapperInterface
 
     public function delete($table, $criteria)
     {
-//        if ($id instanceof $this->_entityclass) {
-//            $id = $id->id;
-//        }
         $result = $this->_adapter->delete($table, $criteria);
         $this->_adapter->disconnect();
         return $result;

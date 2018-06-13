@@ -70,16 +70,29 @@ class AdmincpController extends Controller
 
     private function login()
     {
-        if(($result = $this->try_authenticate($_POST["uname"], $_POST["psw"], $isadmcp = true))[0] !== false) {
+        if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = true))
+        {
             self::redirect('/admincp/dashboard');
         }
-        else {
+        else
+        {
             self::redirect('/admincp');
         }
     }
 
     private function logout()
     {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert
+        (
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'Admin user " . $_SESSION['uname']     . " has logged out!'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+            )
+        );
+
         session_destroy();
         self::redirect('/admincp');
     }
@@ -88,7 +101,8 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
-            array(
+            array
+            (
                 'totalUsers' => $this->getTotalUsers(),
                 'onlineUsers' => $this->getTotalOnline(),
                 'lastLogin' => $this->getUserLastLoginDate(),
