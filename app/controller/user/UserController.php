@@ -26,7 +26,7 @@ class UserController extends Controller
         switch($uri)
         {
             case 'user':
-                $this->index($this->getUsers());
+                $this->index();
                 break;
             case 'user/notifications':
                 $this->notifications();
@@ -44,23 +44,23 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index($this->getUsers());
+                $this->index();
                 break;
 
         }
     }
 
-    public function index($users)
+    public function index()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            array('users'=>$users),
+            array('usersContainer'=>$this->getUsers(),'productsContainer' =>$this->getProducts()),
             'Welcome ' . $_SESSION["uname"]);
     }
 
     private function getUsers()
     {
-        $users=array();//result (userName,userEmail,userGroup)
+        $users=array();
 
         $this->model('GroupRelation');
         $query_group_relations = $this->model_class->get_mapper()->findAll(
@@ -91,13 +91,74 @@ class UserController extends Controller
                     'userGroup' => $querry_groups['0']['uGroupName'],
                     'userEmail'=>$user['userEmail']
                 ));
+            }
+        }
+        //result users[(userName,userEmail,userGroup)]
+        //
+        return [
+            'users'=>$users,
+            'countUsers' => count($users),
+            'countGroups' => count($query_group_relations)
+        ];
+    }
 
+    public function getProducts(){
+
+        $avg_quantity=0;
+        $count_items_groups=0;
+        $items=array();
+        // fetch all groups  that use is part of
+        $this->model('GroupRelation');
+        $query_group_relations = $this->model_class->get_mapper()->findAll(
+            $where=" USERID= ". $_SESSION['userid'],
+            $fields=false
+        );
+
+        foreach($query_group_relations as $relation){
+        // for every group that user if part of, search in itemGroupOwnership the items
+            $this->model('Itemgroupownership');
+            $querry_ownership_items=$this->model_class->get_mapper()->findAll(
+                $where=" iGOwnerId= ".$relation['uGroupId'],
+                $fields=false
+            );
+            //for every itemGroupOwnership  search for  group item
+            foreach($querry_ownership_items as $querry_ownership_item){
+
+                $this->model('Itemgroup');
+                $querry_group_item=$this->model_class->get_mapper()->findAll(
+                    $where=" IGROUPID= ".$querry_ownership_item['iGId'],
+                    $fields=false
+                );
+                //for every group item search for items
+                foreach($querry_group_item as $item_group ){
+
+                    $this->model('Item');
+                    $querry_items=$this->model_class->get_mapper()->findAll(
+                        $where=" iGroupId= ".$item_group['iGroupId'],
+                        $fields=false
+                    );
+                    ++$count_items_groups;
+                    //for every items create result
+                    foreach($querry_items as $item) {
+                        array_push($items, array
+                        (
+                            'itemName' => $item['itemName'],
+                            'itemQuantity' => $item['itemQuantity'],
+                            'itemGroup' => $item_group['iGroupName']
+                        ));
+                    }
+                }
             }
         }
 
-        return $users;
-    }
+        return [
+            'items'=>$items,
+            'countItems' => count($items),
+            'avgQuantity' => ( (count($items)? $avg_quantity/count($items): 0)),
+            'countItemsGroups' =>$count_items_groups
+        ];
 
+    }
     public function notifications()
     {
         // maybe macros for cats?

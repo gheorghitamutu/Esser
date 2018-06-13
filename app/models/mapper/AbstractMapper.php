@@ -127,27 +127,6 @@ abstract class AbstractMapper implements MapperInterface
         return $collection;
     }
 
-    public function findAlls($class, $table, $criteria = '', $fields = false, $order = false, $limit = null)
-    {
-        $this->setEntityTable($table);
-        $this->setEntityClass($class);
-        $selectstmt =
-            $this->_adapter->select(
-                $this->_entitytable,
-                $criteria,
-                ($fields) ? $fields : '*',
-                ($order) ? $order : '',
-                ($limit) ? $limit : null);
-        $collection = array();
-        if(($data = $this->_adapter->fetchAll($selectstmt)) !== false)
-        {
-            for ($i = 0; $i < count($data); ++$i){
-                $collection[$i] = $data[$i];
-            }
-        }
-        $this->_adapter->disconnect();
-        return $collection;
-    }
 
     public function countAll($criteria = '')
     {

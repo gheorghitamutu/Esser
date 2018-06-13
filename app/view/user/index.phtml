@@ -36,130 +36,23 @@
                 </div>
                 <div class="header-items">
                     <div>Quantity</div>
-                </div>
-                <div class="header-items">
-                    <div>Stock</div>
-                </div>
+                </div><?php
+                $array_items=$this->view_data['productsContainer']['items'];
+                foreach($array_items as $item){
+                    echo"<div class=\"body-items\">";
+                    echo "<div>" . $item['itemName'] . "</div>";
+                    echo"</div>";
 
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
+                    echo"<div class=\"body-items\">";
+                    echo "<div>" . $item['itemGroup'] . "</div>";
+                    echo"</div>";
 
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
+                    echo"<div class=\"body-items\">";
+                    echo "<div>" . $item['itemQuantity'] . "</div>";
+                    echo"</div>";
+                }
+                ?>
 
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
-
-
-
-                <div class="body-items">
-                    <div>NumePrenumeMare NumePrenumeFoareMare</div>
-                </div>
-                <div class="body-items">
-                    <div>groupNameFoarteMare</div>
-                </div>
-                <div class="body-items">
-                    <div>quantity</div>
-                </div>
-                <div class="body-items">
-                    <div>20%</div>
-                </div>
 
             </div>
 
@@ -168,33 +61,34 @@
                     <div>Products statistics</div>
                 </div>
                 <div class="body-statistics-items">
-                    <div class="row-statistics-items">
-                        <div class="header-row-statistics-items">
+
+
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
                             <div>Total number of products</div>
                         </div>
-                        <div class="content-row-statistics-items">
-                            <div>100</div>
-                        </div>
-                    </div>
 
-                    <div class="row-statistics-items">
-                        <div class="header-row-statistics-items">
+                        <div  class="body-statistics-items-element">
+                            <div><?php echo $this->view_data['productsContainer']['countItems'];?></div>
+                        </div>
+
+
+
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
                             <div>Total number of groups</div>
                         </div>
-                        <div class="content-row-statistics-items">
-                            <div>100</div>
+
+                        <div class="body-statistics-items-element">
+                            <div><?php echo $this->view_data['productsContainer']['countItemsGroups'];?></div>
                         </div>
 
-                    </div>
 
-                    <div class="row-statistics-items">
-                        <div class="header-row-statistics-items">
-                            <div>Avg stock content</div>
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
+                            <div>Average quantity per item</div>
                         </div>
-                        <div class="content-row-statistics-items">
-                            <div>100</div>
+
+                        <div class="body-statistics-items-element">
+                            <div><?php echo $this->view_data['productsContainer']['avgQuantity'];?></div>
                         </div>
-                    </div>
 
                 </div>
             </div>
@@ -215,7 +109,7 @@
                 <div class="header-users">
                     <div>Role</div>
                 </div><?php
-                $array_users=$this->view_data['users'];
+                $array_users=$this->view_data['usersContainer']['users'];
                 foreach($array_users as $user){
                     echo"<div class=\"body-users\">";
                     echo "<div>" . $user['userName'] . "</div>";
@@ -238,40 +132,36 @@
                 </div>
 
                 <div class="body-statistics-users">
-                    <div class="row-statistics-users">
-                        <div class="header-row-statistics-users">
-                            <div>Total number of users</div>
-                        </div>
-                        <div class="content-row-statistics-users">
-                            <div>100</div>
-                        </div>
+
+                    <div id="header-row-statistics-users" class="body-statistics-users-element">
+                        <div>Total number of users</div>
                     </div>
 
-                    <div class="row-statistics-users">
-                        <div class="header-row-statistics-users">
-                            <div>Total number of admins</div>
-                        </div>
-                        <div class="content-row-statistics-users">
-                            <div>100</div>
-                        </div>
-
+                    <div  class="body-statistics-users-element">
+                        <div><?php echo $this->view_data['usersContainer']['countUsers']; ?></div>
                     </div>
 
-                    <div class="row-statistics-users">
-                        <div class="header-row-statistics-users">
-                            <div>Total number of groups</div>
-                        </div>
-                        <div class="content-row-statistics-users">
-                            <div>100</div>
-                        </div>
+
+
+                    <div id="header-row-statistics-users" class="body-statistics-users-element">
+                        <div>Total number of groups</div>
                     </div>
 
-                    <div class="row-statistics-users">
-                        <div class="header-row-statistics-users">
-                            <div>Avg enrollment of a user per grup</div>
-                        </div>
-                        <div class="content-row-statistics-users" id="content-row-statistics-user-last-item">
-                            <div>100</div>
+                    <div class="body-statistics-users-element">
+                        <div><?php echo $this->view_data['usersContainer']['countGroups']; ?></div>
+                    </div>
+
+
+                    <div id="header-row-statistics-users" class="body-statistics-users-element">
+                        <div>Average users per grup</div>
+                    </div>
+
+                    <div class="body-statistics-users-element">
+                        <div><?php
+                            $users=$this->view_data['usersContainer']['countUsers'];
+                            $groups=$this->view_data['usersContainer']['countGroups'];
+                            echo $users/$groups;
+                            ?>
                         </div>
                     </div>
 
