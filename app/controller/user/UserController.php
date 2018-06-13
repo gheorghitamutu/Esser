@@ -41,7 +41,7 @@ class UserController extends Controller
                 $this->items();
                 break;
             case 'user/users':
-                $this->users($this->getUserGroups());
+                $this->users();
                 break;
             case 'user/admincp':
                 $this->logout();
@@ -59,8 +59,8 @@ class UserController extends Controller
 	
 	private function getUserGroups() {
 		
-		$groupsResult=array();
-		
+		$groupsResult = array();
+        $querryGroups = array();
         $userid = $_SESSION['userid'];
         $this->model('Grouprelation');
         $groupsOfInterest =
@@ -68,23 +68,18 @@ class UserController extends Controller
                 $where = "USERID=" . $userid,
                 $fields = false
 				);
-				
+
 		foreach($groupsOfInterest as $grupulet){
 			$this->model('Usergroup');
-			$querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
-                $where=" UGROUPID= ".$grupulet['uGroupId'],
+			$idul = $grupulet['uGroupId'];
+			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$idul,
                 $fields = false
             );
-		}
-		
-		foreach($querry_groups as $groupInstance){
-                array_push($groupsResult, array
-                (
-                    'groupName'=>$groupInstance['uGroupName']
-                ));
 
-        }
-        return $groupsResult;
+            array_push($querryGroups, $querry[0]['uGroupName']);
+		}
+        return $querryGroups;
 		
     }
 
@@ -161,11 +156,11 @@ class UserController extends Controller
             'Items area');
     }
 
-    public function users($grupuri)
+    public function users()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
-            ["memberGroup" => $grupuri],
+            ["memberGroup" => $this->getUserGroups()],
             'Users area');
     }
 

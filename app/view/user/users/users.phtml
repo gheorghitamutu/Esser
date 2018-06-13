@@ -10,15 +10,12 @@
 			<div class="main" >
 				<div class="nested">
 					<div>Choose the user group</div>
-					<?php 
-					$grupulete->view_data['memberGroup'];
-					if (is_array($grupulete) || is_object($grupulet))
-						{
-							foreach($grupulete as $grupulet){
-								echo "<div>" . $grupulet['groupName'] . "</div>";
-						}
-					
-                } ?>
+                        <?php
+                        $groups = $this->view_data['memberGroup'];
+                        foreach($groups as $group) {
+                            echo "<div>" . $group . "</div>";
+                            }
+                        ?>
 				</div>
 				<!--<div class="menu">
 					<div class="menu-button">
