@@ -15,7 +15,12 @@ class UserController extends Controller
     {
         if(!$this->session_authenticate())
         {
+            new ForbiddenController();
             return;
+        }
+        else
+        {
+            $this->check_admin();
         }
 
         switch($uri)
@@ -23,8 +28,11 @@ class UserController extends Controller
             case 'user':
                 $this->index();
                 break;
-            case 'user/alerts':
-                $this->alerts();
+            case 'user/index':
+                self::redirect('/user');
+                break;
+            case 'user/notifications':
+                $this->notifications();
                 break;
             case 'user/logs':
                 $this->logs();
@@ -39,7 +47,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                new PageNotFoundController();
                 break;
 
         }
@@ -53,13 +61,13 @@ class UserController extends Controller
             'Welcome ' . $_SESSION["uname"]);
     }
 
-    public function alerts()
+    public function notifications()
     {
         // maybe macros for cats?
         View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'alerts' . DIRECTORY_SEPARATOR . 'alerts',
+            'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             [],
-            'You have alerts!');
+            'Notifications!');
     }
 
     public function logs()
@@ -88,12 +96,40 @@ class UserController extends Controller
 
     public function logout()
     {
+        $this->model('Useracc');
+        $this->model_class->get_mapper()->update(
+            'USERACCS',
+            array
+            (
+                'userState' => 1
+            ),
+            array
+            (
+                'userId' => $_SESSION['userid']
+            )
+        );
+
+        $_SESSION['login_failed'] = true;
         session_destroy();
         Controller::redirect('/home');
     }
 
-    public function metoda() {
-        $this->model('Usergroup');
-        $etc = $this->model_class->get_mapper()->findAll();
+    private function check_admin()
+    {
+        $this->model('Useracc');
+
+        $user_id = $_SESSION['userid'];
+        $queries = $this->model_class->get_mapper()->findAll(
+            $where = "userId = ". $user_id ." AND userType = 3",
+            $fields = false);
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
+            $_SESSION["is_admin"] = false;
+        }
+        else
+        {
+            $_SESSION["is_admin"] = true;
+        }
     }
 }

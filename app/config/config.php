@@ -64,9 +64,3 @@ define('LOGGING'   , '[APP_LOG: '           . date('d-m-Y H:i:s') . ']: ');
 // glob input macros
 define('PHP_FILE'  , '*.php');
 
-// autoload purpose loops
-//foreach (glob(APP_INIT . PHP_FILE) as $filename)
-//{
-//  require_once($filename);
-//}
-

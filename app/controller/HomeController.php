@@ -28,7 +28,7 @@ class HomeController extends Controller
               $this->index();
               break;
           }
-          case 'home/index':
+            case 'home/index':
           {
               $this->index();
               break;
@@ -42,7 +42,10 @@ class HomeController extends Controller
     }
 
     private function index()
-    {      
-      View::CreateView('home' . DIRECTORY_SEPARATOR . 'index', $this->params, $this->params["apptitle"]);
+    {
+        View::CreateView(
+            'home' . DIRECTORY_SEPARATOR . 'index',
+            $this->params,
+            $this->params["apptitle"]);
     }
 }

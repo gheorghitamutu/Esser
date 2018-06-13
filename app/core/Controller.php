@@ -34,42 +34,75 @@ class Controller
 
         if (!is_resource($connection))
         {
-            echo 'Invalid connection in controller!';
+            new InternalServerErrorController();
+            return;
         }
 
         $temp_model = ('AppModel\\' . $model);
         $this->model_class = new $temp_model($adapter);
     }
 
-    protected function auth_user($uname, $psw, $isadmcp)
+    protected function try_authenticate($username, $password, $is_admin_cp)
     {
-        if ($isadmcp) {
-            if (($result = $this->authenticate_admcp($uname, $psw))[0] !== false) {
-                $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
+        if ($is_admin_cp)
+        {
+            if (($result = $this->authenticate_admin_cp($username, $password))['0'] !== false)
+            {
+                $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
+
                 //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result[1]['userName'];
-                $_SESSION["userid"] = $result[1]['userId'];
+                $_SESSION["uname"]      = $result[1]['userName'];
+                $_SESSION["userid"]     = $result[1]['userId'];
+
                 //aici deja e incarcat modeul de Useracc $this->model('Useracc');
-                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model_class->get_mapper()->update(
+                    'USERACCS',
+                    array
+                    (
+                        'userState' => 2
+                    ),
+                    array
+                    (
+                        'userId' => $_SESSION['userid']
+                    ));
+
                 $this->model('UserLog');
                 $this->model_class->get_mapper()->insert(
                     'USERLOGS',
-                    array('uLogDescription' => "'".$_SESSION['uname']." has logged in!'",
-                        'uLogSourceIP' => "'".$_SESSION['login_ip']."'"));
+                    array
+                    (
+                        'uLogDescription'   => "'".$_SESSION['uname']   ." has logged in!'",
+                        'uLogSourceIP'      => "'".$_SESSION['login_ip']."'"
+                    )
+                );
                 return $result;
             }
-            else {
-                  return array(0 => false);
+            else
+            {
+                  return array('0' => false);
             }
         }
-        else if (!$isadmcp) {
-            if (($result = $this->authenticate_user($uname, $psw))[0] !== false) {
+        else if (!$is_admin_cp)
+        {
+            if (($result = $this->authenticate_user($username, $password)) !== false)
+            {
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
+
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result[1]['userName'];
                 $_SESSION["userid"] = $result[1]['userId'];
-                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model_class->get_mapper()->update(
+                    'USERACCS',
+                    array
+                    (
+                        'userState' => 2
+                    ),
+                    array
+                    (
+                        'userId' => $_SESSION['userid']
+                    )
+                );
                 return $result;
             }
             else
@@ -77,28 +110,35 @@ class Controller
                 // The authentication failed
                 return array(0 => false);
             }
-
         }
-        else {
+        else
+        {
             // The authentication failed
             return array(0 => false);
         }
     }
 
-    protected function authenticate_admcp($uname, $psw)
+    protected function authenticate_admin_cp($username, $password)
     {
         $salt = '$1_2jlh83#@J^Q';
-        $passhash = hash('sha512', $uname . $salt . $psw);
-        $queryres = $this->model_class->get_mapper()->findAll("userName = '$uname' AND userPass = '$passhash' and userType = 3");
-        if (count($queryres) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
-            throw new RuntimeException('Multiple matches in login! Please check either code source or database!');
+        $password_hash = hash('sha512', $username . $salt . $password);
+        $queries = $this->model_class->get_mapper()->findAll(
+            "userName = '$username' AND userPass = '$password_hash' and userType = 3");
+
+        if (count($queries) > 1)
+        {
+            //Forbidden/Internal Server Error(500)!
+            new InternalServerErrorController();
+            throw new RuntimeException('Multiple matches in login! Please check database!');
         }
-        if (count($queryres) === 0 || count($queryres) === null){
-            //No match, so failed login;
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
             return false;
         }
-        $result = [($queryres[0]['userName'] === $uname), $queryres[0]];
+
+        $result =  array(($queries['0']['userName'] === $username), $queries['0'] );
+
         return $result;
     }
 
@@ -107,12 +147,18 @@ class Controller
         $salt = '$1_2jlh83#@J^Q';
         $password_hash = hash('sha512', $username. $salt . $password);
 
-        $user_found = $this->model_class->get_mapper()->findAll("userName = '$username' AND userPass = '$password_hash'");
-        if (count($user_found) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
+        $user_found = $this->model_class->get_mapper()->findAll(
+            "userName = '$username' AND userPass = '$password_hash'");
+
+        if (count($user_found) > 1)
+        {
+            //Forbidden/Internal server error(500)!
+            new InternalServerErrorController();
             throw new RuntimeException('Multiple matches in login! Please contact an administrator!');
         }
-        if (count($user_found) === 0 || count($user_found) === null){
+
+        if (count($user_found) === 0 || count($user_found) === null)
+        {
             //No match, so failed login;
             return false;
         }

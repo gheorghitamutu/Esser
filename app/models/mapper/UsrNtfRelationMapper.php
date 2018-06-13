@@ -25,14 +25,18 @@ class UsrNtfRelationMapper extends AbstractMapper
 
     /**
      * Create an useracc entity with the supplied data
+     * @param array $data
+     * @return array
      */
     protected function _createEntity(array $data)
     {
-        $usrntfrelation = array(
-            'usrNtfRelationId'     => array_key_exists('USRNRELATIONID', $data) ? $data['USRNRELATIONID'] : '',
-            'usrNNotifiedAccId'   => array_key_exists('USRNNOTIFIEDACCID', $data) ? $data['USRNNOTIFIEDACCID'] : '',
-            'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID', $data) ? $data['USRNNOTIFICATIONID'] : ''
-        );
+        $usrntfrelation =
+            array
+            (
+                'usrNtfRelationId'     => array_key_exists('USRNRELATIONID',        $data) ? $data['USRNRELATIONID'] : '',
+                'usrNNotifiedAccId'    => array_key_exists('USRNNOTIFIEDACCID',     $data) ? $data['USRNNOTIFIEDACCID'] : '',
+                'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID',    $data) ? $data['USRNNOTIFICATIONID'] : ''
+            );
         return $usrntfrelation;
     }
 }

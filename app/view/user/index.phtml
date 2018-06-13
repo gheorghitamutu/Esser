@@ -2,7 +2,6 @@
 
 <div id="main-user-landing-page">
 
-
     <div class="container-header-user-landing-page">
         <div class="content-header-user-landing-page">
             <div id="name-header-user-landing-page">
@@ -16,7 +15,9 @@
 
     <div class="notification-container-user-landing-page">
         <div id="notification-container-user-landing-page">
-                <button type="button" id="notification-button" onclick="redirect('/user/alerts')">Notifications</button>
+                <button type="button" id="notification-button" onclick="window.location.href = '/user/notifications'">
+                    Notifications
+                </button>
         </div>
     </div>
     <div class="container-content-user-landing-page">
@@ -513,10 +514,8 @@
 
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
+
 <?php include VIEW . 'user/footer.phtml'; ?>

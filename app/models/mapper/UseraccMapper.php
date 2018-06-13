@@ -18,8 +18,8 @@ class UseraccMapper extends AbstractMapper
     public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
     {
         parent::__construct($adapter, array(
-            'entityTable' => 'USERACCS',
-            'entityClass' => 'Useracc'
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
         ));
     }
 

@@ -21,7 +21,7 @@ class LoginController extends Controller
                 $this->index();
                 break;
             case 'login/check':
-                $this->check_login($_POST["uname"], $_POST["psw"]);
+                $this->check_login();
                 break;
             case 'login/fail':
                 $this->fail();
@@ -33,8 +33,7 @@ class LoginController extends Controller
                 $this->forgot();
                 break;
             case 'login/forgot/check':
-                $uname = $_GET["uname"];
-                $this->check_forgot($uname);
+                $this->check_forgot();
                 break;
             case 'login/forgot/fail':
                 $this->forgot_fail();
@@ -56,44 +55,62 @@ class LoginController extends Controller
             'Esser');
     }
 
-    private function check_login($uname, $pass)
+    private function check_login()
     {
-        if($this->auth_user($uname, $pass, $isadmcp = false)) {
+        if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = false))
+        {
             self::redirect('/login/success');
         }
-        else {
+        else
+        {
             self::redirect('/login/fail');
         }
     }
 
     private function fail()
     {
+        $_SESSION['login_failed'] = true;
+
         self::redirect('/login');
     }
 
     private function success()
     {
+        $_SESSION['login_failed'] = false;
         self::redirect('/user/index');
     }
 
     private function forgot()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'forgot_password',
             [],
             'Esser');
     }
 
-    private function check_forgot($uname)
+    private function check_forgot()
     {
-        //self::redirect('fail');
-        self::redirect('success');
+
+        if($this->password_recover())
+        {
+            self::redirect('success');
+        }
+        else
+        {
+            self::redirect('fail');
+        }
     }
 
     private function forgot_fail()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password_fail',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'fail',
             [],
             'Esser');
     }
@@ -101,8 +118,31 @@ class LoginController extends Controller
     private function forgot_success()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password_success',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'success',
             [],
             'Esser');
+    }
+
+    private function password_recover()
+    {
+        // checks if requested email exists in database
+        $email = $_POST["email"];
+        $this->model('Useracc');
+        $queries = $this->model_class->get_mapper()->findAll(
+            $where = "userEmail = '$email'",
+            $fields = false);
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
+            return false;
+        }
+        else
+        {
+            // it should send an email..
+            return true;
+        }
     }
 }

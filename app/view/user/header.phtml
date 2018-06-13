@@ -38,10 +38,16 @@
             </form>
         </div>
 
+        <?php
+        echo (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"]) ?
+            "<div id=\"admin-cp-container-user-landing-page\">
+                <button type=\"button\" id=\"admin-cp-button\" onclick=\"window.location.href = '/admincp'\">
+                    Admin
+                </button>
+             </div>" :
+            "";
+        ?>
 
-        <div id="admin-cp-container-user-landing-page">
-            <button type="button" id="admin-cp-button" onclick="alert('redirect to admin ')">Admin</button>
-        </div>
     </div>
 
 
@@ -59,11 +65,11 @@
         </div>
 
         <div class="sidenav-item">
-            <a href="/user/alerts">Alerts</a>
+            <a href="/user/logs">Logs</a>
         </div>
 
         <div class="sidenav-item">
-            <a href="/user/logs">Logs</a>
+            <a href="/user/notifications">Notifications</a>
         </div>
 
         <div class="sidenav-item">
