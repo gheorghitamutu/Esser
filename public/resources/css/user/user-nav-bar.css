@@ -253,6 +253,7 @@
     z-index: 3;
     cursor: pointer;
     transition: .5s;
+    
 
 }
 /* ---------------------------------------------------------------- begin  top nav bar ------------------------------------------------------------*/
@@ -334,6 +335,7 @@
     /* border: 1px solid; */
     margin: 0.2% 0 0.1% 0.1%; /* 4.25rem = 68px */
     background-color: #3d3d3d;
+    border:2px solid white;
 }
 
 
