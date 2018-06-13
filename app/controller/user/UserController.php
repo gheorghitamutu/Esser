@@ -26,7 +26,7 @@ class UserController extends Controller
         switch($uri)
         {
             case 'user':
-                $this->index($this->getUsers());
+                $this->index();
                 break;
             case 'user/index':
                 self::redirect('/user');
@@ -47,17 +47,17 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index($this->getUsers());
+                $this->index();
                 break;
 
         }
     }
 
-    public function index($users)
+    public function index()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            array('users'=>$users),
+            array('users'=>$this->getUsers()),
             'Welcome ' . $_SESSION["uname"]);
     }
 
