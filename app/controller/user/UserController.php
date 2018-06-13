@@ -53,24 +53,44 @@ class UserController extends Controller
             array('users'=>$users),
             'Welcome ' . $_SESSION["uname"]);
     }
+
     private function getUsers()
     {
+        $users=array();//result (userName,userEmail,userGroup)
 
-        /*
-        $user_current=$this->model_class->get_mapper()->findById($_SESSION['userid']);
-
-*/
-        $this->model('Useracc');
-        $query_users = $this->model_class->get_mapper()->findAll(
-            $where='',
-            $fields= false,
-            $order = " USERUPDATEDAT DESC "
+        $this->model('GroupRelation');
+        $query_group_relations = $this->model_class->get_mapper()->findAll(
+            $where=" USERID= ". $_SESSION['userid'],
+            $fields=false
         );
-        $users=array();
-        for($i=0;$i<count($query_users);++$i){
-            $users[$i]=array('userName'=>$query_users["$i"]['userName'],'userId'=>$query_users["$i"]['userId']);
+
+        foreach($query_group_relations as $relation){ // foreach group that current user is in relation with,
+            // find all users(name,email) and their group(groupName)
+
+            $this->model('Usergroup');
+            $querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$relation['uGroupId'],
+                $fields=false
+            );
+
+            $this->model('Useracc');// findById => return 1 user
+            $querry_users=$this->model_class->get_mapper()->findAll(
+                $where=" USERID= ".$relation['userId'],
+                $fields=false
+            );
+
+            // creating result
+            foreach($querry_users as $user ){
+                array_push($users, array
+                (
+                    'userName'=>$user['userName'],
+                    'userGroup' => $querry_groups['0']['uGroupName'],
+                    'userEmail'=>$user['userEmail']
+                ));
+
+            }
         }
-        // limit 25-30
+
         return $users;
     }
 

@@ -214,19 +214,20 @@
                     <div>Role</div>
                 </div><?php
                 $array_users=$this->view_data['users'];
-                //var_dump($array_users);
-                for($i=0;$i<count($array_users);++$i){
+                foreach($array_users as $user){
                     echo"<div class=\"body-users\">";
-                    echo "<div>" . $array_users[$i]['userName'] . "</div>";
+                    echo "<div>" . $user['userName'] . "</div>";
+                    echo"</div>";
+
+                    echo"<div class=\"body-users\">";
+                    echo "<div>" . $user['userGroup'] . "</div>";
+                    echo"</div>";
+
+                    echo"<div class=\"body-users\">";
+                    echo "<div>" . $user['userEmail'] . "</div>";
                     echo"</div>";
                 }
-//                for($i=0;$i<count($array_users);++$i){
-//                    echo"<div class=\"body-users\">";
-//                    echo"<div>$array_users[$i]['userName']</div>";
-//                    echo"</div>";
-//                }
                 ?>
-
             </div>
 
             <div class="statistics-users-container-user-landing-page">
