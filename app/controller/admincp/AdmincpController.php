@@ -68,7 +68,7 @@ class AdmincpController extends Controller
 
     private function login($uname, $pass)
     {
-        if(($result = $this->auth_user($uname, $pass, $isadmcp = true))[0] !== false) {
+        if(($result = $this->try_authenticate($uname, $pass, $isadmcp = true))[0] !== false) {
             $this->currentuser = $result[1];
             self::redirect('/admincp/dashboard');
         }

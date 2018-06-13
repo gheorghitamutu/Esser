@@ -34,27 +34,38 @@ class Controller
 
         if (!is_resource($connection))
         {
-            echo 'Invalid connection in controller!';
+            new InternalServerErrorController();
+            return;
         }
 
         $temp_model = ('AppModel\\' . $model);
         $this->model_class = new $temp_model($adapter);
     }
 
-    protected function auth_user($uname, $psw, $isadmcp)
+    protected function try_authenticate($username, $password, $is_admin_cp)
     {
-        if ($isadmcp)
+        if ($is_admin_cp)
         {
-            if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false)
+            if (($result = $this->authenticate_admin_cp($username, $password))['0'] !== false)
             {
-                $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
+                $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
 
                 //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result[1]['userName'];
-                $_SESSION["userid"] = $result[1]['userId'];
+                $_SESSION["uname"]      = $result[1]['userName'];
+                $_SESSION["userid"]     = $result[1]['userId'];
 
                 //aici deja e incarcat modeul de Useracc $this->model('Useracc');
-                $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
+                $this->model_class->get_mapper()->update(
+                    'USERACCS',
+                    array
+                    (
+                        'userState' => 2
+                    ),
+                    array
+                    (
+                        'userId' => $_SESSION['userid']
+                    ));
+
                 $this->model('UserLog');
                 $this->model_class->get_mapper()->insert(
                     'USERLOGS',
@@ -71,9 +82,9 @@ class Controller
                   return array('0' => false);
             }
         }
-        else if (!$isadmcp)
+        else if (!$is_admin_cp)
         {
-            if (($result = $this->authenticate_user($uname, $psw)) !== false)
+            if (($result = $this->authenticate_user($username, $password)) !== false)
             {
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
@@ -107,12 +118,12 @@ class Controller
         }
     }
 
-    protected function authenticate_admcp($uname, $psw)
+    protected function authenticate_admin_cp($username, $password)
     {
         $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $uname . $salt . $psw);
+        $password_hash = hash('sha512', $username . $salt . $password);
         $queries = $this->model_class->get_mapper()->findAll(
-            "userName = '$uname' AND userPass = '$password_hash' and userType = 3");
+            "userName = '$username' AND userPass = '$password_hash' and userType = 3");
 
         if (count($queries) > 1)
         {
@@ -126,7 +137,7 @@ class Controller
             return false;
         }
 
-        $result =  array(($queries['0']['userName'] === $uname), $queries['0'] );
+        $result =  array(($queries['0']['userName'] === $username), $queries['0'] );
 
         return $result;
     }
