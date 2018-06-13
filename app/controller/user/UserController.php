@@ -57,7 +57,7 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            [$this->metoda()],
+            [],
             'Welcome ' . $_SESSION["uname"]);
     }
 
