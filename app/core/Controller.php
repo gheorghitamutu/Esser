@@ -34,94 +34,72 @@ class Controller
 
         if (!is_resource($connection))
         {
-            echo 'Invalid connection in controller!';
+            new InternalServerErrorController();
+            return;
         }
 
         $temp_model = ('AppModel\\' . $model);
         $this->model_class = new $temp_model($adapter);
     }
 
-    protected function auth_user($uname, $psw, $isadmcp)
+    protected function try_authenticate($username, $password, $is_admin_cp)
     {
-        if ($isadmcp) {
-            if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false) {
-                $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
-                //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result['1']['userName'];
-                echo $_SESSION["uname"];
-                $_SESSION["userid"] = $result['1']['userId'];
-                echo $_SESSION["userid"];
-                echo $_SESSION["login_ip"];
-                return $result;
-            }
-            else {
-                  return array('0' => false);
-            }
-        }
-        else if (!$isadmcp) {
-            if (($result = $this->authenticate_user($uname, $psw))['0'] !== false) {
-                // Register the IP address that started this session
-                $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
-                //Register other session details that could be usefull;
-                $_SESSION["uname"] = $result['1']['userName'];
-                $_SESSION["userid"] = $result['1']['userId'];
-                return true;
-            }
-            else
-            {
-                // The authentication failed
-                return false;
-            }
-
-        }
-        else {
-            // The authentication failed
+        if (!$this->authenticate_user($username, $password))
+        {
             return false;
         }
-    }
 
-    protected function authenticate_admcp($uname, $psw)
-    {
-        $salt = '$1_2jlh83#@J^Q';
-        $passhash = hash('sha512', $uname . $salt . $psw);
-        $queryres = $this->model_class->get_mapper()->findAll("userName = '$uname' AND userPass = '$passhash' and userType = 3");
-        if (count($queryres) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
-            throw new RuntimeException('Multiple matches in login! Please check either code source or database!');
-        }
-        if (count($queryres) === 0 || count($queryres) === null){
-            //No match, so failed login;
-            return false;
-        }
-//        echo "Row nr 0: ";
-//        forEach($queryres['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
-//        echo "<br />";
-        $result =  array(($queryres['0']['userName'] === $uname), $queryres['0'] );
-        return $result;
+        $this->model_class->get_mapper()->update(
+            'USERACCS',
+            array
+            (
+                'userState' => 2
+            ),
+            array
+            (
+                'userId' => $_SESSION['userid']
+            ));
+
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+            )
+        );
+
+        return true;
     }
 
     protected function authenticate_user($username, $password)
     {
         $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $username. $salt . $password);
+        $password_hash = hash('sha512', $username . $salt . $password);
 
-        $user_found = $this->model_class->get_mapper()->findAll("userName = '$username' AND userPass = '$password_hash'");
-        if (count($user_found) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
+        $this->model('Useracc');
+        $users_found = $this->model_class->get_mapper()->findAll(
+            "userName = '$username' AND userPass = '$password_hash'");
+
+        if (count($users_found) > 1)
+        {
+            //Forbidden/Internal server error(500)!
+            new InternalServerErrorController();
             throw new RuntimeException('Multiple matches in login! Please contact an administrator!');
         }
-        if (count($user_found) === 0 || count($user_found) === null){
-            //No match, so failed login;
+
+        if (count($users_found) === 0)
+        {
+            //No match, failed login;
             return false;
         }
-//        echo "Row nr 0: ";
-//        forEach($user_found['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
-        $result = array(($user_found['0']['userName'] === $username), $user_found['0']);
-        return $result;
+
+        $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
+        $_SESSION["uname"]      = $users_found[0]["userName"];
+        $_SESSION["userid"]     = $users_found[0]["userId"];
+
+        return true;
     }
 
     // Connects to a session and checks that the user has

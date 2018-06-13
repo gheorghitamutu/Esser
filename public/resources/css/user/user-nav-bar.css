@@ -44,6 +44,7 @@
 .sidenav-container-item {
     margin-top: 14%;
     transition: 0.5s;
+    width:100%;
 }
 
 .sidenav-item {
@@ -57,7 +58,7 @@
     width:80%;
     margin-left: 10%;
     margin-right: 10%;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
 .sidenav-item a {
@@ -79,7 +80,7 @@
 }
 
 .sidenav-item-user-icon {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     padding: 1%;
     display: flex;
     flex-direction: column;
@@ -87,13 +88,13 @@
     align-items: center;
     justify-content: center;
     transition: 0.5s;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 9%;
+    margin-right: 5%;
 }
 
 .sidenav-item-user-icon img {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 30%;
+    max-height: 30%;
     transition: 0.5s;
 }
 
@@ -104,7 +105,7 @@
     flex: 1;                    /* sticks the footer to the bottom */
     transition: .5s;
     padding: 1.2rem;
-    border: 1px solid;
+    /* border: 1px solid; */
     width: 100%;
     margin-top:4.1rem;
 }
@@ -116,7 +117,7 @@
     align-items: center;
     justify-content: center;
     transition: .5s;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 #page-title {
@@ -127,7 +128,7 @@
     justify-content: center;
     transition: 0.5s;
     margin: 0.1rem;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 #search-bar {
@@ -137,7 +138,7 @@
     align-items: center;
     justify-content: center;
     transition: .5s;
-    border: 1px solid;
+    /* border: 1px solid; */
     margin: 0.1rem;
 }
 
@@ -150,7 +151,7 @@
     align-items: center;
     justify-content: center;
     transition: .5s;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .container-row {
@@ -160,7 +161,7 @@
     justify-content: center;
     min-width: 100%;
     transition: .5s;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .date {
@@ -171,7 +172,7 @@
     justify-content: center;
     transition: 0.5s;
     margin: 0.1rem;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .date p {
@@ -185,7 +186,7 @@
     align-items: center;
     justify-content: left;
     transition: .5s;
-    border: 1px solid;
+    /* border: 1px solid; */
     margin: 0.1rem;
     padding: 0 0 0 2rem;
 }
@@ -206,7 +207,7 @@
     display: flex;
     flex-direction: column;
     z-index: 5;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     top: 1rem;
     left: 1rem;
     cursor: pointer;
@@ -244,7 +245,7 @@
 #sidebar-trigger-container {/* si asta a fost modificat */
     display: flex;
     flex-direction: row;
-    border: 1px solid;
+    /* border: 1px solid; */
     position: fixed;
     width: 100%;
     height: 4.1rem;
@@ -267,17 +268,18 @@
 #admin-cp-container-user-landing-page{
     display: flex;
     justify-content: center;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 60%;
     transition: .5s;
 }
 #admin-cp-button{
     font-size:140%;
+    cursor:pointer;
 }
 #search-container {
     display: flex;
     justify-content: left;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 60%;
     width: 60%;
     transition: .5s;
@@ -287,7 +289,7 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 100%;
     width: 100%;
     transition: .5s;
@@ -297,7 +299,7 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 100%;
     width: 95%;
     transition: .5s;
@@ -307,7 +309,7 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 100%;
     width: 5%;
     transition: .5s;
@@ -329,12 +331,12 @@
     justify-content: center;
     transition: .5s;
     min-height: 4vh;
-    border: 1px solid;
+    /* border: 1px solid; */
     margin: 0.2% 0 0.1% 0.1%; /* 4.25rem = 68px */
 }
 
 .footer-container-item {
-    border: 1px solid;
+    /* border: 1px solid; */
     margin: 0.3rem 0 0 2.7rem;
 }
 

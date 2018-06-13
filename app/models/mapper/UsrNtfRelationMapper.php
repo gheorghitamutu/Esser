@@ -7,7 +7,7 @@
  */
 
 namespace ModelMapper;
-use AppModel\Useracc;
+use AppModel;
 use DatabaseConnectivity;
 
 class UsrNtfRelationMapper extends AbstractMapper
@@ -15,16 +15,28 @@ class UsrNtfRelationMapper extends AbstractMapper
     protected $_entityTable = 'USRNTFRELATIONS';
     protected $_entityClass = 'Usrntfrelation';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
+     * @param array $data
+     * @return array
      */
     protected function _createEntity(array $data)
     {
-        $usrntfrelation = new $this->_entityClass(array(
-            'usrNtfRelationId'     => $data['USRNRELATIONID'],
-            'usrNNotifiedAccId'   => $data['USRNNOTIFIEDACCID'],
-            'usrNNotificationId'   => $data['USRNNOTIFICATIONID']
-        ));
+        $usrntfrelation =
+            array
+            (
+                'usrNtfRelationId'     => array_key_exists('USRNRELATIONID',        $data) ? $data['USRNRELATIONID'] : '',
+                'usrNNotifiedAccId'    => array_key_exists('USRNNOTIFIEDACCID',     $data) ? $data['USRNNOTIFIEDACCID'] : '',
+                'usrNNotificationId'   => array_key_exists('USRNNOTIFICATIONID',    $data) ? $data['USRNNOTIFICATIONID'] : ''
+            );
         return $usrntfrelation;
     }
 }

@@ -15,7 +15,12 @@ class UserController extends Controller
     {
         if(!$this->session_authenticate())
         {
+            new ForbiddenController();
             return;
+        }
+        else
+        {
+            $this->check_admin();
         }
 
         switch($uri)
@@ -23,8 +28,11 @@ class UserController extends Controller
             case 'user':
                 $this->index();
                 break;
-            case 'user/alerts':
-                $this->alerts();
+            case 'user/index':
+                self::redirect('/user');
+                break;
+            case 'user/notifications':
+                $this->notifications();
                 break;
             case 'user/logs':
                 $this->logs();
@@ -34,6 +42,10 @@ class UserController extends Controller
                 break;
             case 'user/users':
                 $this->users($this->getUserGroups());
+                break;
+            case 'user/admincp':
+                $this->logout();
+                self::redirect('/admincp');
                 break;
             case 'user/logout':
                 $this->logout();
@@ -67,17 +79,57 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            [],
+            array('users'=>$this->getUsers()),
             'Welcome ' . $_SESSION["uname"]);
     }
 
-    public function alerts()
+    private function getUsers()
+    {
+        $users=array();//result (userName,userEmail,userGroup)
+
+        $this->model('GroupRelation');
+        $query_group_relations = $this->model_class->get_mapper()->findAll(
+            $where=" USERID= ". $_SESSION['userid'],
+            $fields=false
+        );
+
+        foreach($query_group_relations as $relation){ // foreach group that current user is in relation with,
+            // find all users(name,email) and their group(groupName)
+
+            $this->model('Usergroup');
+            $querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$relation['uGroupId'],
+                $fields=false
+            );
+
+            $this->model('Useracc');// findById => return 1 user
+            $querry_users=$this->model_class->get_mapper()->findAll(
+                $where=" USERID= ".$relation['userId'],
+                $fields=false
+            );
+
+            // creating result
+            foreach($querry_users as $user ){
+                array_push($users, array
+                (
+                    'userName'=>$user['userName'],
+                    'userGroup' => $querry_groups['0']['uGroupName'],
+                    'userEmail'=>$user['userEmail']
+                ));
+
+            }
+        }
+
+        return $users;
+    }
+
+    public function notifications()
     {
         // maybe macros for cats?
         View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'alerts' . DIRECTORY_SEPARATOR . 'alerts',
+            'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             [],
-            'You have alerts!');
+            'Notifications!');
     }
 
     public function logs()
@@ -106,7 +158,50 @@ class UserController extends Controller
 
     public function logout()
     {
+        $this->model('Useracc');
+        $this->model_class->get_mapper()->update(
+            'USERACCS',
+            array
+            (
+                'userState' => 1
+            ),
+            array
+            (
+                'userId' => $_SESSION['userid']
+            )
+        );
+
+        $_SESSION['login_failed'] = true;
         session_destroy();
+
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'Normal user " . $_SESSION['uname']     . " has logged out!'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+            )
+        );
         Controller::redirect('/home');
+    }
+
+    private function check_admin()
+    {
+        $this->model('Useracc');
+
+        $user_id = $_SESSION['userid'];
+        $queries = $this->model_class->get_mapper()->findAll(
+            $where = "userId = ". $user_id ." AND userType = 3",
+            $fields = false);
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
+            $_SESSION["is_admin"] = false;
+        }
+        else
+        {
+            $_SESSION["is_admin"] = true;
+        }
     }
 }
