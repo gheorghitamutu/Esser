@@ -92,6 +92,7 @@ class UserController extends Controller
         $this->model_class->setState(1);
         $this->model_class->get_mapper()->update($this->model_class);
 
+        $_SESSION['login_failed'] = true;
         session_destroy();
         Controller::redirect('/home');
     }

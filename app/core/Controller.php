@@ -48,9 +48,11 @@ class Controller
             if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false)
             {
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
+
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result[1]['userName'];
                 $_SESSION["userid"] = $result[1]['userId'];
+
                 //aici deja e incarcat modeul de Useracc $this->model('Useracc');
                 $this->model_class->get_mapper()->update('USERACCS', array('userState' => 2), array('userId' => $_SESSION['userid']));
                 $this->model('UserLog');
