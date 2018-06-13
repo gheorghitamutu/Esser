@@ -49,7 +49,7 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            array('users' => $users),
+            [],
             'Welcome ' . $_SESSION["uname"]);
     }
     private function getUsers()
