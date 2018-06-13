@@ -15,17 +15,25 @@ class ItemGroupMapper extends AbstractMapper
     protected $_entityTable = 'ITEMGROUPS';
     protected $_entityClass = 'Itemgroup';
 
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
+    {
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
+    }
+
     /**
      * Create an useracc entity with the supplied data
      */
     protected function _createEntity(array $data)
     {
         $itemgroup = array(
-            'iGroupId'      => $data['IGROUPID'],
-            'iGroupName'    => $data['IGROUPNAME'],
-            'iGroupDescription'    => $data['IGROUPDESCRIPTION'],
-            'iGroupCreatedAt'  => $data['IGROUPCREATEDAT'],
-            'iGroupUpdatedAt'  => $data['IGROUPUPDATEDAT'],
+            'iGroupId'      => array_key_exists('IGROUPID', $data) ? $data['IGROUPID'] : '',
+            'iGroupName'    => array_key_exists('IGROUPNAME', $data) ? $data['IGROUPNAME'] : '',
+            'iGroupDescription'    => array_key_exists('IGROUPDESCRIPTION', $data) ? $data['IGROUPDESCRIPTION'] : '',
+            'iGroupCreatedAt'  => array_key_exists('IGROUPCREATEDAT', $data) ? $data['IGROUPCREATEDAT'] : '',
+            'iGroupUpdatedAt'  => array_key_exists('IGROUPUPDATEDAT', $data) ? $data['IGROUPUPDATEDAT'] : ''
         );
         return $itemgroup;
     }

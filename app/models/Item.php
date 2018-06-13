@@ -14,7 +14,7 @@ class Item extends AbstractEntity
     public function __construct(DatabaseAdapterInterface $adapter)
     {
         parent::__construct($this->_allowedFields);
-        $this->mapper = new ModelMapper\Item($adapter);
+        $this->mapper = new ModelMapper\ItemMapper($adapter);
     }
 
     public function get_mapper()
