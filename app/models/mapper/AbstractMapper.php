@@ -8,8 +8,7 @@
 
 namespace ModelMapper;
 
-use AppModel\AutomatedReport;
-use AppModel\Useracc;
+use AppModel;
 use DatabaseConnectivity;
 
 

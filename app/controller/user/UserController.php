@@ -49,7 +49,7 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            [],
+            [$this->metoda()],
             'Welcome ' . $_SESSION["uname"]);
     }
 
@@ -90,5 +90,10 @@ class UserController extends Controller
     {
         session_destroy();
         Controller::redirect('/home');
+    }
+
+    public function metoda() {
+        $this->model('Usergroup');
+        $etc = $this->model_class->get_mapper()->findAll();
     }
 }
