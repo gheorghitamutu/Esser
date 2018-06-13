@@ -18,14 +18,18 @@ class UserController extends Controller
             new ForbiddenController();
             return;
         }
+        else
+        {
+            $this->check_admin();
+        }
 
         switch($uri)
         {
             case 'user':
                 $this->index($this->getUsers());
                 break;
-            case 'user/alerts':
-                $this->alerts();
+            case 'user/notifications':
+                $this->notifications();
                 break;
             case 'user/logs':
                 $this->logs();
@@ -94,13 +98,13 @@ class UserController extends Controller
         return $users;
     }
 
-    public function alerts()
+    public function notifications()
     {
         // maybe macros for cats?
         View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'alerts' . DIRECTORY_SEPARATOR . 'alerts',
+            'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             [],
-            'You have alerts!');
+            'Notifications!');
     }
 
     public function logs()
@@ -135,5 +139,23 @@ class UserController extends Controller
         $_SESSION['login_failed'] = true;
         session_destroy();
         Controller::redirect('/home');
+    }
+
+    private function check_admin()
+    {
+        $this->model('Useracc');
+
+        $user_id = $_SESSION['userid'];
+        $queries = $this->model_class->get_mapper()->findAll(
+            "userId = $user_id AND userType = 3");
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
+            $_SESSION["is_admin"] = false;
+        }
+        else
+        {
+            $_SESSION["is_admin"] = true;
+        }
     }
 }
