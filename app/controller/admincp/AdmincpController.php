@@ -120,7 +120,7 @@ class AdmincpController extends Controller
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
-            [],
+            ['userLogs' => $this->getUserLogs()],
             'AdminCP');
     }
 
@@ -229,5 +229,21 @@ class AdmincpController extends Controller
         else {
             return $total;
         }
+    }
+
+    private function getUserLogs() {
+        $this->model('UserLog');
+        $query = $this->model_class->get_mapper()->findAll(
+            $where = '',
+            $fields = '*',
+            $order = ''
+        );
+
+        for($i = 0; $i < count($query); ++$i) {
+            $result[$i]['userName'] = substr($query[$i]['uLogDescription'], 0, strpos($query[$i]['uLogDescription'],' '));
+            $result[$i]['logDescription'] = substr($query[$i]['uLogDescription'], strpos($query[$i]['uLogDescription'],' '));
+        }
+
+        //return $result;
     }
 }

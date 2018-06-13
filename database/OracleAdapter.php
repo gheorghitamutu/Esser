@@ -316,11 +316,33 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 . (($order) ? ' ORDER BY ' . $order : '');
         }
         if ($limit) {
-            $query = 'SELECT ' . '*' . ' FROM ( '
-                . 'SELECT ' . $fields . ' FROM ' . $table
-                . (($where) ? ' WHERE ' . $where : '')
-                . (($order) ? ' ORDER BY ' . $order : '')
-                . ') WHERE ROWNUM ' . $limit ;
+            if (!$offset) {
+                $query = 'SELECT ' . '*' . ' FROM ( '
+                    . 'SELECT ' . $fields . ' FROM ' . $table
+                    . (($where) ? ' WHERE ' . $where : '')
+                    . (($order) ? ' ORDER BY ' . $order : '')
+                    . ') WHERE ROWNUM ' . $limit ;
+            }
+            else {
+                if ($offset === 1) {
+                    $limit = 26;
+                    $query = 'SELECT ' . '*' . ' FROM ( '
+                        . 'SELECT ' . $fields . ' FROM ' . $table
+                        . (($where) ? ' WHERE ' . $where : '')
+                        . (($order) ? ' ORDER BY ' . $order : '')
+                        . ') WHERE ROWNUM < ' . $limit;
+                }
+                else {
+                    $highlimit = 25 * $offset + 1;
+                    $lowlimit = 25 * ($offset - 1) - 1;
+                    $query = 'SELECT ' . '*' . ' FROM ( '
+                        . 'SELECT ' . $fields . ' FROM ' . $table
+                        . (($where) ? ' WHERE ' . $where : '')
+                        . (($order) ? ' ORDER BY ' . $order : '')
+                        . ') WHERE ROWNUM > ' . $lowlimit . ' AND ROWNUM < ' . $highlimit ;
+                }
+            }
+
         }
 //        echo "Query de select este: $query <br /><br />";
         return $this->parseSelect($query, $bind);
