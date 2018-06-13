@@ -43,8 +43,10 @@ class Controller
 
     protected function auth_user($uname, $psw, $isadmcp)
     {
-        if ($isadmcp) {
-            if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false) {
+        if ($isadmcp)
+        {
+            if (($result = $this->authenticate_admcp($uname, $psw))['0'] !== false)
+            {
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
@@ -54,17 +56,22 @@ class Controller
                 echo $_SESSION["login_ip"];
                 return $result;
             }
-            else {
+            else
+            {
                   return array('0' => false);
             }
         }
-        else if (!$isadmcp) {
-            if (($result = $this->authenticate_user($uname, $psw))['0'] !== false) {
+        else if (!$isadmcp)
+        {
+            if (($result = $this->authenticate_user($uname, $psw)) !== false)
+            {
                 // Register the IP address that started this session
                 $_SESSION["login_ip"] = $_SERVER["REMOTE_ADDR"];
+
                 //Register other session details that could be usefull;
                 $_SESSION["uname"] = $result['1']['userName'];
                 $_SESSION["userid"] = $result['1']['userId'];
+
                 return true;
             }
             else
@@ -72,9 +79,9 @@ class Controller
                 // The authentication failed
                 return false;
             }
-
         }
-        else {
+        else
+        {
             // The authentication failed
             return false;
         }
@@ -84,21 +91,22 @@ class Controller
     {
         $salt = '$1_2jlh83#@J^Q';
         $passhash = hash('sha512', $uname . $salt . $psw);
-        $queryres = $this->model_class->get_mapper()->findAll("userName = '$uname' AND userPass = '$passhash' and userType = 3");
-        if (count($queryres) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
+        $queries = $this->model_class->get_mapper()->findAll("userName = '$uname' AND userPass = '$passhash' and userType = 3");
+
+        if (count($queries) > 1)
+        {
+            //Forbidden/Internal Server Error(500)!
+            //new ForbiddenController();
             throw new RuntimeException('Multiple matches in login! Please check either code source or database!');
         }
-        if (count($queryres) === 0 || count($queryres) === null){
-            //No match, so failed login;
+
+        if (count($queries) === 0 || count($queries) === null)
+        {
             return false;
         }
-//        echo "Row nr 0: ";
-//        forEach($queryres['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
-//        echo "<br />";
-        $result =  array(($queryres['0']['userName'] === $uname), $queryres['0'] );
+
+        $result =  array(($queries['0']['userName'] === $uname), $queries['0'] );
+
         return $result;
     }
 
@@ -108,18 +116,20 @@ class Controller
         $password_hash = hash('sha512', $username. $salt . $password);
 
         $user_found = $this->model_class->get_mapper()->findAll("userName = '$username' AND userPass = '$password_hash'");
-        if (count($user_found) > 1) {
-            //Need to throw a redirect to 500 Internal Server Error page!
+
+        if (count($user_found) > 1)
+        {
+            //Forbidden/Internal server error(500)!
+            //new ForbiddenController();
             throw new RuntimeException('Multiple matches in login! Please contact an administrator!');
         }
-        if (count($user_found) === 0 || count($user_found) === null){
+
+        if (count($user_found) === 0 || count($user_found) === null)
+        {
             //No match, so failed login;
             return false;
         }
-//        echo "Row nr 0: ";
-//        forEach($user_found['0'] as $k => $v){
-//            echo "Key: $k with Value: $v | ";
-//        }
+
         $result = array(($user_found['0']['userName'] === $username), $user_found['0']);
         return $result;
     }

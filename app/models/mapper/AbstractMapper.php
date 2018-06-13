@@ -144,9 +144,10 @@ abstract class AbstractMapper implements MapperInterface
 
     public function update($entity)
     {
-        if (!$entity instanceof $this->_entityclass) {
-            throw new \InvalidArgumentException('The entity that needs to be updated must be an instance of ' . $this->_entityclass . '!');
-        }
+        //if (!$entity instanceof $this->_entityclass)
+        //{
+        //    throw new \InvalidArgumentException('The entity that needs to be updated must be an instance of ' . $this->_entityclass . '!');
+        //}
         $id = $entity->id;
         $data = $entity->toArray();
         unset($data['id']);

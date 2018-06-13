@@ -15,6 +15,7 @@ class UserController extends Controller
     {
         if(!$this->session_authenticate())
         {
+            //new ForbiddenController();
             return;
         }
 
@@ -88,6 +89,9 @@ class UserController extends Controller
 
     public function logout()
     {
+        $this->model_class->setState(1);
+        $this->model_class->get_mapper()->update($this->model_class);
+
         session_destroy();
         Controller::redirect('/home');
     }

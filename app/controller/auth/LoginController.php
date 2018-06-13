@@ -33,8 +33,7 @@ class LoginController extends Controller
                 $this->forgot();
                 break;
             case 'login/forgot/check':
-                $uname = $_GET["uname"];
-                $this->check_forgot($uname);
+                $this->check_forgot($_GET["uname"]);
                 break;
             case 'login/forgot/fail':
                 $this->forgot_fail();
@@ -58,22 +57,29 @@ class LoginController extends Controller
 
     private function check_login($uname, $pass)
     {
-//        echo $this->auth_user($uname, $pass, $isadmcp = false);
-        if($this->auth_user($uname, $pass, $isadmcp = false)) {
+        if($this->auth_user($uname, $pass, $isadmcp = false))
+        {
             self::redirect('/login/success');
         }
-        else {
+        else
+        {
             self::redirect('/login/fail');
         }
     }
 
     private function fail()
     {
+        $_SESSION['login_failed'] = true;
+
         self::redirect('/login');
     }
 
     private function success()
     {
+        $_SESSION['login_failed'] = false;
+
+        //$this->model_class->setState(["userState" => 2]);
+        $this->model_class->get_mapper()->update($this->model_class);
         self::redirect('/user/index');
     }
 
