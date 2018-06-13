@@ -333,7 +333,9 @@
     min-height: 4vh;
     /* border: 1px solid; */
     margin: 0.2% 0 0.1% 0.1%; /* 4.25rem = 68px */
+    background-color: #3d3d3d;
 }
+
 
 .footer-container-item {
     /* border: 1px solid; */
@@ -342,6 +344,8 @@
 
 .footer-container-item a {
     text-decoration: none;
+    font-size:110%;
+    color:white;
 }
 
 /* ---------------------------- adjust element by max-width in descending order ------------------------------------- */
