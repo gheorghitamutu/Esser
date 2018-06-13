@@ -88,13 +88,13 @@
     align-items: center;
     justify-content: center;
     transition: 0.5s;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 9%;
+    margin-right: 5%;
 }
 
 .sidenav-item-user-icon img {
-    max-width: 50%;
-    max-height: 50%;
+    max-width: 30%;
+    max-height: 30%;
     transition: 0.5s;
 }
 

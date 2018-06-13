@@ -4,11 +4,18 @@ namespace AppModel;
 
 use DatabaseConnectivity\DatabaseAdapterInterface;
 use ModelMapper;
-use InvalidArgumentException;
 
 class UserLog extends AbstractEntity
 {
-    protected $_allowedFields = array('uLogId', 'uLogDescription', 'uLogSourceIP', 'uLogCreatedAt');
+    protected $_allowedFields =
+        array
+        (
+            'uLogId',
+            'uLogDescription',
+            'uLogSourceIP',
+            'uLogCreatedAt'
+        );
+
     public $mapper = null;
 
     public function __construct(DatabaseAdapterInterface $adapter)

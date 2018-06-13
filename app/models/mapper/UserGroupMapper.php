@@ -7,13 +7,13 @@
  */
 
 namespace ModelMapper;
-use AppModel\Useracc;
+use AppModel;
 use DatabaseConnectivity;
 
 class UserGroupMapper extends AbstractMapper
 {
     protected $_entityTable = 'USERGROUPS';
-    protected $_entityClass = 'usergroup';
+    protected $_entityClass = 'Usergroup';
 
     public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
     {

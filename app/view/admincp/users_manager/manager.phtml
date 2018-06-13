@@ -15,7 +15,8 @@
                                     <div class="flex-table-th"> Joined Date </div>
                                     <div class="flex-table-th"> Account Level </div>
                                     <div class="flex-table-th"> Edit </div>
-                                    <div class="flex-table-th"> Delete </div>    
+                                    <div class="flex-table-th"> Delete </div>
+                                    <div class="flex-table-th"> Approve/Suspend </div>
                                 </div>
                             </div>
                             <div class="flex-table-body">
@@ -23,8 +24,9 @@
                                     <div class="flex-table-td"> Edward </div>
                                     <div class="flex-table-td"> 28/02/2018 </div>
                                     <div class="flex-table-td"> Admin </div>
-                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="window.location='editor'"> Edit </button> </div>
-                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="deleteUserByID('getUserID('Edward')')"> Delete </button> </div>    
+                                    <div class="flex-table-td"> <form><button type="submit" class="admcp-srch-btn" onclick="window.location='usereditor'"> Edit </button></form></div>
+                                    <div class="flex-table-td"> <form><button type="submit" class="admcp-srch-btn" onclick="window.location=''"> <?php echo  "DELETE";//$this->view_data['deleteButton']; ?> </button></form></div>
+                                    <div class="flex-table-td"> <form><button type="submit" class="admcp-srch-btn" onclick="window.location=''"> <?php echo "Aprv/Susp";//$this->view_data['approveSuspend']; ?> </button></form></div>
                                 </div>
                             </div>
                         </div>
