@@ -12,11 +12,15 @@
 					<div>Choose the user group</div>
                         <?php
                         $groups = $this->view_data['memberGroup'];
+						
                         foreach($groups as $group) {
                             $string = str_replace(' ', '', $group['userGroup']);
-                            echo "<button class=\"menu-button\" onClick='function" . $string . "()'".">" . $group['userGroup'] . "</button>";
+							
+                            echo "<button type=\"submit\" class=\"menu-button\" onClick='function" . $string . "()'".">" . $group['userGroup'] . "</button>";
                             echo "<div class=\"expandable\" id=\"" . $string . "\">";
-
+								echo "<form action=\"/user/users\" method=\"POST\">";
+									echo "<input type=\"hidden\" name=\"generateGroup\" value=\"". $group["idGroup"] . "\" >";
+								echo "</form>";
                             echo "</div>";
                             echo "<script>";
                             echo "function function" . $string . "() {";
