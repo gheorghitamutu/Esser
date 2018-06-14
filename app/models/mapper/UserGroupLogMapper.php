@@ -11,7 +11,7 @@ use AppModel;
 use DatabaseConnectivity;
 
 
-class UserGroupLogMapper
+class UserGroupLogMapper extends AbstractMapper
 {
     protected $_entityTable = 'USERGROUPLOGS';
     protected $_entityClass = 'UserGroupLog';

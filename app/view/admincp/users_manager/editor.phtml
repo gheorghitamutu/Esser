@@ -1,15 +1,14 @@
 <?php include VIEW . 'admincp/header.phtml';?>
 
 <?php include VIEW . 'admincp/menu/header_bar.phtml';?>
-
     <div class="admcp-tables-body">
         <?php include VIEW . 'admincp/menu/menu.phtml';?>
             <div class="admcp-rt-box">
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> User Account Editor </h3>
-                        <form class="srch-layout">
-                            <input class="adm-srch-box" required="required" placeholder="Insert User Account">
+                        <form class="srch-layout" action="/admincp/usereditor/search" method="POST">
+                            <input class="adm-srch-box" required="required" name="searchuser" value="" placeholder="Insert User Account">
                             <button type="submit" class="admcp-srch-btn"> Search </button>
                         </form>
                     </div>
@@ -17,24 +16,23 @@
                 <div class="admcp-rt-result-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> User Account Details </h3>
-                        <form type="POST" class="usr-edit-form">
+                        <form class="usr-edit-form" method="POST" action="/admincp/usereditor/edituser">
                             <fieldset>
                             <legend></legend>    
                                 <div class="ctrl-group">                                
-                                    <label> Account Name </label> <input type="text" name="Username" id="acc-username" value="Edward">
+                                    <label> Account Name </label> <input type="text" name="accname" id="acc-username" required="required" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userName'] : ''; ?>" placeholder="User's name">
                                 </div>
                                 <div class="ctrl-group">                                
-                                    <label> Account Level </label> <input type="text" name="AccLevel" id="acc-level" value="Admin">
+                                    <label> Account Level </label> <input type="text" name="acclevel" id="acc-level" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userType'] : ''; ?>"  placeholder="User's type">
                                 </div>
                                 <div class="ctrl-group"> 
-                                    <label> Account Email </label> <input type="email" name="AccEmail" id="acc-email" value="edward@company.com">
+                                    <label> Account Email </label> <input type="email" name="accemail" id="acc-email" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ''; ?>"  placeholder="User's email">
                                 </div>
                                 <div class="ctrl-group"> 
-                                    <label> New Password </label> <input type="password" name="NewPswd" id="acc-password" placeholder="Insert New Password">
+                                    <label> New Password </label> <input type="password" name="accnewpswd" id="acc-password" value="" placeholder="Insert New Password">
                                 </div>
                             </fieldset>
-                            <button type="button" class="admcp-save-btn" onclick="editUser('Edward')"> Save </button>
-                            <button type="button" class="admcp-save-btn" onclick="window.location='editor'"> Cancel </button>
+                            <button type="submit" class="admcp-save-btn"> Save </button>
                         </form>
                     </div>
                 </div>
