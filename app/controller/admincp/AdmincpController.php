@@ -66,6 +66,9 @@ class AdmincpController extends Controller
             case 'admincp/usermanager/suspenduser':
                 $this->suspenduser();
                 break;
+            case 'admincp/usermanager/unsuspenduser':
+                $this->unsuspenduser();
+                break;
             case 'admincp/databaseeditor':
                 $this->databaseeditor();
                 break;
@@ -202,9 +205,6 @@ class AdmincpController extends Controller
             );
 
             if (count($user) == 0 || empty($user)) {
-
-                echo "IN COUNT DE USER CRAPA!";
-                exit(0);
                 $this->showmessage($opsuccess = false, $opmessage = 'You must set an existing acccount name!', $redirectto = '/admincp/usereditor');
             }
             else {

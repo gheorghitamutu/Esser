@@ -1,0 +1,1 @@
+ALTER TABLE USERACCS ADD CONSTRAINT unq_username UNIQUE(userName);
