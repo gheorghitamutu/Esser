@@ -142,7 +142,6 @@ class UserController extends Controller
         );
 
         $_SESSION['login_failed'] = true;
-        session_destroy();
 
         $this->model('UserLog');
         $this->model_class->get_mapper()->insert(
@@ -153,6 +152,8 @@ class UserController extends Controller
                 'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
             )
         );
+
+        session_destroy();
         Controller::redirect('/home');
     }
 
