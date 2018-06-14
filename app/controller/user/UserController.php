@@ -32,6 +32,7 @@ class UserController extends Controller
                 self::redirect('/user');
                 break;
             case 'user/notifications':
+                $this->set_notifications_read();
                 $this->notifications();
                 break;
             case 'user/logs':
@@ -61,7 +62,12 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
-            array('users'=>$this->getUsers()),
+            array
+            (
+                'users'=>$this->getUsers(),
+                'notifications_count' => $this->get_notifications()
+
+            ),
             'Welcome ' . $_SESSION["uname"]);
     }
 
@@ -213,6 +219,47 @@ class UserController extends Controller
         else
         {
             $_SESSION["is_admin"] = true;
+        }
+    }
+
+    private function get_notifications()
+    {
+        $this->model('Usrntfrelation');
+
+        $user_id = $_SESSION['userid'];
+        $usrntfrelation = $this->model_class->get_mapper()->findAll(
+            $where = "usrNNotifiedAccId = ". $user_id ." AND usrnNIsRead = 0",
+            $fields = false);
+
+        return count($usrntfrelation);
+    }
+
+    private function set_notifications_read()
+    {
+        $this->model('Usrntfrelation');
+
+        $user_id = $_SESSION['userid'];
+        $usrntfrelation = $this->model_class->get_mapper()->findAll(
+            $where = "usrNNotifiedAccId = ". $user_id ." AND usrnNIsRead = 0",
+            $fields = false);
+
+        if(count($usrntfrelation) == 0)
+        {
+            return;
+        }
+
+        foreach ($usrntfrelation as $relation)
+        {
+            $this->model_class->get_mapper()->update(
+                'USRNTFRELATIONS',
+                array
+                (
+                    'usrNRelationId' => $relation["usrNRelationId"]
+                ),
+                array
+                (
+                    'usrnNIsRead' => 1
+                ));
         }
     }
 }

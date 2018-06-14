@@ -13,10 +13,12 @@
         </div>
     </div>
 
+    <br>
+
     <div class="notification-container-user-landing-page">
         <div id="notification-container-user-landing-page">
                 <button type="button" id="notification-button" onclick="window.location.href = '/user/notifications'">
-                    Notifications
+                    You have <?php echo $this->view_data["notifications_count"]?> notification(s)!
                 </button>
         </div>
     </div>
