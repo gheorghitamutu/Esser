@@ -2,12 +2,12 @@
 
     <div id="main-first-row-container">
         <div id="page-title">
-            <p>Reports</p>
+            <h1>Reports</h1>
         </div>
     </div>
 
     <div id="main-second-row-container">
-
+    <div class="container">
         <?php
 
         if (empty($this->view_data["reports"]))
@@ -25,25 +25,21 @@
             foreach ($this->view_data["reports"] as $report)
             {
                 echo
-                    '<div class="container-row">
-                         <div class="date">
-                            <p>'. $report["rCreatedAt"] . '</p>
-                        </div>
-    
-                        <div class="message">
-                            <p>' . 'Report: ' . ' ' . $report["reportType"] . '</p>  ' .
+                    '<div class="message">
+                            <p>' . 'Report: ' . ' ' . $report["rCreatedAt"] . '</p>' .
+                        '</div>
+                         <div class = "message">' .
                             '<form action="/user/reports/download" method="POST">
                                 <button type="submit" name="download_report" value="' . $report["reportId"] . '">
                                                 Download 
                                 </button>
                              </form>'
-
-                        . '</div>
-                    </div>';
+                        . 
+                    '</div>';
             }
         }
         ?>
-
+    </div>
     </div>
 
 <?php include VIEW . 'user/footer.phtml';?>
