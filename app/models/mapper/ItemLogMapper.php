@@ -10,7 +10,7 @@ namespace ModelMapper;
 use AppModel;
 use DatabaseConnectivity;
 
-class ItemLogMapper
+class ItemLogMapper extends AbstractMapper
 {
     protected $_entityTable = 'ITEMLOGS';
     protected $_entityClass = 'ItemLogs';

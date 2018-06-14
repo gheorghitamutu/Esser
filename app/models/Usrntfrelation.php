@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class Usrntfrelation extends AbstractEntity
 {
-    protected $_allowedFields = array('usrNRelationId', 'usrNNotifiedAccId', 'usrNNotificationId');
+    protected $_allowedFields = array('usrNRelationId', 'usrNNotifiedAccId', 'usrNNotificationId','usrnNIsRead');
     public $mapper = null;
 
     public function __construct(DatabaseAdapterInterface $adapter)

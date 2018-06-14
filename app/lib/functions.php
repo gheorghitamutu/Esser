@@ -293,6 +293,17 @@ function third_phase_install()
             $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
             throw new Exception($error);
         }
+
+        $good_install =
+            inFileRegexReplace(
+                $filename,
+                "/(date\.timezone\=)[a-zA-Z]+\/[a-zA-Z]+?(?=\n)/",
+                "date.timezone=".SERVERTIMEZONE.";\r\nextension=php_oci8_11g.dll;\r\n");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the server timezone to ". SERVERTIMEZONE ." in the php.ini file!";
+            throw new Exception($error);
+        }
     }
     catch (Exception $e)
     {
