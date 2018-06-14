@@ -197,60 +197,69 @@ class AdmincpController extends Controller
                     $validatedfield = ' USERID = ';
                     $user = $this->model_class->get_mapper()->findAll(
                         $where = $validatedfield . $_POST['searchuser'],
-                        $fields = 'USERNAME, USERTYPE, USEREMAIL'
+                        $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
                     );
                     break;
                 case filter_var($_POST['searchuser'], FILTER_VALIDATE_EMAIL):
                     $validatedfield = ' USEREMAIL = ';
                     $user = $this->model_class->get_mapper()->findAll(
                         $where = $validatedfield . "'" . $_POST['searchuser'] . "'",
-                        $fields = 'USERNAME, USERTYPE, USEREMAIL'
+                        $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
                     );
                     break;
                 default:
                     $validatedfield = ' USERNAME = ';
                     $user = $this->model_class->get_mapper()->findAll(
                         $where = $validatedfield . "'" . $_POST['searchuser'] . "'",
-                        $fields = 'USERNAME, USERTYPE, USEREMAIL'
+                        $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
                     );
                     break;
             }
         }
         else {
-            if (isset($_SESSION['userToEdit'])) {
                 unset($_SESSION['userToEdit']);
-            }
             // Need to implement a fail message delivery .. (You need to offer some search criterias first!)
             self::redirect('/admincp/usereditor');
         }
-        if (empty($user) || count($user) !== 1) {
+        if (empty($user) == true || count($user) != 1) {
 
 //            echo var_dump($validatedfield);
 //            echo var_dump($_POST['searchuser']);
 //            echo var_dump($user);
 //            exit(0);
-            if (isset($_SESSION['userToEdit'])) {
-                unset($_SESSION['userToEdit']);
-            }
+            unset($_SESSION['userToEdit']);
             // Need to implement a fail message delivery .. (Couldn't find any user matching the search criteria!)
             self::redirect('/admincp/usereditor');
         }
-        switch ($user[0]['userType']) {
-            case 0:
-                $user[0]['userType'] = 'Unapproved';
-                break;
-            case 1:
-                $user[0]['userType'] = 'User';
-                break;
-            case 2:
-                $user[0]['userType'] = 'Root Manager';
-                break;
-            case 3:
-                $user[0]['userType'] = 'Root Admin';
-                break;
+        else {
+            switch ($user[0]['userType']) {
+                case 0:
+                    $user[0]['userType'] = 'Unapproved';
+                    break;
+                case 1:
+                    $user[0]['userType'] = 'User';
+                    break;
+                case 2:
+                    $user[0]['userType'] = 'Root Manager';
+                    break;
+                case 3:
+                    $user[0]['userType'] = 'Root Admin';
+                    break;
+            }
+            switch ($user[0]['userState']) {
+                case 0:
+                    $user[0]['userState'] = 'Suspended';
+                    break;
+                case 1:
+                    $user[0]['userState'] = 'Offline';
+                    break;
+                case 2:
+                    $user[0]['userState'] = 'Online';
+                    break;
+            }
+            $_SESSION['userToEdit'] = $user[0];
+            self::redirect('/admincp/usereditor');
         }
-        $_SESSION['userToEdit'] = $user[0];
-        self::redirect('/admincp/usereditor');
     }
 
     private function goToUserEditor()
@@ -258,7 +267,7 @@ class AdmincpController extends Controller
         $this->model('Useracc');
         $user = $this->model_class->get_mapper()->findAll(
             $where = ' USERID = ' . $_POST['edituser'],
-            $fields = 'USERNAME, USERTYPE, USEREMAIL'
+            $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
         );
         switch ($user[0]['userType']) {
             case 0:
@@ -274,6 +283,17 @@ class AdmincpController extends Controller
                 $user[0]['userType'] = 'Root Admin';
                 break;
         }
+        switch ($user[0]['userState']) {
+            case 0:
+                $user[0]['userState'] = 'Suspended';
+                break;
+            case 1:
+                $user[0]['userState'] = 'Offline';
+                break;
+            case 2:
+                $user[0]['userState'] = 'Online';
+                break;
+        }
         $_SESSION['userToEdit'] = $user[0];
         self::redirect('/admincp/usereditor');
     }
@@ -283,10 +303,107 @@ class AdmincpController extends Controller
         if (key_exists('userToEdit', $_SESSION)) {
             unset($_SESSION['userToEdit']);
         }
+        $hmm = array
+        (
+            'activeUsers' => $this->extractActiveUsers($this->getActivatedUserList()),
+            'suspendedUsers' => $this->extractSuspendedUsers($this->getActivatedUserList())
+        );
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
-            ['approvedUsers' => $this->getActiveUserList(), 'unapprovedUsers' => $this->getUnapprovedUserList()],
+            [
+                'approvedUsers' => array
+                                (
+                                    'activeUsers' => $this->extractActiveUsers($this->getActivatedUserList()),
+                                    'suspendedUsers' => $this->extractSuspendedUsers($this->getActivatedUserList())
+                                ),
+                'unapprovedUsers' => $this->getUnapprovedUserList()
+            ],
+
             'AdminCP');
+    }
+
+    private function extractActiveUsers($userlist)
+    {
+        if (!is_array($userlist)) {
+            return [];
+        }
+        else {
+            if (count($userlist) == 0) {
+                return [];
+            }
+            else {
+                $activeusers = [];
+                $nrofusers = 0;
+                for ($i = 0; $i < count($userlist); ++$i) {
+                    if ($userlist[$i]['userState'] != 0) {
+                        $activeusers[$nrofusers] = $userlist[$i];
+                        $nrofusers += 1;
+                    }
+                }
+                return $activeusers;
+            }
+        }
+    }
+
+    private function extractSuspendedUsers($userlist)
+    {
+        if (!is_array($userlist)) {
+            return [];
+        }
+        else {
+            if (count($userlist) == 0) {
+                return [];
+            }
+            else {
+                $suspendedusers = [];
+                $nrofusers = 0;
+                for ($i = 0; $i < count($userlist); ++$i) {
+                    if ($userlist[$i]['userState'] == 0) {
+                        $suspendedusers[$nrofusers] = $userlist[$i];
+                        $nrofusers += 1;
+                    }
+                }
+                return $suspendedusers;
+            }
+        }
+    }
+
+    private function getActivatedUserList()
+    {
+        $this->model('Useracc');
+        $query = $this->model_class->get_mapper()->findAll(
+            $where = 'userType > 0',
+            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $order = 'userCreatedAt DESC'
+        );
+        for ($i = 0; $i < count($query); ++$i) {
+            switch ($query[$i]['userType']) {
+                case '1':
+                    $query[$i]['userType'] = 'User';
+                    break;
+                case '2':
+                    $query[$i]['userType'] = 'Root Manager';
+                    break;
+                case '3':
+                    $query[$i]['userType'] = 'Root Admin';
+                    break;
+            }
+        }
+        return $query;
+    }
+
+    private function getUnapprovedUserList()
+    {
+        $this->model('Useracc');
+        $query = $this->model_class->get_mapper()->findAll(
+            $where = 'userType = 0',
+            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $order = 'userCreatedAt DESC'
+        );
+        for ($i = 0; $i < count($query); ++$i) {
+            $query[$i]['userType'] = 'Unapproved';
+        }
+        return $query;
     }
 
     private function deleteuser()
@@ -337,11 +454,11 @@ class AdmincpController extends Controller
             $table = 'USERACCS',
             $fields = array
             (
-                'USERSTATE' => 1
+                'USERTYPE' => 1
             ),
             $where = array
             (
-                'USERID' => $user[0]['userid']
+                'USERID' => $user[0]['userId']
             )
         );
         if ($query) {
@@ -458,7 +575,7 @@ class AdmincpController extends Controller
         if (count($queryresult) > 2) {
             throw new RuntimeException('Something went wrong during the fetch of of last login date!');
         }
-        if (empty($queryresult) || count($queryresult) === 0) {
+        if (empty($queryresult) || count($queryresult) == 0) {
             return 'N/A';
         } else {
             return $queryresult[1]['uLogCreatedAt'];
@@ -500,45 +617,6 @@ class AdmincpController extends Controller
             return $total;
         }
     }
-
-    private function getActiveUserList()
-    {
-        $this->model('Useracc');
-        $query = $this->model_class->get_mapper()->findAll(
-            $where = 'userType > 0',
-            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
-            $order = 'userCreatedAt DESC'
-        );
-        for ($i = 0; $i < count($query); ++$i) {
-            switch ($query[$i]['userType']) {
-                case '1':
-                    $query[$i]['userType'] = 'User';
-                    break;
-                case '2':
-                    $query[$i]['userType'] = 'Root Manager';
-                    break;
-                case '3':
-                    $query[$i]['userType'] = 'Root Admin';
-                    break;
-            }
-        }
-        return $query;
-    }
-
-    private function getUnapprovedUserList()
-    {
-        $this->model('Useracc');
-        $query = $this->model_class->get_mapper()->findAll(
-            $where = 'userType = 0',
-            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
-            $order = 'userCreatedAt DESC'
-        );
-        for ($i = 0; $i < count($query); ++$i) {
-            $query[$i]['userType'] = 'Unapproved';
-        }
-        return $query;
-    }
-
 
     private function getUserLogs()
     {
