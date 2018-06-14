@@ -309,7 +309,8 @@ class AdmincpController extends Controller
                     $salt = '$1_2jlh83#@J^Q';
                     $newpswd = hash('sha512', $_POST['accname'] . $salt . $newpswd);
                     $this->model('Useracc');
-                    $query = $this->model_class->get_mapper()->update(
+                    $query = $this->model_class->get_mapper()->update
+                    (
                         $table = 'USERACCS',
                         $fields = array
                         (
@@ -325,7 +326,8 @@ class AdmincpController extends Controller
                     );
                     if (is_array($query)) {
                         $this->model('UserLog');
-                        $this->model_class->get_mapper()->insert(
+                        $this->model_class->get_mapper()->insert
+                        (
                             $table = 'USERLOGS',
                             $fields = array
                             (
@@ -602,7 +604,9 @@ class AdmincpController extends Controller
             );
             if (is_array($query)) {
                 $this->model('UserLog');
-                $this->model_class->get_mapper()->insert(
+                $this->model_class->get_mapper()->insert
+                (
+                    $table = 'USERLOGS',
                     $fields = array
                     (
                         'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
@@ -628,7 +632,8 @@ class AdmincpController extends Controller
             $where = 'USERID = ' . $_POST['approveuser']
         );
 
-        $query = $this->model_class->get_mapper()->update(
+        $query = $this->model_class->get_mapper()->update
+        (
             $table = 'USERACCS',
             $fields = array
             (
@@ -641,7 +646,9 @@ class AdmincpController extends Controller
         );
         if (is_array($query)) {
             $this->model('UserLog');
-            $this->model_class->get_mapper()->insert(
+            $this->model_class->get_mapper()->insert
+            (
+                $table = 'USERLOGS',
                 array
                 (
                     'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
@@ -672,7 +679,8 @@ class AdmincpController extends Controller
                 'Cannot suspend your own account!',
                 '/admincp/usermanager');
         } else {
-            $query = $this->model_class->get_mapper()->update(
+            $query = $this->model_class->get_mapper()->update
+            (
                 $table = 'USERACCS',
                 $fields = array
                 (
@@ -685,7 +693,9 @@ class AdmincpController extends Controller
             );
             if ($query) {
                 $this->model('UserLog');
-                $this->model_class->get_mapper()->insert(
+                $this->model_class->get_mapper()->insert
+                (
+                    $table = 'USERLOGS',
                     $fields = array
                     (
                         'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
