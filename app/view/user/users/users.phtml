@@ -13,23 +13,25 @@
                         <?php
                         $groups = $this->view_data['memberGroup'];
                         foreach($groups as $group) {
-                            echo "<div>" . $group . "</div>";
+                            $string = str_replace(' ', '', $group['userGroup']);
+                            echo "<button class=\"menu-button\" onClick='function" . $string . "()'".">" . $group['userGroup'] . "</button>";
+                            echo "<div class=\"expandable\" id=\"" . $string . "\">";
+
+                            echo "</div>";
+                            echo "<script>";
+                            echo "function function" . $string . "() {";
+                            echo "var x = document.getElementById(\"" . $string . "\");";
+                            echo "if (x.style.display === \"grid\") {";
+                            echo "   x.style.display = \"none\";";
+                            echo "} else {";
+                            echo "    x.style.display = \"grid\";";
+                            echo "}";
+                            echo "}";
+                            echo "</script>";
+
                             }
                         ?>
 				</div>
-				<!--<div class="menu">
-					<div class="menu-button">
-						<div>Group 1</div>
-						<div>Add user</div>
-						<div>Remove user</div>
-					</div>
-					<div class="User">
-						<div>Photo</div>
-						<div>Name</div>
-						<div>Added</div>
-						<div></div>
-					</div>
-				</div>-->
 			</div>
 			
         </body>

@@ -77,8 +77,14 @@ class UserController extends Controller
                 $fields = false
             );
 
-            array_push($querryGroups, $querry[0]['uGroupName']);
+            //array_push($querryGroups, $querry[0]['uGroupName']); // old type of function, returning only the name
+            array_push($querryGroups, array
+            (
+                'idGroup'=>$querry[0]['uGroupId'],
+                'userGroup' => $querry[0]['uGroupName']
+            ));
 		}
+
         return $querryGroups;
 		
     }
