@@ -14,7 +14,6 @@ class PageNotFoundController extends Controller
 {
     public function __construct()
     {
-        Parent::__construct();
         $this->index();
     }
 

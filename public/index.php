@@ -16,6 +16,6 @@ define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
 require_once ('../app/config/config.php');
 
-require_once(APP_INIT . "appinit.php");
+require_once(APP_INIT . "load_dependencies.php");
 
 new IndexController();

@@ -13,14 +13,15 @@ class LoginController extends Controller
 {
     public function __construct($uri)
     {
-        Parent::__construct();
+        $this->model('Useracc');
+
         switch($uri)
         {
             case 'login':
                 $this->index();
                 break;
             case 'login/check':
-                $this->check_login($_POST["uname"], $_POST["psw"]);
+                $this->check_login();
                 break;
             case 'login/fail':
                 $this->fail();
@@ -32,14 +33,16 @@ class LoginController extends Controller
                 $this->forgot();
                 break;
             case 'login/forgot/check':
-                $uname = $_GET["uname"];
-                $this->check_forgot($uname);
+                $this->check_forgot();
                 break;
             case 'login/forgot/fail':
                 $this->forgot_fail();
                 break;
             case 'login/forgot/success':
                 $this->forgot_success();
+                break;
+            case 'login/unapproved':
+                $this->unapproved();
                 break;
             default:
                 break;
@@ -55,43 +58,68 @@ class LoginController extends Controller
             'Esser');
     }
 
-    private function check_login($uname, $pass)
+    private function check_login()
     {
+        if(!$this->is_user_approved())
+        {
+            self::redirect('/login/unapproved');
+            return;
+        }
 
-        if(Auth::auth_user("connection", $uname, $pass))
+        if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = false))
+        {
             self::redirect('/login/success');
+        }
         else
+        {
             self::redirect('/login/fail');
+        }
     }
 
     private function fail()
     {
+        $_SESSION['login_failed'] = true;
+
         self::redirect('/login');
     }
 
     private function success()
     {
+        $_SESSION['login_failed'] = false;
         self::redirect('/user/index');
     }
 
     private function forgot()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'forgot_password',
             [],
             'Esser');
     }
 
-    private function check_forgot($uname)
+    private function check_forgot()
     {
-        //self::redirect('fail');
-        self::redirect('success');
+
+        if($this->password_recover())
+        {
+            self::redirect('success');
+        }
+        else
+        {
+            self::redirect('fail');
+        }
     }
 
     private function forgot_fail()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password_fail',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'fail',
             [],
             'Esser');
     }
@@ -99,8 +127,71 @@ class LoginController extends Controller
     private function forgot_success()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'forgot_password_success',
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'forgot_password' . DIRECTORY_SEPARATOR .
+            'success',
             [],
             'Esser');
+    }
+
+    private function unapproved()
+    {
+        View::CreateView(
+            'home' . DIRECTORY_SEPARATOR .
+            'login' . DIRECTORY_SEPARATOR .
+            'approval' . DIRECTORY_SEPARATOR .
+            'unapproved',
+            [],
+            'Esser');
+    }
+
+    private function password_recover()
+    {
+        // checks if requested email exists in database
+        $email = $_POST["email"];
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = "userEmail = '$email'",
+            $fields = false);
+
+        if (count($user) === 0 || count($user) === null)
+        {
+            return false;
+        }
+        else
+        {
+            // it should send an email..
+            return true;
+        }
+    }
+
+    private function is_user_approved()
+    {
+        // checks if the user account is approved or suspended
+        // checks if requested email exists in database
+        $username = $_POST["uname"];
+        $password = $_POST["psw"];
+
+        $salt = '$1_2jlh83#@J^Q';
+        $password_hash = hash('sha512', $username . $salt . $password);
+
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = "userName = '$username' AND userPass = '$password_hash'",
+            $fields = false);
+
+        if (count($user) === 0 || count($user) === null)
+        {
+            return false;
+        }
+        else
+        {
+            if($user[0]["userType"] == 0 || $user[0]["userState"] == 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

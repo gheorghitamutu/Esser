@@ -1,4 +1,4 @@
--- Creation of the database; Create DB auto inserting triggers for column IDs, dates (createdAt/updatedAt), root_admins and managers addition to all groups and ownerships; (Step 4);
+-- Creation of the database; Create DB auto inserting triggers for column IDs, dates (createdAt/updatedAt) (Step 4);
 CREATE OR REPLACE TRIGGER trg_incr_useraccs BEFORE INSERT ON USERACCS FOR EACH ROW
 BEGIN
   :NEW.USERID := incr_useraccs.NEXTVAL;
@@ -109,30 +109,6 @@ CREATE OR REPLACE TRIGGER trg_incr_usrntfrel BEFORE INSERT ON USRNTFRELATIONS FO
 BEGIN
   :NEW.usrnRelationId := incr_usrntfrel.NEXTVAL;
 END trg_incr_usrntfrel;
-/
-
--- Auto addition of the root admins and managers groups as owners for every item group that's created
-CREATE OR REPLACE TRIGGER trg_auto_own_igrp AFTER INSERT ON ITEMGROUPS FOR EACH ROW
-BEGIN
-  INSERT INTO ITEMGROUPOWNERSHIPS (igOwnerId, igId) VALUES (1 , :NEW.iGroupId);
-  INSERT INTO ITEMGROUPOWNERSHIPS (igOwnerId, igId) VALUES (2 , :NEW.iGroupId);
-END trg_auto_own_igrp;
-/
-
--- Automatic addition of all root_admins status members into root_admins group and root_managers group
--- As well as automatic addition of all root_admins AND root_managers status members in all groups
-CREATE OR REPLACE TRIGGER trg_auto_root_add AFTER INSERT ON USERGROUPS FOR EACH ROW
-BEGIN
-  IF (:NEW.uGroupId = 1) THEN
-    FOR v_linie_root_adm IN (SELECT * FROM USERACCS WHERE USERTYPE = 3) LOOP
-      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS) VALUES (v_linie_root_adm.USERID, :NEW.uGroupId, 1, 1);
-    END LOOP;
-  ELSE
-    FOR v_linie_root_adm_mng IN (SELECT * FROM USERACCS WHERE USERTYPE IN (2,3)) LOOP
-      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS) VALUES (v_linie_root_adm_mng.USERID, :NEW.uGroupId, 1, 1);
-    END LOOP;
-  END IF;
-END trg_auto_root_add;
 /
 COMMIT;
 /

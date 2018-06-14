@@ -7,15 +7,16 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, ModelProxy, OCI_Collection,
-    http\Exception\InvalidArgumentException,
-    http\Exception\RuntimeException;
+
+use AppModel;
+use DatabaseConnectivity;
+
 
 abstract class AbstractMapper implements MapperInterface
 {
     protected $_adapter;
-    protected $_entityTable;
-    protected $_entityClass;
+    protected $_entitytable;
+    protected $_entityclass;
 
     /**
      * Constructor
@@ -23,9 +24,11 @@ abstract class AbstractMapper implements MapperInterface
     public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter, array $entityOptions = array())
     {
         $this->_adapter = $adapter;
-        //setting the entity table to the specified option
         if(isset($entityOptions['entityTable'])) {
             $this->setEntityTable($entityOptions['entityTable']);
+        }
+        if(isset($entityOptions['entityClass'])) {
+            $this->setEntityClass($entityOptions['entityClass']);
         }
         //checking entity options
         $this->_checkEntityOptions();
@@ -37,11 +40,11 @@ abstract class AbstractMapper implements MapperInterface
      */
     protected function _checkEntityOptions()
     {
-        if(!isset($this->_entityTable)) {
-            throw new RuntimeException('The entity table has been not set yet!');
+        if (!isset($this->_entitytable)) {
+            throw new \RuntimeException('The entity table has been not set yet!');
         }
-        if (!isset($this->_entityClass)) {
-            throw new RuntimeException('The entity class has been not set yet!');
+        if (!isset($this->_entityclass)) {
+            throw new \RuntimeException('The entity class has been not set yet!');
         }
     }
 
@@ -52,85 +55,122 @@ abstract class AbstractMapper implements MapperInterface
         return $this->_adapter;
     }
 
-    public function setEntityTable($entityTable) {
-        if(!is_string($entityTable) || empty($entityTable)){
-            throw new InvalidArgumentException('The entity table is invalid!');
+    public function setEntityTable($entitytable) {
+        if (!is_string($entitytable) || empty($entitytable))
+        {
+            new \InternalServerErrorController();
+            throw new \InvalidArgumentException('The entity table is invalid!');
         }
-        $this->_entityTable = $entityTable;
+        $this->_entitytable = $entitytable;
         return $this;
     }
 
-    public function getEntityTable(){
-        return $this->_entityTable;
+    public function getEntityTable() {
+        return $this->_entitytable;
     }
 
-    public function setEntityClass($entityClass) {
-        if(!is_subclass_of($entityClass,'ModelAbstractEntity')){
-            throw new InvalidArgumentException('The entity class is invalid!');
-        }
-        $this->_entityClass = $entityClass;
+    public function setEntityClass($entityclass) {
+
+//        if (!is_subclass_of((string)$entityclass,'AbstractEntity')) {
+//            throw new \InvalidArgumentException('The entity class is invalid!');
+//        }
+        $this->_entityclass = $entityclass;
         return $this;
     }
 
     public function getEntityClass() {
-        return $this->_entityClass;
+        return $this->_entityclass;
     }
 
     /**
      * Reconstitute an entity with the data retrieved from the storage (implementation delegated to concrete mappers)
      */
-    abstract protected function _createEntity($data);
+    abstract protected function _createEntity(array $data);
 
     /**
      * Find an entity by its ID
      */
     public function findById($id)
     {
-        $selectStatement = $this->_adapter->select($this->_entityTable, "id = $id");
-        if ($data = $this->_adapter->fetch($selectStatement)) {
-            return $this->_createEntity($data);
+        $selectstmt = $this->_adapter->select($this->_entitytable, "id = $id");
+        if (($data = $this->_adapter->fetchRow($selectstmt)) !== false) {
+            $result = $this->_createEntity($data);
+            $this->_adapter->disconnect();
+            return $result;
         }
+        $this->_adapter->disconnect();
         return null;
     }
 
     /**
      * Find entities according to the given criteria (all entities will be fetched if no criteria are specified)
+     * @param string $criteria
+     * @param bool $fields
+     * @param bool $order
+     * @param null $limit
+     * @return array|OCI_Collection(not available - yet)findAll
      */
-    public function find($criteria = '')
+    public function findAll($criteria = '', $fields = false, $order = false, $limit = null)
     {
-        $collection = new OCI_Collection();
-        $selectStatement = $this->_adapter->select($this->_entityTable, $criteria);
-        while ($data = $this->_adapter->fetch($selectStatement)) {
-            $collection[] = $this->_createEntity($data);
+        $selectstmt =
+            $this->_adapter->select(
+                $this->_entitytable,
+                $criteria,
+                ($fields) ? $fields : '*',
+                ($order) ? $order : '',
+                ($limit) ? $limit : null);
+        $collection = array();
+
+        foreach($this->_adapter->fetchAll($selectstmt) as $row)
+        {
+            array_push($collection, $this->_createEntity($row));
         }
+
+        $this->_adapter->disconnect();
+
         return $collection;
     }
 
-    public function insert($entity)
+    public function countAll($criteria = '')
     {
-        if (!$entity instanceof $this->_entityClass) {
-            throw new InvalidArgumentException('The entity that needs to be inserted must be an instance of ' . $this->_entityClass . '!');
+        $result = 0;
+        $selectstmt = $this->_adapter->selectCount($this->_entitytable, $criteria);
+        if (($data = $this->_adapter->fetch($selectstmt)) !== false)
+        {
+            $result = $this->_adapter->getResult($selectstmt,1);
         }
-        return $this->_adapter->insert($this->_entityTable, $entity->toArray());
+        $this->_adapter->disconnect();
+        return $result;
     }
 
-    public function update($entity)
+    public function insert($table, array $fields)
     {
-        if (!$entity instanceof $this->_entityClass) {
-            throw new InvalidArgumentException('The entity that needs to be updated must be an instance of ' . $this->_entityClass . '!');
+        if (empty($fields))
+        {
+            new \InternalServerErrorController();
+            throw new \RuntimeException('You\'re calling an insert without anything to insert!');
         }
-        $id = $entity->id;
-        $data = $entity->toArray();
-        unset($data['id']);
-        return $this->_adapter->update($this->_entityTable, $data, "id = $id");
+        $result = $this->_adapter->insert($table, $fields);
+        $this->_adapter->disconnect();
+        return $result;
     }
 
-    public function delete($id, $col = 'id')
+    public function update($table, array $fields, $criteria = false)
     {
-        if ($id instanceof $this->_entityClass) {
-            $id = $id->id;
+        if (empty($fields))
+        {
+            new \InternalServerErrorController();
+            throw new \RuntimeException('You\'re calling an update without anything to update!');
         }
-        return $this->_adapter->delete($this->_entityTable, "$col = $id");
+        $result = $this->_adapter->update($table, $fields, $criteria);
+        $this->_adapter->disconnect();
+        return $result;
     }
 
+    public function delete($table, $criteria)
+    {
+        $result = $this->_adapter->delete($table, $criteria);
+        $this->_adapter->disconnect();
+        return $result;
+    }
 }

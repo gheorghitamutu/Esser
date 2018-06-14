@@ -4,7 +4,16 @@
         <div class="lgn-box">
             <h1 class="main-text"> Registration Failed! </h1>
             <br />
-            <p class="main-text"> Your registration request couldn't be procesed due either invalid or duplicated submited data, or other technical issues such as time-outs, corrupted data, etc! </p>
+            <p class="main-text">
+                Your registration request couldn't be procesed due to
+                <?php
+                    echo
+                    ((isset($_SESSION["registration_wrong_pass_repeat"]) &&
+                    $_SESSION["registration_wrong_pass_repeat"] === true) ?
+                    'invalid password repeat! Please try again and make sure password matches!' :
+                    'technical issues!');
+                ?>
+            </p>
             <button type="button" class="lgn-view-btn" onclick="window.location='/register'">Retry</button>
             <button type="button" class="lgn-view-btn" onclick="window.location='/'">Home</button>
         </div>

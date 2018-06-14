@@ -10,5 +10,9 @@
  */
 ?>
 
+
+<?php echo (isset($_SESSION['login_failed']) && $_SESSION['login_failed']) ?
+    '<script type="text/javascript">alert("Wrong username or password!");</script>' :
+    '' ?>
 </body>
 </html>

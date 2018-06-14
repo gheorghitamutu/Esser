@@ -7,25 +7,41 @@
  */
 
 namespace ModelMapper;
-use DatabaseConnectivity, ModelProxy, OCI_Collection;
+use AppModel;
+use DatabaseConnectivity;
 
 class UseraccMapper extends AbstractMapper
 {
-    protected $_somethingThatMadeTheUser;//(Exists???)
     protected $_entityTable = 'USERACCS';
-    protected $_entityClass = 'UserAcc';
+    protected $_entityClass = 'Useracc';
 
-    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter, SomethingThatMadeTheUser $somethingThatMadeTheUser)
+    public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
     {
-        $this->_somethingThatMadeTheUser = $somethingThatMadeTheUser;
-        parent::__construct($adapter);
+        parent::__construct($adapter, array(
+            'entityTable' => $this->_entityTable,
+            'entityClass' => $this->_entityClass
+        ));
     }
 
     /**
-     * Reconstitute an entity with the data retrieved from the storage (implementation delegated to concrete mappers)
+     * Create an useracc entity with the supplied data
+     * @param array $data
+     * @return array
      */
-    protected function _createEntity($data)
+    protected function _createEntity(array $data)
     {
-        // TODO: Implement _createEntity() method.
+        $useracc = array(
+            'userId'        => array_key_exists('USERID',           $data) ? $data['USERID'] : '',
+            'userName'      => array_key_exists('USERNAME',         $data) ? $data['USERNAME'] : '',
+            'userEmail'     => array_key_exists('USEREMAIL',        $data) ? $data['USEREMAIL'] : '',
+            'userPass'      => array_key_exists('USERPASS',         $data) ? $data['USERPASS'] : '',
+            'userType'      => array_key_exists('USERTYPE',         $data) ? $data['USERTYPE'] : '',
+            'userState'     => array_key_exists('USERSTATE',        $data) ? $data['USERSTATE'] : '',
+            'userImage'     => array_key_exists('USERIMAGE',        $data) ? $data['USERIMAGE'] : '',
+            'userCreatedAt' => array_key_exists('USERCREATEDAT',    $data) ? $data['USERCREATEDAT'] : '',
+            'userUpdatedAt' => array_key_exists('USERUPDATEDAT',    $data) ? $data['USERUPDATEDAT'] : ''
+        );
+
+        return $useracc;
     }
 }

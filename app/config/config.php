@@ -12,8 +12,9 @@
 // application configs
 // All declared constant MUST BE ALPHA-NUMERIC ONLY!
 // ROOT_ADMIN_USER and ROOT_ADMIN_PASS Need to be between 4 and 16 char long!
-define('INSTALLED'                          , false);
-define('INSTALL_PHASE', 2);
+define('INSTALLED'                          , true);
+define('PLSQL_DRIVER'                       , 'oci8');
+define('INSTALL_PHASE'                      , 0);
 define('APP_TITLE'                          , 'BMCP EsseR');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');
@@ -21,8 +22,9 @@ define('SYS_DB_USER_PASS'                   , 'SYS');
 define('HOST_IP'                            , 'localhost');
 define('HOST_PORT'                          , '1521');
 define('MD5'                                , false);
-define('SHA_256'                            , true);
-define('SHA_512'                            , false);
+define('SHA_256'                            , false);
+define('SHA_512'                            , true);
+define('SERVERTIMEZONE'                     , 'Europe/Bucharest');
 define('ORA_CHARSET_DEFAULT'                , 'AMERICAN_AMERICA.WE8MSWIN1252');
 define('ORA_CONNECTION_TYPE_DEFAULT'        , 1);
 define('ORA_CONNECTION_TYPE_PERSISTENT'     , 2);
@@ -44,7 +46,7 @@ define('APP_INIT'  , ROOT                                     . 'app'        . D
 define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
 define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
 define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
-define('MODEL'     , ROOT                   . 'app'      . DS . 'model'      . DS);
+define('MODELS'    , ROOT                   . 'app'      . DS . 'models'     . DS);
 define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
 define('DATABASE'  , ROOT                                     . 'database'   . DS);
@@ -62,10 +64,4 @@ define('LOGGING'   , '[APP_LOG: '           . date('d-m-Y H:i:s') . ']: ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');
-
-// autoload purpose loops
-//foreach (glob(APP_INIT . PHP_FILE) as $filename)
-//{
-//  require_once($filename);
-//}
 

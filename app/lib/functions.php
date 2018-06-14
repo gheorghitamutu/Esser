@@ -80,7 +80,7 @@ function first_phase_install()
     {
         try
         {
-            $filename = ROOT . 'database' . DS . 'Database.php';
+            $filename = ROOT . 'database' . DS . 'OracleAdapter.php';
             $good_install = inFileStrReplace($filename, $to_be_replaced[$i], $replace_with[$i]);
             if(!$good_install)
             {
@@ -117,9 +117,9 @@ function first_phase_install()
 
     array_push($to_be_parsed, ROOT_ADMIN_GROUP, ROOT_MANAGER_GROUP, ROOT_NORMAL_USER_GROUP);
     array_push($parsed,
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-3]),
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-2]),
-        preg_replace("/[^a-zA-Z0-9-_ ]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-3]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-2]),
+        preg_replace("/[^a-zA-Z0-9._ -]+/", "", $to_be_parsed[count($to_be_parsed)-1]));
   
     /* Trying to replace to 'already-defined' constants in the config file with the parsed ones */
     $filename = ROOT . 'app' . DS . 'config' . DS . 'config.php';
@@ -146,8 +146,8 @@ function first_phase_install()
     {
         $good_install = inFileStrReplace(
             $filename,
-            "define('INSTALL_PHASE', 1",
-            "define('INSTALL_PHASE', 2");
+            "define('INSTALL_PHASE'                      , 1",
+            "define('INSTALL_PHASE'                      , 2");
         if(!$good_install)
         {
             $error = "Couldn't set the INSTALL_PHASE 2 in the config file!";
@@ -168,7 +168,7 @@ function second_phase_install()
     //Shell/Cmd approach.
     //Need to find a way to detect errors
     $command =
-        sprintf(('SQLPLUS %s/%s@%s AS SYSDBA @%s %s %s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s AS SYSDBA @%s %s %s'),
             SYS_DB_USER,
             SYS_DB_USER_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
@@ -181,87 +181,77 @@ function second_phase_install()
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n");
-
-    //$shellcmd = sprintf(
-        //('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'),
-        // ROOT_ADMIN_USER,
-        // ROOT_ADMIN_PASS,
-        // (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
-        // (DB_SCRIPTS . 'dbCreate.sql'),
-        // ROOT_ADMIN_USER,
-        // ROOT_ADMIN_PASS,
-        // ROOT_ADMIN_EMAIL,
-        // ROOT_ADMIN_GROUP,
-        // ROOT_MANAGER_GROUP,
-        // ROOT_NORMAL_USER_GROUP);
-
     $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
             (DB_SCRIPTS . 'createDBTables.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBTables.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
             (DB_SCRIPTS . 'createDBSequences.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBSequences.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
             (DB_SCRIPTS . 'createDBAutoInsTriggers.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBAutoInsTriggers.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
 
     $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s'),
+        sprintf(('SQLPLUS -S -L %s/%s@%s @%s'),
             ROOT_ADMIN_USER,
             ROOT_ADMIN_PASS,
             (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
             (DB_SCRIPTS . 'createDBComplexTriggers.sql'));
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: "
+        "Executed createDBComplexTriggers.sql script output is: "
                                     . "\r\n==============\r\n" 
                                     . $output 
                                     . "\r\n==============\r\n" );
 
-    $command =
-        sprintf(('SQLPLUS %s/%s@%s @%s %s %s %s %s %s %s'),
-            ROOT_ADMIN_USER,
-            ROOT_ADMIN_PASS,
-            (HOST_IP . ':' . HOST_PORT . '//' . SYS_DB),
-            (DB_SCRIPTS . 'createDBPrcsFcts.sql'),
-            ROOT_ADMIN_USER,
-            ROOT_ADMIN_PASS,
-            ROOT_ADMIN_EMAIL,
-            ROOT_ADMIN_GROUP,
-            ROOT_MANAGER_GROUP,
-            ROOT_NORMAL_USER_GROUP);
+    $format_connection = HOST_IP . ':' . HOST_PORT . '//' . SYS_DB;
+    $script = DB_SCRIPTS.'createDBPrcsFcts.sql';
+    $salt = '$1_2jlh83#@J^Q';
+    $passhash = hash('sha512', ROOT_ADMIN_USER. $salt . ROOT_ADMIN_PASS);
+    $command = sprintf(
+                'SQLPLUS -S -L %s/%s@%s @%s \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\" \"\'%s\'\"',
+                ROOT_ADMIN_USER,
+                ROOT_ADMIN_PASS,
+                $format_connection,
+                $script,
+                ROOT_ADMIN_USER,
+                $passhash,
+                ROOT_ADMIN_EMAIL,
+                ROOT_ADMIN_GROUP,
+                ROOT_MANAGER_GROUP,
+                ROOT_NORMAL_USER_GROUP);
     $output = shell_exec($command);
     Logger::getInstance()->log(LOGGING,
-        "Executed dbCreate.sql script output is: " .
+        "Executed createDBPrcsFcts.sql script output is: " .
         "\r\n==============\r\n" .
         $output .
         "\r\n==============\r\n" );
@@ -271,8 +261,8 @@ function second_phase_install()
     {
         $good_install = inFileStrReplace(
             $filename,
-            "define('INSTALL_PHASE', 2",
-            "define('INSTALL_PHASE', 3");
+            "define('INSTALL_PHASE'                      , 2",
+            "define('INSTALL_PHASE'                      , 3");
         if(!$good_install)
         {
             $error = "Couldn't set the INSTALL_PHASE 3 in the config file!";
@@ -303,6 +293,17 @@ function third_phase_install()
             $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
             throw new Exception($error);
         }
+
+        $good_install =
+            inFileRegexReplace(
+                $filename,
+                "/(date\.timezone\=)[a-zA-Z]+\/[a-zA-Z]+?(?=\n)/",
+                "date.timezone=".SERVERTIMEZONE.";\r\nextension=php_oci8_11g.dll;\r\n");
+        if(!$good_install)
+        {
+            $error = "Couldn't set the server timezone to ". SERVERTIMEZONE ." in the php.ini file!";
+            throw new Exception($error);
+        }
     }
     catch (Exception $e)
     {
@@ -315,8 +316,8 @@ function third_phase_install()
         $good_install =
             inFileStrReplace(
                 $filename,
-                "define('INSTALL_PHASE', 3",
-                "define('INSTALL_PHASE', 0");
+                "define('INSTALL_PHASE'                      , 3",
+                "define('INSTALL_PHASE'                      , 0");
         if(!$good_install)
         {
             $error = "Couldn't set the php_oci8.dll and php_oci8_11g.dll extension in the php.ini file!";
@@ -332,7 +333,7 @@ function third_phase_install()
     return true;
 }
 
-
+//
 //function threadExec(function())
 //{
 //  $thread = new class extends Thread
@@ -359,12 +360,12 @@ function third_phase_install()
 //			We check the precondition in a loop because a Thread can be awoken
 //			by signals other than the one you are waiting for.
 //		*/
-//		$thread->wait();
-//	     }
+//		    $thread->wait();
+//	    }
 //  });
 //
-//  $thread->join();
 //
+//  $thread->join();//
 //}
 //
 

@@ -1,5 +1,27 @@
 -- Creation of the database; Creation of triggers that have a complex functionality and automation (Step 5);
+-- Auto addition of the root admins and managers groups as owners for every item group that's created
+CREATE OR REPLACE TRIGGER trg_auto_own_igrp AFTER INSERT ON ITEMGROUPS FOR EACH ROW
+BEGIN
+  INSERT INTO ITEMGROUPOWNERSHIPS (igOwnerId, igId) VALUES (1 , :NEW.iGroupId);
+  INSERT INTO ITEMGROUPOWNERSHIPS (igOwnerId, igId) VALUES (2 , :NEW.iGroupId);
+END trg_auto_own_igrp;
+/
 
+-- Automatic addition of all root_admins status members into root_admins group and root_managers group
+-- As well as automatic addition of all root_admins AND root_managers status members in all groups
+CREATE OR REPLACE TRIGGER trg_auto_root_add AFTER INSERT ON USERGROUPS FOR EACH ROW
+BEGIN
+  IF (:NEW.uGroupId = 1) THEN
+    FOR v_linie_root_adm IN (SELECT * FROM USERACCS WHERE USERTYPE = 3) LOOP
+      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS) VALUES (v_linie_root_adm.USERID, :NEW.uGroupId, 1, 1);
+    END LOOP;
+  ELSE
+    FOR v_linie_root_adm_mng IN (SELECT * FROM USERACCS WHERE USERTYPE IN (2,3)) LOOP
+      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS) VALUES (v_linie_root_adm_mng.USERID, :NEW.uGroupId, 1, 1);
+    END LOOP;
+  END IF;
+END trg_auto_root_add;
+/
 -- Automatic issueing of warning notifications for items that arrive at or lower than the warning treshold
 CREATE OR REPLACE TRIGGER trg_auto_warn BEFORE UPDATE ON ITEMS FOR EACH ROW
 DECLARE
@@ -76,7 +98,6 @@ BEGIN
   END CASE;
 END trg_auto_warn;
 /
-
 -- Automatic calculation of the nr of members in a group and nr of managers in a group -- Erroneous for now --
 --CREATE OR REPLACE TYPE nrOfMbsMngs_line AS OBJECT (
 --  uGroupId     NUMBER,
@@ -141,7 +162,6 @@ END trg_auto_warn;
 --      SELF.nrOfMembers := 0;
 --      SELF.nrOfManagers := 0;
 --    END;
---
 --END;
 --/
 --CREATE OR REPLACE TYPE tbl_of_nrOfMbsMngs AS TABLE OF nrOfMbsMngs_line;
@@ -276,3 +296,5 @@ END trg_auto_warn;
 --  END AFTER STATEMENT;
 --END trg_auto_nrOf;
 --/
+
+COMMIT;

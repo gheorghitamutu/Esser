@@ -22,6 +22,7 @@
     justify-content: center;
     align-items:center;
     border: 1px solid black;
+    /*background-color: rgba(0,63,145, 0.9)*/
 }
 .content-header-user-landing-page{
     display:flex;
@@ -44,10 +45,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom:7%;
+    margin-bottom:3%;
+
 }
 #notification-button{
     font-size:180%;
+    cursor:pointer;
 }
 
 
@@ -76,36 +79,23 @@
 /*-----------------------------------  Products ------------------------------------*/
 .container-title-items{
     height: 5%;
-    width: 99%;
+    width: 100%;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    border-top: 4px solid black;
-    border-right:4px solid black;
-    border-left:4px solid black;
+    border: 2px solid black;
     margin-top:3%;
-
+    padding:20px;
 }
 .container-title-items > div{
     font-size: 200%;
+
+}
+.title-statistics-items, .title-statistics-users{
+    padding:20px;
 }
 
-
-
-
-.items-content-user-landing-page{
-    width: 99%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction: column;
-    height: 75%;
-}
-
-.row-items{
-    display:flex;
-    flex-direction:column;
-}
 .header-row-items{
     display:flex;
     flex-direction:row;
@@ -119,203 +109,147 @@
     width:100%;
     text-align: center;
 }
-.body-row-items{
-    display:flex;
-    flex-direction:row;
+
+.items-content-user-landing-page{
+    width: 100%;
     border: 1px solid black;
-    justify-content: space-evenly;
+    display:grid;
+    grid-template-columns: auto auto auto;
+    height: 75%;
 }
 
-.body-row-items >div{
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    width:100%;
+
+.items-content-user-landing-page>div{
+    border: 1px solid black;
+    margin:2px;
     text-align: center;
+    max-height: 100px;
+}
+/* max-height its just for showof  */
+.header-items, .body-items{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 
-.statistics-items-container-user-landing-page{
-    height: 17%;
-    width: 99%;
-    margin-top:5%;
+.body-statistics-items,.body-statistics-users{
+
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+}
+.body-statistics-items-element,.body-statistics-users-element{
+    margin:3px;
     border: 1px solid black;
     display:flex;
     flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    padding:4px;
 }
-.title-statistics-items{
+.body-statistics-item-element >div,.body-statistics-user-element >div{
+    text-align:center;
+    font-size:130%;
+}
+
+
+.statistics-users-container-user-landing-page,.statistics-items-container-user-landing-page{
+    width: 100%;
+    margin-top:5%;
+    display:flex;
+    flex-direction:column;
+}
+.title-statistics-users,.title-statistics-items{
     height:20%;
     display:flex;
     flex-direction:column;
     justify-content: center;
     align-items: center;
-    border-top: 4px solid black;
-    border-right: 4px solid black;
-    border-left: 4px solid black;
-    border-bottom: 1px solid black;
-    font-size: 150%;
+    border: 2px solid black;
+    font-size: 150%
 }
-.body-statistics-items{
-    height:80%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction:column;
-}
-.row-statistics-items{
-    width:100%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction:row;
-}
-.header-row-statistics-items{
-    width:80%;
-}
-.header-row-statistics-items>div{
-    border: 1px solid black;
-    text-align:left;
-    width:100%;
-}
-.content-row-statistics-items{
-    width:20%;
-}
-.content-row-statistics-items >div{
-    border: 1px solid black;
-    text-align:center;
-    width:100%;
-}
+
+
+
 /*---------------------------------------------     Users --------------------------------------*/
 
 .container-title-users{
     height: 5%;
-    width: 99%;
+    width: 100%;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items:center;
-    border-top: 4px solid black;
-    border-right:4px solid black;
-    border-left:4px solid black;
+    border: 2px solid black;
     margin-top:3%;
+    padding:20px;
 
 }
 .container-title-users > div{
     font-size: 200%;
 }
-
+/*
+.users-content-user-landing-page{
+ max-height:800px;
+ overflow-y:scroll;
+}
+ */
 
 .users-content-user-landing-page{
 
-    width: 99%;
+    width: 100%;
     border: 1px solid black;
-    display:flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto auto;
     height:75%;
 }
-
-.row-users{
-    display:flex;
-    flex-direction:column;
-
-}
-.header-row-users{
-    display:flex;
-    flex-direction:row;
-    border: 2px solid black;
-    justify-content: space-evenly;
-    font-size: 150%;
-}
-.header-row-users > div{
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    width:100%;
-    text-align: center;
-}
-.body-row-users{
-    display:flex;
-    flex-direction:row;
+.users-content-user-landing-page>div{
     border: 1px solid black;
-    justify-content: space-evenly;
-}
-
-.body-row-users >div{
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    width:100%;
+    margin:2px;
     text-align: center;
 }
 
-
-
-.statistics-users-container-user-landing-page{
-    height: 17%;
-    width: 99%;
-    margin-top:5%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction:column;
-}
-.title-statistics-users{
-    height:20%;
+.header-users, .body-users{
     display:flex;
     flex-direction:column;
     justify-content: center;
     align-items: center;
-    border-top: 4px solid black;
-    border-right: 4px solid black;
-    border-left: 4px solid black;
-    border-bottom: 1px solid black;
-    font-size: 150%
-}
-.body-statistics-users{
-    height:80%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction:column;
-}
-.row-statistics-users{
-    width:100%;
-    border: 1px solid black;
-    display:flex;
-    flex-direction:row;
-}
-.header-row-statistics-users{
-    width:80%;
-}
-.header-row-statistics-users>div{
-    border: 1px solid black;
-    text-align:left;
-    width:100%;
-}
-.content-row-statistics-users{
-    width:20%;
-}
-.content-row-statistics-users >div{
-    border: 1px solid black;
-    text-align:center;
-    width:100%;
+
 }
 
-
-
-
-
-.body-row-users > div, .body-row-items > div,  .header-row-statistics-users>div, .content-row-statistics-users >div,.header-row-statistics-items>div, .content-row-statistics-items >div{
-    font-size: 130%;
-}
 /* ------------------------------   Media screen  -------------------------------------------------------*/
+@media screen and (max-width: 1800px) {
+.items-container-user-landing-page, .users-container-user-landing-page{
+    width:48%;
+}
 
-
-@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 1250px) {
     .container-content-user-landing-page{
         flex-direction: column;
     }
     .container-content-user-landing-page >div{
         width:100%;
     }
-    .body-row-users > div, .body-row-items > div,  .header-row-statistics-users>div, .content-row-statistics-users >div,.header-row-statistics-items>div, .content-row-statistics-items >div{
-        font-size: 130%;
+
+    .header-items>div, .body-items>div,.header-users>div, .body-users>div{
+        margin-bottom :3px;
+        margin-top:3px;
+        text-align: center;
+        font-size: 110%;
+    }
+    .container-title-items,.container-title-users,.title-statistics-items, .title-statistics-users{
+        padding:12px;
     }
 }
 
+@media screen and (max-width: 650px) {
+
+}
 @media screen and (max-width: 550px) {
     #content-row-statistics-user-last-item >div{
         height:100%;
@@ -347,15 +281,8 @@
         width:80%;
         margin-left:20%;
     }
-    .body-row-users > div, .body-row-items > div,  .header-row-statistics-users>div, .content-row-statistics-users >div,.header-row-statistics-items>div, .content-row-statistics-items >div{
-        font-size: 130%;
-    }
 }
-@media screen and (max-width: 375px) {
-    .body-row-users > div, .body-row-items > div,  .header-row-statistics-users>div, .content-row-statistics-users >div,.header-row-statistics-items>div, .content-row-statistics-items >div{
-        font-size: 150%;
-    }
-}
+
 
 
 

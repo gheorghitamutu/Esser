@@ -3,11 +3,71 @@
 <?php include VIEW . 'admincp/menu/header_bar.phtml';?>
 
 <div class="admcp-tables-body">
+
     <?php include VIEW . 'admincp/menu/menu.phtml';?>
             <div class="admcp-rt-box">
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> User Management </h3>
+                        <div class="flex-table">
+                            <h2 class="adm-rt-title"> Active Users </h2>
+                            <div class="flex-table-head">
+                                <div class="flex-table-row">
+                                    <div class="flex-table-th"> Username </div>
+                                    <div class="flex-table-th"> Joined Date </div>
+                                    <div class="flex-table-th"> Account Level </div>
+                                    <div class="flex-table-th"> Edit </div>
+                                    <div class="flex-table-th"> Delete </div>
+                                    <div class="flex-table-th"> Action </div>
+                                </div>
+                            </div>
+                            <div class="flex-table-body">
+                            <?php
+                            for ($i = 0; $i < count($this->view_data['approvedUsers']['activeUsers']); ++$i) {
+                                echo
+                                 "<div class=\"flex-table-row\">".PHP_EOL
+                                    ."<div class=\"flex-table-td\"> ".$this->view_data['approvedUsers']['activeUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['activeUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['activeUsers'][$i]['userType']. "</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/suspenduser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"suspenduser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Suspend </button></form></div>".PHP_EOL
+                                ."</div>";
+                                }?>
+                            </div>
+                        </div>
+                        <div class="flex-table">
+                            <h2 class="adm-rt-title"> Suspended Users </h2>
+                            <div class="flex-table-head">
+                                <div class="flex-table-row">
+                                    <div class="flex-table-th"> Username </div>
+                                    <div class="flex-table-th"> Joined Date </div>
+                                    <div class="flex-table-th"> Account Level </div>
+                                    <div class="flex-table-th"> Edit </div>
+                                    <div class="flex-table-th"> Delete </div>
+                                    <div class="flex-table-th"> Action </div>
+                                </div>
+                            </div>
+                            <div class="flex-table-body">
+                                <?php
+                                for ($i = 0; $i < count($this->view_data['approvedUsers']['suspendedUsers']); ++$i) {
+                                    echo
+                                        "<div class=\"flex-table-row\">".PHP_EOL
+                                        ."<div class=\"flex-table-td\"> ".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['suspendedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['suspendedUsers'][$i]['userType']. "</div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/unsuspenduser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"unsuspenduser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Unsuspend </button></form></div>".PHP_EOL
+                                        ."</div>";
+                                }?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admcp-rt-cnt-box">
+                    <div class="admcp-rt-content">
+                        <h3 class="adm-rt-title"> Approve Users </h3>
                         <div class="flex-table">
                             <div class="flex-table-head">
                                 <div class="flex-table-row">
@@ -15,17 +75,23 @@
                                     <div class="flex-table-th"> Joined Date </div>
                                     <div class="flex-table-th"> Account Level </div>
                                     <div class="flex-table-th"> Edit </div>
-                                    <div class="flex-table-th"> Delete </div>    
+                                    <div class="flex-table-th"> Delete </div>
+                                    <div class="flex-table-th"> Approve </div>
                                 </div>
                             </div>
                             <div class="flex-table-body">
-                                <div class="flex-table-row">
-                                    <div class="flex-table-td"> Edward </div>
-                                    <div class="flex-table-td"> 28/02/2018 </div>
-                                    <div class="flex-table-td"> Admin </div>
-                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="window.location='editor'"> Edit </button> </div>
-                                    <div class="flex-table-td"> <button type="submit" class="admcp-srch-btn" onclick="deleteUserByID('getUserID('Edward')')"> Delete </button> </div>    
-                                </div>
+                            <?php
+                            for ($i = 0; $i < count($this->view_data['unapprovedUsers']); ++$i) {
+                                echo
+                                "<div class=\"flex-table-row\">".PHP_EOL
+                                    ."<div class=\"flex-table-td\">".$this->view_data['unapprovedUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userType']. "</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/approveuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"approveuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Approve </button></form></div>".PHP_EOL
+                                ."</div>";
+                            }?>
                             </div>
                         </div>
                     </div>
