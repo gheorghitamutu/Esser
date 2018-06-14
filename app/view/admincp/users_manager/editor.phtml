@@ -17,24 +17,21 @@
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> User Account Details </h3>
                         <form class="usr-edit-form" method="POST" action="/admincp/usereditor/edituser">
-                            <fieldset>
-                            <legend></legend>    
                                 <div class="ctrl-group">                                
-                                    <label> Account Name </label> <input type="text" name="accname" id="acc-username" required="required" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userName'] : ''; ?>" placeholder="User's name">
+                                    <label> Account Name </label> <input type="text" name="accname" id="acc-username" required="required" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userName'] : ""; ?>" placeholder="User's name">
                                 </div>
                                 <div class="ctrl-group">                                
-                                    <label> Account Level </label> <input type="text" name="acclevel" id="acc-level" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userType'] : ''; ?>"  placeholder="User's type">
+                                    <label> Account Level </label> <input type="text" name="acclevel" id="acc-level" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userType'] : ""; ?>"  placeholder="User's type">
                                 </div>
                                 <div class="ctrl-group"> 
-                                    <label> Account Email </label> <input type="email" name="accemail" id="acc-email" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ''; ?>"  placeholder="User's email">
+                                    <label> Account Email </label> <input type="email" name="accemail" id="acc-email" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ""; ?>"  placeholder="User's email">
                                 </div>
                                 <div class="ctrl-group">
-                                    <label> Account State </label> <input type="text" name="accstate" id="acc-state" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userState'] : ''; ?>" placeholder="User's state">
+                                    <label> Account State </label> <input type="text" name="accstate" id="acc-state" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userState'] : ""; ?>" placeholder="User's state">
                                 </div>
                                 <div class="ctrl-group"> 
                                     <label> New Password </label> <input type="password" name="accnewpswd" id="acc-password" value="" placeholder="Insert New Password">
                                 </div>
-                            </fieldset>
                             <button type="submit" class="admcp-save-btn"> Save </button>
                         </form>
                     </div>
