@@ -44,6 +44,12 @@ class UserController extends Controller
             case 'user/users':
                 $this->users();
                 break;
+            case 'user/reports':
+                $this->reports();
+                break;
+            case 'user/reports/download':
+                $this->download_report();
+                break;
             case 'user/admincp':
                 $this->logout();
                 self::redirect('/admincp');
@@ -191,8 +197,6 @@ class UserController extends Controller
     public function notifications()
     {
         // get the notifications
-
-
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
@@ -368,7 +372,7 @@ class UserController extends Controller
         foreach ($usrntfrelation as $relation)
         {
             $notifications[] = $this->model_class->get_mapper()->findAll(
-                $where = "ntfId = ". $usrntfrelation["usrNNotificationId"],
+                $where = "ntfId = ". $relation["usrNNotificationId"],
                 $fields = false)[0];
         }
 
@@ -381,5 +385,38 @@ class UserController extends Controller
         }
 
         return $notifications;
+    }
+
+    private function reports()
+    {
+        $this->model('AutomatedReport');
+
+        $reports = $this->model_class->get_mapper()->findAll(
+            $fields = false);
+
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . 'reports',
+            array
+            (
+                'reports' => $reports
+
+            ),
+            'Reports!');
+    }
+
+    private function download_report()
+    {
+        $this->model('AutomatedReport');
+
+        $reports = $this->model_class->get_mapper()->findAll(
+            $where = "reportId = " . $_POST["download_report"],
+            $fields = false);
+
+        $file = $reports[0]["reportPath"];
+        header("Content-Description: File Transfer");
+        header("Content-Type: application/octet-stream");
+        header("Content-Disposition: attachment; filename='" . basename($file) . "'");
+        readfile ($file);
+        exit();
     }
 }
