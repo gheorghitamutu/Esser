@@ -27,9 +27,9 @@
                                     ."<div class=\"flex-table-td\"> ".$this->view_data['approvedUsers'][$i]['userName'] ."</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers'][$i]['userType']. "</div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\"> <form><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser". $this->view_data['approvedUsers'][$i]['userId'] . "\" onclick=\"window.location='usereditor'\"> Edit </button></form></div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\"> <form><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser". $this->view_data['approvedUsers'][$i]['userId'] . "\" onclick=\"window.location='usermanager'\"> Delete </button></form></div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\"> <form><button type=\"submit\" class=\"admcp-srch-btn\" name=\"suspenduser". $this->view_data['approvedUsers'][$i]['userId'] . "\" onclick=\"window.location='usermanager'\"> Suspend </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['approvedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['approvedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/suspenduser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"suspenduser\" value=\"".$this->view_data['approvedUsers'][$i]['userId']."\"> Suspend </button></form></div>".PHP_EOL
                                 ."</div>";
                                 }?>
                             </div>
@@ -60,7 +60,7 @@
                                     ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userType']. "</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/approveuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"suspenduser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Suspend </button></form></div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/approveuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"approveuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Approve </button></form></div>".PHP_EOL
                                 ."</div>";
                             }?>
                             </div>
