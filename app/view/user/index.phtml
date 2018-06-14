@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="body-statistics-items-element">
-                            <div><?php echo $this->view_data['productsContainer']['avgQuantity'];?></div>
+                            <div><?php echo round($this->view_data['productsContainer']['avgQuantity'],2);?></div>
                         </div>
 
                 </div>
@@ -160,7 +160,11 @@
                         <div><?php
                             $users=$this->view_data['usersContainer']['countUsers'];
                             $groups=$this->view_data['usersContainer']['countGroups'];
-                            echo $users/$groups;
+                            if($groups !=0){
+                                echo (round($users/$groups,2));
+                            }else{
+                                echo (0);
+                            }
                             ?>
                         </div>
                     </div>

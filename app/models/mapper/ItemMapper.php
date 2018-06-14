@@ -30,6 +30,7 @@ class ItemMapper extends AbstractMapper
     {
         $useracc = array(
             'itemId'            =>  array_key_exists('ITEMID', $data) ? $data['ITEMID'] : '',
+            'itemName'            =>  array_key_exists('ITEMNAME', $data) ? $data['ITEMNAME'] : '',
             'itemDescription'   =>  array_key_exists('ITEMDESCRIPTION', $data) ? $data['ITEMDESCRIPTION'] : '',
             'itemQuantity'      =>  array_key_exists('ITEMQUANTITY', $data) ? $data['ITEMQUANTITY'] : '',
             'iGroupId'          =>  array_key_exists('IGROUPID', $data) ? $data['IGROUPID'] : '',

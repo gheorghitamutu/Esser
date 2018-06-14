@@ -75,8 +75,7 @@ class UserController extends Controller
             $fields=false
         );
 
-        foreach($query_group_relations as $relation){ // foreach group that current user is in relation with,
-            // find all users(name,email) and their group(groupName)
+        foreach($query_group_relations as $relation){ // foreach group in relation find relation that user are involved in.
 
             $this->model('Usergroup');
             $querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
@@ -84,20 +83,28 @@ class UserController extends Controller
                 $fields=false
             );
 
-            $this->model('Useracc');// findById => return 1 user
-            $querry_users=$this->model_class->get_mapper()->findAll(
-                $where=" USERID= ".$relation['userId'],
+            $this->model('GroupRelation');// findById => return 1 user
+            $querry_rel_users=$this->model_class->get_mapper()->findAll(
+                $where="UGROUPID= ".$relation['uGroupId'],
                 $fields=false
             );
 
-            // creating result
-            foreach($querry_users as $user ){
-                array_push($users, array
-                (
-                    'userName'=>$user['userName'],
-                    'userGroup' => $querry_groups['0']['uGroupName'],
-                    'userEmail'=>$user['userEmail']
-                ));
+            foreach($querry_rel_users as $querry_rel_user){
+                $this->model('Useracc');// findById => return 1 user
+                $querry_users = $this->model_class->get_mapper()->findAll(
+                    $where = " USERID= " . $querry_rel_user['userId'],
+                    $fields = false
+                );
+
+                // creating result
+                foreach ($querry_users as $user) {
+                    array_push($users, array
+                    (
+                        'userName' => $user['userName'],
+                        'userGroup' => $querry_groups['0']['uGroupName'],
+                        'userEmail' => $user['userEmail']
+                    ));
+                }
             }
         }
         //result users[(userName,userEmail,userGroup)]
@@ -122,6 +129,7 @@ class UserController extends Controller
         );
 
         foreach($query_group_relations as $relation){
+
         // for every group that user if part of, search in itemGroupOwnership the items
             $this->model('Itemgroupownership');
             $querry_ownership_items=$this->model_class->get_mapper()->findAll(
@@ -147,21 +155,29 @@ class UserController extends Controller
                     ++$count_items_groups;
                     //for every items create result
                     foreach($querry_items as $item) {
+                        $avg_quantity=$avg_quantity+$item['itemQuantity'];
                         array_push($items, array
                         (
                             'itemName' => $item['itemName'],
+                            'itemId' => $item['itemId'],
                             'itemQuantity' => $item['itemQuantity'],
-                            'itemGroup' => $item_group['iGroupName']
+                            'itemGroup' => $item_group['iGroupName'],
                         ));
                     }
                 }
             }
         }
-
+        $unique_items=array();
+        foreach($items as $item){
+            if(!in_array($item, $unique_items))
+            {
+                array_push($unique_items,$item);
+            }
+        }
         return [
-            'items'=>$items,
+            'items'=>$unique_items,
             'countItems' => count($items),
-            'avgQuantity' => ( (count($items)? $avg_quantity/count($items): 0)),
+            'avgQuantity' => ( (count($items)? ($avg_quantity/count($items)): 0)),
             'countItemsGroups' =>$count_items_groups
         ];
 
