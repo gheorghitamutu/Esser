@@ -109,6 +109,16 @@ class RegisterController extends Controller
             )
         );
 
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => "'Normal user " . $username     . " registered!'",
+                'uLogSourceIP'      => "'" . $_SERVER["REMOTE_ADDR"]              . "'"
+            )
+        );
+
         return $result;
     }
 }
