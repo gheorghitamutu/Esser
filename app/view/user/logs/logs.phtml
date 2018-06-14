@@ -4,86 +4,24 @@
 
     <div class="container">
         <h1>Activity!</h1>
+        <ul>
+            <?php
+            if(!empty($this->view_data["userlogs"]))
+            {
+                foreach ($this->view_data["userlogs"] as $log)
+                {
+                    echo "<li> <u>" . $log["uLogCreatedAt"] . "</u> " . $log["uLogDescription"] . "</li>";
+                }
+            }
+            else
+            {
+                echo "<li> <u>There are no activity logs! </u></li>";
+            }
+            ?>
+        </ul>
     </div>
 
-    <ul>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-        <li> <u>28-02-2018 19:00:01</u>
-            <span style="color: blue"><strong>2</strong></span> <a href="#">Coffee bags</a> were taken by
-            <a href="#">Office 5</a> !
-            <span style="color: red"><strong>0</strong></span> <a href="#">Coffee bags</a> left!</li>
-    </ul>
+
 </div>
 
 <?php include VIEW . 'user/footer.phtml';?>
