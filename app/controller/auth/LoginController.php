@@ -60,14 +60,13 @@ class LoginController extends Controller
 
     private function check_login()
     {
-        if(!$this->is_user_approved())
-        {
-            self::redirect('/login/unapproved');
-            return;
-        }
-
         if($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = false))
         {
+            if(!$this->is_user_approved())
+            {
+                self::redirect('/login/unapproved');
+                return;
+            }
             self::redirect('/login/success');
         }
         else

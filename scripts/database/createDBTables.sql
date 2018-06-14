@@ -104,6 +104,7 @@ CREATE TABLE USERACCS(
   userUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_userId PRIMARY KEY(userId),
   CONSTRAINT unq_useremail UNIQUE(userEmail),
+  CONSTRAINT unq_username UNIQUE(userName),
   CONSTRAINT not_null_usertype CHECK (userType is not null),
   CONSTRAINT not_null_userstate CHECK (userState is not null)
 )

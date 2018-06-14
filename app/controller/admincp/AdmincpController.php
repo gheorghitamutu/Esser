@@ -66,6 +66,9 @@ class AdmincpController extends Controller
             case 'admincp/usermanager/suspenduser':
                 $this->suspenduser();
                 break;
+            case 'admincp/usermanager/unsuspenduser':
+                $this->unsuspenduser();
+                break;
             case 'admincp/databaseeditor':
                 $this->databaseeditor();
                 break;
@@ -93,10 +96,46 @@ class AdmincpController extends Controller
         if (key_exists('userToEdit', $_SESSION)) {
             unset($_SESSION['userToEdit']);
         }
+
+        if(!$this->is_user_approved())
+        {
+            self::redirect('/login/unapproved');
+            return;
+        }
+
         if ($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = true)) {
             self::redirect('/admincp/dashboard');
         } else {
             self::redirect('/admincp');
+        }
+    }
+
+    private function is_user_approved()
+    {
+        // checks if the user account is approved or suspended
+        // checks if requested email exists in database
+        $username = $_POST["uname"];
+        $password = $_POST["psw"];
+
+        $salt = '$1_2jlh83#@J^Q';
+        $password_hash = hash('sha512', $username . $salt . $password);
+
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = "userName = '$username' AND userPass = '$password_hash'",
+            $fields = false);
+
+        if (count($user) === 0 || count($user) === null)
+        {
+            return false;
+        }
+        else
+        {
+            if($user[0]["userType"] == 0 || $user[0]["userState"] == 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 
@@ -708,6 +747,51 @@ class AdmincpController extends Controller
             } else {
                 $this->showmessage(false,
                     'Something went wrong while trying to suspend the user!',
+                    '/admincp/usermanager');
+            }
+        }
+    }
+
+    private function unsuspenduser()
+    {
+        $this->model('Useracc');
+        $user = $this->model_class->get_mapper()->findAll(
+            $where = 'USERID = ' . $_POST['unsuspenduser']
+        );
+
+        if ($_SESSION['userid'] === $user[0]['userId']) {
+            session_destroy();
+        } else {
+            $query = $this->model_class->get_mapper()->update
+            (
+                $table = 'USERACCS',
+                $fields = array
+                (
+                    'USERSTATE' => 1
+                ),
+                $where = array
+                (
+                    'USERID' => $user[0]['userId']
+                )
+            );
+            if (is_array($query)) {
+                $this->model('UserLog');
+                $this->model_class->get_mapper()->insert
+                (
+                    $table = 'USERLOGS',
+                    $fields = array
+                    (
+                        'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
+                            ' has unsuspended user ' . $user[0]['userName'] . ' !',
+                        'uLogSourceIP' => $_SESSION['login_ip']
+                    )
+                );
+                $this->showmessage(true,
+                    'User was unsuspended successfully!',
+                    '/admincp/usermanager');
+            } else {
+                $this->showmessage(false,
+                    'Something went wrong while trying to unsuspend the user!',
                     '/admincp/usermanager');
             }
         }
