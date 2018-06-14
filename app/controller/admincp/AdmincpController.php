@@ -188,6 +188,183 @@ class AdmincpController extends Controller
         }
     }
 
+    private function edituser()
+    {
+        if (!isset($_POST['accname']) || strlen($_POST['accname']) == 0 ) {
+            $this->showmessage($opsuccess = false, $opmessage = 'You must set an existing acccount name!', $redirectto = '/admincp/usereditor');
+        }
+        else
+        {
+            $this->model('Useracc');
+            $user = $this->model_class->get_mapper()->findAll(
+                $where = ' USERNAME = \'' . $_POST['accname'] . '\'',
+                $fields = '*'
+            );
+
+            if (count($user) == 0 || empty($user)) {
+
+                echo "IN COUNT DE USER CRAPA!";
+                exit(0);
+                $this->showmessage($opsuccess = false, $opmessage = 'You must set an existing acccount name!', $redirectto = '/admincp/usereditor');
+            }
+            else {
+                if (strlen($_POST['acclevel']) < 4) {
+                    $islevel = false;
+                }
+                else {
+                    $islevel = true;
+                }
+
+                if (strlen($_POST['accemail']) < 4) {
+                    $isemail = false;
+                }
+                else {
+                    $isemail = true;
+                }
+
+                if (strlen($_POST['accstate']) < 4) {
+                    $isstate = false;
+                }
+                else {
+                    $isstate = true;
+                }
+
+                if (strlen($_POST['accnewpswd']) < 4 or strlen($_POST['accnewpswd']) > 64) {
+                    $ispswd = false;
+                    $opsuccess = false;
+                    $opmessage = 'Password must be between 4 and 64 characters long!';
+                }
+                else {
+                    $ispswd = true;
+                    $opmessage = '';
+                    $opsuccess = true;
+                }
+
+                if ($isemail == true && !filter_var($_POST['accemail'], FILTER_VALIDATE_EMAIL)) {
+                    $opmessage = $opmessage . "\n". 'Bad email format detected!';
+                    $opsuccess = false;
+                }
+                elseif($isemail == true) {
+                    $email = $_POST['accemail'];
+                }
+
+                if ($islevel == true && !filter_var($_POST['acclevel'], FILTER_SANITIZE_STRING)) {
+                    $opmessage = $opmessage . "\n" . "Account level must be in a string format!";
+                    $opsuccess = false;
+
+                    var_dump($opmessage, $opsuccess);
+                    exit(0);
+                }
+                elseif ($islevel == true) {
+                    if (!in_array($_POST['acclevel'], ['Root Admin', 'Root Manager', 'User', 'Unapproved'], true)) {
+                        $opmessage = $opmessage . "\n" . "Account level can only be: 'Root Admin', 'Root Manager', 'User' or 'Unapproved' !";
+                        $opsuccess = false;
+
+                        var_dump($opmessage, $opsuccess);
+                        exit(0);
+                    }
+                    else {
+                        switch ($_POST['acclevel']) {
+                            case 'Root Admin':
+                                $level = 3;
+                                break;
+                            case 'Root Manager':
+                                $level = 2;
+                                break;
+                            case 'User':
+                                $level = 1;
+                                break;
+                            case 'Unapproved':
+                                $level = 0;
+                                break;
+                        }
+                    }
+                }
+
+                if ($isstate == true && !filter_var($_POST['accstate'], FILTER_SANITIZE_STRING)) {
+                    $state = false;
+                    $opmessage = $opmessage . "\n" . "Account level must be in a string format!";
+                    $opsuccess = false;
+                }
+                elseif ($isstate == true) {
+                    if (!in_array($_POST['accstate'], ['Active', 'Suspended'], true)) {
+                        $state = false;
+                        $opmessage = $opmessage . "\n" . "Account state can only be: ''Active' or 'Suspended'!";
+                        $opsuccess = false;
+                    }
+                    else {
+                        switch ($_POST['accstate']) {
+                            case 'Active':
+                                $state = 1;
+                                break;
+                            case 'Suspended':
+                                $state = 0;
+                                break;
+                        }
+                    }
+                }
+
+                if ($opsuccess) {
+                    $newpswd = $_POST['accnewpswd'];
+                    $salt = '$1_2jlh83#@J^Q';
+                    $newpswd = hash('sha512', $_POST['accname'] . $salt . $newpswd);
+                    $this->model('Useracc');
+                    $query = $this->model_class->get_mapper()->update
+                    (
+                        $table = 'USERACCS',
+                        $fields = array
+                        (
+                            'USERTYPE'  => ($islevel      ? ($level)           : ('USERTYPE') ),
+                            'USERSTATE' => ($isstate      ? ($state)           : ('USERSTATE') ),
+                            'USEREMAIL' => ($isemail      ? ("'".$email."'")   : ('USEREMAIL') ),
+                            'USERPASS'  => ($ispswd       ? ("'".$newpswd."'") : ('USERPASS') )
+                        ),
+                        $where = array
+                        (
+                            'USERID' => $user[0]['userId']
+                        )
+                    );
+                    if (is_array($query)) {
+                        $this->model('UserLog');
+                        $this->model_class->get_mapper()->insert
+                        (
+                            $table = 'USERLOGS',
+                            $fields = array
+                            (
+                                'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
+                                    ' has edited user ' . $user[0]['userName'] . ' !',
+                                'uLogSourceIP' => $_SESSION['login_ip']
+                            )
+                        );
+                        $this->showmessage($opsuccess,
+                            'You have succesfully edited the user!',
+                            '/admincp/usereditor'
+                        );
+                    }
+                    else {
+                        $this->showmessage($opsuccess,
+                            'Something went wrong while trying to edit user!',
+                            '/admincp/usereditor'
+                        );
+                    }
+                }
+                else {
+                    $this->showmessage($opsuccess,
+                        $opmessage,
+                        '/admincp/usereditor'
+                    );
+                }
+            }
+        }
+    }
+
+    private function showmessage($opsucces, $opmessage, $redirectto)
+    {
+        $_SESSION['opsuccess'] = $opsucces;
+        $_SESSION['opmessage'] = $opmessage;
+        self::redirect($redirectto);
+    }
+
     private function searchuser()
     {
         if (isset($_POST['searchuser'])) {
@@ -217,7 +394,7 @@ class AdmincpController extends Controller
             }
         }
         else {
-                unset($_SESSION['userToEdit']);
+            unset($_SESSION['userToEdit']);
             // Need to implement a fail message delivery .. (You need to offer some search criterias first!)
             self::redirect('/admincp/usereditor');
         }
@@ -414,8 +591,9 @@ class AdmincpController extends Controller
         );
 
         if ($_SESSION['userid'] === $user[0]['userId']) {
-            // Need to implement a fail message delivery .. (Cannot delete or suspend your own account!)
-            self::redirect('/admincp/usermanager');
+            $this->showmessage(false,
+                'Cannot delete your own account!',
+                '/admincp/usermanager');
         } else {
             $query = $this->model_class->get_mapper()->delete(
                 $table = 'USERACCS',
@@ -424,9 +602,12 @@ class AdmincpController extends Controller
                     'USERID' => $user[0]['userId']
                 )
             );
+
             if ($query) {
                 $this->model('UserLog');
-                $this->model_class->get_mapper()->insert(
+                $this->model_class->get_mapper()->insert
+                (
+                    $table = 'USERLOGS',
                     $fields = array
                     (
                         'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
@@ -434,11 +615,13 @@ class AdmincpController extends Controller
                         'uLogSourceIP' => $_SESSION['login_ip']
                     )
                 );
-                // Need to implement a success message delivery .. (User was deleted succesfully!)
-                self::redirect('/admincp/usermanager');
+                $this->showmessage(true,
+                    'User was deleted successfully!',
+                    '/admincp/usermanager');
             } else {
-                // Need to implement a fail message delivery .. (Could not delete user because some reasons!)
-                self::redirect('/admincp/usermanager');
+                $this->showmessage(false,
+                    'Something went wrong while trying to delete the user!',
+                    '/admincp/usermanager');
             }
         }
     }
@@ -450,7 +633,8 @@ class AdmincpController extends Controller
             $where = 'USERID = ' . $_POST['approveuser']
         );
 
-        $query = $this->model_class->get_mapper()->update(
+        $query = $this->model_class->get_mapper()->update
+        (
             $table = 'USERACCS',
             $fields = array
             (
@@ -461,9 +645,11 @@ class AdmincpController extends Controller
                 'USERID' => $user[0]['userId']
             )
         );
-        if ($query) {
+        if (is_array($query)) {
             $this->model('UserLog');
-            $this->model_class->get_mapper()->insert(
+            $this->model_class->get_mapper()->insert
+            (
+                $table = 'USERLOGS',
                 array
                 (
                     'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
@@ -471,12 +657,14 @@ class AdmincpController extends Controller
                     'uLogSourceIP' => $_SESSION['login_ip']
                 )
             );
-            // Need to implement a success message delivery .. (User was approved succesfully!)
-            self::redirect('/admincp/usermanager');
+            $this->showmessage(true,
+                'User was approved successfully!',
+                '/admincp/usermanager');
         }
         else {
-            // Need to implement a fail message delivery .. (Could not approve user because some reasons!)
-            self::redirect('/admincp/usermanager');
+            $this->showmessage(false,
+                'Something went wrong while trying to approve the user!',
+                '/admincp/usermanager');
         }
     }
 
@@ -488,10 +676,12 @@ class AdmincpController extends Controller
         );
 
         if ($_SESSION['userid'] === $user[0]['userId']) {
-            // Need to implement a fail message delivery .. (Cannot delete or suspend your own account!)
-            self::redirect('/admincp/usermanager');
+            $this->showmessage(false,
+                'Cannot suspend your own account!',
+                '/admincp/usermanager');
         } else {
-            $query = $this->model_class->get_mapper()->update(
+            $query = $this->model_class->get_mapper()->update
+            (
                 $table = 'USERACCS',
                 $fields = array
                 (
@@ -502,9 +692,11 @@ class AdmincpController extends Controller
                     'USERID' => $user[0]['userId']
                 )
             );
-            if ($query) {
+            if (is_array($query)) {
                 $this->model('UserLog');
-                $this->model_class->get_mapper()->insert(
+                $this->model_class->get_mapper()->insert
+                (
+                    $table = 'USERLOGS',
                     $fields = array
                     (
                         'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
@@ -512,11 +704,13 @@ class AdmincpController extends Controller
                         'uLogSourceIP' => $_SESSION['login_ip']
                     )
                 );
-                // Need to implement a success message delivery .. (User was suspended succesfully!)
-                self::redirect('/admincp/usermanager');
+                $this->showmessage(true,
+                    'User was suspended successfully!',
+                    '/admincp/usermanager');
             } else {
-                // Need to implement a fail message delivery .. (Could not suspend user because some reasons!)
-                self::redirect('/admincp/usermanager');
+                $this->showmessage(false,
+                    'Something went wrong while trying to suspend the user!',
+                    '/admincp/usermanager');
             }
         }
     }
@@ -573,7 +767,9 @@ class AdmincpController extends Controller
                 $order = "ULOGID DESC",
                 $limit = " < 3");
         if (count($queryresult) > 2) {
-            throw new RuntimeException('Something went wrong during the fetch of of last login date!');
+            $this->showmessage(false,
+                'Something went wrong during the fetch of of last login date!',
+                '/admincp/usermanager');
         }
         if (empty($queryresult) || count($queryresult) == 0) {
             return 'N/A';

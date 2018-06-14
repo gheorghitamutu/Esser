@@ -2,152 +2,41 @@
 
 <div id="main-first-row-container">
     <div id="page-title">
-        <p>Notifications</p>
+        <h1>Notifications</h1>
     </div>
 </div>
 
 <div id="main-second-row-container">
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
+    <div class="container">
+    <?php
 
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
+    if (empty($this->view_data["notifications"]))
+    {
+        echo
+        '<div class="container-row">    
+                <div class="message">
+                    <p>There are no new notifications!</p>
+                </div>
+            </div>';
 
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
-    </div>
-
-    <div class="container-row">
-        <div class="date">
-            <p>28-02-2018 19:00:01</p>
-        </div>
-
-        <div class="message">
-            <p>22 <span class="neutral">Coffee bags</span> were taken by Office 5 !
-                <span class="warning">0 Coffee bags left!</span></p>
-        </div>
+    }
+    else
+    {
+        foreach ($this->view_data["notifications"] as $notification)
+        {
+            echo
+            '<div class="container-row">
+            <div class="date">
+                <p>'. $notification["ntfCreatedAt"] . '</p>
+            </div>
+    
+            <div class="message">
+                <p>' . $notification["item_name"] . ' ' . $notification["ntfDscrp"] . '</p>
+            </div>
+            </div>';
+        }
+    }
+    ?>
     </div>
 
 </div>
