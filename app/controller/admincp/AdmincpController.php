@@ -240,7 +240,8 @@ class AdmincpController extends Controller
                 $fields = '*'
             );
 
-            if (count($user) == 0 || empty($user)) {
+            if (count($user) == 0 || empty($user))
+            {
                 $this->showmessage($opsuccess = false, $opmessage = 'You must set an existing acccount name!', $redirectto = '/admincp/usereditor');
             }
             else {
