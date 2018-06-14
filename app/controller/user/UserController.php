@@ -65,7 +65,7 @@ class UserController extends Controller
             array
             (
                 'users'=>$this->getUsers(),
-                'notifications_count' => $this->get_notifications()
+                'notifications_count' => $this->get_notifications_count()
 
             ),
             'Welcome ' . $_SESSION["uname"]);
@@ -113,10 +113,17 @@ class UserController extends Controller
 
     public function notifications()
     {
-        // maybe macros for cats?
+        // get the notifications
+
+
+
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
-            [],
+            array
+            (
+                'notifications' => $this->get_notifications()
+
+            ),
             'Notifications!');
     }
 
@@ -222,7 +229,7 @@ class UserController extends Controller
         }
     }
 
-    private function get_notifications()
+    private function get_notifications_count()
     {
         $this->model('Usrntfrelation');
 
@@ -261,5 +268,41 @@ class UserController extends Controller
                     'usrnNIsRead' => 1
                 ));
         }
+    }
+
+    private function get_notifications()
+    {
+        $this->model('Usrntfrelation');
+
+        $user_id = $_SESSION['userid'];
+        $usrntfrelation = $this->model_class->get_mapper()->findAll(
+            $where = "usrNNotifiedAccId = ". $user_id,
+            $fields = false);
+
+        if(count($usrntfrelation) == 0)
+        {
+            return [];
+        }
+
+        $this->model('Usrntfrelation');
+
+        $notifications = [];
+        $this->model('Notification');
+        foreach ($usrntfrelation as $relation)
+        {
+            $notifications[] = $this->model_class->get_mapper()->findAll(
+                $where = "ntfId = ". $usrntfrelation["usrNNotificationId"],
+                $fields = false)[0];
+        }
+
+        $this->model('Item');
+        for ($i = 0; $i < count($notifications); $i++)
+        {
+            $notifications[$i]["item_name"] = $this->model_class->get_mapper()->findAll(
+                $where = "itemId = ". $notifications["nItemId"],
+                $fields = false)[0]["itemName"];
+        }
+
+        return $notifications;
     }
 }
