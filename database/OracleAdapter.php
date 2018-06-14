@@ -583,7 +583,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "update $table set $fields where $where $ret";
-        echo "Query de update este: $sql<br /><br />";
+        //echo "Query de update este: $sql<br /><br />";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return null;
