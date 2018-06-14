@@ -1,9 +1,13 @@
 <?php include VIEW . 'user/header.phtml';?>
 
-<div class="main-div">
+    <div id="main-first-row-container">
+        <div id="page-title">
+            <h1>Activity</h1>
+        </div>
+    </div>
 
+    <div id="main-second-row-container">
     <div class="container">
-        <h1>Activity!</h1>
         <ul>
             <?php
             if(!empty($this->view_data["userlogs"]))
@@ -20,8 +24,6 @@
             ?>
         </ul>
     </div>
-
-
-</div>
+    </div>
 
 <?php include VIEW . 'user/footer.phtml';?>
