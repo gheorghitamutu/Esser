@@ -44,6 +44,7 @@
 .sidenav-container-item {
     margin-top: 14%;
     transition: 0.5s;
+    width:100%;
 }
 
 .sidenav-item {
@@ -273,6 +274,7 @@
 }
 #admin-cp-button{
     font-size:140%;
+    cursor:pointer;
 }
 #search-container {
     display: flex;

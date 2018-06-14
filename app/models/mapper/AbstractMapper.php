@@ -8,8 +8,7 @@
 
 namespace ModelMapper;
 
-use AppModel\AutomatedReport;
-use AppModel\Useracc;
+use AppModel;
 use DatabaseConnectivity;
 
 
@@ -120,7 +119,6 @@ abstract class AbstractMapper implements MapperInterface
                 ($fields) ? $fields : '*',
                 ($order) ? $order : '',
                 ($limit) ? $limit : null);
-
         $collection = array();
 
         foreach($this->_adapter->fetchAll($selectstmt) as $row)

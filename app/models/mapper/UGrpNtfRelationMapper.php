@@ -7,8 +7,7 @@
  */
 
 namespace ModelMapper;
-
-use AppModel\Useracc;
+use AppModel;
 use DatabaseConnectivity;
 
 class UGrpNtfRelationMapper extends AbstractMapper
