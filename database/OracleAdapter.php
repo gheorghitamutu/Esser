@@ -600,10 +600,21 @@ class OracleAdapter implements DatabaseAdapterInterface {
         }
     }
 
-    public function delete($table, $condition, &$bind = false, $returning = false) {
-        if ($condition === false) {
-            $condition = "true";
+    public function delete($table, $condition = [], &$bind = false, $returning = false) {
+        if (empty($condition))
+        {
+            $where = "true";
         }
+        else
+        {
+            foreach ($condition as $c => $v)
+            {
+                $where[] = "$c = $v";
+            }
+
+            $where = implode(' AND ', $where);
+        }
+
         $ret = "";
         if ($returning) {
             foreach ($returning as $f => $h) {
@@ -613,7 +624,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             }
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
-        $sql = "delete from $table where $condition $ret";
+        $sql = "delete from $table where $where $ret";
+
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return false;

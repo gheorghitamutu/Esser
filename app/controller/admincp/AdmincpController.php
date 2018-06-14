@@ -602,7 +602,8 @@ class AdmincpController extends Controller
                     'USERID' => $user[0]['userId']
                 )
             );
-            if (is_array($query)) {
+
+            if ($query) {
                 $this->model('UserLog');
                 $this->model_class->get_mapper()->insert
                 (
@@ -691,7 +692,7 @@ class AdmincpController extends Controller
                     'USERID' => $user[0]['userId']
                 )
             );
-            if ($query) {
+            if (is_array($query)) {
                 $this->model('UserLog');
                 $this->model_class->get_mapper()->insert
                 (
