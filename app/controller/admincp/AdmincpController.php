@@ -66,6 +66,9 @@ class AdmincpController extends Controller
             case 'admincp/usermanager/suspenduser':
                 $this->suspenduser();
                 break;
+            case 'admincp/usermanager/unsuspenduser':
+                $this->unsuspenduser();
+                break;
             case 'admincp/databaseeditor':
                 $this->databaseeditor();
                 break;
