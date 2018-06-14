@@ -28,6 +28,9 @@
                                 <div class="ctrl-group"> 
                                     <label> Account Email </label> <input type="email" name="accemail" id="acc-email" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ''; ?>"  placeholder="User's email">
                                 </div>
+                                <div class="ctrl-group">
+                                    <label> Account State </label> <input type="text" name="accstate" id="acc-state" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userState'] : ''; ?>" placeholder="User's state">
+                                </div>
                                 <div class="ctrl-group"> 
                                     <label> New Password </label> <input type="password" name="accnewpswd" id="acc-password" value="" placeholder="Insert New Password">
                                 </div>
