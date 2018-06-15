@@ -7,37 +7,22 @@
 			<script src="/resources/js/user-manager.js"></script>
         </head>
         <body>
-			<div class="main" >
-				<div class="nested">
-					<div>Choose the user group</div>
-                        <?php
-                        $groups = $this->view_data['memberGroup'];
-						
-                        foreach($groups as $group) {
-                            $string = str_replace(' ', '', $group['userGroup']);
-							
-                            echo "<button type=\"submit\" class=\"menu-button\" onClick='function" . $string . "()'".">" . $group['userGroup'] . "</button>";
-                            echo "<div class=\"expandable\" id=\"" . $string . "\">";
-								echo "<form action=\"/user/users\" method=\"POST\">";
-									echo "<input type=\"hidden\" name=\"generateGroup\" value=\"". $group["idGroup"] . "\" >";
-								echo "</form>";
-                            echo "</div>";
-                            echo "<script>";
-                            echo "function function" . $string . "() {";
-                            echo "var x = document.getElementById(\"" . $string . "\");";
-                            echo "if (x.style.display === \"grid\") {";
-                            echo "   x.style.display = \"none\";";
-                            echo "} else {";
-                            echo "    x.style.display = \"grid\";";
-                            echo "}";
-                            echo "}";
-                            echo "</script>";
+        <div class="page-title">Choose one of the user groups</div>
+			<div class="main-frame">
+                <div class="group-list">
+                    <?php
+                    $groups = $this->view_data['memberGroup'];
+                    foreach($groups as $group) {
+                        $string = str_replace(' ', '', $group['userGroup']);
+                        echo "<button href=\"#\" type=\"submit\" class=\"group-list-button\" >" . $group['userGroup'] . "</button>";
 
-                            }
-                        ?>
-				</div>
-			</div>
-			
+                    }
+                    ?>
+                </div>
+                <div class="group-display">
+                    <div class="group-display-button">Add new user</div>
+                </div>
+            </div>
         </body>
     </html>
 
