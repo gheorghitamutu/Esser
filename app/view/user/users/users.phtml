@@ -1,29 +1,42 @@
 <?php include VIEW . 'user/header.phtml';?>
 
     <html>
-        <head>
-            <title>EsseR - Manage users of the group</title>
-            <link rel="stylesheet" type="text/css" href="/resources/css/user/user-manager.css">
-			<script src="/resources/js/user-manager.js"></script>
-        </head>
-        <body>
+    <head>
+        <title>EsseR - Manage users of the group</title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/user/user-manager.css">
+        <script src="/resources/js/user-manager.js"></script>
+    </head>
+    <body>
         <div class="page-title">Choose one of the user groups</div>
-			<div class="main-frame">
-                <div class="group-list">
-                    <?php
-                    $groups = $this->view_data['memberGroup'];
-                    foreach($groups as $group) {
-                        $string = str_replace(' ', '', $group['userGroup']);
-                        echo "<button href=\"#\" type=\"submit\" class=\"group-list-button\" >" . $group['userGroup'] . "</button>";
+        <div class="main-frame">
+        <?php
+            echo "<div class=\"group-list\">";
+            foreach($this->view_data['memberGroup'] as $group) {
+            echo "<form action='/user/users/groupmembers' method='POST'>
+                 <button type=\"submit\" class=\"group-list-button\" name=\"renderGroup\" value=\"" . $group['idGroup'] . "\">" . $group['userGroup'] . "</button>
+            </form>";
+            }
+            echo "</div>";
+            echo "<div class=\"group-display\">";
+            echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class='group-display-button-add'> Add member to group </button>" : NULL;
+            //echo var_dump($_SESSION);
+            echo "<div class=\"group-display-element\">";
+            foreach($this->view_data['usersToDisplay'] as $user){
+                echo "<div > " . $user . " </div>";
+            }
+            echo "</div>";
 
-                    }
-                    ?>
-                </div>
-                <div class="group-display">
-                    <div class="group-display-button">Add new user</div>
-                </div>
-            </div>
-        </body>
+            echo "<div class=\"group-display-button\">";
+            foreach($this->view_data['usersToDisplay'] as $user){
+                echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button > Remove user from group </button>" : NULL;
+            }
+            echo "</div>";
+            echo "</div>";
+        ?>
+        </div>
+
+
+    </body>
     </html>
 
 <?php include VIEW . 'user/footer.phtml';?>
