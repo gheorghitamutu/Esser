@@ -44,6 +44,14 @@ class UserController extends Controller
             case 'user/users':
                 $this->users();
                 break;
+			case 'user/normaluser':
+                $this->normaluser();
+                break;
+			case 'user/adminuser':
+                $this->adminuser();
+                break;
+			case 'user/manageruser':
+                $this->manageruser();
             case 'user/reports':
                 $this->reports();
                 break;
@@ -63,8 +71,131 @@ class UserController extends Controller
 
         }
     }
+	
+	public function normaluser()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'normalUser', 
+			[
+				'generateGroup' => $this->normaluser()
+			],
+            'Normal Users Area');
+    }
+	
+	public function adminuser()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'adminUser', 
+			[
+				'generateGroup' => $this->getGroupOfUser()
+			],
+            'Admin Users Area');
+    }
+	
+	public function manageruser()
+    {
+        View::CreateView(
+            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'managerUser', 
+			[
+				'generateGroup' => $this->getGroupOfUser()
+			],
+            'Admin Users Area');
+    }
+	
+	private function inserUser(){
+		
+	}
+	
+	private function removeUser(){
+		
+	}
+	
+	private function getGroupOfUser(/*$group*/){
+		/*$this->model('GroupRelation');
+		$result = array();
+		if (($useidquery = $this->model_class->get_mapper()->findAll(
+				$where = ' UGROUPID = ' . $group['idGroup'],
+				$fields = 'USERID'
+				)) !== false) {
+				$result = array_push($result, $useridquerry);
+		}
+		echo var_dump($result);
+		exit(0);
+		return $result;*/
+	} 
+	
+	private function getItemGroups() {
+		
+		$groupsResult = array();
+        $querryGroups = array();
+        $userid = $_SESSION['userid'];
+        $this->model('Grouprelation');
+        $groupsOfInterest =
+            $this->model_class->get_mapper()->findAll(
+                $where = "USERID=" . $userid,
+                $fields = false
+				);
 
-    public function index()
+		foreach($groupsOfInterest as $grupulet){
+			$this->model('Usergroup');
+			$idul = $grupulet['uGroupId'];
+			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$idul,
+                $fields = false
+            );
+
+            //array_push($querryGroups, $querry[0]['uGroupName']); // old type of function, returning only the name
+            array_push($querryGroups, array
+            (
+                'idGroup'=>$querry[0]['uGroupId'],
+                'userGroup' => $querry[0]['uGroupName']
+            ));
+		}
+
+        return $querryGroups;
+		
+    }
+	
+	private function getUserGroups() {
+		
+		$groupsResult = array();
+        $querryGroups = array();
+     
+        $this->model('Grouprelation');
+        $groupsOfInterest =
+            $this->model_class->get_mapper()->findAll(
+                $where = "USERID=" . $_SESSION['userid'],
+                $fields = false
+				);
+
+		foreach($groupsOfInterest as $grupulet){
+			$this->model('Usergroup');
+			$idul = $grupulet['uGroupId'];
+			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$idul,
+                $fields = false
+            );
+			
+			$this->model('Usergroup');
+			$idul = $grupulet['uGroupId'];
+			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where=" UGROUPID= ".$idul,
+                $fields = false
+            );
+			
+            //array_push($querryGroups, $querry[0]['uGroupName']); // old type of function, returning only the name
+            array_push($querryGroups, array
+            (
+                'idGroup'=>$querry[0]['uGroupId'],
+                'userGroup' => $querry[0]['uGroupName']
+            ));
+		}
+
+        return $querryGroups;
+		
+    }
+	
+	public function index()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
@@ -248,7 +379,7 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'items' . DIRECTORY_SEPARATOR . 'items',
-            [],
+            ['itemGroups' => $this->getItemGroups()],
             'Items area');
     }
 
@@ -256,7 +387,10 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
-            [],
+			[
+				'memberGroup' => $this->getUserGroups(),
+				'generateGroup' => $this->getGroupOfUser()
+			],
             'Users area');
     }
 
