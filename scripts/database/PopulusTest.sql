@@ -1,21 +1,34 @@
-SET SERVEROUTPUT ON;
 DECLARE
-  v_next_userId USERACCS.USERID%TYPE;
-  v_userName USERACCS.USERNAME%TYPE;
-  v_userEmail USERACCS.userEmail%TYPE;
-  v_userPass USERACCS.USERPASS%TYPE;
-  v_ins_cmd VARCHAR2(32000);
+  TYPE user_group IS VARRAY(20) OF VARCHAR2(16);
+  v_user_group user_group := user_group('Daniel Melinte',
+                                        'Andreea Ghita',
+                                        'Anca Macovei',
+                                        'Mihai Paun',
+                                        'Catrina Petre',
+                                        'Petru Ghita',
+                                        'Paul Morar',
+                                        'Ana Costandache',
+                                        'Biana Croitoru',
+                                        'Gigi Capraru',
+                                        'Carina Moisescu',
+                                        'George Costache',
+                                        'Costel Negru',
+                                        'Vasile Anton',
+                                        'Marcu Bacauan',
+                                        'Petrica Bors',
+                                        'Gheorghe Cracan',
+                                        'Viorel Negroiu',
+                                        'Alina Petre',
+                                        'Dorel Mocofan');
+  CURSOR useracc_line IS SELECT * FROM USERACCS WHERE USERID NOT IN (1,2,3);
+  v_linie_useraccs useracc_line%ROWTYPE;
 BEGIN
-  SELECT COUNT(USERID)+1 INTO v_next_userId FROM USERACCS;
-  DBMS_OUTPUT.PUT_LINE(v_next_userId);
-  v_ins_cmd := 'INSERT INTO USERACCS(USERID, USERNAME, USEREMAIL, USERPASS, USERTYPE, USERSTATE, USERIMAGE, USERCREATEDAT, USERUPDATEDAT) VALUES(';
-  v_ins_cmd := v_ins_cmd || v_next_userId || ',';
-  SELECT USERNAME INTO v_userName FROM USERACCS WHERE v_next_userId - 1 = USERID;
-  SELECT USEREMAIL INTO v_userEmail FROM USERACCS WHERE v_next_userId - 1 = USERID;  
-  SELECT USERPASS INTO v_userPass FROM USERACCS WHERE v_next_userId - 1 = USERID;  
-  v_userName := v_userName || v_next_userId;
-  v_userEmail := REPLACE(v_userEmail, '@', v_next_userId||'@');
-  v_ins_cmd := v_ins_cmd || '''' ||v_userName || ''',''' || v_userEmail || ''',''' || v_userPass || ''', 8, 3, ''/assets/normal/images/users/test.png'', SYSDATE, SYSDATE)';
-  DBMS_OUTPUT.PUT_LINE(v_ins_cmd);  
-  EXECUTE IMMEDIATE v_ins_cmd;
-END;
+  for v_i in v_user_group.first..v_user_group.last LOOP
+    INSERT INTO USERACCS (USERNAME, USEREMAIL, USERPASS, USERTYPE, USERSTATE, USERIMAGE) VALUES (v_user_group(v_i),
+                                                                                                 'testAWSxQ'||v_i||'@gmail.ro',
+                                                                                                 'parola',
+                                                                                                 '1',
+                                                                                                 '1',
+                                                                                                 'undefined');
+  end loop;
+end;
