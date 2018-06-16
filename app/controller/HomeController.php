@@ -9,7 +9,6 @@
  * Time: 1:28 PM
  */
 
-
 class HomeController extends Controller
 {
   protected $params = ["apptitle" => APP_TITLE];
