@@ -91,11 +91,6 @@ class AdmincpController extends Controller
         )[0]['userType'];
 
         if ($checked == 3) {
-            $this->showmessage
-            (
-                $opsuccess = false,
-                $opmessage = 'You are an admin!!!TESSSSSSSSSSST!!!!!!!!'
-            );
             return;
         }
         else {
@@ -104,6 +99,8 @@ class AdmincpController extends Controller
                 $opsuccess = false,
                 $opmessage = 'You are not an admin!!!'
             );
+            session_destroy();
+            self::redirect('/');
         }
     }
 
@@ -176,8 +173,8 @@ class AdmincpController extends Controller
         $this->model('UserLog');
         $this->model_class->get_mapper()->insert
         (
-            'USERLOGS',
-            array
+            $talbe = 'USERLOGS',
+            $fields = array
             (
                 'uLogDescription' => "'Admin user " . $_SESSION['uname'] . " has logged out!'",
                 'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
@@ -237,10 +234,10 @@ class AdmincpController extends Controller
         if (key_exists('userToEdit', $_SESSION)) {
             unset($_SESSION['userToEdit']);
         }
-        if (key_exists('userToEdit', $_SESSION)) {
+        if (key_exists('logsofuser', $_SESSION)) {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
-                ['userLogs' => $this->getUserLogs($_SESSION['userToEdit'])],
+                ['userLogs' => $this->getUserLogs($_SESSION['logsofuser'])],
                 'AdminCP');
         }
         else {
@@ -259,21 +256,21 @@ class AdmincpController extends Controller
                 case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
                     $validatedfield = ' USERID = ';
                     $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . $_POST['searchuserlogs'],
+                        $where = $validatedfield . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_NUMBER_INT),
                         $fields = 'USERID, USERNAME, USEREMAIL'
                     );
                     break;
                 case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
                     $validatedfield = ' USEREMAIL = ';
                     $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . "'" . $_POST['searchuserlogs'] . "'",
+                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'],FILTER_SANITIZE_EMAIL) . "'",
                         $fields = 'USERID, USERNAME, USEREMAIL'
                     );
                     break;
                 default:
                     $validatedfield = ' USERNAME = ';
                     $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . "'" . $_POST['searchuserlogs'] . "'",
+                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_STRING) . "'",
                         $fields = 'USERID, USERNAME, USEREMAIL'
                     );
                     break;
@@ -288,6 +285,7 @@ class AdmincpController extends Controller
             );
             self::redirect('/admincp/userlogs');
         }
+
         if (empty($user)) {
             unset($_SESSION['logsofuser']);
             $this->showmessage
@@ -298,7 +296,7 @@ class AdmincpController extends Controller
             self::redirect('/admincp/userlogs');
         }
         else {
-            $_SESSION['logsofuser'] = $user[0];
+            $_SESSION['logsofuser'] = $user;
             self::redirect('/admincp/userlogs');
         }
     }
@@ -455,9 +453,9 @@ class AdmincpController extends Controller
                             $table = 'USERLOGS',
                             $fields = array
                             (
-                                'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
-                                    ' has edited user ' . $user[0]['userName'] . ' !',
-                                'uLogSourceIP' => $_SESSION['login_ip']
+                                'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                                    ' has edited user ' . $user[0]['userName'] . " !'",
+                                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "''"
                             )
                         );
                         $this->showmessage($opsuccess,
@@ -740,9 +738,9 @@ class AdmincpController extends Controller
                     $table = 'USERLOGS',
                     $fields = array
                     (
-                        'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
-                            ' has deleted user ' . $user[0]['userName'] . ' !',
-                        'uLogSourceIP' => $_SESSION['login_ip']
+                        'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                            ' has deleted user ' . $user[0]['userName'] . " !'",
+                        'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
                     )
                 );
                 $this->showmessage(true,
@@ -780,11 +778,11 @@ class AdmincpController extends Controller
             $this->model_class->get_mapper()->insert
             (
                 $table = 'USERLOGS',
-                array
+                $fields = array
                 (
-                    'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
-                        ' has approved user ' . $user[0]['userName'] . ' !',
-                    'uLogSourceIP' => $_SESSION['login_ip']
+                    'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                        ' has approved user ' . $user[0]['userName'] . ' !\'',
+                    'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
                 )
             );
             $this->showmessage(true,
@@ -800,47 +798,61 @@ class AdmincpController extends Controller
 
     private function suspenduser()
     {
-        $this->model('Useracc');
-        $user = $this->model_class->get_mapper()->findAll(
-            $where = 'USERID = ' . $_POST['suspenduser']
-        );
-
-        if ($_SESSION['userid'] === $user[0]['userId']) {
-            $this->showmessage(false,
-                'Cannot suspend your own account!',
-                '/admincp/usermanager');
-        } else {
-            $query = $this->model_class->get_mapper()->update
+        if (!filter_var($_POST['suspenduser'], FILTER_VALIDATE_INT)) {
+            $this->showmessage
             (
-                $table = 'USERACCS',
-                $fields = array
-                (
-                    'USERSTATE' => 0
-                ),
-                $where = array
-                (
-                    'USERID' => $user[0]['userId']
-                )
+                $opsucces = false,
+                $opmessage = 'Bad request!'
             );
-            if (is_array($query)) {
-                $this->model('UserLog');
-                $this->model_class->get_mapper()->insert
+            self::redirect('/admincp/usermanager');
+        }
+        else {
+            $this->model('Useracc');
+            $user = $this->model_class->get_mapper()->findAll(
+                $where = 'USERID = ' . filter_var($_POST['suspenduser'], FILTER_SANITIZE_NUMBER_INT)
+            );
+
+            if ($_SESSION['userid'] === $user[0]['userId']) {
+                $this->showmessage
                 (
-                    $table = 'USERLOGS',
+                    $opsucces = false,
+                    $opmessa = 'Cannot suspend your own account!'
+                );
+                self::redirect('/admincp/usermanager');
+            }
+            else {
+                $query = $this->model_class->get_mapper()->update
+                (
+                    $table = 'USERACCS',
                     $fields = array
                     (
-                        'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
-                            ' has suspended user ' . $user[0]['userName'] . ' !',
-                        'uLogSourceIP' => $_SESSION['login_ip']
+                        'USERSTATE' => 0
+                    ),
+                    $where = array
+                    (
+                        'USERID' => $user[0]['userId']
                     )
                 );
-                $this->showmessage(true,
-                    'User was suspended successfully!',
-                    '/admincp/usermanager');
-            } else {
-                $this->showmessage(false,
-                    'Something went wrong while trying to suspend the user!',
-                    '/admincp/usermanager');
+                if (is_array($query)) {
+                    $this->model('UserLog');
+                    $insert = $this->model_class->get_mapper()->insert
+                    (
+                        $table = 'USERLOGS',
+                        $fields = array
+                        (
+                            'uLogDescription' => '\'Admin user ' . $_SESSION['uname'] .
+                                ' has suspended user ' . $user[0]['userName'] . ' !\'',
+                            'uLogSourceIP' => '\''.$_SESSION['login_ip'].'\''
+                        )
+                    );
+                    $this->showmessage(true,
+                        'User was suspended successfully!',
+                        '/admincp/usermanager');
+                } else {
+                    $this->showmessage(false,
+                        'Something went wrong while trying to suspend the user!',
+                        '/admincp/usermanager');
+                }
             }
         }
     }
@@ -874,9 +886,9 @@ class AdmincpController extends Controller
                     $table = 'USERLOGS',
                     $fields = array
                     (
-                        'uLogDescription' => 'Admin user ' . $_SESSION['uname'] .
-                            ' has unsuspended user ' . $user[0]['userName'] . ' !',
-                        'uLogSourceIP' => $_SESSION['login_ip']
+                        'uLogDescription' => '\'Admin user ' . $_SESSION['uname'] .
+                            ' has unsuspended user ' . $user[0]['userName'] . ' !\'',
+                        'uLogSourceIP' => '\''. $_SESSION['login_ip'] . '\''
                     )
                 );
                 $this->showmessage(true,
@@ -993,11 +1005,10 @@ class AdmincpController extends Controller
     {
         $this->model('UserLog');
         $query = $this->model_class->get_mapper()->findAll(
-            $where = ' ULOGDESCRIPTION like \'' .$user[0]['userName'] . '\'',
+            $where = ' ULOGDESCRIPTION like \'%' . $user[0]['userName'] . '%\'',
             $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
             $order = 'uLogCreatedAt DESC'
         );
-
         $result = [];
 
         for($i=0; $i<count($query); ++$i) {
@@ -1012,31 +1023,54 @@ class AdmincpController extends Controller
 
     private function getAllUsersLogs()
     {
-//        $this->model('Useracc');
-//        $users = $this->model_class->get_mapper()->findAll
-//        (
-//            $where = " USERID = USERID",
-//            $fields = 'USERNAME'
-//        );
-//
-//
-//
-//        $this->model('UserLog');
-//        $query = $this->model_class->get_mapper()->findAll
-//        (
-//            $where = '',
-//            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
-//            $order = ' ULOGCREATEDAT DESC'
-//        );
-//
-//        for($i=0; $i<count($query); ++$i) {
-//            $result[$i]['userName'] = 'ToBeImplemented';
-//            $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
-//            $result[$i]['action']   = $query[$i]['uLogDescription'];
-//            $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
-//        }
-//
-//        return $result;
-        return [];
+        $this->model('Useracc');
+        $users = $this->model_class->get_mapper()->findAll
+        (
+            $where = " USERID = USERID",
+            $fields = 'USERNAME'
+        );
+
+
+
+        $this->model('UserLog');
+        $query = $this->model_class->get_mapper()->findAll
+        (
+            $where = '',
+            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+            $order = ' ULOGCREATEDAT DESC'
+        );
+
+        for($i = 0; $i < count($users); ++$i) {
+            $users[$i] = $users[$i]['userName'];
+        }
+
+        for($i=0; $i<count($query); ++$i) {
+            if (preg_match('/(Admin\ user\ )/', $query[$i]['uLogDescription'])) {
+                $result[$i]['userName'] = substr(
+                    $query[$i]['uLogDescription'],
+                    strlen('Admin user '),
+                    strpos(
+                        substr(
+                            $query[$i]['uLogDescription'],
+                            strlen('Admin user ')
+                        ),
+                        " "));
+            }
+            elseif(preg_match('/(Normal\ user\ )/', $query[$i]['uLogDescription'])) {
+                $result[$i]['userName'] = substr(
+                    $query[$i]['uLogDescription'],
+                    strlen('Normal user '),
+                    strpos(
+                        substr(
+                            $query[$i]['uLogDescription'],
+                            strlen('Normal user ')
+                        ),
+                        " "));
+            }
+            $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
+            $result[$i]['action']   = $query[$i]['uLogDescription'];
+            $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
+        }
+        return $result;
     }
 }
