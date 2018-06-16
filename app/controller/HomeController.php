@@ -16,6 +16,11 @@ class HomeController extends Controller
   
     public function __construct($uri)
     {
+        if($this->session_authenticate())
+        {
+            self::redirect('/user');
+            return;
+        }
         switch($uri)
         {
           case '/':

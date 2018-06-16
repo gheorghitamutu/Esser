@@ -39,6 +39,9 @@ class AdmincpController extends Controller
             case 'admincp/userlogs':
                 $this->userlogs();
                 break;
+            case 'admincp/userlogs/searchuserlogs':
+                $this->searchuserlogs();
+                break;
             case 'admincp/userlogs/search':
                 $this->userlogs();
                 break;
@@ -121,9 +124,11 @@ class AdmincpController extends Controller
         $password_hash = hash('sha512', $username . $salt . $password);
 
         $this->model('Useracc');
-        $user = $this->model_class->get_mapper()->findAll(
+        $user = $this->model_class->get_mapper()->findAll
+        (
             $where = "userName = '$username' AND userPass = '$password_hash'",
-            $fields = false);
+            $fields = false
+        );
 
         if (count($user) === 0 || count($user) === null)
         {
@@ -206,10 +211,70 @@ class AdmincpController extends Controller
         if (key_exists('userToEdit', $_SESSION)) {
             unset($_SESSION['userToEdit']);
         }
-        View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
-            ['userLogs' => $this->getUserLogs()],
-            'AdminCP');
+        if (key_exists('userToEdit', $_SESSION)) {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
+                ['userLogs' => $this->getUserLogs($_SESSION['userToEdit'])],
+                'AdminCP');
+        }
+        else {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
+                ['userLogs' => $this->getAllUsersLogs()],
+                'AdminCP');
+        }
+    }
+
+    private function searchuserlogs()
+    {
+        if (isset($_POST['searchuserlogs'])) {
+            $this->model('Useracc');
+            switch ($_POST['searchuserlogs']) {
+                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
+                    $validatedfield = ' USERID = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . $_POST['searchuserlogs'],
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
+                    $validatedfield = ' USEREMAIL = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . "'" . $_POST['searchuserlogs'] . "'",
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+                default:
+                    $validatedfield = ' USERNAME = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . "'" . $_POST['searchuserlogs'] . "'",
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+            }
+        }
+        else {
+            unset($_SESSION['logsofuser']);
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='You need to offer some search criterias first!',
+                $redirectto = '/admincp/userlogs'
+            );
+        }
+        if (empty($user)) {
+            unset($_SESSION['logsofuser']);
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='Couldn\'t find any user matching the search criteria!',
+                $redirectto = '/admincp/userlogs'
+            );
+        }
+        else {
+            $_SESSION['logsofuser'] = $user[0];
+            self::redirect('/admincp/userlogs');
+        }
     }
 
     private function usereditor()
@@ -432,18 +497,24 @@ class AdmincpController extends Controller
         }
         else {
             unset($_SESSION['userToEdit']);
-            // Need to implement a fail message delivery .. (You need to offer some search criterias first!)
-            self::redirect('/admincp/usereditor');
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='You need to offer some search criterias first!',
+                $redirectto = '/admincp/usereditor'
+            );
         }
-        if (empty($user) == true || count($user) != 1) {
-
-//            echo var_dump($validatedfield);
-//            echo var_dump($_POST['searchuser']);
+//            echo var_dump(empty($user));
 //            echo var_dump($user);
 //            exit(0);
+        if (empty($user)) {
             unset($_SESSION['userToEdit']);
-            // Need to implement a fail message delivery .. (Couldn't find any user matching the search criteria!)
-            self::redirect('/admincp/usereditor');
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='Couldn\'t find any user matching the search criteria!',
+                $redirectto = '/admincp/usereditor'
+            );
         }
         else {
             switch ($user[0]['userType']) {
@@ -896,28 +967,54 @@ class AdmincpController extends Controller
         }
     }
 
-    private function getUserLogs()
+    private function getUserLogs($user)
     {
-//        $this->model('UserLog');
-//        $query = $this->model_class->get_mapper()->findAll(
-//            $where = '',
-//            $fields = '*',
-//            $order = 'uLogCreatedAt DESC'
-//        );
-//
-//        $this->model('Useracc');
-//
-//        for($i = 0; $i < count($query); ++$i) {
-//            $result[$i]['userName'] = substr($query[$i]['uLogDescription'], 0, strpos($query[$i]['uLogDescription'],' '));
-//            $result[$i]['uLogDescription'] = substr($query[$i]['uLogDescription'], strpos($query[$i]['uLogDescription'],' '));
-//            //$result[$i]['']
-//            $temp_result = $this->model_class->get_mapper()->findAll(
-//                $where = " userName = '".$result[$i]['userName']."''"
-//            );
-//            $result[$i]['userId'] = $temp_result['userName'];
-//            $result[$i]['']
-//        }
+        $this->model('UserLog');
+        $query = $this->model_class->get_mapper()->findAll(
+            $where = ' ULOGDESCRIPTION like \'' .$user[0]['userName'] . '\'',
+            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+            $order = 'uLogCreatedAt DESC'
+        );
 
+        $result = [];
+
+        for($i=0; $i<count($query); ++$i) {
+            $result[$i]['userName'] = $user[0]['userName'];
+            $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
+            $result[$i]['action']   = $query[$i]['uLogDescription'];
+            $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
+        }
+
+        return $result;
     }
 
+    private function getAllUsersLogs()
+    {
+//        $this->model('Useracc');
+//        $users = $this->model_class->get_mapper()->findAll
+//        (
+//            $where = " USERID = USERID",
+//            $fields = 'USERNAME'
+//        );
+//
+//
+//
+//        $this->model('UserLog');
+//        $query = $this->model_class->get_mapper()->findAll
+//        (
+//            $where = '',
+//            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+//            $order = ' ULOGCREATEDAT DESC'
+//        );
+//
+//        for($i=0; $i<count($query); ++$i) {
+//            $result[$i]['userName'] = 'ToBeImplemented';
+//            $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
+//            $result[$i]['action']   = $query[$i]['uLogDescription'];
+//            $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
+//        }
+//
+//        return $result;
+        return [];
+    }
 }
