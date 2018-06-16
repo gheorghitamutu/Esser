@@ -8,7 +8,7 @@
 
 <?php
     if (isset($_SESSION['opsuccess']) && isset($_SESSION['opmessage'])) {
-        echo "<script type=\"text/javascript\">alert('" . $_SESSION['opmessage'] . "');</script>";
+        echo "<script type=\"text/javascript\">alert(\"" . $_SESSION['opmessage'] . "\");</script>";
         $_SESSION['opsuccess'] = null;
         $_SESSION['opmessage'] = null;
     }
