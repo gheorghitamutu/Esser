@@ -31,6 +31,16 @@ body{
 	padding: 1em;
 }
 
+.group-list-wrap{
+	display: grid;
+	grid-template-columns: 1fr;
+	background: #909cc2;
+	color: aliceblue;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+
 .group-list-button{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1.5em;
@@ -71,8 +81,6 @@ body{
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-area: adauga;
-	background: #f9ab55;
-	color: ghostwhite;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1.5em;
 	text-align: center;
@@ -95,10 +103,28 @@ body{
 	display: grid;
 	grid-template-columns: 1fr ;
 	grid-area: user;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.group-display-user{
 	background: #f9ab55;
 	color: ghostwhite;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 1.5em;
+	font-size: 1em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.display-button{
+	background: #f9ab55;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
 	text-align: center;
 	padding: 1em;
 	margin: 1em;
