@@ -8,9 +8,8 @@
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> Search logs from and to a specific date </h3>
-                        <form class="srch-layout">
-                            <input class="adm-srch-box" required="required" placeholder="Insert Start Date">
-                            <input class="adm-srch-box" required="required" placeholder="Insert End Date">
+                        <form class="srch-layout" method="POST" action="/admincp/login/searchuserlogs">
+                            <input class="adm-srch-box" name="searchuserloginlogs" required="required" value="" placeholder="Insert User Here">
                             <button type="submit" class="admcp-srch-btn"> Search </button>
                         </form>
                     </div>

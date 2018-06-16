@@ -458,6 +458,20 @@ class AdmincpController extends Controller
                                 'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "''"
                             )
                         );
+                        if ($islevel && $level > 1) {
+                            $this->model('Grouprelation');
+                            $this->model_class->get_mapper()->insert
+                            (
+                                $table = 'GROUPRELATIONS',
+                                $fields = array
+                                (
+                                    'USERID' => $user[0]['userId'],
+                                    'UGROUPID' => ($level==2) ? 2 : 1,
+                                    'CANUPDITM' => 1,
+                                    'CANMNGMBS' => 1
+                                )
+                            );
+                        }
                         $this->showmessage($opsuccess,
                             'You have succesfully edited the user!'
                         );
@@ -608,11 +622,6 @@ class AdmincpController extends Controller
         if (key_exists('userToEdit', $_SESSION)) {
             unset($_SESSION['userToEdit']);
         }
-        $hmm = array
-        (
-            'activeUsers' => $this->extractActiveUsers($this->getActivatedUserList()),
-            'suspendedUsers' => $this->extractSuspendedUsers($this->getActivatedUserList())
-        );
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
             [
@@ -640,7 +649,7 @@ class AdmincpController extends Controller
                 $activeusers = [];
                 $nrofusers = 0;
                 for ($i = 0; $i < count($userlist); ++$i) {
-                    if ($userlist[$i]['userState'] != 0) {
+                    if ($userlist[$i]['userState'] !== 'Suspended') {
                         $activeusers[$nrofusers] = $userlist[$i];
                         $nrofusers += 1;
                     }
@@ -663,7 +672,7 @@ class AdmincpController extends Controller
                 $suspendedusers = [];
                 $nrofusers = 0;
                 for ($i = 0; $i < count($userlist); ++$i) {
-                    if ($userlist[$i]['userState'] == 0) {
+                    if ($userlist[$i]['userState'] == 'Suspended') {
                         $suspendedusers[$nrofusers] = $userlist[$i];
                         $nrofusers += 1;
                     }
@@ -678,7 +687,7 @@ class AdmincpController extends Controller
         $this->model('Useracc');
         $query = $this->model_class->get_mapper()->findAll(
             $where = 'userType > 0',
-            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $fields = 'USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
             $order = 'userCreatedAt DESC'
         );
         for ($i = 0; $i < count($query); ++$i) {
@@ -691,6 +700,17 @@ class AdmincpController extends Controller
                     break;
                 case '3':
                     $query[$i]['userType'] = 'Root Admin';
+                    break;
+            }
+            switch ($query[$i]['userState']) {
+                case '0':
+                    $query[$i]['userState'] = 'Suspended';
+                    break;
+                case '1':
+                    $query[$i]['userState'] = 'Offline';
+                    break;
+                case '2':
+                    $query[$i]['userState'] = 'Online';
                     break;
             }
         }
@@ -717,12 +737,12 @@ class AdmincpController extends Controller
         $user = $this->model_class->get_mapper()->findAll(
             $where = 'USERID = ' . $_POST['deleteuser']
         );
-
         if ($_SESSION['userid'] === $user[0]['userId']) {
             $this->showmessage(false,
                 'Cannot delete your own account!',
                 '/admincp/usermanager');
         } else {
+//            $this->model('')
             $query = $this->model_class->get_mapper()->delete(
                 $table = 'USERACCS',
                 $where = array
@@ -835,7 +855,7 @@ class AdmincpController extends Controller
                 );
                 if (is_array($query)) {
                     $this->model('UserLog');
-                    $insert = $this->model_class->get_mapper()->insert
+                    $this->model_class->get_mapper()->insert
                     (
                         $table = 'USERLOGS',
                         $fields = array
