@@ -8,8 +8,8 @@
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> Search logs of a specifc user </h3>
-                        <form class="srch-layout" action="/admincp/userlogs/">
-                            <input class="adm-srch-box" required="required" placeholder="Insert User">
+                        <form class="srch-layout" method="POST" action="/admincp/userlogs/searchuserlogs">
+                            <input class="adm-srch-box" required="required" name="searchuserlogs" value="" placeholder="Insert User">
                             <button type="submit" class="admcp-srch-btn"> Search </button>
                         </form>
                     </div>    
@@ -27,12 +27,12 @@
 								</div>
                             </div>
                             <div class="flex-table-body">
-                            <?php for($i = 0; $i < count($this->log); ++$i) {
+                            <?php for($i = 0; $i < count($this->view_data['userLogs']); ++$i) {
                                 echo "<div class=\"flex-table-row\">";
-								    echo "<div class=\"flex-table-td\">" . $this->log['IdName']     . "</div>";
-								    echo "<div class=\"flex-table-td\">" . $this->log['datetime']   . "</div>";
-								    echo "<div class=\"flex-table-td\">" . $this->log['action']     . "</div>";
-								    echo "<div class=\"flex-table-td\">" . $this->log['IP']         . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->view_data['userLogs'][$i]['userName']     . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->view_data['userLogs'][$i]['datetime']   . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->view_data['userLogs'][$i]['action']     . "</div>";
+								    echo "<div class=\"flex-table-td\">" . $this->view_data['userLogs'][$i]['sourceIP']         . "</div>";
 								echo "</div>";
 							}?>                            
                             </div>
