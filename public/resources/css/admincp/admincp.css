@@ -430,6 +430,26 @@ legend {
     border: 0;
 }
 
+.online-status {
+    color: green;
+}
+
+.offline-status {
+    color: darkorange;
+}
+
+.suspended-status {
+    color: red;
+}
+
+.unapproved-status {
+    color: blue;
+}
+
+.info-status {
+    color: #33b5e5;
+}
+
 .ctrl-group {
     display: flex;
     width: 80%;

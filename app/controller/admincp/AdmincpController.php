@@ -220,13 +220,19 @@ class AdmincpController extends Controller
 
     private function loginlogs()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
+        if (isset($_SESSION['userLoginLogs'])) {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
+                ['usersloginlogs' => $_SESSION['userLoginLogs']],
+                'AdminCP');
+            unset($_SESSION['userLoginLogs']);
         }
-        View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
-            [0 => 'first', 1 => 'second'],
-            'AdminCP');
+        else {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
+                ['usersloginlogs' => $this->getAllLoginLogs()],
+                'AdminCP');
+        }
     }
 
     private function userlogs()
@@ -239,6 +245,7 @@ class AdmincpController extends Controller
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
                 ['userLogs' => $this->getUserLogs($_SESSION['logsofuser'])],
                 'AdminCP');
+            unset($_SESSION['logsofuser']);
         }
         else {
             View::CreateView(
@@ -248,58 +255,58 @@ class AdmincpController extends Controller
         }
     }
 
-    private function searchuserlogs()
-    {
-        if (isset($_POST['searchuserlogs'])) {
-            $this->model('Useracc');
-            switch ($_POST['searchuserlogs']) {
-                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
-                    $validatedfield = ' USERID = ';
-                    $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_NUMBER_INT),
-                        $fields = 'USERID, USERNAME, USEREMAIL'
-                    );
-                    break;
-                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
-                    $validatedfield = ' USEREMAIL = ';
-                    $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'],FILTER_SANITIZE_EMAIL) . "'",
-                        $fields = 'USERID, USERNAME, USEREMAIL'
-                    );
-                    break;
-                default:
-                    $validatedfield = ' USERNAME = ';
-                    $user = $this->model_class->get_mapper()->findAll(
-                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_STRING) . "'",
-                        $fields = 'USERID, USERNAME, USEREMAIL'
-                    );
-                    break;
-            }
-        }
-        else {
-            unset($_SESSION['logsofuser']);
-            $this->showmessage
-            (
-                $opsuccess = true,
-                $opmessage ='You need to offer some search criterias first!'
-            );
-            self::redirect('/admincp/userlogs');
-        }
-
-        if (empty($user)) {
-            unset($_SESSION['logsofuser']);
-            $this->showmessage
-            (
-                $opsuccess = true,
-                $opmessage ='Couldn\'t find any user matching the search criteria!'
-            );
-            self::redirect('/admincp/userlogs');
-        }
-        else {
-            $_SESSION['logsofuser'] = $user;
-            self::redirect('/admincp/userlogs');
-        }
-    }
+//    private function searchuserlogs()
+//    {
+//        if (isset($_POST['searchuserlogs'])) {
+//            $this->model('Useracc');
+//            switch ($_POST['searchuserlogs']) {
+//                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
+//                    $validatedfield = ' USERID = ';
+//                    $user = $this->model_class->get_mapper()->findAll(
+//                        $where = $validatedfield . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_NUMBER_INT),
+//                        $fields = 'USERID, USERNAME, USEREMAIL'
+//                    );
+//                    break;
+//                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
+//                    $validatedfield = ' USEREMAIL = ';
+//                    $user = $this->model_class->get_mapper()->findAll(
+//                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'],FILTER_SANITIZE_EMAIL) . "'",
+//                        $fields = 'USERID, USERNAME, USEREMAIL'
+//                    );
+//                    break;
+//                default:
+//                    $validatedfield = ' USERNAME = ';
+//                    $user = $this->model_class->get_mapper()->findAll(
+//                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_STRING) . "'",
+//                        $fields = 'USERID, USERNAME, USEREMAIL'
+//                    );
+//                    break;
+//            }
+//        }
+//        else {
+//            unset($_SESSION['logsofuser']);
+//            $this->showmessage
+//            (
+//                $opsuccess = true,
+//                $opmessage ='You need to offer some search criterias first!'
+//            );
+//            self::redirect('/admincp/userlogs');
+//        }
+//
+//        if (empty($user)) {
+//            unset($_SESSION['logsofuser']);
+//            $this->showmessage
+//            (
+//                $opsuccess = true,
+//                $opmessage ='Couldn\'t find any user matching the search criteria!'
+//            );
+//            self::redirect('/admincp/userlogs');
+//        }
+//        else {
+//            $_SESSION['logsofuser'] = $user;
+//            self::redirect('/admincp/userlogs');
+//        }
+//    }
 
     private function usereditor()
     {
@@ -308,6 +315,7 @@ class AdmincpController extends Controller
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 ['userToEdit' => $_SESSION['userToEdit']],
                 'AdminCP');
+            unset($_SESSION['userToEdit']);
         } else {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
@@ -705,12 +713,15 @@ class AdmincpController extends Controller
             switch ($query[$i]['userState']) {
                 case '0':
                     $query[$i]['userState'] = 'Suspended';
+                    $query[$i]['labelType'] = 'suspended-status';
                     break;
                 case '1':
                     $query[$i]['userState'] = 'Offline';
+                    $query[$i]['labelType'] = 'offline-status';
                     break;
                 case '2':
                     $query[$i]['userState'] = 'Online';
+                    $query[$i]['labelType'] = 'online-status';
                     break;
             }
         }
@@ -1076,7 +1087,7 @@ class AdmincpController extends Controller
                         ),
                         " "));
             }
-            elseif(preg_match('/(Normal\ user\ )/', $query[$i]['uLogDescription'])) {
+            elseif (preg_match('/(Normal\ user\ )/', $query[$i]['uLogDescription'])) {
                 $result[$i]['userName'] = substr(
                     $query[$i]['uLogDescription'],
                     strlen('Normal user '),
@@ -1087,10 +1098,148 @@ class AdmincpController extends Controller
                         ),
                         " "));
             }
+            elseif (preg_match('/(Manager\ user\ )/', $query[$i]['uLogDescription'])) {
+                $result[$i]['userName'] = substr(
+                    $query[$i]['uLogDescription'],
+                    strlen('Manager user '),
+                    strpos(
+                        substr(
+                            $query[$i]['uLogDescription'],
+                            strlen('Manager user ')
+                        ),
+                        " "));
+            }
+            else {
+                $result[$i]['userName'] = 'N/A';
+            }
             $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
             $result[$i]['action']   = $query[$i]['uLogDescription'];
             $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
         }
         return $result;
+    }
+
+    private function searchuserlogs() {
+        if (!isset($_POST['searchuserloginlogs'])) {
+            $this->showmessage
+            (
+                $opsuccess = false,
+                $opmessage = 'You need to offer a search criteria first!'
+            );
+            self::redirect('/admincp/loginlogs');
+        }
+        $this->model('Useracc');
+        switch ($_POST['searchuserloginlogs'])
+        {
+            case filter_var($_POST['searchuserloginlogs'], FILTER_VALIDATE_INT):
+                $validatedfield = ' USERID = ';
+                $user = $this->model_class->get_mapper()->findAll(
+                    $where = $validatedfield . filter_var($_POST['searchuserloginlogs'], FILTER_SANITIZE_NUMBER_INT),
+                    $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
+                );
+                break;
+            case filter_var($_POST['searchuser'], FILTER_VALIDATE_EMAIL):
+                $validatedfield = ' USEREMAIL = ';
+                $user = $this->model_class->get_mapper()->findAll(
+                    $where = $validatedfield . "'" . filter_var($_POST['searchuserloginlogs'],FILTER_SANITIZE_EMAIL) . "'",
+                    $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
+                );
+                break;
+            default:
+                $validatedfield = ' USERNAME = ';
+                $user = $this->model_class->get_mapper()->findAll(
+                    $where = $validatedfield . "'" . filter_var($_POST['searchuserloginlogs'],FILTER_SANITIZE_STRING) . "'",
+                    $fields = 'USERNAME, USERTYPE, USEREMAIL, USERSTATE'
+                );
+                break;
+        }
+        if ((!$user) || (count($user) != 1)) {
+            $user[0]['userName'] = filter_var($_POST['searchuserloginlogs'],FILTER_SANITIZE_STRING);
+        }
+        $this->model('Userlog');
+        $query = $this->model_class->get_mapper()->findAll
+        (
+            $where = " ULOGDESCRIPTION LIKE '%" . $user[0]['userName'] ."'",
+            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+            $order = ' ULOGCREATEDAT DESC'
+        );
+
+        if (is_array($query) && count($query) > 0) {
+            for ($i = 0; $i < count($query);  ++$i ) {
+                $_SESSION['userLoginLogs'][$i]['userName'] = $user[0]['userName'];
+                $_SESSION['userLoginLogs'][$i]['datetime'] = $query[$i]['uLogCreatedAt'];
+                $_SESSION['userLoginLogs'][$i]['action']   = $query[$i]['uLogDescription'];
+                $_SESSION['userLoginLogs'][$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
+            }
+            self::redirect('/admincp/loginlogs');
+        }
+        else {
+            $this->showmessage
+            (
+                $opsuccess = false,
+                $opmessage = 'Couldn\'t find any login logs that belong to that user!'
+            );
+            self::redirect('/admincp/loginlogs');
+        }
+    }
+
+    private function getAllLoginLogs()
+    {
+        $this->model('Userlog');
+        $query = $this->model_class->get_mapper()->findAll
+        (
+            $where = "ULOGDESCRIPTION LIKE '%has logged%'",
+            $fields = 'ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ULOGCREATEDAT"',
+            $order = 'ULOGCREATEDAT DESC '
+        );
+        $result = [];
+        if (is_array($query) && count($query) > 0) {
+            for ($i = 0; $i < count($query);  ++$i ) {
+                if (preg_match('/(Admin\ user\ )/', $query[$i]['uLogDescription'])) {
+                    $result[$i]['userName'] = substr(
+                        $query[$i]['uLogDescription'],
+                        strlen('Admin user '),
+                        strpos(
+                            substr(
+                                $query[$i]['uLogDescription'],
+                                strlen('Admin user ')
+                            ),
+                            " "));
+                }
+                elseif (preg_match('/(Normal\ user\ )/', $query[$i]['uLogDescription'])) {
+                    $result[$i]['userName'] = substr(
+                        $query[$i]['uLogDescription'],
+                        strlen('Normal user '),
+                        strpos(
+                            substr(
+                                $query[$i]['uLogDescription'],
+                                strlen('Normal user ')
+                            ),
+                            " "));
+                }
+                elseif (preg_match('/(Manager\ user\ )/', $query[$i]['uLogDescription'])) {
+                    $result[$i]['userName'] = substr(
+                        $query[$i]['uLogDescription'],
+                        strlen('Manager user '),
+                        strpos(
+                            substr(
+                                $query[$i]['uLogDescription'],
+                                strlen('Manager user ')
+                            ),
+                            " "));
+                }
+                else {
+                    $result[$i]['userName'] = 'N/A';
+                }
+                $result[$i]['datetime'] = $query[$i]['uLogCreatedAt'];
+                $result[$i]['action']   = $query[$i]['uLogDescription'];
+                $result[$i]['sourceIP'] = $query[$i]['uLogSourceIP'];
+
+            }
+            return $result;
+        }
+        else {
+            return [];
+        }
     }
 }
