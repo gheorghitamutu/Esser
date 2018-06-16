@@ -60,15 +60,7 @@ class Controller
                 'userId' => $_SESSION['userid']
             ));
 
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription'   => "'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'",
-                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
-            )
-        );
+        $this->log_user_activity("'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'");
 
         return true;
     }
@@ -121,5 +113,18 @@ class Controller
             return false;
         }
         return true;
+    }
+
+    protected function log_user_activity($uLogDescription)
+    {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => $uLogDescription,
+                'uLogSourceIP'      => "'" . $_SERVER["REMOTE_ADDR"] . "'"
+            )
+        );
     }
 }

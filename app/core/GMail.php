@@ -25,7 +25,7 @@ class GMail
     public static function send_email($to, $subject, $body)
     {
         $instance = new GMail();
-        $instance->send($to, $subject, $body);
+        return $instance->send($to, $subject, $body);
     }
 
 
@@ -51,12 +51,6 @@ class GMail
 
         $mail = $smtp->send($to, $headers, $body);
 
-        if ($mail !== true)
-        {
-            echo('<p>' . $mail->getMessage() . '</p>');
-        } else
-        {
-            echo('<p>Message successfully sent!</p>');
-        }
+        return $mail === true;
     }
 }

@@ -110,7 +110,7 @@ class RegisterController extends Controller
         );
 
         $log_description = "'Normal user " . $username     . " registered!'";
-        $this->log_user_activity($log_description);
+        parent::log_user_activity($log_description);
 
         $email_subject = "[Esser] Registration";
 
@@ -123,24 +123,21 @@ class RegisterController extends Controller
             $email_body = "Failed to register!";
         }
 
-        GMail::send_email($email, $email_subject, $email_body);
+        $email_sent = GMail::send_email($email, $email_subject, $email_body);
+
+        if($email_sent === true)
+        {
+            $log_description = "'Normal user " . $username     . " registration email success!'";
+        }
+        else
+        {
+            $log_description = "'Normal user " . $username     . " registration email fail!'";
+        }
+
+        parent::log_user_activity($log_description);
 
         return $result;
     }
-
-    private function log_user_activity($uLogDescription)
-    {
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription'   => $uLogDescription,
-                'uLogSourceIP'      => "'" . $_SERVER["REMOTE_ADDR"] . "'"
-            )
-        );
-    }
-
 }
 
 
