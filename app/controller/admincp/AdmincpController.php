@@ -33,6 +33,8 @@ class AdmincpController extends Controller
             case 'admincp/loginlogs':
                 $this->loginlogs();
                 break;
+            case 'admincp/loginlogs/searchuserlogs':
+                $this->searchuserloginlogs();
             case 'admincp/itemlogs':
                 $this->itemlogs();
                 break;
@@ -255,58 +257,58 @@ class AdmincpController extends Controller
         }
     }
 
-//    private function searchuserlogs()
-//    {
-//        if (isset($_POST['searchuserlogs'])) {
-//            $this->model('Useracc');
-//            switch ($_POST['searchuserlogs']) {
-//                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
-//                    $validatedfield = ' USERID = ';
-//                    $user = $this->model_class->get_mapper()->findAll(
-//                        $where = $validatedfield . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_NUMBER_INT),
-//                        $fields = 'USERID, USERNAME, USEREMAIL'
-//                    );
-//                    break;
-//                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
-//                    $validatedfield = ' USEREMAIL = ';
-//                    $user = $this->model_class->get_mapper()->findAll(
-//                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'],FILTER_SANITIZE_EMAIL) . "'",
-//                        $fields = 'USERID, USERNAME, USEREMAIL'
-//                    );
-//                    break;
-//                default:
-//                    $validatedfield = ' USERNAME = ';
-//                    $user = $this->model_class->get_mapper()->findAll(
-//                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_STRING) . "'",
-//                        $fields = 'USERID, USERNAME, USEREMAIL'
-//                    );
-//                    break;
-//            }
-//        }
-//        else {
-//            unset($_SESSION['logsofuser']);
-//            $this->showmessage
-//            (
-//                $opsuccess = true,
-//                $opmessage ='You need to offer some search criterias first!'
-//            );
-//            self::redirect('/admincp/userlogs');
-//        }
-//
-//        if (empty($user)) {
-//            unset($_SESSION['logsofuser']);
-//            $this->showmessage
-//            (
-//                $opsuccess = true,
-//                $opmessage ='Couldn\'t find any user matching the search criteria!'
-//            );
-//            self::redirect('/admincp/userlogs');
-//        }
-//        else {
-//            $_SESSION['logsofuser'] = $user;
-//            self::redirect('/admincp/userlogs');
-//        }
-//    }
+    private function searchuserlogs()
+    {
+        if (isset($_POST['searchuserlogs'])) {
+            $this->model('Useracc');
+            switch ($_POST['searchuserlogs']) {
+                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_INT):
+                    $validatedfield = ' USERID = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_NUMBER_INT),
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+                case filter_var($_POST['searchuserlogs'], FILTER_VALIDATE_EMAIL):
+                    $validatedfield = ' USEREMAIL = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'],FILTER_SANITIZE_EMAIL) . "'",
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+                default:
+                    $validatedfield = ' USERNAME = ';
+                    $user = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . "'" . filter_var($_POST['searchuserlogs'], FILTER_SANITIZE_STRING) . "'",
+                        $fields = 'USERID, USERNAME, USEREMAIL'
+                    );
+                    break;
+            }
+        }
+        else {
+            unset($_SESSION['logsofuser']);
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='You need to offer some search criterias first!'
+            );
+            self::redirect('/admincp/userlogs');
+        }
+
+        if (empty($user)) {
+            unset($_SESSION['logsofuser']);
+            $this->showmessage
+            (
+                $opsuccess = true,
+                $opmessage ='Couldn\'t find any user matching the search criteria!'
+            );
+            self::redirect('/admincp/userlogs');
+        }
+        else {
+            $_SESSION['logsofuser'] = $user;
+            self::redirect('/admincp/userlogs');
+        }
+    }
 
     private function usereditor()
     {
@@ -946,12 +948,9 @@ class AdmincpController extends Controller
 
     private function settings()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'settings',
-            [],
+            ['currenttitle' => APP_TITLE],
             'AdminCP');
     }
 
@@ -991,7 +990,11 @@ class AdmincpController extends Controller
         }
         if (empty($queryresult) || count($queryresult) == 0) {
             return 'N/A';
-        } else {
+        }
+        elseif (count($queryresult) == 1) {
+            return $queryresult[0]['uLogCreatedAt'];
+        }
+        else {
             return $queryresult[1]['uLogCreatedAt'];
         }
     }
@@ -1119,7 +1122,7 @@ class AdmincpController extends Controller
         return $result;
     }
 
-    private function searchuserlogs() {
+    private function searchuserloginlogs() {
         if (!isset($_POST['searchuserloginlogs'])) {
             $this->showmessage
             (

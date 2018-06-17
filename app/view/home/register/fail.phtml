@@ -7,11 +7,7 @@
             <p class="main-text">
                 Your registration request couldn't be procesed due to
                 <?php
-                    echo
-                    ((isset($_SESSION["registration_wrong_pass_repeat"]) &&
-                    $_SESSION["registration_wrong_pass_repeat"] === true) ?
-                    'invalid password repeat! Please try again and make sure password matches!' :
-                    'technical issues!');
+                    echo $this->view_data['failMessage'];
                 ?>
             </p>
             <button type="button" class="lgn-view-btn" onclick="window.location='/register'">Retry</button>

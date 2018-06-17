@@ -96,6 +96,9 @@ class Controller
         }
 
         $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
+        if  ($_SESSION["login_ip"] === '::1') {
+            $_SESSION["login_ip"] = '127.0.0.1';
+        }
         $_SESSION["uname"]      = $users_found[0]["userName"];
         $_SESSION["userid"]     = $users_found[0]["userId"];
 
