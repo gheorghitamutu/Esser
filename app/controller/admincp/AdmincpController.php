@@ -35,6 +35,7 @@ class AdmincpController extends Controller
                 break;
             case 'admincp/loginlogs/searchuserlogs':
                 $this->searchuserloginlogs();
+                break;
             case 'admincp/itemlogs':
                 $this->itemlogs();
                 break;
@@ -74,13 +75,29 @@ class AdmincpController extends Controller
             case 'admincp/usermanager/unsuspenduser':
                 $this->unsuspenduser();
                 break;
-            case 'admincp/databaseeditor':
-                $this->databaseeditor();
+            case 'admincp/usergroups/':
+                $this->usergroupsmanager();
+                break;
+            case 'admincp/itemeditor/':
+                $this->itemeditor();
+                break;
+            case 'admincp/itemmanager/':
+                $this->itemmanager();
+                break;
+            case 'admincp/item_groups/':
+                $this->itemgroupsmanager();
                 break;
             case 'admincp/settings':
                 $this->settings();
                 break;
+            case 'admincp/settings/changetitle':
+                $this->changetitle();
+                break;
             default:
+                View::CreateView(
+                    '404',
+                    [],
+                    'Page not found!');
                 break;
         }
     }
@@ -108,13 +125,11 @@ class AdmincpController extends Controller
 
     private function index()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'index',
             [],
             'AdminCP');
+        unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
     }
 
     private function login()
@@ -183,16 +198,13 @@ class AdmincpController extends Controller
             )
         );
 
-        session_destroy();
+        session_destroy(); unset($_SESSION);
         self::redirect('/admincp');
     }
 
     private function dashboard()
     {
         $this->check_rights();
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'dashboard',
             array
@@ -206,18 +218,17 @@ class AdmincpController extends Controller
                 'avgItemPerGroup' => $this->getTotalItemGroups() ? ($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
             ),
             'AdminCP');
+        unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],$_SESSION['userLoginLogs']);
     }
 
     private function itemlogs()
     {
         $this->check_rights();
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
             [],
             'AdminCP');
+        unset($_SESSION['opsuccess'], $_SESSION['opmessage'],$_SESSION['userToEdit']);
     }
 
     private function loginlogs()
@@ -227,33 +238,32 @@ class AdmincpController extends Controller
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
                 ['usersloginlogs' => $_SESSION['userLoginLogs']],
                 'AdminCP');
-            unset($_SESSION['userLoginLogs']);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         }
         else {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
                 ['usersloginlogs' => $this->getAllLoginLogs()],
                 'AdminCP');
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         }
     }
 
     private function userlogs()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         if (key_exists('logsofuser', $_SESSION)) {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
                 ['userLogs' => $this->getUserLogs($_SESSION['logsofuser'])],
                 'AdminCP');
-            unset($_SESSION['logsofuser']);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         }
         else {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
                 ['userLogs' => $this->getAllUsersLogs()],
                 'AdminCP');
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         }
     }
 
@@ -317,12 +327,13 @@ class AdmincpController extends Controller
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 ['userToEdit' => $_SESSION['userToEdit']],
                 'AdminCP');
-            unset($_SESSION['userToEdit']);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         } else {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 [],
                 'AdminCP');
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
         }
     }
 
@@ -629,9 +640,6 @@ class AdmincpController extends Controller
 
     private function usermanager()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
             [
@@ -644,6 +652,7 @@ class AdmincpController extends Controller
             ],
 
             'AdminCP');
+        unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
     }
 
     private function extractActiveUsers($userlist)
@@ -735,7 +744,7 @@ class AdmincpController extends Controller
         $this->model('Useracc');
         $query = $this->model_class->get_mapper()->findAll(
             $where = 'userType = 0',
-            $fields = 'USERID, USERNAME, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
+            $fields = 'USERID, USERNAME, USERTYPE, USEREMAIL, USERSTATE, TO_CHAR(USERCREATEDAT,\'DD-MM-YYYY HH24:MI:SS\') AS "USERCREATEDAT"',
             $order = 'userCreatedAt DESC'
         );
         for ($i = 0; $i < count($query); ++$i) {
@@ -935,14 +944,14 @@ class AdmincpController extends Controller
         }
     }
 
-    private function databaseeditor()
+    private function usergroupsmanager()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'database',
-            [],
+            'admincp' . DIRECTORY_SEPARATOR . 'user_groups' . DIRECTORY_SEPARATOR . 'manager',
+            [
+                'grouplist' => []
+            ],
+
             'AdminCP');
     }
 
@@ -952,6 +961,7 @@ class AdmincpController extends Controller
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'settings',
             ['currenttitle' => APP_TITLE],
             'AdminCP');
+        unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
     }
 
     private function getDBTimeZone()
@@ -1243,6 +1253,45 @@ class AdmincpController extends Controller
         }
         else {
             return [];
+        }
+    }
+
+    private function changetitle()
+    {
+        if (preg_match('/[^a-zA-Z0-9._- ]+/', filter_var($_POST['newtitle'], FILTER_SANITIZE_STRING))) {
+
+            $this->showmessage
+            (
+                $opsuccess = false,
+                $opmessage = "Only alpha-numeric, '.', '_' and '-' characters are allowed!"
+            );
+            self::redirect('/admincp/settings');
+        }
+        else {
+            $cfgfile = ROOT . 'app' . DS . 'config' . DS . 'config.php';
+            $newtitle = filter_var($_POST['newtitle'], FILTER_SANITIZE_STRING);
+            $success = inFileStrReplace($cfgfile,
+                    "define('APP_TITLE'                          , '" . APP_TITLE . "');",
+                    "define('APP_TITLE'                          , '" . $newtitle . "');");
+            if (!$success) {
+                $this->showmessage
+                (
+                    $opsuccess = false,
+                    $opmessage = 'Failed to change APP_TITLE into ' . $newtitle . '!'
+                );
+                self::redirect('/admincp/settings');
+            }
+            else {
+                $this->showmessage
+                (
+                    $opsuccess = $success,
+                    $opmessage = "Successfully changed app title into "
+                                . $newtitle
+                                . "! Server is being gracefully restarted!"
+                );
+                self::redirect('/admincp/settings');
+                shell_exec('httpd.exe -k restart');
+            }
         }
     }
 }

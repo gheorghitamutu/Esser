@@ -16,7 +16,7 @@
         <div class="admcp-rt-cnt-box">
             <div class="admcp-rt-content">
                 <h3 class="adm-rt-title"> Change Esser Title </h3>
-                <form class="usr-edit-form" method="POST" action="admincp/settings/changetitle" >
+                <form class="usr-edit-form" method="POST" action="settings/changetitle" >
                     <fieldset>
                         <legend></legend>
                         <div class="ctrl-group">
@@ -25,27 +25,11 @@
                         <div class="ctrl-group">
                             <label> Input New Title </label> <input title="NewTitle"  required="required" type="text" name="newtitle" id="new-esser-name" value="">
                         </div>
-                    </fieldset>
-                    <div class="ctrl-group">
-                        <button type="submit" class="admcp-save-btn"> Save </button>
-                        <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
-                    </div>
-                </form>
-                <h3 class="adm-rt-title"> Change Root AdminCP User </h3>
-                <form type="POST" class="usr-edit-form">
-                    <fieldset>
-                        <legend></legend>
                         <div class="ctrl-group">
-                            <label> Old Root User </label> <input type="text" name="OldRootUser" id="old-root-name" value="Edward" disabled>
-                        </div>
-                        <div class="ctrl-group">
-                            <label> Input New User </label> <input type="text" name="NewRootUser" id="new-root-name" value="">
+                            <button type="submit" class="admcp-save-btn"> Save </button>
+                            <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
                         </div>
                     </fieldset>
-                    <div class="ctrl-group">
-                        <button type="button" class="admcp-save-btn" onclick="changeRootUser('new-root-name')"> Save </button>
-                        <button type="button" class="admcp-save-btn" onclick="window.location='dashboard'"> Cancel </button>
-                    </div>
                 </form>
             </div>
         </div>

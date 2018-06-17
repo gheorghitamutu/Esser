@@ -92,7 +92,7 @@
                                     ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><label class=\"info-status\">".$this->view_data['unapprovedUsers'][$i]['userName']
                                                                     ."</label>  <label class=\"info-status\">" . $this->view_data['unapprovedUsers'][$i]['userEmail']
-                                                                    ."</label>  <label class=\"unapproved-status\">" . $this->view_data['unapprovedUsers'][$i]['userState'] . "</label></div>".PHP_EOL
+                                                                    ."</label>  <label class=\"unapproved-status\">" . $this->view_data['unapprovedUsers'][$i]['userType'] . "</label></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/approveuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"approveuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Approve </button></form></div>".PHP_EOL
