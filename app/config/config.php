@@ -15,7 +15,7 @@
 define('INSTALLED'                          , true);
 define('PLSQL_DRIVER'                       , 'oci8');
 define('INSTALL_PHASE'                      , 0);
-define('APP_TITLE'                          , 'BMCP EsseR');
+define('APP_TITLE'                          , 'Our Esser Project');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');
 define('SYS_DB_USER_PASS'                   , 'SYS');

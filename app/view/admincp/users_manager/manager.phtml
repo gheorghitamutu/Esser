@@ -28,7 +28,9 @@
                                  "<div class=\"flex-table-row\">".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['activeUsers'][$i]['userType']. "</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['activeUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\"> ".$this->view_data['approvedUsers']['activeUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><label class=\"info-status\">".$this->view_data['approvedUsers']['activeUsers'][$i]['userName']
+                                                                     ."</label>  <label class=\"info-status\">" . $this->view_data['approvedUsers']['activeUsers'][$i]['userEmail']
+                                                                     ."</label>  <label class=\"" . $this->view_data['approvedUsers']['activeUsers'][$i]['labelType'] . "\">" . $this->view_data['approvedUsers']['activeUsers'][$i]['userState'] . "</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/suspenduser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"suspenduser\" value=\"".$this->view_data['approvedUsers']['activeUsers'][$i]['userId']."\"> Suspend </button></form></div>".PHP_EOL
@@ -55,7 +57,9 @@
                                         "<div class=\"flex-table-row\">".PHP_EOL
                                         ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['suspendedUsers'][$i]['userType']. "</div>".PHP_EOL
                                         ."<div class=\"flex-table-td\">". $this->view_data['approvedUsers']['suspendedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
-                                        ."<div class=\"flex-table-td\"> ".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                        ."<div class=\"flex-table-td\"><label class=\"info-status\">".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userName']
+                                                                         ."</label>  <label class=\"info-status\">" . $this->view_data['approvedUsers']['suspendedUsers'][$i]['userEmail']
+                                                                         ."</label>  <label class=\"suspended-status\">" . $this->view_data['approvedUsers']['suspendedUsers'][$i]['userState'] . "</label></div>".PHP_EOL
                                         ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
                                         ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
                                         ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/unsuspenduser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"unsuspenduser\" value=\"".$this->view_data['approvedUsers']['suspendedUsers'][$i]['userId']."\"> Unsuspend </button></form></div>".PHP_EOL
@@ -86,7 +90,9 @@
                                 "<div class=\"flex-table-row\">".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userType']. "</div>".PHP_EOL
                                     ."<div class=\"flex-table-td\">". $this->view_data['unapprovedUsers'][$i]['userCreatedAt'] ."</div>".PHP_EOL
-                                    ."<div class=\"flex-table-td\">".$this->view_data['unapprovedUsers'][$i]['userName'] ."</div>".PHP_EOL
+                                    ."<div class=\"flex-table-td\"><label class=\"info-status\">".$this->view_data['unapprovedUsers'][$i]['userName']
+                                                                    ."</label>  <label class=\"info-status\">" . $this->view_data['unapprovedUsers'][$i]['userEmail']
+                                                                    ."</label>  <label class=\"unapproved-status\">" . $this->view_data['unapprovedUsers'][$i]['userType'] . "</label></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usereditor/getuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"edituser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Edit </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/deleteuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"deleteuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Delete </button></form></div>".PHP_EOL
                                     ."<div class=\"flex-table-td\"><form action=\"/admincp/usermanager/approveuser\" method=\"POST\"><button type=\"submit\" class=\"admcp-srch-btn\" name=\"approveuser\" value=\"".$this->view_data['unapprovedUsers'][$i]['userId']."\"> Approve </button></form></div>".PHP_EOL
