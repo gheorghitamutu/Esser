@@ -201,7 +201,7 @@ output.bad-credentials#show {
     text-align: center;
     width: 90%;
     max-height: 350px;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 .admcp-menu-option {
@@ -558,8 +558,7 @@ div.flex-table {
 
 div.flex-table-body {
     max-height: 600px;
-    overflow-y: auto;
-    overflow-x: auto
+    overflow: auto;
 }
 
 div.flex-table div.flex-table-head {
@@ -685,13 +684,14 @@ div#grpdscrptdiv.ctrl-group, input#grp-name, input#cur-grp-name {
     display: block;
 }
 
-input#cur-grp-descrp, input#grp-descrp {
+textarea#cur-grp-descrp, textarea#grp-descrp {
     display: block;
     height: 200px;
     width: 95%;
     max-height: 400px;
-    overflow-y: auto;
-    line-height: 20px;
+    overflow: auto;
+    line-height: 28px;
+    font-size: x-large;
 }
 
 div#grpnamediv.ctrl-group {

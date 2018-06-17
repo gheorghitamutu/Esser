@@ -623,7 +623,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "delete from $table where $where $ret";
-
+//        echo $sql; die;
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return false;

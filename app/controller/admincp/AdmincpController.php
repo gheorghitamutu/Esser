@@ -9,7 +9,6 @@
  * Time: 1:28 PM
  */
 
-
 class AdmincpController extends Controller
 {
     public function __construct($uri)
@@ -87,8 +86,14 @@ class AdmincpController extends Controller
             case 'admincp/usergroupeditor/getgroup':
                 $this->getusergroup();
                 break;
-            case 'admincp/usergroupeditor/remuserfromgroup':
-                $this->remusergromgroup();
+            case 'admincp/usergroupeditor/removefromgroup':
+                $this->remusergfromgroup();
+                break;
+            case 'admincp/usergroupeditor/editgrouptitle':
+                $this->editusergrouptitle();
+                break;
+            case 'admincp/usergroupeditor/editgroupdescription':
+                $this->editusergroupdescription();
                 break;
             case 'admincp/itemeditor':
                 $this->itemeditor();
@@ -140,7 +145,7 @@ class AdmincpController extends Controller
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'index',
             [],
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
             $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
     }
@@ -156,13 +161,15 @@ class AdmincpController extends Controller
         }
 
         if ($this->try_authenticate($_POST["uname"], $_POST["psw"], $is_admin_cp = true)) {
-            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
-                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
             self::redirect('/admincp/dashboard');
-        } else {
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
+            return;
+        } else {
             self::redirect('/admincp');
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
+                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
+            return;
         }
     }
 
@@ -199,9 +206,6 @@ class AdmincpController extends Controller
 
     private function logout()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
-            unset($_SESSION['userToEdit']);
-        }
         $this->model('UserLog');
         $this->model_class->get_mapper()->insert
         (
@@ -232,7 +236,7 @@ class AdmincpController extends Controller
                 'totalItemGroups' => $this->getTotalItemGroups(),
                 'avgItemPerGroup' => $this->getTotalItemGroups() ? ($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
             ),
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
             $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
     }
@@ -243,7 +247,7 @@ class AdmincpController extends Controller
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
             [],
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
             $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
     }
@@ -254,7 +258,7 @@ class AdmincpController extends Controller
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
                 ['usersloginlogs' => $_SESSION['userLoginLogs']],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
@@ -262,7 +266,7 @@ class AdmincpController extends Controller
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'loginlogs',
                 ['usersloginlogs' => $this->getAllLoginLogs()],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
@@ -274,7 +278,7 @@ class AdmincpController extends Controller
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
                 ['userLogs' => $this->getUserLogs($_SESSION['logsofuser'])],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
@@ -282,7 +286,7 @@ class AdmincpController extends Controller
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'userlogs',
                 ['userLogs' => $this->getAllUsersLogs()],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
@@ -324,6 +328,7 @@ class AdmincpController extends Controller
                 $opmessage ='You need to offer some search criterias first!'
             );
             self::redirect('/admincp/userlogs');
+            return;
         }
 
         if (empty($user)) {
@@ -334,10 +339,12 @@ class AdmincpController extends Controller
                 $opmessage ='Couldn\'t find any user matching the search criteria!'
             );
             self::redirect('/admincp/userlogs');
+            return;
         }
         else {
             $_SESSION['logsofuser'] = $user;
             self::redirect('/admincp/userlogs');
+            return;
         }
     }
 
@@ -347,14 +354,14 @@ class AdmincpController extends Controller
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 ['userToEdit' => $_SESSION['userToEdit']],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         } else {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 [],
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
@@ -663,8 +670,9 @@ class AdmincpController extends Controller
     {
         $_SESSION['opsuccess'] = $opsucces;
         $_SESSION['opmessage'] = $opmessage;
-        if  ($redirectto) {
+        if ($redirectto) {
             self::redirect($redirectto);
+            return;
         }
     }
 
@@ -705,6 +713,7 @@ class AdmincpController extends Controller
                 $opmessage ='You need to offer some search criterias first!'
             );
             self::redirect('/admincp/usereditor');
+            return;
         }
         if (empty($user)) {
             unset($_SESSION['userToEdit']);
@@ -714,6 +723,7 @@ class AdmincpController extends Controller
                 $opmessage ='Couldn\'t find any user matching the search criteria!'
             );
             self::redirect('/admincp/usereditor');
+            return;
         }
         else {
             switch ($user[0]['userType']) {
@@ -743,6 +753,7 @@ class AdmincpController extends Controller
             }
             $_SESSION['userToEdit'] = $user[0];
             self::redirect('/admincp/usereditor');
+            return;
         }
     }
 
@@ -786,6 +797,7 @@ class AdmincpController extends Controller
         }
         $_SESSION['userToEdit'] = $user[0];
         self::redirect('/admincp/usereditor');
+        return;
     }
 
     private function usermanager()
@@ -801,7 +813,7 @@ class AdmincpController extends Controller
                 'unapprovedUsers' => $this->getUnapprovedUserList()
             ],
 
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
             $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
     }
@@ -914,8 +926,8 @@ class AdmincpController extends Controller
             $this->showmessage(false,
                 'Cannot delete your own account!',
                 '/admincp/usermanager');
-        } else {
-//            $this->model('')
+        }
+        else {
             $query = $this->model_class->get_mapper()->delete(
                 $table = 'USERACCS',
                 $where = array
@@ -1102,7 +1114,7 @@ class AdmincpController extends Controller
             [
                 'grouplist' => $this->getAllUserGroups()
             ],
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
             $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
     }
@@ -1169,22 +1181,20 @@ class AdmincpController extends Controller
                     'memberlist' => $_SESSION['usergrouptoedit']['memberlist'],
                     'generalgroupinfo' => $_SESSION['usergrouptoedit'],
                 ],
-
-                'AdminCP');
+                APP_TITLE);
             unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
                 $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
         else {
-            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
-                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'user_groups' . DIRECTORY_SEPARATOR . 'editor',
                 [
                     'memberlist' => [],
                     'generalgroupinfo' => []
                 ],
-
-                'AdminCP');
+                APP_TITLE);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
+                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
         }
     }
 
@@ -1221,6 +1231,7 @@ class AdmincpController extends Controller
             $this->editusergroup($group[0]['uGroupId']);
         }
     }
+
     private function getusergroup()
     {
         $this->model('Usergroup');
@@ -1234,6 +1245,7 @@ class AdmincpController extends Controller
             return;
         }
     }
+
     private function editusergroup($groupid)
     {
         $query = $this->model_class->get_mapper()->findAll
@@ -1336,6 +1348,159 @@ class AdmincpController extends Controller
         self::redirect('/admincp/usergroupeditor');
     }
 
+    private function remusergfromgroup()
+    {
+        $userid = substr($_POST['remfromgrp'],0, strpos($_POST['remfromgrp'],'/'));
+        $groupid = substr($_POST['remfromgrp'], strpos($_POST['remfromgrp'],'/') + 1);
+        if (!filter_var($userid,FILTER_VALIDATE_INT) || !filter_var($groupid,FILTER_VALIDATE_INT)) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        $this->removefromusergroup($userid, $groupid);
+    }
+
+    private function removefromusergroup($userid, $groupid)
+    {
+        $userid = filter_var($userid, FILTER_SANITIZE_NUMBER_INT);
+        $groupid = filter_var($groupid, FILTER_SANITIZE_NUMBER_INT);
+        switch ($groupid) {
+            case 1:
+                $rootadmin = true;
+                $rootmng = false;
+                break;
+            case 2:
+                $rootadmin = true;
+                $rootmng = true;
+                break;
+            default:
+                $rootadmin = false;
+                $rootmng = false;
+                break;
+        }
+        if ($rootadmin && $rootmng) {
+            $this->model('Grouprelation');
+            $result = $this->model_class->get_mapper()->delete
+            (
+                $table = 'GROUPRELATIONS',
+                $where = array
+                (
+                    'USERID' => $userid,
+                    'UGROUPID' => 1
+                )
+            );
+            if ($result) {
+                $result = $this->model_class->get_mapper()->delete
+                (
+                    $table = 'GROUPRELATIONS',
+                    $where = array
+                    (
+                        'USERID' => $userid,
+                        'UGROUPID' => 2
+                    )
+                );
+            }
+        }
+        elseif($rootadmin) {
+            $this->model('Grouprelation');
+            $result = $this->model_class->get_mapper()->delete
+            (
+                $table = 'GROUPRELATIONS',
+                $where = array
+                (
+                    'USERID' => $userid,
+                    'UGROUPID' => 1
+                )
+            );
+        }
+        else {
+            $this->model('Grouprelation');
+            $result = $this->model_class->get_mapper()->delete
+            (
+                $table = 'GROUPRELATIONS',
+                $where = array
+                (
+                    'USERID' => $userid,
+                    'UGROUPID' => $groupid
+                )
+            );
+        }
+        $opmessage= '';
+        if (!$result) {
+            $this->showmessage($opsucces = false, $opmessage = 'Couldn\'t remove user from the group!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        else {
+            if ($rootadmin && $rootmng) {
+                $this->model('Useracc');
+                $query = $this->model_class->get_mapper()->findAll($where = 'USERID ='.$userid);
+                if (empty($query)) {
+                    $opmessage = 'Please update user type manually!';
+                }
+                else {
+                    $needsupdate = (($query[0]['userType'] > 1) ? true :false);
+                    if ($needsupdate) {
+                        $update = $this->model_class->get_mapper()->update
+                        (
+                            $table = 'USERACCS',
+                            $fields = array('USEERTYPE' => 1),
+                            $where = array ('USERID' => $userid)
+                        );
+                        if($update == false) {
+                            $opmessage = 'You need to update user type manually!';
+                        }
+                    }
+                }
+            }
+            elseif ($rootadmin) {
+                $this->model('Useracc');
+                $query = $this->model_class->get_mapper()->findAll($where = 'USERID ='.$userid);
+                if (empty($query)) {
+                    $opmessage = 'Please update user type manually!';
+                }
+                else {
+                    $needsupdate = (($query[0]['userType'] > 1) ? true :false);
+                    if ($needsupdate) {
+                        $update = $this->model_class->get_mapper()->update
+                        (
+                            $table = 'USERACCS',
+                            $fields = array('USERTYPE' => 1),
+                            $where = array ('USERID' => $userid)
+                        );
+                        if($update == false) {
+                            $opmessage = 'You need to update user type manually!';
+                        }
+                    }
+                }
+            }
+//            var_dump($userid, $groupid, $rootadmin, $rootmng, $opmessage, $needsupdate, $update);die;
+            $this->showmessage($opsucces = false,
+                $opmessage = 'Successfully removed user from the group! ' . $opmessage);
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+    }
+
+    private function editusergrouptitle()
+    {
+        if (!filter_var($_POST['editgrouptitleid'],FILTER_VALIDATE_INT)) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+    }
+
+    private function editusergroupdescription()
+    {
+        if (!filter_var($_POST['editgroupdscrpid'],FILTER_VALIDATE_INT)) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+
+    }
+
     private function itemeditor()
     {
         View::CreateView(
@@ -1344,7 +1509,7 @@ class AdmincpController extends Controller
                 'grouplist' => []
             ],
 
-            'AdminCP');
+            APP_TITLE);
     }
 
     private function itemmanager()
@@ -1355,7 +1520,7 @@ class AdmincpController extends Controller
                 'grouplist' => []
             ],
 
-            'AdminCP');
+            APP_TITLE);
     }
 
     private function itemgroupsmanager()
@@ -1366,7 +1531,7 @@ class AdmincpController extends Controller
                 'grouplist' => []
             ],
 
-            'AdminCP');
+            APP_TITLE);
     }
 
     private function settings()
@@ -1374,7 +1539,7 @@ class AdmincpController extends Controller
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'web_settings' . DIRECTORY_SEPARATOR . 'settings',
             ['currenttitle' => APP_TITLE],
-            'AdminCP');
+            APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'], $_SESSION['userLoginLogs'], $_SESSION['logsofuser']);
     }
 
