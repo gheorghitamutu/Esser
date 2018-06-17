@@ -1,23 +1,49 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ghita
- * Date: 5/26/2018
- * Time: 3:56 PM
- */ ?>
-
 <?php include VIEW . 'admincp/header.phtml';?>
 
 <?php include VIEW . 'admincp/menu/header_bar.phtml';?>
 
-<div class="admcp-tables-body">
-    <?php include VIEW . 'admincp/menu/menu.phtml';?>
-    <div class="admcp-rt-box">
-        <div class="admcp-rt-cnt-box">
-            <div class="admcp-rt-content">
+    <div class="admcp-tables-body">
+
+        <?php include VIEW . 'admincp/menu/menu.phtml';?>
+        <div class="admcp-rt-box">
+            <div class="admcp-rt-cnt-box">
+                <div class="admcp-rt-content">
+                    <h3 class="adm-rt-title"> User Management </h3>
+                    <div class="flex-table">
+                        <h2 class="adm-rt-title"> User Groups </h2>
+                        <div class="flex-table-head">
+                            <div class="flex-table-row">
+                                <div class="flex-table-th"> Group Name </div>
+                                <div class="flex-table-th"> Creation Date </div>
+                                <div class="flex-table-th"> Description </div>
+                                <div class="flex-table-th"> Total Members </div>
+                                <div class="flex-table-th"> Total Managers </div>
+                                <div class="flex-table-th"> Edit </div>
+                            </div>
+                        </div>
+                        <div class="flex-table-body">
+                            <?php
+                            for ($i = 0; $i < count($this->view_data['grouplist']); ++$i) {
+                            echo
+                            "<div class=\"flex-table-row\">".PHP_EOL
+                                ."<div class=\"flex-table-td\">". $this->view_data['grouplist'][$i]['groupname']. "</div>".PHP_EOL
+                                ."<div class=\"flex-table-td\">". $this->view_data['grouplist'][$i]['datetime'] ."</div>".PHP_EOL
+                                ."<div class=\"flex-table-td\">" .$this->view_data['grouplist'][$i]['groupdscrp'] . "</div>".PHP_EOL
+                                ."<div class=\"flex-table-td\">" .$this->view_data['grouplist'][$i]['nrofmembers'] . "</div>".PHP_EOL
+                                ."<div class=\"flex-table-td\">" .$this->view_data['grouplist'][$i]['nrofmanagers'] . "</div>".PHP_EOL
+                                ."<div class=\"flex-table-td\">" . PHP_EOL .
+                                    "<form action=\"/admincp/usergroupeditor/getgroup\" method=\"POST\">" . PHP_EOL .
+                                        "<button type=\"submit\" class=\"admcp-srch-btn\" name=\"editusergroup\" 
+                                        value=\"".$this->view_data['grouplist'][$i]['groupid']."\"> Edit </button>" . PHP_EOL .
+                                    "</form>" . PHP_EOL .
+                                "</div>".PHP_EOL
+                            ."</div>";
+                            }?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <?php include VIEW . 'admincp/footer.phtml';?>

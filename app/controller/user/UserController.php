@@ -29,7 +29,8 @@ class UserController extends Controller
                 $this->index();
                 break;
             case 'user/index':
-                self::redirect('/user');
+                $this->index();
+//                self::redirect('/user');
                 break;
             case 'user/notifications':
                 $this->set_notifications_read();

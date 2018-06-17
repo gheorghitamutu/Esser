@@ -197,7 +197,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
             throw new InvalidArgumentException('The specified query is not valid.');
         }
 
-        // lazy connect to MySQL
         $this->connect();
         if (!$this->_result = oci_parse($this->connection, $query))
         {
@@ -449,7 +448,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 }
             }
         }
-
+//        var_dump($query); die;
         return $this->parseSelect($query, $bind);
     }
 
@@ -567,7 +566,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
             {
                 $where[] = "$c = $v";
             }
-
             $where = implode(' AND ', $where);
         }
 //        echo $fields . "<br />";
@@ -583,7 +581,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "update $table set $fields where $where $ret";
-        //echo "Query de update este: $sql<br /><br />";
+//        echo "Query de update este: $sql";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return null;

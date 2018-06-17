@@ -174,10 +174,10 @@ class LoginController extends Controller
     {
         // checks if the user account is approved or suspended
         // checks if requested email exists in database
-        if (strlen($_POST['uname']) < 4 || strlen($_POST['uname']) > 16 || filter_var($_POST['uname'], FILTER_SANITIZE_STRING)) {
+        if (strlen($_POST['uname']) < 4 || strlen($_POST['uname']) > 16 || filter_var($_POST['uname'], FILTER_SANITIZE_STRING) == false) {
+
             return false;
         }
-
         $username = $_POST["uname"];
         $password = $_POST["psw"];
 
@@ -188,6 +188,7 @@ class LoginController extends Controller
         $user = $this->model_class->get_mapper()->findAll(
             $where = "userName = '$username' AND userPass = '$password_hash'",
             $fields = false);
+
 
         if (count($user) === 0 || count($user) === null)
         {

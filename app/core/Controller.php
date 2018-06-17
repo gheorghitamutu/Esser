@@ -66,7 +66,7 @@ class Controller
             array
             (
                 'uLogDescription'   => "'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'",
-                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip']                                               . "'"
             )
         );
 
@@ -95,10 +95,7 @@ class Controller
             return false;
         }
 
-        $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
-        if  ($_SESSION["login_ip"] === '::1') {
-            $_SESSION["login_ip"] = '127.0.0.1';
-        }
+        $_SESSION["login_ip"]   = ($_SERVER["REMOTE_ADDR"] == '::1' ? '127.0.0.1' : $_SERVER["REMOTE_ADDR"]);
         $_SESSION["uname"]      = $users_found[0]["userName"];
         $_SESSION["userid"]     = $users_found[0]["userId"];
 
@@ -117,7 +114,7 @@ class Controller
         }
 
         // Check if the request is from a different IP address to previously
-        if (!isset($_SESSION["login_ip"]) || ($_SESSION["login_ip"] != $_SERVER["REMOTE_ADDR"]))
+        if (!isset($_SESSION["login_ip"]) || ($_SESSION["login_ip"] != ($_SERVER["REMOTE_ADDR"] == '::1' ? '127.0.0.1' : $_SERVER["REMOTE_ADDR"])))
         {
             // The request did not originate from the machine
             // that was used to create the session.
