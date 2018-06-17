@@ -22,6 +22,15 @@ BEGIN
   END IF;
 END trg_auto_root_add;
 /
+CREATE OR REPLACE TRIGGER trg_add_to_nrm_usr AFTER INSERT ON USERACCS FOR EACH ROW
+  BEGIN
+    IF (:NEW.USERID = 1) THEN
+      null;
+    ELSE
+      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS) VALUES (:NEW.USERID, 3, 0, 0);
+    end if;
+  end;
+/
 -- Automatic issueing of warning notifications for items that arrive at or lower than the warning treshold
 CREATE OR REPLACE TRIGGER trg_auto_warn BEFORE UPDATE ON ITEMS FOR EACH ROW
 DECLARE
@@ -98,6 +107,7 @@ BEGIN
   END CASE;
 END trg_auto_warn;
 /
+
 -- Automatic calculation of the nr of members in a group and nr of managers in a group -- Erroneous for now --
 --CREATE OR REPLACE TYPE nrOfMbsMngs_line AS OBJECT (
 --  uGroupId     NUMBER,

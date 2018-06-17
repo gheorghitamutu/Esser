@@ -45,12 +45,14 @@ class RegisterController extends Controller
 
     private function check_registration()
     {
-        if($this->register_user())
+        $registtration = $this->register_user();
+        if($registtration['operation'] == true)
         {
             self::redirect('success');
         }
         else
         {
+            $_SESSION['failMessage'] = $registtration['message'];
             self::redirect('fail');
         }
     }
@@ -59,10 +61,10 @@ class RegisterController extends Controller
     {
         View::CreateView(
             'home' . DIRECTORY_SEPARATOR . 'register' . DIRECTORY_SEPARATOR . 'fail',
-            [],
+            ['failMessage' => (isset($_SESSION['failMessage'])) ? $_SESSION['failMessage'] : 'technical issues!' ],
             'Esser');
+        unset($_SESSION["failMessage"]);
 
-        unset($_SESSION["registration_wrong_pass_repeat"]);
     }
 
     private function success()
@@ -71,27 +73,45 @@ class RegisterController extends Controller
             'home' . DIRECTORY_SEPARATOR . 'register' . DIRECTORY_SEPARATOR . 'success',
             [],
             'Esser');
-
-        unset($_SESSION["registration_wrong_pass_repeat"]);
     }
 
     private function register_user()
     {
         $this->model('Useracc');
 
-        $username           = $_POST["uname"];
-        $email              = $_POST["email"];
-        $password           = $_POST["psw"];
-        $password_repeat    = $_POST["cpsw"];
+        if (strlen($_POST["uname"]) < 4 || strlen($_POST["uname"]) > 16) {
+            return array('operation' => false, 'message' => 'username not being between 4 and 16 characters long!');
+        }
+        elseif (!preg_match('/[a-zA-Z0-9._-]/',$_POST['uname'])) {
+            $username = $_POST["uname"];
+        }
+        else {
+            return array('operation' => false,
+                'message' => 'username containing prohibited characters!'
+                             . PHP_EOL
+                             . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
+        }
+
+        if (strlen($_POST['email']) < 4 || strlen($_POST['email']) > 48) {
+            return array('operation' => false, 'message' => 'email not being between 4 and 48 characters long!');
+        }
+        elseif (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $email = $_POST["email"];
+        }
+        else {
+            return array('operation' => false, 'message' => 'Inputed email is in a wrong format!');
+        }
+        if (strlen($_POST["psw"]) > 64 || strlen($_POST["psw"]) < 4) {
+            return array('operation' => false, 'message' => 'password not being between 4 and 64 characters long!');
+        }
+        else {
+            $password = $_POST["psw"];
+            $password_repeat = $_POST["cpsw"];
+        }
 
         if($password !== $password_repeat)
         {
-            $_SESSION["registration_wrong_pass_repeat"] = true;
-            return false;
-        }
-        else
-        {
-            $_SESSION["registration_wrong_pass_repeat"] = false;
+            return array('operation' => false, 'message' => 'password and repeat password not matching!');
         }
 
         $salt = '$1_2jlh83#@J^Q';
@@ -137,7 +157,7 @@ class RegisterController extends Controller
 
         parent::log_user_activity($log_description);
 
-        return $result;
+        return array('operation' => true, 'result' => $result);
     }
 }
 

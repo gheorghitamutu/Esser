@@ -56,7 +56,7 @@ class LoginController extends Controller
         View::CreateView(
             'home' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'login',
             [],
-            'Esser');
+            APP_TITLE);
     }
 
     private function check_login()
@@ -98,7 +98,7 @@ class LoginController extends Controller
             'forgot_password' . DIRECTORY_SEPARATOR .
             'forgot_password',
             [],
-            'Esser');
+            APP_TITLE);
     }
 
     private function check_forgot()
@@ -122,7 +122,7 @@ class LoginController extends Controller
             'forgot_password' . DIRECTORY_SEPARATOR .
             'fail',
             [],
-            'Esser');
+            APP_TITLE);
     }
 
     private function forgot_success()
@@ -144,12 +144,17 @@ class LoginController extends Controller
             'approval' . DIRECTORY_SEPARATOR .
             'unapproved',
             [],
-            'Esser');
+            APP_TITLE);
     }
 
     private function password_recover()
     {
         // checks if requested email exists in database
+
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
         $email = $_POST["email"];
         $this->model('Useracc');
         $user = $this->model_class->get_mapper()->findAll(
@@ -171,6 +176,10 @@ class LoginController extends Controller
     {
         // checks if the user account is approved or suspended
         // checks if requested email exists in database
+        if (strlen($_POST['uname']) < 4 || strlen($_POST['uname']) > 16 || filter_var($_POST['uname'], FILTER_SANITIZE_STRING)) {
+            return false;
+        }
+
         $username = $_POST["uname"];
         $password = $_POST["psw"];
 
