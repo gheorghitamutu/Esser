@@ -79,6 +79,7 @@ class AdmincpController extends Controller
                 $this->settings();
                 break;
             default:
+                new PageNotFoundController();
                 break;
         }
     }

@@ -45,6 +45,7 @@ class LoginController extends Controller
                 $this->unapproved();
                 break;
             default:
+                new PageNotFoundController();
                 break;
 
         }
@@ -64,6 +65,7 @@ class LoginController extends Controller
         {
             if(!$this->is_user_approved())
             {
+                session_destroy();
                 self::redirect('/login/unapproved');
                 return;
             }

@@ -11,8 +11,6 @@
 
 class HomeController extends Controller
 {
-  protected $params = ["apptitle" => APP_TITLE];
-  
     public function __construct($uri)
     {
         if($this->session_authenticate())
@@ -39,7 +37,7 @@ class HomeController extends Controller
           }
           default:
           {
-              $this->index();
+              self::redirect('/');
               break;
           }
         }
@@ -49,7 +47,7 @@ class HomeController extends Controller
     {
         View::CreateView(
             'home' . DIRECTORY_SEPARATOR . 'index',
-            $this->params,
-            $this->params["apptitle"]);
+            [],
+            APP_TITLE);
     }
 }

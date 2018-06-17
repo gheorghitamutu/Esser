@@ -67,7 +67,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                new PageNotFoundController();
                 break;
 
         }
