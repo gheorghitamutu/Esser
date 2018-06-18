@@ -1,22 +1,24 @@
 <?php include VIEW . 'user/header.phtml';?>
 
     <div id="main-container-items-page">
-        <div id="left-container-group">
-            <div id="post-group">
-                <button type="button" id="post-group-button" onclick= "postGroupFunction()">
-                    Add Group
-                </button>
-            </div>
+        <div id="left-container-group"><?php
+            if($this->view_data['permissionModifyItemsGroup'] == "1"){
+                echo "<div id=\"post-group\">";
+                echo"<button type=\"button\" id=\"post-group-button\" onclick=\"postGroupFunction()\">";
+                echo"Add Group";
+                echo"</\"button\">";
+                echo"</div>";
 
-            <div id="delete-group">
-                <button type="button" id="delete-group-button" onclick="deleteGroupFunction()">
-                    Delete Group
-                </button>
-            </div>
-
+                echo"<div id=\"delete-group\">";
+                echo"<button type=\"button\" id=\"delete-group-button\" onclick=\"deleteGroupFunction()\">";
+                echo"Delete Group";
+                echo"</button>";
+                echo"</div>";
+                }
+             ?>
             <div id="get-group">
                 <button type="button" id="get-group-button" onclick="getGroupFunction()">
-                    List Group
+                  List Groups
                 </button>
             </div>
 
@@ -39,8 +41,53 @@
                 va fi delete item
             </div>
 
-            <div id="container-get-group">
-                get items
+            <div id="container-get-group"><?php
+                $groups=$this->view_data['groupOfItems'];
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Owner Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Description</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Created Date </div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Updated Date</div>";
+                echo "</div>";
+
+                foreach($groups as $group){
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupName']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['uGroupName']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group[ 'iGroupDescription']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupCreatedAt']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupUpdatedAt']."</div>";
+                    echo "</div>";
+
+
+                }
+                    ?>
             </div>
 
 

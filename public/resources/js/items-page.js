@@ -24,7 +24,7 @@ function getGroupFunction(){
     document.getElementById("container-post-group").style.width = "0";
     document.getElementById("container-post-group").style.height= "0";
 
-    document.getElementById("container-get-group").style.display = "flex";
+    document.getElementById("container-get-group").style.display = "grid";
     document.getElementById("container-get-group").style.width = "100%";
     document.getElementById("container-get-group").style.height= "100%";
 

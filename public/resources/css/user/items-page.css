@@ -44,3 +44,22 @@
     width:0;
     height:0;
 }
+
+/*---------------------     list group of items ---------*/
+
+#container-get-group{
+    display:grid;
+    grid-template-columns: auto auto auto auto auto;
+    max-height: 500px;
+    overflow-y:scroll;
+}
+.body-element-group,.header-element-group{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+    margin:2px;
+}
+.body-element-group>div,.header-element-group>div{
+    text-align: center;
+}

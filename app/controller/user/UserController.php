@@ -369,12 +369,70 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'items' . DIRECTORY_SEPARATOR . 'items',
-            array('resultPostGroup'=>$this->postGroupItems()),
+            array(
+                    'resultPostGroup'=>$this->postGroupItems(),
+                    'permissionModifyItemsGroup'=>$this->getPermissionModifyItemsGroups(),
+                    'groupOfItems'=>$this->getGroupsOfItems()
+                 ),
             'Items ');
     }
 
+    public function getGroupsOfItems(){
+        $items_groups=array();
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+        // foreach group of users that session users is in,find group ownership of group items
+        foreach($querry_rel_users as $querry_rel_user) {
+
+            $this->model('Usergroup');// find by id
+            $querry_user_groups = $this->model_class->get_mapper()->findAll(
+                $where = " uGroupId= ". $querry_rel_user['uGroupId'],
+                $fields = false
+            );
+
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGOwnerId= ". $querry_rel_user['uGroupId'],
+                $fields = false
+            );
+            foreach($querry_item_groups_owners as $querry_item_groups_owner ){
+                $this->model('Itemgroup');
+                $querry_item_groups = $this->model_class->get_mapper()->findAll(
+                    $where = " iGroupId= ". $querry_item_groups_owner['iGId'],
+                    $fields = false
+                );
+                foreach($querry_item_groups as $querry_item_group){
+                    array_push($items_groups,array(
+                        'iGroupName'=>$querry_item_group['iGroupName'],
+                        'iGroupDescription'=>$querry_item_group['iGroupDescription'],
+                        'iGroupCreatedAt'=>$querry_item_group['iGroupCreatedAt'],
+                        'iGroupUpdatedAt'=>$querry_item_group['iGroupUpdatedAt'],
+                        'uGroupName'=>$querry_user_groups['0']['uGroupName']
+                    ));
+                }
+            }
+        }
+        return $items_groups;
+    }
+    public function getPermissionModifyItemsGroups(){
+
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+
+        foreach($querry_rel_users as $querry_rel_user) {
+            if ($querry_rel_user['canUpdItm'] == "1") {
+                return "1";
+            }
+        }
+        return "0";
+    }
     public function insertingItemGroup(){
-        // check if users is in that group or have permission
 
         // group name validation
         if (strlen($_POST["gName"]) < 4 || strlen($_POST["gName"]) > 48) {
@@ -409,24 +467,52 @@ class UserController extends Controller
         }
 
 
+
         // inserting
         $this->model('Itemgroup');
-        $result = $this->model_class->get_mapper()->insert(
+        $result_item_group = $this->model_class->get_mapper()->insert(
             'ITEMGROUPS',
             array
             (
                 'iGroupName'  => "'" . $gName  . "'",
-                'iGroupDescription' => "'" . $gDescription     . "'"
+                'iGroupDescription' => "'" . $gDescription . "'"
             )
         );
 
+        //for every group of users that session user can update groups of items, add in owner ship that group of users
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+
+
+        $this->model('Itemgroup');// item that was inserted
+        $query_item_group = $this->model_class->get_mapper()->findAll(
+            $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
+            $fields = false
+        );
+        var_dump($query_item_group);
+        foreach($querry_rel_users as $querry_rel_user){
+            if($querry_rel_user['canUpdItm'] !="0"){
+                $this->model('Itemgroupownership');
+                $result_item_group_owner = $this->model_class->get_mapper()->insert(
+                    'ITEMGROUPOWNERSHIP',
+                    array
+                    (
+                        'iGOwnerId'  => $querry_rel_user['uGroupId'] ,
+                        'iGId' =>  $query_item_group['0']['iGroupId']
+                    )
+                );
+            }
+        }
         //creating logs for groups post
         $this->model('Itemgrouplog');
         $this->model_class->get_mapper()->insert(
             'ITEMGROUPLOGS',
             array
             (
-                'IGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has created group ".$gName."'" ,
+                'iGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has created group ".$gName."'" ,
                 'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
             )
         );
