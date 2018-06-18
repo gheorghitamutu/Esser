@@ -13,18 +13,14 @@ class UserController extends Controller
 {
     public function __construct($uri)
     {
-        if(!$this->session_authenticate())
-        {
+        if (!$this->session_authenticate()) {
             new ForbiddenController();
             return;
-        }
-        else
-        {
+        } else {
             $this->check_admin();
         }
 
-        switch($uri)
-        {
+        switch ($uri) {
             case 'user':
                 $this->index();
                 break;
@@ -45,14 +41,8 @@ class UserController extends Controller
             case 'user/users':
                 $this->users();
                 break;
-			case 'user/normaluser':
-                $this->normaluser();
-                break;
-			case 'user/adminuser':
-                $this->adminuser();
-                break;
-			case 'user/manageruser':
-                $this->manageruser();
+            case 'user/users/groupmembers':
+                $this->renderGroup();
                 break;
             case 'user/reports':
                 $this->reports();
@@ -73,138 +63,130 @@ class UserController extends Controller
 
         }
     }
-	
-	public function normaluser()
+
+    private function renderGroup()
     {
-        View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'normalUser', 
-			[
-				'generateGroup' => $this->normaluser()
-			],
-            'Normal Users Area');
-    }
-	
-	public function adminuser()
-    {
-        View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'adminUser', 
-			[
-				'generateGroup' => $this->getGroupOfUser()
-			],
-            'Admin Users Area');
-    }
-	
-	public function manageruser()
-    {
-        View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'managerUser', 
-			[
-				'generateGroup' => $this->getGroupOfUser()
-			],
-            'Admin Users Area');
-    }
-	
-	private function inserUser(){
-		
-	}
-	
-	private function removeUser(){
-		
-	}
-	
-	private function getGroupOfUser(/*$group*/){
-		/*$this->model('GroupRelation');
-		$result = array();
-		if (($useidquery = $this->model_class->get_mapper()->findAll(
-				$where = ' UGROUPID = ' . $group['idGroup'],
-				$fields = 'USERID'
-				)) !== false) {
-				$result = array_push($result, $useridquerry);
-		}
-		echo var_dump($result);
-		exit(0);
-		return $result;*/
-	} 
-	
-	private function getItemGroups() {
-		
-		$groupsResult = array();
-        $querryGroups = array();
-        $userid = $_SESSION['userid'];
+        $groupId = $_POST['renderGroup'];
         $this->model('Grouprelation');
-        $groupsOfInterest =
+        $canManageMembers =
             $this->model_class->get_mapper()->findAll(
-                $where = "USERID=" . $userid,
+                $where = "USERID=" . $_SESSION['userid'] .
+                    " AND UGROUPID = " . $groupId,
                 $fields = false
-				);
+            )[0]['canMngMbs'];
 
-		foreach($groupsOfInterest as $grupulet){
-			$this->model('Usergroup');
-			$idul = $grupulet['uGroupId'];
-			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
-                $where=" UGROUPID= ".$idul,
-                $fields = false
-            );
+        if ((isset($_SESSION['renderedGroupId']) || isset($_SESSION['listOfGroupUserIds'])) && ($groupId == $_SESSION['renderedGroupId'])) {
+            unset($_SESSION['renderedGroupId']);
+            unset($_SESSION['listOfGroupUserIds']);
+            unset($_SESSION['canManageMembers']);
+            self::redirect('/user/users');
+        } else {
+            $_SESSION['renderedGroupId'] = $groupId;
+            $_SESSION['listOfGroupUserIds'] = $this->getMemberOfGroup($groupId);
+            $_SESSION['canManageMembers'] = $canManageMembers;
+            self::redirect('/user/users');
+        }
 
-            //array_push($querryGroups, $querry[0]['uGroupName']); // old type of function, returning only the name
-            array_push($querryGroups, array
-            (
-                'idGroup'=>$querry[0]['uGroupId'],
-                'userGroup' => $querry[0]['uGroupName']
-            ));
-		}
 
-        return $querryGroups;
-		
     }
-	
-	private function getUserGroups() {
-		
-		$groupsResult = array();
+
+
+    private function getUserGroups()
+    {
+
+        $groupsResult = array();
         $querryGroups = array();
-     
+
         $this->model('Grouprelation');
         $groupsOfInterest =
             $this->model_class->get_mapper()->findAll(
                 $where = "USERID=" . $_SESSION['userid'],
                 $fields = false
-				);
+            );
 
-		foreach($groupsOfInterest as $grupulet){
-			$this->model('Usergroup');
-			$idul = $grupulet['uGroupId'];
-			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
-                $where=" UGROUPID= ".$idul,
+        foreach ($groupsOfInterest as $grupulet) {
+            $this->model('Usergroup');
+            $idul = $grupulet['uGroupId'];
+            $querry = $this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where = " UGROUPID= " . $idul,
                 $fields = false
             );
-			
-			$this->model('Usergroup');
-			$idul = $grupulet['uGroupId'];
-			$querry=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
-                $where=" UGROUPID= ".$idul,
+
+            $this->model('Usergroup');
+            $idul = $grupulet['uGroupId'];
+            $querry = $this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where = " UGROUPID= " . $idul,
                 $fields = false
             );
-			
+
             //array_push($querryGroups, $querry[0]['uGroupName']); // old type of function, returning only the name
             array_push($querryGroups, array
             (
-                'idGroup'=>$querry[0]['uGroupId'],
+                'idGroup' => $querry[0]['uGroupId'],
                 'userGroup' => $querry[0]['uGroupName']
             ));
-		}
+        }
 
         return $querryGroups;
-		
+
     }
-	
-	public function index()
+
+    private function getMemberOfGroup($group)
+    {
+        $this->model('GroupRelation');
+        $result = $this->model_class->get_mapper()->findAll(
+            $where = "UGROUPID = " . $group,
+            $fields = 'USERID',
+            $order = 'GRPRELCREATEDAT ASC'
+        );
+
+        for ($i = 0; $i < count($result); ++$i)
+            $result[$i] = $result[$i]['userId'];
+
+        $this->model('Useracc');
+        for ($i = 0; $i < count($result); ++$i){
+            $result[$i]= $this->model_class->get_mapper()->findAll(
+                $where = "USERID = " . $result[$i]
+            );
+            $result[$i] = $result[$i][0]['userName'];
+        }
+        return $result;
+
+    }
+
+    private function getMembersOfGroups($groups)
+    {
+        $this->model('GroupRelation');
+        $idGroups = [];
+        $result = [];
+
+        for ($i = 0; $i < count($groups); ++$i) {
+            $idGroups[$i] = $groups[$i]['idGroup'];
+        }
+        for ($i = 0; $i < count($idGroups); ++$i) {
+            $result[$i] = $this->model_class->get_mapper()->findAll(
+                $where = "UGROUPID = " . $idGroups[$i],
+                $fields = 'USERID',
+                $order = 'GRPRELCREATEDAT ASC'
+            );
+        }
+
+        for ($i = 0; $i < count($result); ++$i)
+            for ($j = 0; $j < count($result[$i]); ++$j) {
+                $result[$i][$j] = $result[$i][$j]['userId'];
+            }
+        return $result;
+
+    }
+
+    public function index()
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'index',
             array
             (
-                'usersContainer'=>$this->getUsers(),
-                'productsContainer' =>$this->getProducts(),
+                'usersContainer' => $this->getUsers(),
+                'productsContainer' => $this->getProducts(),
                 'notifications_count' => $this->get_notifications_count()
             ),
             'Welcome ' . $_SESSION["uname"]);
@@ -212,29 +194,29 @@ class UserController extends Controller
 
     private function getUsers()
     {
-        $users=array();
+        $users = array();
 
         $this->model('GroupRelation');
         $query_group_relations = $this->model_class->get_mapper()->findAll(
-            $where=" USERID= ". $_SESSION['userid'],
-            $fields=false
+            $where = " USERID= " . $_SESSION['userid'],
+            $fields = false
         );
 
-        foreach($query_group_relations as $relation){ // foreach group in relation find relation that user are involved in.
+        foreach ($query_group_relations as $relation) { // foreach group in relation find relation that user are involved in.
 
             $this->model('Usergroup');
-            $querry_groups=$this->model_class->get_mapper()->findAll( //  findById=>return 1 group
-                $where=" UGROUPID= ".$relation['uGroupId'],
-                $fields=false
+            $querry_groups = $this->model_class->get_mapper()->findAll( //  findById=>return 1 group
+                $where = " UGROUPID= " . $relation['uGroupId'],
+                $fields = false
             );
 
             $this->model('GroupRelation');// findById => return 1 user
-            $querry_rel_users=$this->model_class->get_mapper()->findAll(
-                $where="UGROUPID= ".$relation['uGroupId'],
-                $fields=false
+            $querry_rel_users = $this->model_class->get_mapper()->findAll(
+                $where = "UGROUPID= " . $relation['uGroupId'],
+                $fields = false
             );
 
-            foreach($querry_rel_users as $querry_rel_user){
+            foreach ($querry_rel_users as $querry_rel_user) {
                 $this->model('Useracc');// findById => return 1 user
                 $querry_users = $this->model_class->get_mapper()->findAll(
                     $where = " USERID= " . $querry_rel_user['userId'],
@@ -255,52 +237,53 @@ class UserController extends Controller
         //result users[(userName,userEmail,userGroup)]
         //
         return [
-            'users'=>$users,
+            'users' => $users,
             'countUsers' => count($users),
             'countGroups' => count($query_group_relations)
         ];
     }
 
-    public function getProducts(){
+    public function getProducts()
+    {
 
-        $avg_quantity=0;
-        $count_items_groups=0;
-        $items=array();
+        $avg_quantity = 0;
+        $array_ownership_items_count_groups=array();
+        $items = array();
         // fetch all groups  that use is part of
         $this->model('GroupRelation');
         $query_group_relations = $this->model_class->get_mapper()->findAll(
-            $where=" USERID= ". $_SESSION['userid'],
-            $fields=false
+            $where = " USERID= " . $_SESSION['userid'],
+            $fields = false
         );
 
-        foreach($query_group_relations as $relation){
+        foreach ($query_group_relations as $relation) {
 
-        // for every group that user if part of, search in itemGroupOwnership the items
+            // for every group that user if part of, search in itemGroupOwnership the items
             $this->model('Itemgroupownership');
-            $querry_ownership_items=$this->model_class->get_mapper()->findAll(
-                $where=" iGOwnerId= ".$relation['uGroupId'],
-                $fields=false
+            $querry_ownership_items = $this->model_class->get_mapper()->findAll(
+                $where = " iGOwnerId= " . $relation['uGroupId'],
+                $fields = false
             );
             //for every itemGroupOwnership  search for  group item
-            foreach($querry_ownership_items as $querry_ownership_item){
-
+            foreach ($querry_ownership_items as $querry_ownership_item) {
+                array_push($array_ownership_items_count_groups,$querry_ownership_item['iGId']);
                 $this->model('Itemgroup');
-                $querry_group_item=$this->model_class->get_mapper()->findAll(
-                    $where=" IGROUPID= ".$querry_ownership_item['iGId'],
-                    $fields=false
+                $querry_group_item = $this->model_class->get_mapper()->findAll(
+                    $where = " IGROUPID= " . $querry_ownership_item['iGId'],
+                    $fields = false
                 );
                 //for every group item search for items
-                foreach($querry_group_item as $item_group ){
+                foreach ($querry_group_item as $item_group) {
 
                     $this->model('Item');
-                    $querry_items=$this->model_class->get_mapper()->findAll(
-                        $where=" iGroupId= ".$item_group['iGroupId'],
-                        $fields=false
+                    $querry_items = $this->model_class->get_mapper()->findAll(
+                        $where = " iGroupId= " . $item_group['iGroupId'],
+                        $fields = false
                     );
-                    ++$count_items_groups;
+
                     //for every items create result
-                    foreach($querry_items as $item) {
-                        $avg_quantity=$avg_quantity+$item['itemQuantity'];
+                    foreach ($querry_items as $item) {
+                        $avg_quantity = $avg_quantity + $item['itemQuantity'];
                         array_push($items, array
                         (
                             'itemName' => $item['itemName'],
@@ -312,21 +295,28 @@ class UserController extends Controller
                 }
             }
         }
-        $unique_items=array();
-        foreach($items as $item){
-            if(!in_array($item, $unique_items))
-            {
-                array_push($unique_items,$item);
+        $unique_items = array();
+        foreach ($items as $item) {
+            if (!in_array($item, $unique_items)) {
+                array_push($unique_items, $item);
+            }
+        }
+
+        $unique_groups_items=array();
+        foreach($array_ownership_items_count_groups as $array_ownership_items_count_group){
+            if(!in_array($array_ownership_items_count_group,$unique_groups_items)){
+                array_push($unique_groups_items,$array_ownership_items_count_group);
             }
         }
         return [
-            'items'=>$unique_items,
+            'items' => $unique_items,
             'countItems' => count($items),
-            'avgQuantity' => ( (count($items)? ($avg_quantity/count($items)): 0)),
-            'countItemsGroups' =>$count_items_groups
+            'avgQuantity' => ((count($items) ? ($avg_quantity / count($items)) : 0)),
+            'countItemsGroups' => count($unique_groups_items)
         ];
 
     }
+
     public function notifications()
     {
         // get the notifications
@@ -360,10 +350,8 @@ class UserController extends Controller
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-        usort($logs, function ($a, $b)
-        {
-            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
-            {
+        usort($logs, function ($a, $b) {
+            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt']) {
                 return 0;
             }
 
@@ -387,13 +375,26 @@ class UserController extends Controller
 
     public function users()
     {
-        View::CreateView(
-            'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
-			[
-				'memberGroup' => $this->getUserGroups(),
-				'generateGroup' => $this->getGroupOfUser()
-			],
-            'Users area');
+        if (isset($_SESSION['renderedGroupId'])) {
+            View::CreateView(
+                'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
+                [
+                    'memberGroup' => $this->getUserGroups(),
+                    'usersToDisplay' => $_SESSION['listOfGroupUserIds'],
+                    'canManageMembers' => $_SESSION['canManageMembers']
+                ],
+                'Users area');
+
+        } else {
+            View::CreateView(
+                'user' . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . 'users',
+                [
+                    'memberGroup' => $this->getUserGroups(),
+                    'usersToDisplay' => [],
+                    'canManageMembers' => 0
+                ],
+                'Users area');
+        }
     }
 
     public function logout()
@@ -418,8 +419,8 @@ class UserController extends Controller
             'USERLOGS',
             array
             (
-                'uLogDescription'   => "'Normal user " . $_SESSION['uname']     . " has logged out!'",
-                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
+                'uLogDescription' => "'Normal user " . $_SESSION['uname'] . " has logged out!'",
+                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
             )
         );
 
@@ -433,15 +434,12 @@ class UserController extends Controller
 
         $user_id = $_SESSION['userid'];
         $queries = $this->model_class->get_mapper()->findAll(
-            $where = "userId = ". $user_id ." AND userType = 3",
+            $where = "userId = " . $user_id . " AND userType = 3",
             $fields = false);
 
-        if (count($queries) === 0 || count($queries) === null)
-        {
+        if (count($queries) === 0 || count($queries) === null) {
             $_SESSION["is_admin"] = false;
-        }
-        else
-        {
+        } else {
             $_SESSION["is_admin"] = true;
         }
     }
@@ -452,7 +450,7 @@ class UserController extends Controller
 
         $user_id = $_SESSION['userid'];
         $usrntfrelation = $this->model_class->get_mapper()->findAll(
-            $where = "usrNNotifiedAccId = ". $user_id ." AND usrnNIsRead = 0",
+            $where = "usrNNotifiedAccId = " . $user_id . " AND usrnNIsRead = 0",
             $fields = false);
 
         return count($usrntfrelation);
@@ -464,16 +462,14 @@ class UserController extends Controller
 
         $user_id = $_SESSION['userid'];
         $usrntfrelation = $this->model_class->get_mapper()->findAll(
-            $where = "usrNNotifiedAccId = ". $user_id ." AND usrnNIsRead = 0",
+            $where = "usrNNotifiedAccId = " . $user_id . " AND usrnNIsRead = 0",
             $fields = false);
 
-        if(count($usrntfrelation) == 0)
-        {
+        if (count($usrntfrelation) == 0) {
             return;
         }
 
-        foreach ($usrntfrelation as $relation)
-        {
+        foreach ($usrntfrelation as $relation) {
             $this->model_class->get_mapper()->update(
                 'USRNTFRELATIONS',
                 array
@@ -493,11 +489,10 @@ class UserController extends Controller
 
         $user_id = $_SESSION['userid'];
         $usrntfrelation = $this->model_class->get_mapper()->findAll(
-            $where = "usrNNotifiedAccId = ". $user_id,
+            $where = "usrNNotifiedAccId = " . $user_id,
             $fields = false);
 
-        if(count($usrntfrelation) == 0)
-        {
+        if (count($usrntfrelation) == 0) {
             return [];
         }
 
@@ -505,18 +500,16 @@ class UserController extends Controller
 
         $notifications = [];
         $this->model('Notification');
-        foreach ($usrntfrelation as $relation)
-        {
+        foreach ($usrntfrelation as $relation) {
             $notifications[] = $this->model_class->get_mapper()->findAll(
-                $where = "ntfId = ". $relation["usrNNotificationId"],
+                $where = "ntfId = " . $relation["usrNNotificationId"],
                 $fields = false)[0];
         }
 
         $this->model('Item');
-        for ($i = 0; $i < count($notifications); $i++)
-        {
+        for ($i = 0; $i < count($notifications); $i++) {
             $notifications[$i]["item_name"] = $this->model_class->get_mapper()->findAll(
-                $where = "itemId = ". $notifications["nItemId"],
+                $where = "itemId = " . $notifications["nItemId"],
                 $fields = false)[0]["itemName"];
         }
 
@@ -552,7 +545,7 @@ class UserController extends Controller
         header("Content-Description: File Transfer");
         header("Content-Type: application/octet-stream");
         header("Content-Disposition: attachment; filename='" . basename($file) . "'");
-        readfile ($file);
+        readfile($file);
         exit();
     }
 }
