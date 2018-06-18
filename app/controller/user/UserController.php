@@ -372,11 +372,68 @@ class UserController extends Controller
             array(
                     'resultPostGroup'=>$this->postGroupItems(),
                     'permissionModifyItemsGroup'=>$this->getPermissionModifyItemsGroups(),
-                    'groupOfItems'=>$this->getGroupsOfItems()
+                    'groupOfItems'=>$this->getGroupsOfItems(),
+                    'resultDeleteGroup'=>$this->deleteGroupsOfItems()
                  ),
             'Items ');
     }
 
+    public function deleteGroupsOfItems(){
+        if(isset($_POST['delButton'])) {
+            echo var_dump($_POST['delButton']);
+
+            $this->model('Itemgroup');
+            $querry_item_groups = $this->model_class->get_mapper()->findAll(
+                $where = " iGroupName= " . "'" . $_POST['delButton'] . "'",
+                $fields = false
+            );
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGId= "  . $querry_item_groups['0']['iGroupId'] ,
+                $fields = false
+            );
+            //delete ownerships
+            foreach($querry_item_groups_owners as $querry_item_groups_owner){
+                $this->model('Itemgroupownership');
+                $querry_item_groups_owners = $this->model_class->get_mapper()->delete(
+                    'ITEMGROUPOWNERSHIPS',
+                    array
+                    (
+                        'iGOwnershipId'=>$querry_item_groups_owner['iGOwnershipId']
+                    )
+                );
+            }
+
+            //delete items
+            $this->model('Item');
+            $querry_items = $this->model_class->get_mapper()->findAll(
+                $where = " iGroupId= "  . $querry_item_groups['0']['iGroupId'] ,
+                $fields = false
+            );
+
+            foreach($querry_items as $querry_item) {
+                $querry_item_result = $this->model_class->get_mapper()->delete(
+                    'ITEMS',
+                    array
+                    (
+                        'iGroupId' => $querry_item['iGroupId']
+                    )
+                );
+            }
+            //creating logs for deleting group
+            $this->model('Itemgrouplog');
+            $this->model_class->get_mapper()->insert(
+                'ITEMGROUPLOGS',
+                array
+                (
+                    'iGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has deleted group ".$_POST['delButton']."'" ,
+                    'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
+                )
+            );
+            return "Succesfully deleted group of items!";
+
+        }
+    }
     public function getGroupsOfItems(){
         $items_groups=array();
         $this->model('Grouprelation');
