@@ -291,6 +291,19 @@
 .header-users>div,.body-user>div{
     font-size:120%;
 }
+
+
+/*  ------------------------------------------------  container title items + items--------------------- */
+.container-title-items-and-items,.container-title-items-and-users{
+    height: 80%;
+    width:100%;
+    display: flex;
+    border:2px solid ghostwhite;
+    padding:10px;
+    flex-direction: column;
+}
+
+
 /* ------------------------------   Media screen  -------------------------------------------------------*/
 @media screen and (max-width: 1800px) {
 .items-container-user-landing-page, .users-container-user-landing-page{
