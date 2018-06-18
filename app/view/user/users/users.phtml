@@ -1,44 +1,42 @@
 <?php include VIEW . 'user/header.phtml';?>
 
     <html>
-        <head>
-            <title>EsseR - Manage users of the group</title>
-            <link rel="stylesheet" type="text/css" href="/resources/css/user/user-manager.css">
-			<script src="/resources/js/user-manager.js"></script>
-        </head>
-        <body>
-			<div class="main" >
-				<div class="nested">
-					<div>Choose the user group</div>
-                        <?php
-                        $groups = $this->view_data['memberGroup'];
-						
-                        foreach($groups as $group) {
-                            $string = str_replace(' ', '', $group['userGroup']);
-							
-                            echo "<button type=\"submit\" class=\"menu-button\" onClick='function" . $string . "()'".">" . $group['userGroup'] . "</button>";
-                            echo "<div class=\"expandable\" id=\"" . $string . "\">";
-								echo "<form action=\"/user/users\" method=\"POST\">";
-									echo "<input type=\"hidden\" name=\"generateGroup\" value=\"". $group["idGroup"] . "\" >";
-								echo "</form>";
-                            echo "</div>";
-                            echo "<script>";
-                            echo "function function" . $string . "() {";
-                            echo "var x = document.getElementById(\"" . $string . "\");";
-                            echo "if (x.style.display === \"grid\") {";
-                            echo "   x.style.display = \"none\";";
-                            echo "} else {";
-                            echo "    x.style.display = \"grid\";";
-                            echo "}";
-                            echo "}";
-                            echo "</script>";
+    <head>
+        <title>EsseR - Manage users of the group</title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/user/user-manager.css">
+        <script src="/resources/js/user-manager.js"></script>
+    </head>
+    <body>
+        <div class="page-title">Choose one of the user groups</div>
+        <div class="main-frame">
+        <?php
+            echo "<div class=\"group-list\">";
+            echo "<div>";
+            foreach($this->view_data['memberGroup'] as $group) {
+            echo "<form action='/user/users/groupmembers' method='POST'>
+                 <button type=\"submit\" class=\"group-list-button\" name=\"renderGroup\" value=\"" . $group['idGroup'] . "\">" . $group['userGroup'] . "</button>
+            </form>";
+            }
+            echo "</div>";
+            echo "</div>";
+            echo "<div class=\"group-display\">";
+            echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class='group-display-button-add'> Add member to group </button>" : NULL;
+            //echo var_dump($_SESSION);
+            echo "<div class=\"group-display-element\">";
+            foreach($this->view_data['usersToDisplay'] as $user){
+                echo "<div class=\"group-display-user\"> " . $user . " </div>";
+            }
+            echo "</div>";
 
-                            }
-                        ?>
-				</div>
-			</div>
-			
-        </body>
+            echo "<div class=\"group-display-button\">";
+            foreach($this->view_data['usersToDisplay'] as $user){
+                echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class=\"display-button\"> Remove user from group </button>" : NULL;
+            }
+            echo "</div>";
+            echo "</div>";
+        ?>
+        </div>
+    </body>
     </html>
 
 <?php include VIEW . 'user/footer.phtml';?>
