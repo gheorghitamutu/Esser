@@ -26,26 +26,26 @@ DECLARE
   v_groupid NUMBER(8,0);
   v_sec_groupid NUMBER (8,0);
 BEGIN
---   for v_i in v_user_group.first..v_user_group.last LOOP
---     INSERT INTO USERACCS (USERNAME, USEREMAIL, USERPASS, USERTYPE, USERSTATE, USERIMAGE)
---     VALUES (v_user_group(v_i), 'testAWSxQ'||v_i||'@gmail.ro', 'parola', '1', '1', 'undefined');
---   end loop;
---   INSERT INTO USERGROUPS (UGROUPNAME, UGROUPDESCRIPTION, NROFMEMBERS, NROFMANAGERS)
---   VALUES ('Group One', 'Just another test group for proof of fact...', 0, 0);
---   SELECT UGROUPID INTO v_groupid FROM USERGROUPS WHERE UGROUPNAME like 'Group One';
---   OPEN useracc_line;
---   WHILE (v_count < 15) LOOP
---     FETCH useracc_line INTO v_linie_useraccs;
---     EXIT WHEN useracc_line%NOTFOUND;
---     IF (v_count < 5) THEN
---       INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS)
---       VALUES (v_linie_useraccs.USERID, v_groupid, 1, 1);
---     ELSE
---       INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS)
---       VALUES (v_linie_useraccs.USERID, v_groupid, 1, 0);
---     END IF;
---     v_count := v_count + 1;
---   END LOOP;
+  for v_i in v_user_group.first..v_user_group.last LOOP
+    INSERT INTO USERACCS (USERNAME, USEREMAIL, USERPASS, USERTYPE, USERSTATE, USERIMAGE)
+    VALUES (v_user_group(v_i), 'testAWSxQ'||v_i||'@gmail.ro', 'parola', '1', '1', 'undefined');
+  end loop;
+  INSERT INTO USERGROUPS (UGROUPNAME, UGROUPDESCRIPTION, NROFMEMBERS, NROFMANAGERS)
+  VALUES ('Group One', 'Just another test group for proof of fact...', 0, 0);
+  SELECT UGROUPID INTO v_groupid FROM USERGROUPS WHERE UGROUPNAME like 'Group One';
+  OPEN useracc_line;
+  WHILE (v_count < 15) LOOP
+    FETCH useracc_line INTO v_linie_useraccs;
+    EXIT WHEN useracc_line%NOTFOUND;
+    IF (v_count < 5) THEN
+      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS)
+      VALUES (v_linie_useraccs.USERID, v_groupid, 1, 1);
+    ELSE
+      INSERT INTO GROUPRELATIONS (USERID, UGROUPID, CANUPDITM, CANMNGMBS)
+      VALUES (v_linie_useraccs.USERID, v_groupid, 1, 0);
+    END IF;
+    v_count := v_count + 1;
+  END LOOP;
   INSERT INTO ITEMGROUPS (IGROUPNAME, IGROUPDESCRIPTION)
   VALUES ('Coffee Products', 'Any and all coffee-based products of Group One!');
   SELECT IGROUPID INTO v_groupid FROM ITEMGROUPS WHERE IGROUPNAME LIKE 'Coffee Products';

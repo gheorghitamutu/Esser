@@ -135,7 +135,7 @@ class RegisterController extends Controller
             array
             (
                 'uLogDescription'   => "'Normal user " . $username     . " registered!'",
-                'uLogSourceIP'      => "'" . $_SERVER["REMOTE_ADDR"]              . "'"
+                'uLogSourceIP'      => "'" . (($_SERVER["REMOTE_ADDR"]=='::1')?'127.0.0.1':$_SERVER['REMOTE_ADDR']) . "'"
             )
         );
 

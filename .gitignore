@@ -4,3 +4,9 @@ syntax: glob
 logger/*.txt
 tests/Database/*.txt
 tests/*.txt
+./logger/*.txt
+./tests/Database/*.txt
+./tests/*.txt
+/logger/*.txt
+/tests/Database/*.txt
+/tests/*.txt
