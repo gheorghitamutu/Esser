@@ -1,7 +1,7 @@
 CREATE OR REPLACE TRIGGER trg_add_to_nrm_usr AFTER INSERT ON USERACCS FOR EACH ROW
   DECLARE
-    v_mbm_count NUMBER(*,0);
-    v_mng_count NUMBER(*,0);
+    v_mbm_count NUMBER(8,0);
+    v_mng_count NUMBER(8,0);
   BEGIN
     IF (:NEW.USERID = 1) THEN
       NULL;

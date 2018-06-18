@@ -1294,3 +1294,11 @@ PL/SQL procedure successfully completed.
 [APP_LOG: 18-06-2018 02:05:36]: Successfully updated the number of members and managers of 0 usergroups from 3
 [APP_LOG: 18-06-2018 02:11:44]: Successfully updated the number of members and managers of 0 usergroups from 3
 [APP_LOG: 18-06-2018 02:13:29]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:27:29]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:31:12]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:31:13]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:31:59]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:32:00]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:34:51]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:40:47]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 09:56:43]: Successfully updated the number of members and managers of 0 usergroups from 3

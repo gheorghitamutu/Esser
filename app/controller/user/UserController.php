@@ -53,6 +53,7 @@ class UserController extends Controller
                 break;
 			case 'user/manageruser':
                 $this->manageruser();
+                break;
             case 'user/reports':
                 $this->reports();
                 break;
