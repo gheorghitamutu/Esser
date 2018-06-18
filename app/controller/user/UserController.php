@@ -64,7 +64,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                new PageNotFoundController();
+                $this->index();
                 break;
 
         }
@@ -296,7 +296,7 @@ class UserController extends Controller
     {
 
         $avg_quantity = 0;
-        $array_ownership_items_count_groups=array();
+        $count_items_groups = 0;
         $items = array();
         // fetch all groups  that use is part of
         $this->model('GroupRelation');
@@ -315,7 +315,7 @@ class UserController extends Controller
             );
             //for every itemGroupOwnership  search for  group item
             foreach ($querry_ownership_items as $querry_ownership_item) {
-                array_push($array_ownership_items_count_groups,$querry_ownership_item['iGId']);
+
                 $this->model('Itemgroup');
                 $querry_group_item = $this->model_class->get_mapper()->findAll(
                     $where = " IGROUPID= " . $querry_ownership_item['iGId'],
@@ -329,7 +329,7 @@ class UserController extends Controller
                         $where = " iGroupId= " . $item_group['iGroupId'],
                         $fields = false
                     );
-
+                    ++$count_items_groups;
                     //for every items create result
                     foreach ($querry_items as $item) {
                         $avg_quantity = $avg_quantity + $item['itemQuantity'];
@@ -350,18 +350,11 @@ class UserController extends Controller
                 array_push($unique_items, $item);
             }
         }
-
-        $unique_groups_items=array();
-        foreach($array_ownership_items_count_groups as $array_ownership_items_count_group){
-            if(!in_array($array_ownership_items_count_group,$unique_groups_items)){
-                array_push($unique_groups_items,$array_ownership_items_count_group);
-            }
-        }
         return [
             'items' => $unique_items,
             'countItems' => count($items),
             'avgQuantity' => ((count($items) ? ($avg_quantity / count($items)) : 0)),
-            'countItemsGroups' => count($unique_groups_items)
+            'countItemsGroups' => $count_items_groups
         ];
 
     }
@@ -464,8 +457,16 @@ class UserController extends Controller
         );
 
         $_SESSION['login_failed'] = true;
-        
-        self::log_user_activity("'Normal user " . $_SESSION['uname']     . " has logged out!'");
+
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription' => "'Normal user " . $_SESSION['uname'] . " has logged out!'",
+                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
 
         session_destroy();
         Controller::redirect('/home');

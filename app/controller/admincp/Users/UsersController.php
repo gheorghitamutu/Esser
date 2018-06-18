@@ -299,6 +299,7 @@ class UsersController extends AdmincpController
                         );
                     }
 
+
                     $query = $this->model_class->get_mapper()->update
                     (
                         $table = 'USERACCS',
@@ -316,6 +317,16 @@ class UsersController extends AdmincpController
                     );
                     if (is_array($query)) {
                         $this->model('UserLog');
+                        $this->model_class->get_mapper()->insert
+                        (
+                            $table = 'USERLOGS',
+                            $fields = array
+                            (
+                                'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                                    ' has edited user ' . $user[0]['userName'] . " !'",
+                                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "''"
+                            )
+                        );
                         if ($islevel && $level > 1) {
                             $this->model('Grouprelation');
                             $isalready = $this->model_class->get_mapper()->findAll
@@ -407,12 +418,6 @@ class UsersController extends AdmincpController
                                 )
                             );
                         }
-                        $this->adduserlog
-                        (
-                            $description = "Admin user " . $_SESSION['uname'] .
-                                ' has edited user ' . $user[0]['userName'] . " !",
-                            $sourceip = $_SESSION['login_ip']
-                        );
                         $this->showmessage($opsuccess,
                             'You have succesfully edited the user!'
                         );
@@ -618,11 +623,16 @@ class UsersController extends AdmincpController
             );
 
             if ($query) {
-                $this->adduserlog
+                $this->model('UserLog');
+                $this->model_class->get_mapper()->insert
                 (
-                    $description = "Admin user " . $_SESSION['uname'] .
-                        ' has deleted user ' . $user[0]['userName'] . " !",
-                    $sourceip = $_SESSION['login_ip']
+                    $table = 'USERLOGS',
+                    $fields = array
+                    (
+                        'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                            ' has deleted user ' . $user[0]['userName'] . " !'",
+                        'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
+                    )
                 );
                 $this->showmessage(true,
                     'User was deleted successfully!',
@@ -655,11 +665,16 @@ class UsersController extends AdmincpController
             )
         );
         if (is_array($query)) {
-            $this->adduserlog
+            $this->model('UserLog');
+            $this->model_class->get_mapper()->insert
             (
-                $description = "Admin user " . $_SESSION['uname'] .
-                    ' has approved user ' . $user[0]['userName'] . " !",
-                $sourceip = $_SESSION['login_ip']
+                $table = 'USERLOGS',
+                $fields = array
+                (
+                    'uLogDescription' => "'Admin user " . $_SESSION['uname'] .
+                        ' has approved user ' . $user[0]['userName'] . ' !\'',
+                    'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
+                )
             );
             $this->showmessage(true,
                 'User was approved successfully!',
@@ -710,11 +725,16 @@ class UsersController extends AdmincpController
                     )
                 );
                 if (is_array($query)) {
-                    $this->adduserlog
+                    $this->model('UserLog');
+                    $this->model_class->get_mapper()->insert
                     (
-                        $description = "Admin user " . $_SESSION['uname'] .
-                            ' has suspended user ' . $user[0]['userName'] . " !",
-                        $sourceip = $_SESSION['login_ip']
+                        $table = 'USERLOGS',
+                        $fields = array
+                        (
+                            'uLogDescription' => '\'Admin user ' . $_SESSION['uname'] .
+                                ' has suspended user ' . $user[0]['userName'] . ' !\'',
+                            'uLogSourceIP' => '\''.$_SESSION['login_ip'].'\''
+                        )
                     );
                     $this->showmessage(true,
                         'User was suspended successfully!',
@@ -751,11 +771,16 @@ class UsersController extends AdmincpController
                 )
             );
             if (is_array($query)) {
-                $this->adduserlog
+                $this->model('UserLog');
+                $this->model_class->get_mapper()->insert
                 (
-                    $description = "Admin user " . $_SESSION['uname'] .
-                        ' has unsuspended user ' . $user[0]['userName'] . " !",
-                    $sourceip = $_SESSION['login_ip']
+                    $table = 'USERLOGS',
+                    $fields = array
+                    (
+                        'uLogDescription' => '\'Admin user ' . $_SESSION['uname'] .
+                            ' has unsuspended user ' . $user[0]['userName'] . ' !\'',
+                        'uLogSourceIP' => '\''. $_SESSION['login_ip'] . '\''
+                    )
                 );
                 $this->showmessage(true,
                     'User was unsuspended successfully!',

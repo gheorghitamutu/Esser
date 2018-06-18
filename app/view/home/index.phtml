@@ -12,14 +12,12 @@
 
 <?php include VIEW . 'home/header.phtml';?>
 
-<br><br><br><br>
 <div class="main-container">
     <div class="main-box">
-        <h1 class="main-text"> Welcome to <?php echo APP_TITLE ?> </h1>
-        <br>
-        <button type="button" class="main-btn" onclick="window.location.assign('/login')">Login</button>
+        <h1 class="main-text"> Welcome to <?php echo $this->view_data["apptitle"] ?> </h1>
+        <h2 class="main-text"> What do you want to do? </h2>
         <button type="button" class="main-btn" onclick="window.location.assign('/register')">Register</button>
-        <br>
+        <button type="button" class="main-btn" onclick="window.location.assign('/login')">Login</button>
     </div>
 </div>
 

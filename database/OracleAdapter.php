@@ -405,6 +405,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     private function parseSelect($sql, $bind = false)
     {
+        \Logger::getInstance()->log(SQLCMD, $sql);
         return $this->execute($sql, $bind);
     }
 
@@ -513,6 +514,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
         }
 
         $sql = "insert into $table ($fields) values($values) $ret";
+        \Logger::getInstance()->log(SQLCMD, $sql);
 
         $result = $this->execute($sql, $bind);
 
@@ -588,6 +590,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "update $table set $fields where $where $ret";
+        \Logger::getInstance()->log(SQLCMD, $sql);
+//        echo "Query de update este: $sql";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return null;
@@ -629,6 +633,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "delete from $table where $where $ret";
+        \Logger::getInstance()->log(SQLCMD, $sql);
+//        echo $sql; die;
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return false;

@@ -45,7 +45,6 @@ class LoginController extends Controller
                 $this->unapproved();
                 break;
             default:
-                new PageNotFoundController();
                 break;
 
         }
@@ -65,7 +64,6 @@ class LoginController extends Controller
         {
             if(!$this->is_user_approved())
             {
-                session_destroy();
                 self::redirect('/login/unapproved');
                 return;
             }
@@ -183,7 +181,8 @@ class LoginController extends Controller
         $username = $_POST["uname"];
         $password = $_POST["psw"];
 
-        $password_hash = hash(HASH_TYPE, $username . SALT . $password);
+        $salt = '$1_2jlh83#@J^Q';
+        $password_hash = hash('sha512', $username . $salt . $password);
 
         $this->model('Useracc');
         $user = $this->model_class->get_mapper()->findAll(

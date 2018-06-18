@@ -15,7 +15,7 @@
 define('INSTALLED'                          , true);
 define('PLSQL_DRIVER'                       , 'oci8');
 define('INSTALL_PHASE'                      , 0);
-define('APP_TITLE'                          , 'BCMP Esser Project');
+define('APP_TITLE'                          , 'Our Esser Project');
 define('SYS_DB'                             , 'XE');
 define('SYS_DB_USER'                        , 'SYS');
 define('SYS_DB_USER_PASS'                   , 'SYS');
@@ -65,8 +65,4 @@ define('SQLCMD'    , '[SQL_LOG: '           . date('d-m-Y H:i:s') . ']: ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');
-
-// salt
-define('SALT'      , '$1_2jlh83#@J^Q');
-define('HASH_TYPE' , 'sha512');
 
