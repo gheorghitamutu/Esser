@@ -104,6 +104,7 @@ CREATE TABLE USERACCS(
   userUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_userId PRIMARY KEY(userId),
   CONSTRAINT unq_useremail UNIQUE(userEmail),
+  CONSTRAINT unq_username UNIQUE(userName),
   CONSTRAINT not_null_usertype CHECK (userType is not null),
   CONSTRAINT not_null_userstate CHECK (userState is not null)
 )
@@ -153,8 +154,8 @@ CREATE TABLE GROUPRELATIONS(
   grpRelCreatedAt DATE NOT NULL,
   grpRelUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_relationId PRIMARY KEY(relationId),
-  CONSTRAINT fk_rUserId FOREIGN KEY(userId) REFERENCES USERACCS(userId),
-  CONSTRAINT fk_rGroupId FOREIGN KEY(uGroupId) REFERENCES USERGROUPS(uGroupId),
+  CONSTRAINT fk_rUserId FOREIGN KEY(userId) REFERENCES USERACCS(userId) ON DELETE CASCADE,
+  CONSTRAINT fk_rGroupId FOREIGN KEY(uGroupId) REFERENCES USERGROUPS(uGroupId) ON DELETE CASCADE,
   CONSTRAINT not_null_canupditm CHECK (canUpdItm is not null),
   CONSTRAINT not_null_canmngmbs CHECK (canMngMbs is not null)
 )
@@ -186,8 +187,8 @@ CREATE TABLE ITEMGROUPOWNERSHIPS(
   igOwnerId NUMBER(*,0) NOT NULL,
   igId NUMBER(*,0) NOT NULL,
   CONSTRAINT pk_igownId PRIMARY KEY (igOwnershipId),
-  CONSTRAINT fk_igownerId FOREIGN KEY (igOwnerId) REFERENCES USERGROUPS(uGroupId),
-  CONSTRAINT fk_igownedId FOREIGN KEY (igId) REFERENCES ITEMGROUPS(iGroupId)
+  CONSTRAINT fk_igownerId FOREIGN KEY (igOwnerId) REFERENCES USERGROUPS(uGroupId) ON DELETE CASCADE,
+  CONSTRAINT fk_igownedId FOREIGN KEY (igId) REFERENCES ITEMGROUPS(iGroupId) ON DELETE CASCADE
 )
 /
 CREATE TABLE ITEMS(
@@ -201,7 +202,7 @@ CREATE TABLE ITEMS(
   itemCreatedAt DATE NOT NULL,
   itemUpdatedAt DATE NOT NULL,
   CONSTRAINT pk_itemId PRIMARY KEY(itemId),
-  CONSTRAINT fk_igroupId FOREIGN KEY (iGroupId) REFERENCES ITEMGROUPS(iGroupId),
+  CONSTRAINT fk_igroupId FOREIGN KEY (iGroupId) REFERENCES ITEMGROUPS(iGroupId) ON DELETE CASCADE,
   CONSTRAINT not_null_itemqnty CHECK (itemQuantity is not null),
   CONSTRAINT not_null_itemname CHECK (itemName is not null),
   CONSTRAINT not_null_itemdescrp CHECK (itemDescription is not null)
@@ -236,7 +237,7 @@ CREATE TABLE NOTIFICATIONS(
   ntfDscrp VARCHAR2(2000) DEFAULT 'Notification context, a warning, something',
   ntfCreatedAt DATE NOT NULL,
   CONSTRAINT pk_ntfId PRIMARY KEY (ntfId),
-  CONSTRAINT fk_nItemId  FOREIGN KEY (nItemId) REFERENCES ITEMS (itemId),
+  CONSTRAINT fk_nItemId  FOREIGN KEY (nItemId) REFERENCES ITEMS (itemId) ON DELETE CASCADE,
   CONSTRAINT not_null_ntfType CHECK (ntfType IS NOT NULL),
   CONSTRAINT not_null_ntfDscrp CHECK (ntfDscrp IS NOT NULL)
 )
@@ -246,8 +247,8 @@ CREATE TABLE UGRPNTFRELATIONS(
   usrgnNotificationId NUMBER(*,0) NOT NULL,
   usrgnNotifiedGroupId NUMBER(*,0) NOT NULL,
   CONSTRAINT pk_ugNRelId PRIMARY KEY (usrgnRelationId),
-  CONSTRAINT fk_usrgnNotifiedGroupId FOREIGN KEY (usrgnNotifiedGroupId) REFERENCES USERGROUPS (uGroupId),
-  CONSTRAINT fk_usrgnNotificationId  FOREIGN KEY (usrgnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
+  CONSTRAINT fk_usrgnNotifiedGroupId FOREIGN KEY (usrgnNotifiedGroupId) REFERENCES USERGROUPS (uGroupId) ON DELETE CASCADE,
+  CONSTRAINT fk_usrgnNotificationId  FOREIGN KEY (usrgnNotificationId) REFERENCES NOTIFICATIONS (ntfId) ON DELETE CASCADE
 )
 /
 CREATE TABLE USRNTFRELATIONS(
@@ -257,8 +258,8 @@ CREATE TABLE USRNTFRELATIONS(
   usrnNIsRead         NUMBER(*,0) DEFAULT 0,
   CONSTRAINT pk_usrnRelationId PRIMARY KEY (usrnRelationId),
   CONSTRAINT not_null_ntfIsRead CHECK (usrnNIsRead IS NOT NULL),
-  CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId),
-  CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId)
+  CONSTRAINT fk_usrnNotifiedAccId FOREIGN KEY (usrnNotifiedAccId) REFERENCES USERACCS (userId) ON DELETE CASCADE,
+  CONSTRAINT fk_usrnNotificationId FOREIGN KEY (usrnNotificationId) REFERENCES NOTIFICATIONS (ntfId) ON DELETE CASCADE
 )
 /
 --CREATE TABLE ITEMOWNERSHIPS(

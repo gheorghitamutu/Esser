@@ -197,7 +197,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
             throw new InvalidArgumentException('The specified query is not valid.');
         }
 
-        // lazy connect to MySQL
         $this->connect();
         if (!$this->_result = oci_parse($this->connection, $query))
         {
@@ -236,6 +235,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     private function execute($sql_text, &$bind = [])
     {
+        \Logger::getInstance()->log(SQLCMD, $sql_text);
         if (!is_resource($this->connection))
         {
             return false;
@@ -277,6 +277,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetch($statement)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         return oci_fetch($statement);
     }
 
@@ -288,6 +289,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchArray($statement)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         return oci_fetch_array($statement, $this->fetch_mode);
     }
 
@@ -301,6 +303,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchRow($statement)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         return oci_fetch_row($statement);
     }
 
@@ -314,6 +317,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchAll($statement, $skip = 0, $maxrows = -1)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         $rows = array();
         oci_fetch_all(
             $statement,
@@ -333,11 +337,13 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     public function fetchObject($statement)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         return oci_fetch_object($statement);
     }
 
     public function getResult($statement, $field)
     {
+        \Logger::getInstance()->log(SQLCMD, $statement);
         return oci_result($statement, $field);
     }
 
@@ -399,6 +405,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
      */
     private function parseSelect($sql, $bind = false)
     {
+        \Logger::getInstance()->log(SQLCMD, $sql);
         return $this->execute($sql, $bind);
     }
 
@@ -449,7 +456,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
                 }
             }
         }
-
+//        var_dump($query); die;
         return $this->parseSelect($query, $bind);
     }
 
@@ -507,6 +514,7 @@ class OracleAdapter implements DatabaseAdapterInterface {
         }
 
         $sql = "insert into $table ($fields) values($values) $ret";
+        \Logger::getInstance()->log(SQLCMD, $sql);
 
         $result = $this->execute($sql, $bind);
 
@@ -567,7 +575,6 @@ class OracleAdapter implements DatabaseAdapterInterface {
             {
                 $where[] = "$c = $v";
             }
-
             $where = implode(' AND ', $where);
         }
 //        echo $fields . "<br />";
@@ -583,7 +590,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "update $table set $fields where $where $ret";
-        echo "Query de update este: $sql<br /><br />";
+        \Logger::getInstance()->log(SQLCMD, $sql);
+//        echo "Query de update este: $sql";
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return null;
@@ -625,7 +633,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $ret = " returning " . (implode(",", $ret_fields)) . " into " . (implode(",", $ret_binds));
         }
         $sql = "delete from $table where $where $ret";
-
+        \Logger::getInstance()->log(SQLCMD, $sql);
+//        echo $sql; die;
         $result = $this->execute($sql, $bind);
         if ($result === false) {
             return false;
