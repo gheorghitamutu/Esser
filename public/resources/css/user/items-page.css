@@ -63,3 +63,18 @@
 .body-element-group>div,.header-element-group>div{
     text-align: center;
 }
+
+
+/*--------------------------------   delete items group------------------------------*/
+#container-delete-group{
+    display:grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    max-height: 500px;
+    overflow-y:scroll;
+}
+
+.del-button{
+    display: none;
+    height: 0;
+    width: 0;
+}

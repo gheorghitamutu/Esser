@@ -41,7 +41,7 @@ function deleteGroupFunction(){
     document.getElementById("container-post-group").style.width = "0";
     document.getElementById("container-post-group").style.height= "0";
 
-    document.getElementById("container-delete-group").style.display = "flex";
+    document.getElementById("container-delete-group").style.display = "grid";
     document.getElementById("container-delete-group").style.width = "100%";
     document.getElementById("container-delete-group").style.height= "100%";
 

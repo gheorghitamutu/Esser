@@ -492,12 +492,12 @@ class UserController extends Controller
             $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
             $fields = false
         );
-        var_dump($query_item_group);
+
         foreach($querry_rel_users as $querry_rel_user){
             if($querry_rel_user['canUpdItm'] !="0"){
                 $this->model('Itemgroupownership');
                 $result_item_group_owner = $this->model_class->get_mapper()->insert(
-                    'ITEMGROUPOWNERSHIP',
+                    'ITEMGROUPOWNERSHIPS',
                     array
                     (
                         'iGOwnerId'  => $querry_rel_user['uGroupId'] ,
@@ -506,6 +506,7 @@ class UserController extends Controller
                 );
             }
         }
+
         //creating logs for groups post
         $this->model('Itemgrouplog');
         $this->model_class->get_mapper()->insert(

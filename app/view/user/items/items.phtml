@@ -33,12 +33,64 @@
                     <p class="main-text"> Group Description </p>
                     <input class="fill-box" type="text" name="gDescription" value="" placeholder="Enter group description" required="required"/>
                     <input type="submit" class="submit-button-post-group" value="Submit">
-
                 </form>
             </div>
 
-            <div id="container-delete-group">
-                va fi delete item
+            <div id="container-delete-group"><?php
+                $groups=$this->view_data['groupOfItems'];
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Owner Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Description</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Created Date </div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Updated Date</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div> </div>";
+                echo "</div>";
+
+                foreach($groups as $group){
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupName']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['uGroupName']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group[ 'iGroupDescription']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupCreatedAt']."</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>". $group['iGroupUpdatedAt']."</div>";
+                    echo "</div>";
+
+                    echo"<form class=\"post-item-form\" method=\"POST\">";
+                    echo "<input  type=\"text\" class=\"del-button\" name=\"delButton\" value=".$group['iGroupName']." required=\"required\"/>";
+                    echo "<input type=\"submit\" class=\"submit-button-del-group\" value=\"X\">";
+                    echo"</form>";
+                }
+                ?>
+
             </div>
 
             <div id="container-get-group"><?php
