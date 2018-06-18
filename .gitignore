@@ -1,6 +1,11 @@
 syntax: glob
-
 .idea/
-logger/*.txt
-tests/Database/*.txt
-tests/*.txt
+logger/log.txt
+tests/Database/log.txt
+tests/log.txt
+./logger/log.txt
+./tests/Database/log.txt
+./tests/log.txt
+/logger/log.txt
+/tests/Database/log.txt
+/tests/log.txt

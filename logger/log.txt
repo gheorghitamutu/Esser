@@ -1,832 +1,230 @@
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:17:56] Executed createDBUserPrc.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:56 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-
-PL/SQL procedure successfully completed.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:17:56] Executed dbCreate.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:57 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-PL/SQL procedure successfully completed.
-
-
-Procedure created.
-
-All table names have been cleaned
-Procedure finished!
-Procedure finished!
-
-PL/SQL procedure successfully completed.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Function created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
-[APP_LOG: 06-06-2018 21:17:56] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
-[APP_LOG: 06-06-2018 21:17:56] Installation procedure exited. Error verification underway.
-[APP_LOG: 06-06-2018 21:17:56] App successfully installed.
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:19:25] Executed createDBUserPrc.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:25 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-
-PL/SQL procedure successfully completed.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:19:25] Executed dbCreate.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:26 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-PL/SQL procedure successfully completed.
-
-
-Procedure created.
-
-All table names have been cleaned
-Procedure finished!
-Procedure finished!
-
-PL/SQL procedure successfully completed.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Function created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
-[APP_LOG: 06-06-2018 21:19:25] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
-[APP_LOG: 06-06-2018 21:19:25] Installation procedure exited. Error verification underway.
-[APP_LOG: 06-06-2018 21:19:25] App successfully installed.
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:13] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:14] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBUserPrc.sql script output is: 
-==============
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-BEGIN
-*
-ERROR at line 1:
-ORA-01940: cannot drop a user that is currently connected
-ORA-06512: at "SYS.PRC_ESSER_CRT_ROOT_USER", line 110
-ORA-01920: user name 'ESSER' conflicts with another user or role name
-ORA-06512: at line 2
-
-
-
-Commit complete.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBTables.sql script output is: 
-==============
-
-PL/SQL procedure successfully completed.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBSequences.sql script output is: 
-==============
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBAutoInsTriggers.sql script output is: 
-==============
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBComplexTriggers.sql script output is: 
-==============
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBPrcsFcts.sql script output is: 
-==============
-
-Function created.
-
-old   4:   v_result := fct_addMainRoots(&&1,&&2,&&3,&&4,&&5,&&6);
-new   4:   v_result := fct_addMainRoots('EsseR','c7acc0543b43a90847c443a9b5720121a33ae08e52ffbc0671a351e471221512dcc530352c87bdfb0036b860ffba8f354510a6a4b58192be5e3232e6b6bea407','bugeag.george@info.uaic.ro','Admins','Managers','Normal Users');
-
-PL/SQL procedure successfully completed.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 3. Restarting apache...
-[APP_LOG: 13-06-2018 18:42:18]: Apache restarted. Left number of install phases is: 0. Exiting installation procedure.
-[APP_LOG: 13-06-2018 18:42:18]: Installation procedure exited. Error verification underway.
-[APP_LOG: 13-06-2018 18:42:18]: App successfully installed.
+[SQL_LOG: 18-06-2018 16:25:53]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 16:25:53]: Resource id #63
+[SQL_LOG: 18-06-2018 16:25:53]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 16:25:53]: Resource id #66
+[SQL_LOG: 18-06-2018 16:26:09]: insert into USERLOGS (ULOGDESCRIPTION,ULOGSOURCEIP) values('Admin user EsseR has changed the app title into EsseR Project ',127.0.0.1) 
+[SQL_LOG: 18-06-2018 16:26:17]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 16:26:17]: Resource id #63
+[SQL_LOG: 18-06-2018 16:26:17]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 16:26:17]: Resource id #66
+[SQL_LOG: 18-06-2018 16:26:20]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 16:26:20]: Resource id #63
+[SQL_LOG: 18-06-2018 16:26:20]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 16:26:20]: Resource id #66
+[SQL_LOG: 18-06-2018 16:26:21]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 16:26:21]: Resource id #63
+[SQL_LOG: 18-06-2018 16:26:21]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 16:26:21]: Resource id #66
+[SQL_LOG: 18-06-2018 16:27:15]: insert into USERLOGS (ULOGDESCRIPTION,ULOGSOURCEIP) values('Admin user EsseR has changed the app title into BCMP Esser Project ','127.0.0.1') 
+[SQL_LOG: 18-06-2018 16:27:18]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 16:27:18]: Resource id #63
+[SQL_LOG: 18-06-2018 16:27:18]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 16:27:18]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:01]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:09:01]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:01]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:09:01]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:11]: SELECT USERNAME, USERTYPE, USEREMAIL, USERSTATE FROM USERACCS WHERE  USERNAME = 'EsseR'
+[SQL_LOG: 18-06-2018 17:09:11]: Resource id #65
+[SQL_LOG: 18-06-2018 17:09:20]: SELECT * FROM USERACCS WHERE  USERNAME = 'EsseR'
+[SQL_LOG: 18-06-2018 17:09:20]: Resource id #65
+[SQL_LOG: 18-06-2018 17:09:23]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:09:23]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:23]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:09:23]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:25]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:09:25]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:25]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:09:25]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:27]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:27]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:27]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:27]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:27]: SELECT USERID, USERNAME, USERTYPE, USEREMAIL, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType = 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:27]: Resource id #69
+[SQL_LOG: 18-06-2018 17:09:30]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:30]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:30]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:30]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:30]: SELECT USERID, USERNAME, USERTYPE, USEREMAIL, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType = 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:09:30]: Resource id #69
+[SQL_LOG: 18-06-2018 17:09:33]: SELECT USERNAME, USERTYPE, USEREMAIL, USERSTATE FROM USERACCS WHERE  USERID = 2
+[SQL_LOG: 18-06-2018 17:09:33]: Resource id #65
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM USERACCS WHERE  USERNAME = 'Daniel.Melinte'
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #65
+[SQL_LOG: 18-06-2018 17:09:48]: update USERACCS set USERTYPE = 2,USERSTATE = 1,USEREMAIL = 'testAWSxQ1@gmail.ro',USERPASS = 'b94db3d2c312e178996b7e56a3b4ec703c1c7a61b7ecff921f13d514c2b9eef99afaa37af369f9c24065edbd7af42feca24f6f7f96e411f3ea58aa71785b5469' where USERID = 2 
+[SQL_LOG: 18-06-2018 17:09:48]: insert into USERLOGS (uLogDescription,uLogSourceIP) values('Admin user EsseR has edited user Daniel.Melinte !','127.0.0.1'') 
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM GROUPRELATIONS WHERE USERID = 2 AND UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #71
+[SQL_LOG: 18-06-2018 17:09:48]: insert into GROUPRELATIONS (USERID,UGROUPID,CANUPDITM,CANMNGMBS) values(2,2,1,1) 
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #76
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND canMngMbs = 1
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #79
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #82
+[SQL_LOG: 18-06-2018 17:09:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND canMngMbs = 1
+[SQL_LOG: 18-06-2018 17:09:48]: Resource id #85
+[SQL_LOG: 18-06-2018 17:09:48]: update USERGROUPS set NROFMEMBERS = 0 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:09:48]: update USERGROUPS set NROFMANAGERS = 0 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:09:48]: update USERGROUPS set NROFMEMBERS = 0 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:09:48]: update USERGROUPS set NROFMANAGERS = 0 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:09:53]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:09:53]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:53]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:09:53]: Resource id #66
+[SQL_LOG: 18-06-2018 17:09:55]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:09:55]: Resource id #63
+[SQL_LOG: 18-06-2018 17:09:55]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:09:55]: Resource id #66
+[SQL_LOG: 18-06-2018 17:10:06]: SELECT USERID, USERNAME, USEREMAIL FROM USERACCS WHERE  USERNAME = 'Daniel.Melinte'
+[SQL_LOG: 18-06-2018 17:10:06]: Resource id #65
+[SQL_LOG: 18-06-2018 17:10:07]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS WHERE  ULOGDESCRIPTION like '%Daniel.Melinte%' ORDER BY uLogCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:10:07]: Resource id #63
+[SQL_LOG: 18-06-2018 17:10:18]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:10:18]: Resource id #63
+[SQL_LOG: 18-06-2018 17:10:18]: SELECT USERID, USERNAME, USEREMAIL, USERTYPE, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType > 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:10:18]: Resource id #66
+[SQL_LOG: 18-06-2018 17:10:18]: SELECT USERID, USERNAME, USERTYPE, USEREMAIL, USERSTATE, TO_CHAR(USERCREATEDAT,'DD-MM-YYYY HH24:MI:SS') AS "USERCREATEDAT" FROM USERACCS WHERE userType = 0 ORDER BY userCreatedAt DESC
+[SQL_LOG: 18-06-2018 17:10:18]: Resource id #69
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT UGROUPID, UGROUPNAME, UGROUPDESCRIPTION, NROFMEMBERS, NROFMANAGERS,
+                        TO_CHAR(UGROUPCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "UGROUPCREATEDAT" FROM USERGROUPS ORDER BY UGROUPID ASC
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #63
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 1
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #66
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 1 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #69
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #72
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #75
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #78
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #81
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 4
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #84
+[SQL_LOG: 18-06-2018 17:19:12]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 4 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:12]: Resource id #87
+[SQL_LOG: 18-06-2018 17:19:12]: update USERGROUPS set nrOfMembers = 1,nrOfManagers = 1 where UGROUPID = 1 
+[SQL_LOG: 18-06-2018 17:19:12]: update USERGROUPS set nrOfMembers = 2,nrOfManagers = 2 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:19:12]: update USERGROUPS set nrOfMembers = 22,nrOfManagers = 1 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:19:12]: update USERGROUPS set nrOfMembers = 16,nrOfManagers = 6 where UGROUPID = 4 
+[APP_LOG: 18-06-2018 17:19:12]: Successfully updated the number of members and managers of 0 usergroups from 4
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT UGROUPID, UGROUPNAME, UGROUPDESCRIPTION, NROFMEMBERS, NROFMANAGERS,
+                        TO_CHAR(UGROUPCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "UGROUPCREATEDAT" FROM USERGROUPS ORDER BY UGROUPID ASC
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #63
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 1
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #66
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 1 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #69
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #72
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #75
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #78
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #81
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 4
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #84
+[SQL_LOG: 18-06-2018 17:19:20]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 4 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:20]: Resource id #87
+[SQL_LOG: 18-06-2018 17:19:20]: update USERGROUPS set nrOfMembers = 1,nrOfManagers = 1 where UGROUPID = 1 
+[SQL_LOG: 18-06-2018 17:19:20]: update USERGROUPS set nrOfMembers = 2,nrOfManagers = 2 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:19:20]: update USERGROUPS set nrOfMembers = 22,nrOfManagers = 1 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:19:20]: update USERGROUPS set nrOfMembers = 16,nrOfManagers = 6 where UGROUPID = 4 
+[APP_LOG: 18-06-2018 17:19:20]: Successfully updated the number of members and managers of 0 usergroups from 4
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT UGROUPID, UGROUPNAME, UGROUPDESCRIPTION, NROFMEMBERS, NROFMANAGERS,
+                        TO_CHAR(UGROUPCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "UGROUPCREATEDAT" FROM USERGROUPS WHERE UGROUPID = 4
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #65
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT RELATIONID, USERID, UGROUPID, CANUPDITM, CANMNGMBS, 
+                TO_CHAR(GRPRELCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "GRPRELCREATEDAT" FROM GROUPRELATIONS WHERE  UGROUPID = 4 ORDER BY CANMNGMBS DESC, CANUPDITM DESC, GRPRELCREATEDAT ASC, USERID ASC
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #68
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 4 AND CANMNGMBS = 1
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #71
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 1
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #74
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #77
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 5
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #80
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 6
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #83
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 7
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #86
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 8
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #89
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 9
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #92
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 10
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #95
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 11
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #98
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #101
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 13
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #104
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 14
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #107
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #110
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 16
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #113
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 17
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #116
+[SQL_LOG: 18-06-2018 17:19:23]: SELECT * FROM USERACCS WHERE USERID = 18
+[SQL_LOG: 18-06-2018 17:19:23]: Resource id #119
+[SQL_LOG: 18-06-2018 17:19:30]: SELECT USERNAME, USERTYPE, USEREMAIL, USERSTATE FROM USERACCS WHERE  USERID = 12
+[SQL_LOG: 18-06-2018 17:19:30]: Resource id #65
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM USERACCS WHERE  USERNAME = 'Carina.Moisescu'
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #65
+[SQL_LOG: 18-06-2018 17:19:48]: update USERACCS set USERTYPE = 2,USERSTATE = 1,USEREMAIL = 'testAWSxQ11@gmail.ro',USERPASS = '29a6237a95276e398b42963fc7c26f530537680766ff80571d5d82ce1c5196c122577b8a2f4d7c67c45fd25eb3a29f3a428b0fc2326d5f54fcbfe09b6f4c5ec5' where USERID = 12 
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM GROUPRELATIONS WHERE USERID = 12 AND UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #70
+[SQL_LOG: 18-06-2018 17:19:48]: insert into GROUPRELATIONS (USERID,UGROUPID,CANUPDITM,CANMNGMBS) values(12,2,1,1) 
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #75
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND canMngMbs = 1
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #78
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 2
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #81
+[SQL_LOG: 18-06-2018 17:19:48]: SELECT * FROM GROUPRELATIONS WHERE  UGROUPID = 3 AND canMngMbs = 1
+[SQL_LOG: 18-06-2018 17:19:48]: Resource id #84
+[SQL_LOG: 18-06-2018 17:19:48]: update USERGROUPS set NROFMEMBERS = 0 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:19:48]: update USERGROUPS set NROFMANAGERS = 0 where UGROUPID = 3 
+[SQL_LOG: 18-06-2018 17:19:48]: update USERGROUPS set NROFMEMBERS = 0 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:19:48]: update USERGROUPS set NROFMANAGERS = 0 where UGROUPID = 2 
+[SQL_LOG: 18-06-2018 17:19:48]: insert into USERLOGS (ULOGDESCRIPTION,ULOGSOURCEIP) values('Admin user EsseR has edited user Carina.Moisescu !','127.0.0.1') 
+[SQL_LOG: 18-06-2018 17:19:52]: SELECT USERNAME FROM USERACCS WHERE  USERID = USERID
+[SQL_LOG: 18-06-2018 17:19:52]: Resource id #63
+[SQL_LOG: 18-06-2018 17:19:52]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS ORDER BY  ULOGCREATEDAT DESC
+[SQL_LOG: 18-06-2018 17:19:52]: Resource id #66
+[SQL_LOG: 18-06-2018 17:20:07]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS WHERE ULOGDESCRIPTION LIKE '%has logged%' ORDER BY ULOGCREATEDAT DESC 
+[SQL_LOG: 18-06-2018 17:20:07]: Resource id #63
+[SQL_LOG: 18-06-2018 17:20:10]: SELECT * FROM USERACCS WHERE USERID = 1
+[SQL_LOG: 18-06-2018 17:20:10]: Resource id #63
+[SQL_LOG: 18-06-2018 17:21:24]: SELECT ULOGID, ULOGDESCRIPTION, ULOGSOURCEIP, TO_CHAR(ULOGCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "ULOGCREATEDAT" FROM USERLOGS WHERE ULOGDESCRIPTION LIKE '%has logged%' ORDER BY ULOGCREATEDAT DESC 
+[SQL_LOG: 18-06-2018 17:21:24]: Resource id #63
+[SQL_LOG: 18-06-2018 17:21:25]: SELECT IGROUPID, IGROUPNAME, IGROUPDESCRIPTION, 
+                TO_CHAR(IGROUPCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "IGROUPCREATEDAT" FROM ITEMGROUPS
+[SQL_LOG: 18-06-2018 17:21:25]: Resource id #63
+[SQL_LOG: 18-06-2018 17:21:25]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE IGID = 2
+[SQL_LOG: 18-06-2018 17:21:25]: Resource id #66
+[SQL_LOG: 18-06-2018 17:21:25]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE IGID = 2 AND IGOWNERID > 2
+[SQL_LOG: 18-06-2018 17:21:25]: Resource id #69
+[SQL_LOG: 18-06-2018 17:21:25]: SELECT * FROM USERGROUPS WHERE UGROUPID = 4
+[SQL_LOG: 18-06-2018 17:21:25]: Resource id #72
+[SQL_LOG: 18-06-2018 17:21:25]: SELECT * FROM ITEMS WHERE IGROUPID = 2
+[SQL_LOG: 18-06-2018 17:21:25]: Resource id #75
+[SQL_LOG: 18-06-2018 17:21:27]: SELECT IGROUPID, IGROUPNAME, IGROUPDESCRIPTION, 
+                TO_CHAR(IGROUPCREATEDAT, 'DD-MM-YYYY HH24:MI:SS') AS "IGROUPCREATEDAT" FROM ITEMGROUPS
+[SQL_LOG: 18-06-2018 17:21:27]: Resource id #63
+[SQL_LOG: 18-06-2018 17:21:27]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE IGID = 2
+[SQL_LOG: 18-06-2018 17:21:27]: Resource id #66
+[SQL_LOG: 18-06-2018 17:21:27]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE IGID = 2 AND IGOWNERID > 2
+[SQL_LOG: 18-06-2018 17:21:27]: Resource id #69
+[SQL_LOG: 18-06-2018 17:21:27]: SELECT * FROM USERGROUPS WHERE UGROUPID = 4
+[SQL_LOG: 18-06-2018 17:21:27]: Resource id #72
+[SQL_LOG: 18-06-2018 17:21:27]: SELECT * FROM ITEMS WHERE IGROUPID = 2
+[SQL_LOG: 18-06-2018 17:21:27]: Resource id #75

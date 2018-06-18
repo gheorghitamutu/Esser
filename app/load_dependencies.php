@@ -46,14 +46,34 @@
       require_once($filename);
     }
 
-      foreach (glob(CONTROLLER . DS . 'admincp' . DS . PHP_FILE) as $filename)
-      {
-          require_once($filename);
-      }
-
     foreach (glob(CONTROLLER . DS . 'admincp' . DS . PHP_FILE) as $filename)
     {
+        require_once($filename);
+    }
+
+    foreach (glob(CONTROLLER . DS . 'admincp' . DS . 'Logs' . DS . PHP_FILE) as $filename)
+    {
       require_once($filename);
+    }
+
+    foreach (glob(CONTROLLER . DS . 'admincp' . DS . 'Items' . DS . PHP_FILE) as $filename)
+    {
+        require_once($filename);
+    }
+
+    foreach (glob(CONTROLLER . DS . 'admincp' . DS . 'Itemgroups' . DS . PHP_FILE) as $filename)
+    {
+        require_once($filename);
+    }
+
+    foreach (glob(CONTROLLER . DS . 'admincp' . DS . 'Users' . DS . PHP_FILE) as $filename)
+    {
+        require_once($filename);
+    }
+
+    foreach (glob(CONTROLLER . DS . 'admincp' . DS . 'Usergroups' . DS . PHP_FILE) as $filename)
+    {
+        require_once($filename);
     }
 
     foreach (glob(ROUTE . PHP_FILE) as $filename)

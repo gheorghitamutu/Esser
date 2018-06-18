@@ -86,6 +86,7 @@ class RegisterController extends Controller
         }
         elseif (!preg_match('/[^a-zA-Z0-9._-]/',$_POST['uname']))
         {
+
             $username = $_POST["uname"];
         }
         else
@@ -142,7 +143,7 @@ class RegisterController extends Controller
             )
         );
 
-        $log_description = "'Normal user " . $username     . " registered!'";
+        $log_description = "'Normal user " . $username     . " has registered!'";
         parent::log_user_activity($log_description);
 
         $email_subject = "[Esser] Registration";
