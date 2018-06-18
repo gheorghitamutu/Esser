@@ -92,6 +92,24 @@ class AdmincpController extends Controller
             case 'admincp/itemgroups':
                 new ItemGroupsController($uri);
                 break;
+            case 'admincp/itemgroups/delitemgroup':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/searchitmgrp':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/getitmgroup':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/editgrouptitle':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/editgroupdescription':
+                new ItemGroupsController($uri);
+                break;
             case 'admincp/loginlogs':
                 new LogsController($uri);
                 break;
