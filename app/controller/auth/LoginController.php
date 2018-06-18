@@ -176,8 +176,7 @@ class LoginController extends Controller
     {
         // checks if the user account is approved or suspended
         // checks if requested email exists in database
-        if (
-            ($_POST['uname']) < 4 ||
+        if (strlen($_POST['uname']) < 4 ||
             strlen($_POST['uname']) > 16 ||
             filter_var($_POST['uname'], FILTER_SANITIZE_STRING) == false)
         {
