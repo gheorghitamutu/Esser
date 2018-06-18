@@ -415,19 +415,92 @@ class UserGroupsController extends AdmincpController
 
     protected function editusergrouptitle()
     {
-        if (!filter_var($_POST['editgrouptitleid'],FILTER_VALIDATE_INT)) {
+        if (!filter_var($_POST['editgrouptitleid'],FILTER_VALIDATE_INT) ||
+            filter_var($_POST['newgrpname'], FILTER_SANITIZE_STRING) == false) {
             $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
             self::redirect('/admincp/usergroupeditor');
             return;
+        }
+        else {
+            $groupid = filter_var($_POST['editgrouptitleid'],FILTER_SANITIZE_NUMBER_INT);
+            $newtitle = filter_var($_POST['newgrpname'], FILTER_SANITIZE_STRING);
+        }
+        $this->model('Usergroup');
+        $query = $this->model_class->get_mapper()->findAll
+        (
+            $where = 'UGROUPID = ' . $groupid
+        );
+        if (empty($query) || !$query) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t find the group! No update possible!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        $query = $this->model_class->get_mapper()->update
+        (
+            $table = 'USERGROUPS',
+            $fields = array
+            (
+                'UGROUPNAME' => "'" . $newtitle . "'"
+            ),
+            $where = array
+            (
+                'UGROUPID' => $groupid
+            )
+        );
+        if (is_array($query) == false && $query == false) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t update the title name!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        else {
+            $this->showmessage($opsuccess = false, $opmessage = 'Group name was successfully updated!');
+            self::redirect('/admincp/usergroupeditor');
         }
     }
 
     protected function editusergroupdescription()
     {
-        if (!filter_var($_POST['editgroupdscrpid'],FILTER_VALIDATE_INT)) {
+        if (!filter_var($_POST['editgroupdscrpid'],FILTER_VALIDATE_INT) ||
+            filter_var($_POST['newgrpdescrp'], FILTER_SANITIZE_STRING) == false) {
+            var_dump($_POST); die;
             $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
             self::redirect('/admincp/usergroupeditor');
             return;
+        }
+        else {
+            $groupid = filter_var($_POST['editgroupdscrpid'],FILTER_SANITIZE_NUMBER_INT);
+            $newdescription = filter_var($_POST['newgrpdescrp'], FILTER_SANITIZE_STRING);
+        }
+        $this->model('Usergroup');
+        $query = $this->model_class->get_mapper()->findAll
+        (
+            $where = 'UGROUPID = ' . $groupid
+        );
+        if (empty($query) || !$query) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t find the group! No update possible!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        $query = $this->model_class->get_mapper()->update
+        (
+            $table = 'USERGROUPS',
+            $fields = array
+            (
+                'UGROUPDESCRIPTION' => "'" . $newdescription . "'"
+            ),
+            $where = array
+            (
+                'UGROUPID' => $groupid
+            )
+        );
+        if (is_array($query) == false && $query == false) {
+            $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t update the title name!');
+            self::redirect('/admincp/usergroupeditor');
+            return;
+        }
+        else {
+            $this->showmessage($opsuccess = false, $opmessage = 'Group description was successfully updated!');
+            self::redirect('/admincp/usergroupeditor');
         }
 
     }
