@@ -61,6 +61,7 @@ define('ERROR'     , '[ERROR: '             . date('d-m-Y H:i:s') . ']: ');
 define('WARNING'   , '[WARNING: '           . date('d-m-Y H:i:s') . ']: ');
 define('DEBUGING'  , '[DEBUG_MESSAGE: '     . date('d-m-Y H:i:s') . ']: ');
 define('LOGGING'   , '[APP_LOG: '           . date('d-m-Y H:i:s') . ']: ');
+define('SQLCMD'    , '[SQL_LOG: '           . date('d-m-Y H:i:s') . ']: ');
 
 // glob input macros
 define('PHP_FILE'  , '*.php');
