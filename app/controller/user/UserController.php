@@ -44,6 +44,9 @@ class UserController extends Controller
             case 'user/users/groupmembers':
                 $this->renderGroup();
                 break;
+			case 'user/manageruser':
+                $this->manageruser();
+                break;
             case 'user/reports':
                 $this->reports();
                 break;

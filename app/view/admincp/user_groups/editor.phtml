@@ -59,7 +59,7 @@
                                 . "<div class=\"flex-table-td\">" .
                                 "<form action=\"/admincp/usergroupeditor/removefromgroup\" method=\"POST\">" .
                                 "<button type=\"submit\" class=\"admcp-srch-btn\" name=\"remfromgrp\" value=\"" .
-                                $this->view_data['memberlist'][$i]['userId'] . "\">" .
+                                    $this->view_data['memberlist'][$i]['userId'].'/'.$this->view_data['generalgroupinfo']['groupid'] . "\">" .
                                 " Remove </button></form></div>" . PHP_EOL
                                 . "</div>";
                             }?>
@@ -70,25 +70,37 @@
                 <div class="admcp-rt-result-box">
                     <div class="admcp-rt-content">
                         <h3 class="adm-rt-title"> User Group Details </h3>
-                        <form class="usr-edit-form" method="POST" action="/admincp/usergroupeditor/editname">
+                        <form class="usr-edit-form" method="POST" action="/admincp/usergroupeditor/editgrouptitle">
                             <div class="ctrl-group" id="grpnamediv">
-                                <label id="groupnamelabel"> Group Name: Current | New </label>
-                                <input type="text" name="curgrpname" id="cur-grp-name" value="
-                                    <?php (isset($this->view_data['groupname']))?$this->view_data['groupname']: "";?>" disabled>
-                                <input type="text" name="grpname" id="grp-name" required="required"
+                                <label id="groupnamelabel"> Current Group Name </label>
+                                <?php echo
+                                '<input type="text" name="curgrpname" id="cur-grp-name" value="' .
+                                     (isset($this->view_data['generalgroupinfo']['groupname'])?
+                                         $this->view_data['generalgroupinfo']['groupname']: "") . '" disabled>'; ?>
+                                <label id="groupnamelabel"> Insert a new name for the group here: </label>
+                                <input type="text" name="newgrpname" id="grp-name" required="required"
                                        value="" placeholder="Input New Group Name">
                             </div>
-                            <button type="submit" class="admcp-save-btn"> Save </button>
+                            <button type="submit" class="admcp-save-btn" name="editgrouptitleid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['generalgroupinfo']['groupid']))?
+                                        $this->view_data['generalgroupinfo']['groupid']:''); ?>"> Save </button>
                         </form>
-                        <form class="usr-edit-form" method="POST" action="/admincp/usergroupeditor/editdescription">
+                        <form class="usr-edit-form" method="POST" action="/admincp/usergroupeditor/editgroupdescription">
                             <div class="ctrl-group" id="grpdscrptdiv">
                                 <label id="groupdescrptionlabel"> Group Description </label>
-                                <input type="text" name="curgrpname" id="cur-grp-descrp" value="
-                                    <?php (isset($this->view_data['groupdscrp']))?$this->view_data['groupdscrp']: "";?>" disabled>
-                                <input type="text" name="grpdescrp" id="grp-descrp"
-                                       value="" placeholder="User Group Description">
+                                <textarea name="curgrpname" id="cur-grp-descrp" disabled
+                                          minlength="6" maxlength="2000" rows="5" cols="10"><?php echo
+                                    (isset($this->view_data['generalgroupinfo']['groupdscrp']))?
+                                        $this->view_data['generalgroupinfo']['groupdscrp']: ""; ?></textarea>
+                                <br />
+                                <textarea name="newgrpdescrp" id="grp-descrp" minlength="6" maxlength="2000" rows="5" cols="10"
+                                          placeholder="Input here new user group description..."></textarea>
                             </div>
-                            <button type="submit" class="admcp-save-btn"> Save </button>
+                            <button type="submit" class="admcp-save-btn" name="editgroupdscrpid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['generalgroupinfo']['groupid']))?
+                                        $this->view_data['generalgroupinfo']['groupid']:''); ?>"> Save </button>
                         </form>
                     </div>
                 </div>
