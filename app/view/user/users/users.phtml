@@ -22,11 +22,16 @@
             echo "<div class=\"group-display\">";
             if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)){
                 echo "<div class=\"add-user-container\">"  . "<div class=\"group-display-user\">" . " Select one of the following users to be added " . "</div>";
-                echo "<form action='/user/users/addmembers' method='POST'>" . "<select name=\"selectedUser\">";
+                echo "<form class= \"form-add-user\" action='/user/users/addmembers' method='POST'>" . "<div></div>";
+                echo "<select name=\"selectedUser\">";
                 foreach($_SESSION['notInGroupUsers'] as $user) {
                     echo "<option class=\"group-display-user\" value=" . $user['userId']. ">" . $user['userName'] . "</option>";
                 }
                 echo "</select>";
+                echo "<div class=\"input-description\">" . "Manager" ;
+                echo "<input type=\"checkbox\" name=\"canManageGroup\" >" . "</div>";
+                echo "<div class=\"input-description\">" . "Manage items";
+                echo "<input type=\"checkbox\" name=\"canManItems\" >" . "</div>";
                 echo "<button type=\"submit\" class=\"display-button\" name=\"addUser\">" . " Add " . "</button>" . "</form>";
                 echo "</div>";
             } else {

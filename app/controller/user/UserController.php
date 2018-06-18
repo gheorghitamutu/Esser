@@ -70,7 +70,68 @@ class UserController extends Controller
         }
     }
 
+    private function getUserGroupName($groupId){
+        $this->model('Usergroup');
+        $groupName =
+            $this->model_class->get_mapper()->findAll(
+                $where = "UGROUPID=" . $groupId,
+                $fields = false
+            )[0]['uGroupName'];
+        return $groupName;
+    }
+
     private function addMembers(){
+        $option = $_POST['selectedUser'];
+        if (isset($_POST['canManageGroup'])){
+            $manageGroup = 1;
+        } else{
+            $manageGroup = 0;
+        };
+        if (isset($_POST['canManItems'])){
+            $manipulateItem = 1;
+        } else{
+            $manipulateItem = 0;
+        };
+
+        $this->model('Grouprelation');
+        $result = $this->model_class->get_mapper()->insert(
+            'GROUPRELATIONS',
+            array
+            (
+                'userId'    => "'" . $option . "'",
+                'uGroupId'    => "'" . $_SESSION['renderedGroupId'] . "'",
+                'canUpdItm'  => "'" . $manipulateItem . "'",
+                'canMngMbs'    => "'" . $manageGroup . "'"
+            )
+        );
+
+        $this->model('Useracc');
+
+        $addedUserName = $this->model_class->get_mapper()->findAll(
+            $where = "USERID =" . $option,
+            $field = false
+        )[0]['userName'];
+
+        $this->model('UserGroupLog');
+
+        if($_SESSION['is_admin'])
+        {
+            $userGrade = "Admin";
+        } else if ($_SESSION['canManageMembers']){
+            $userGrade = "Manager";
+        } else {
+            $userGrade = "Normal";
+        }
+
+        $this->model_class->get_mapper()->insert(
+            'USERGROUPLOGS',
+            array
+            (
+                'uGLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added user" . $addedUserName . " in group " . $_SESSION['userGroupName'] . "'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
+
         self::redirect('/user/users');
     }
 
@@ -90,12 +151,14 @@ class UserController extends Controller
             unset($_SESSION['listOfGroupUserIds']);
             unset($_SESSION['canManageMembers']);
             unset($_SESSION['notInGroupUsers']);
+            unset($_SESSION['userGroupName']);
             self::redirect('/user/users');
         } else {
             $_SESSION['renderedGroupId'] = $groupId;
             $_SESSION['listOfGroupUserIds'] = $this->getMemberOfGroup($groupId);
             $_SESSION['canManageMembers'] = $canManageMembers;
             $_SESSION['notInGroupUsers'] = $this->getNonMembers($groupId);
+            $_SESSION['userGroupName'] = $this->getUserGroupName($groupId);
             self::redirect('/user/users');
         }
 
@@ -424,7 +487,8 @@ class UserController extends Controller
                     'memberGroup' => $this->getUserGroups(),
                     'usersToDisplay' => $_SESSION['listOfGroupUserIds'],
                     'canManageMembers' => $_SESSION['canManageMembers'],
-                    'notInGroupUsers' => $_SESSION['notInGroupUsers']
+                    'notInGroupUsers' => $_SESSION['notInGroupUsers'],
+                    'userGroupName' => $_SESSION['userGroupName']
                 ],
                 'Users area');
 
@@ -435,7 +499,8 @@ class UserController extends Controller
                     'memberGroup' => $this->getUserGroups(),
                     'usersToDisplay' => [],
                     'canManageMembers' => 0,
-                    'notInGroupUsers' => []
+                    'notInGroupUsers' => [],
+                    'userGroupName' => ""
                 ],
                 'Users area');
         }

@@ -110,7 +110,7 @@ body{
 }
 
 .group-display-user{
-	background: #f9ab55;
+	background: #084887;
 	color: ghostwhite;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1em;
@@ -142,3 +142,21 @@ body{
 	text-align: center;
 }
 
+.form-add-user{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 12vh;
+}
+
+.input-description{
+	display: grid;
+	grid-template-columns: 1fr 1fr ;
+	background: #f9ab55;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+	position: center;
+}
