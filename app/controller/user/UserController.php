@@ -301,7 +301,7 @@ class UserController extends Controller
                 array_push($unique_items, $item);
             }
         }
-      
+
         $unique_groups_items=array();
         foreach($array_ownership_items_count_groups as $array_ownership_items_count_group){
             if(!in_array($array_ownership_items_count_group,$unique_groups_items)){

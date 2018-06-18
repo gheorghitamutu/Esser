@@ -330,7 +330,14 @@
     }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 850px) {
+    #btn_next_items:active,#btn_next_users:active{
+        transform: translateX(0);
+    }
+
+    #btn_prev_items:active, #btn_prev_users:active{
+        transform: translateX(0);
+    }
 
 }
 @media screen and (max-width: 550px) {
@@ -345,7 +352,6 @@
     #under-title-header-user-landing-page{
         font-size: 2vh;
     }
-
 
 }
 
