@@ -81,7 +81,7 @@ class RegisterController extends Controller
         if (strlen($_POST["uname"]) < 4 || strlen($_POST["uname"]) > 16) {
             return array('operation' => false, 'message' => 'username not being between 4 and 16 characters long!');
         }
-        elseif (!preg_match('/[a-zA-Z0-9._-]/',$_POST['uname'])) {
+        elseif (!preg_match('/[^a-zA-Z0-9._-]/',$_POST['uname'])) {
             $username = $_POST["uname"];
         }
         else {

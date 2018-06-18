@@ -1311,3 +1311,10 @@ PL/SQL procedure successfully completed.
 [APP_LOG: 18-06-2018 10:27:08]: Successfully updated the number of members and managers of 0 usergroups from 3
 [APP_LOG: 18-06-2018 10:28:24]: Successfully updated the number of members and managers of 0 usergroups from 3
 [APP_LOG: 18-06-2018 10:39:18]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:09:33]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:09:40]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:09:47]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:10:51]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:10:57]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:12:07]: Successfully updated the number of members and managers of 0 usergroups from 3
+[APP_LOG: 18-06-2018 11:38:18]: Successfully updated the number of members and managers of 0 usergroups from 4
