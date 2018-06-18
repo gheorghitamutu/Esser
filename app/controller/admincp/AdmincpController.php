@@ -129,10 +129,7 @@ class AdmincpController extends Controller
                 new LogsController($uri);
                 break;
             default:
-                View::CreateView(
-                    '404',
-                    [],
-                    'Page not found!');
+                new PageNotFoundController();
                 break;
         }
     }

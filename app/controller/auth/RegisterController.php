@@ -29,6 +29,7 @@ class RegisterController extends Controller
                 $this->success();
                 break;
             default:
+                new PageNotFoundController();
                 break;
 
         }
@@ -129,15 +130,32 @@ class RegisterController extends Controller
             )
         );
 
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription'   => "'Normal user " . $username     . " registered!'",
-                'uLogSourceIP'      => "'" . (($_SERVER["REMOTE_ADDR"]=='::1')?'127.0.0.1':$_SERVER['REMOTE_ADDR']) . "'"
-            )
-        );
+        $log_description = "'Normal user " . $username     . " has registered!'";
+        parent::log_user_activity($log_description);
+
+        $email_subject = "[Esser] Registration";
+
+        if($result)
+        {
+            $email_body = "Successfully registered!";
+        }
+        else
+        {
+            $email_body = "Failed to register!";
+        }
+
+        $email_sent = GMail::send_email($email, $email_subject, $email_body);
+
+        if($email_sent === true)
+        {
+            $log_description = "'Normal user " . $username     . " registration email success!'";
+        }
+        else
+        {
+            $log_description = "'Normal user " . $username     . " registration email fail!'";
+        }
+
+        parent::log_user_activity($log_description);
 
         return array('operation' => true, 'result' => $result);
     }

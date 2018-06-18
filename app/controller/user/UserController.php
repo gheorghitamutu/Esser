@@ -58,7 +58,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                new PageNotFoundController();
                 break;
 
         }
@@ -413,16 +413,8 @@ class UserController extends Controller
         );
 
         $_SESSION['login_failed'] = true;
-
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription' => "'Normal user " . $_SESSION['uname'] . " has logged out!'",
-                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
-            )
-        );
+        
+        self::log_user_activity("'Normal user " . $_SESSION['uname']     . " has logged out!'");
 
         session_destroy();
         Controller::redirect('/home');
