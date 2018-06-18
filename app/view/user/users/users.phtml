@@ -20,7 +20,19 @@
             echo "</div>";
             echo "</div>";
             echo "<div class=\"group-display\">";
-            echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class='group-display-button-add'> Add member to group </button>" : NULL;
+            if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)){
+                echo "<div class=\"add-user-container\">"  . "<div class=\"group-display-user\">" . " Select one of the following users to be added " . "</div>";
+                echo "<form action='/user/users/addmembers' method='POST'>" . "<select name=\"selectedUser\">";
+                foreach($_SESSION['notInGroupUsers'] as $user) {
+                    echo "<option class=\"group-display-user\" value=" . $user['userId']. ">" . $user['userName'] . "</option>";
+                }
+                echo "</select>";
+                echo "<button type=\"submit\" class=\"display-button\" name=\"addUser\">" . " Add " . "</button>" . "</form>";
+                echo "</div>";
+            } else {
+                echo NULL;
+            }
+
             //echo var_dump($_SESSION);
             echo "<div class=\"group-display-element\">";
             foreach($this->view_data['usersToDisplay'] as $user){

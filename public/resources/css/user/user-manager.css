@@ -89,7 +89,6 @@ body{
 }
 
 .group-display-button-add{
-	grid-area: buton;
 	background: #f9ab55;
 	color: ghostwhite;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -128,5 +127,18 @@ body{
 	text-align: center;
 	padding: 1em;
 	margin: 1em;
+}
+
+.add-user-container{
+	grid-area: buton;
+	display: grid;
+	grid-template-columns: 1fr 1fr ;
+	grid-template-areas: "buton buton"
+	"user adauga";
+	background: #f58a07;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: center;
 }
 

@@ -44,6 +44,9 @@ class UserController extends Controller
             case 'user/users/groupmembers':
                 $this->renderGroup();
                 break;
+            case 'user/users/addmembers':
+                $this->addMembers();
+                break;
 			case 'user/manageruser':
                 $this->manageruser();
                 break;
@@ -67,6 +70,10 @@ class UserController extends Controller
         }
     }
 
+    private function addMembers(){
+        self::redirect('/user/users');
+    }
+
     private function renderGroup()
     {
         $groupId = $_POST['renderGroup'];
@@ -82,17 +89,56 @@ class UserController extends Controller
             unset($_SESSION['renderedGroupId']);
             unset($_SESSION['listOfGroupUserIds']);
             unset($_SESSION['canManageMembers']);
+            unset($_SESSION['notInGroupUsers']);
             self::redirect('/user/users');
         } else {
             $_SESSION['renderedGroupId'] = $groupId;
             $_SESSION['listOfGroupUserIds'] = $this->getMemberOfGroup($groupId);
             $_SESSION['canManageMembers'] = $canManageMembers;
+            $_SESSION['notInGroupUsers'] = $this->getNonMembers($groupId);
             self::redirect('/user/users');
         }
 
 
     }
 
+
+    private function getNonMembers($groupId){
+
+        $this->model('Grouprelation');
+
+        $usersThatCanBeAdded = [];
+
+        $notInGroup =
+            $this->model_class->get_mapper()->findAll(
+                $where = "UGROUPID <> " . $groupId,
+                $fields = 'DISTINCT USERID'
+            );
+
+        for ($i = 0; $i < count($notInGroup); ++$i){
+            $notInGroup[$i] = $notInGroup[$i]['userId'];
+        }
+
+        //echo var_dump($notInGroup);
+        //exit(0);
+
+        $this->model('Useracc');
+
+        foreach($notInGroup as $user){
+            $userDetails = $this->model_class->get_mapper()->findAll(
+                $where = "USERID=" . $user,
+                $fields = false
+            );
+            array_push($usersThatCanBeAdded, array
+            (
+                'userId' => $userDetails[0]['userId'],
+                'userName' => $userDetails[0]['userName']
+
+            ));
+        }
+        return $usersThatCanBeAdded;
+
+    }
 
     private function getUserGroups()
     {
@@ -377,7 +423,8 @@ class UserController extends Controller
                 [
                     'memberGroup' => $this->getUserGroups(),
                     'usersToDisplay' => $_SESSION['listOfGroupUserIds'],
-                    'canManageMembers' => $_SESSION['canManageMembers']
+                    'canManageMembers' => $_SESSION['canManageMembers'],
+                    'notInGroupUsers' => $_SESSION['notInGroupUsers']
                 ],
                 'Users area');
 
@@ -387,7 +434,8 @@ class UserController extends Controller
                 [
                     'memberGroup' => $this->getUserGroups(),
                     'usersToDisplay' => [],
-                    'canManageMembers' => 0
+                    'canManageMembers' => 0,
+                    'notInGroupUsers' => []
                 ],
                 'Users area');
         }
