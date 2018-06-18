@@ -68,8 +68,7 @@ class Controller
 
     protected function authenticate_user($username, $password)
     {
-        $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $username . $salt . $password);
+        $password_hash = hash('sha512', $username . SALT . $password);
 
         $this->model('Useracc');
         $users_found = $this->model_class->get_mapper()->findAll(
@@ -115,7 +114,7 @@ class Controller
         }
         return true;
     }
-
+//
     protected function log_user_activity($uLogDescription)
     {
         $this->model('UserLog');

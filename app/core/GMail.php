@@ -6,20 +6,24 @@
  * Time: 12:31 PM
  */
 
-require_once "../../../php/pear/Mail.php";
-
 class GMail
 {
-    private $from = "gheorghitamutu@gmail.com";
-    private $password = "REPLACE_THIS";
-    private $type = 'smtp';
-    private $host = 'ssl://smtp.gmail.com';
-    private $port = '465';
-    private $auth = true;
+    private $from = "gheorghitamutu@gmail.com";     // replace this as needed
+    private $reply_to = "gheorghitamutu@gmail.com"; // replace this as needed
+    private $x_mailer = 'PHP/';
+    private $headers = null;
 
     public function __construct()
     {
+        $this->x_mailer  .= phpversion();
 
+        $this->headers =
+            array
+            (
+                'From' => $this->from,
+                'Reply-To' => $this->reply_to,
+                'X-Mailer' => $this->x_mailer
+            );
     }
 
     public static function send_email($to, $subject, $body)
@@ -31,26 +35,6 @@ class GMail
 
     private function send($to, $subject, $body)
     {
-
-        $headers = array(
-            'From' => $this->from,
-            'To' => $to,
-            'Subject' => $subject
-        );
-
-        $smtp = Mail::factory(
-            $this->type,
-            array
-            (
-                'host' => $this->host,
-                'port' => $this->port,
-                'auth' => $this->auth,
-                'username' => $this->from,
-                'password' => $this->password
-            ));
-
-        $mail = $smtp->send($to, $headers, $body);
-
-        return $mail === true;
+        return mail($to, $subject, $body, $this->headers) === true;
     }
 }
