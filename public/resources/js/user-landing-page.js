@@ -3,7 +3,7 @@
 
 /*--------------------------------------------------  items paginations --------------------------------- */
 var current_page_items = 1;
-var records_per_page_items = 3*3;
+var records_per_page_items = 3*8;
 var objJson_items=[];
 var items= document.getElementById("container-hidden-items").childNodes;
 for(var i=0;i<items.length;i++){
@@ -98,7 +98,7 @@ function numPages_items()
 
 /*--------------------------------------------------  users paginations --------------------------------- */
 var current_page_users = 1;
-var records_per_page_users = 3*3;
+var records_per_page_users = 3*8;
 var objJson_users=[];
 var users= document.getElementById("container-hidden-users").childNodes;
 for(var i_users=0;i_users<users.length;i_users++){
