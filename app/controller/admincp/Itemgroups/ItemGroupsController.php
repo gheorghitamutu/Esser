@@ -86,12 +86,25 @@ class ItemGroupsController extends AdmincpController
         if (filter_var($_POST['delitemgroup'], FILTER_VALIDATE_INT)) {
             $itmgrpid = filter_var($_POST['delitemgroup'], FILTER_SANITIZE_NUMBER_INT);
             $this->model('Itemgroup');
+            $group = $this->model_class->get_mapper()->findAll($where = 'IGROUPID = ' . $itmgrpid);
             $query = $this->model_class->get_mapper()->delete
             (
                 $table = 'ITEMGROUPS',
                 $where = array('IGROUPID' => $itmgrpid)
             );
             if(!is_array($query) && $query != false){
+                $this->adduserlog
+                (
+                    $description = 'Admin user ' . $_SESSION['uname'] . " has deleted item group " .
+                                $group[0]['iGroupName'],
+                    $sourceip = $_SESSION['login_ip']
+                );
+                $this->additemgrouplog
+                (
+                    $description = 'Admin user ' . $_SESSION['uname'] . " has deleted item group " .
+                        $group[0]['iGroupName'],
+                    $sourceip = $_SESSION['login_ip']
+                );
                 $this->showmessage($opsuccess = true, $opmessage = 'Successfully deleted the item group!');
                 self::redirect('/admincp/itemgroups');
                 return;
@@ -155,7 +168,6 @@ class ItemGroupsController extends AdmincpController
                 }
             }
         }
-//        var_dump($query); die;
         return $query;
     }
 
@@ -256,6 +268,7 @@ class ItemGroupsController extends AdmincpController
             return;
         }
         $this->model('Itemgroup');
+        $group = $this->model_class->get_mapper()->findAll($where = 'IGROUPID =' . $itmgrpid);
         $query = $this->model_class->get_mapper()->update
         (
             $table = 'ITEMGROUPS',
@@ -275,6 +288,18 @@ class ItemGroupsController extends AdmincpController
             return;
         }
         else {
+            $this->adduserlog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group's name into " . $newname,
+                $sourceip = $_SESSION['login_ip']
+            );
+            $this->additemgrouplog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group's name into " . $newname,
+                $sourceip = $_SESSION['login_ip']
+            );
             $this->showmessage($opsucces = false, $opmessage = 'Successfully updated item group name!!');
             self::redirect('/admincp/itemgroupeditor');
             return;
@@ -301,6 +326,7 @@ class ItemGroupsController extends AdmincpController
             return;
         }
         $this->model('Itemgroup');
+        $group = $this->model_class->get_mapper()->findAll($where = 'IGROUPID =' . $itmgrpid);
         $query = $this->model_class->get_mapper()->update
         (
             $table = 'ITEMGROUPS',
@@ -315,6 +341,18 @@ class ItemGroupsController extends AdmincpController
         );
 
         if (!is_array($query) && $query === false) {
+            $this->adduserlog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group's description into " . $newdescription,
+                $sourceip = $_SESSION['login_ip']
+            );
+            $this->additemgrouplog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group's description into " . $newdescription,
+                $sourceip = $_SESSION['login_ip']
+            );
             $this->showmessage($opsucces = false, $opmessage = 'Couldn\'t update the item group!');
             self::redirect('/admincp/itemgroupeditor');
             return;
