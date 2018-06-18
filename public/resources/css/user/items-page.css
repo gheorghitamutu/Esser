@@ -1,0 +1,46 @@
+
+#main-container-items-page{
+    width:100%;
+    height: 100%;
+    display:grid;
+    grid-template-columns: 1fr 4fr;
+    border:1px solid black;
+}
+
+
+
+/*----------------------------------- left side ------------------------------- */
+#left-container-group{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+
+}
+#left-container-group>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+}
+
+#post-group-button,#delete-group-button,#get-group-button{
+    width:100%;
+    cursor:pointer;
+}
+
+
+
+
+
+/*----------------------------------------------  right side ----------------*/
+#right-container-group{
+    border:1px solid black;
+}
+#right-container-group>div{
+    display:none;
+    width:0;
+    height:0;
+}

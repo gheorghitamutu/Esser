@@ -369,10 +369,81 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'items' . DIRECTORY_SEPARATOR . 'items',
-            ['itemGroups' => $this->getItemGroups()],
-            'Items area');
+            array('resultPostGroup'=>$this->postGroupItems()),
+            'Items ');
     }
 
+    public function insertingItemGroup(){
+        // check if users is in that group or have permission
+
+        // group name validation
+        if (strlen($_POST["gName"]) < 4 || strlen($_POST["gName"]) > 48) {
+            return array('operation' => false, 'message' => 'group name not being between 4 and 48 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9._-]/',$_POST['gName'])) {
+            $gName = $_POST["gName"];
+        }else {
+            return array('operation' => false,
+                'message' => 'group name containing prohibited characters!'
+                    . PHP_EOL
+                    . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
+        }
+        $this->model('Itemgroup');// check if group name already exists
+        $query_item_groups = $this->model_class->get_mapper()->findAll(
+            $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
+            $fields = false
+        );
+
+        if (count($query_item_groups)!= 0) {
+            return array('operation' => false, 'message' => 'group name already exists !');
+        }
+        //group description validation
+        if (strlen($_POST['gDescription']) < 4 || strlen($_POST['gDescription']) > 2000) {
+            return array('operation' => false, 'message' => 'group description not being between 4 and 2000 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9.,?! -]/',$_POST['gDescription'])) {
+            $gDescription = $_POST["gDescription"];
+        }
+        else {
+            return array('operation' => false, 'message' => 'Inputed group description is in a wrong format!');
+        }
+
+
+        // inserting
+        $this->model('Itemgroup');
+        $result = $this->model_class->get_mapper()->insert(
+            'ITEMGROUPS',
+            array
+            (
+                'iGroupName'  => "'" . $gName  . "'",
+                'iGroupDescription' => "'" . $gDescription     . "'"
+            )
+        );
+
+        //creating logs for groups post
+        $this->model('Itemgrouplog');
+        $this->model_class->get_mapper()->insert(
+            'ITEMGROUPLOGS',
+            array
+            (
+                'IGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has created group ".$gName."'" ,
+                'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
+            )
+        );
+
+
+        return array('operation' => true, 'message' => " Succesfully created group !");
+    }
+    public function postGroupItems(){
+        if(isset($_POST["gName"]) && isset($_POST["gDescription"])) {
+            $result = $this->insertingItemGroup();
+            if ($result['operation'] == true) {
+                return $result['message'];
+            } else {
+                return "Failed to create group : " . $result['message'];
+            }
+        }
+    }
     public function users()
     {
         if (isset($_SESSION['renderedGroupId'])) {
