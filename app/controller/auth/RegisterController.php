@@ -29,7 +29,6 @@ class RegisterController extends Controller
                 $this->success();
                 break;
             default:
-                new PageNotFoundController();
                 break;
 
         }
@@ -92,7 +91,7 @@ class RegisterController extends Controller
         else
         {
             return array('operation' => false,
-                'message' => 'username contains prohibited characters!'
+                'message' => 'username containing prohibited characters!'
                              . PHP_EOL
                              . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
         }

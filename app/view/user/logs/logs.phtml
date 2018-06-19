@@ -10,30 +10,11 @@
     <div class="container">
         <ul>
             <?php
-            if(!empty($this->view_data["logs"]))
+            if(!empty($this->view_data["userlogs"]))
             {
-                foreach ($this->view_data["logs"] as $log)
+                foreach ($this->view_data["userlogs"] as $log)
                 {
-                    echo "<li>";
-
-                    $date = null;
-                    $description = null;
-
-                    foreach($log as $key => $value)
-                    {
-                        if(strpos($key, "LogCreatedAt") !== false)
-                        {
-                            $date = " <u>" . $value . "</u> ";
-                        }
-                        if(strpos($key, "LogDescription") !== false)
-                        {
-                            $description = " $value";
-                        }
-                    }
-
-                    echo $date . $description;
-
-                    echo "</li>";
+                    echo "<li> <u>" . $log["uLogCreatedAt"] . "</u> " . $log["uLogDescription"] . "</li>";
                 }
             }
             else

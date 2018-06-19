@@ -8,16 +8,18 @@
     *This stylesheet handles only min-width > 250px and min-height > 180px!
 */
 
-.html {
-    width: 100%;
+
+
+.html{
+    width:100%;
 }
 /* -------------------------------------------------- body -----------------------------------------------------------*/
 #body {
     background-color: white;
     display: inline-flex;
     flex-direction: column;
-    min-height: 99.9vh;      /* sticks the footer to the bottom */
-    min-width: 99.3%;       /* fill the screen */
+    min-height: 100vh;      /* sticks the footer to the bottom */
+    min-width: 99.9%;       /* fill the screen */
     height: 100%;           /* fill the screen */
     margin: 0;
     padding: 0;
@@ -26,7 +28,7 @@
 /* -------------------------------------------------- sidenav --------------------------------------------------------*/
 .sidenav {
     height: 100%;
-    width: 0;                           /* 0 width - change this with JavaScript */
+    width: 0;                         /* 0 width - change this with JavaScript */
     position: fixed;                    /* Stay in place */
     display: flex;
     flex-direction: column;
@@ -42,7 +44,7 @@
 .sidenav-container-item {
     margin-top: 14%;
     transition: 0.5s;
-    width: 100%;
+    width:100%;
 }
 
 .sidenav-item {
@@ -53,7 +55,7 @@
     align-items: center;
     justify-content: center;
     transition: 0.5s;
-    width: 80%;
+    width:80%;
     margin-left: 10%;
     margin-right: 10%;
     /* border: 1px solid white; */
@@ -86,7 +88,7 @@
     align-items: center;
     justify-content: center;
     transition: 0.5s;
-    margin-left: 14%;
+    margin-left: 9%;
     margin-right: 5%;
 }
 
@@ -96,17 +98,16 @@
     transition: 0.5s;
 }
 
-/* -------------------------------------------------- main-container -------------------------------------------------*/
+/* -------------------------------------------------- main-container  si aici am modificat -------------------------------------------------*/
 #main {
     display: flex;
     flex-direction: column;
     flex: 1;                    /* sticks the footer to the bottom */
     transition: .5s;
-    border: 2px solid black;
+    padding: 1.2rem;
+    /* border: 1px solid; */
     width: 100%;
-    margin: 4.2rem 4.1rem 0.1rem 0.1rem;
-    height: 100%;
-    padding: 2px;
+    margin-top:4.1rem;
 }
 
 /* ------------------------------------------------ main-container-first-row -----------------------------------------*/
@@ -214,7 +215,7 @@
 }
 
 .sidebar-trigger.active {
-    /*margin-left: 15.625rem;         .625rem = 250px  WHY?!*/
+    /*margin-left: 15.625rem;         .625rem = 250px */
     transition: margin-left .5s;
 }
 
@@ -252,39 +253,30 @@
     z-index: 3;
     cursor: pointer;
     transition: .5s;
-
+    
 
 }
-/* ------------------------------------ begin top nav bar ------------------------------------------------------------*/
-#top-nav-bar-user-landing-page {
+/* ---------------------------------------------------------------- begin  top nav bar ------------------------------------------------------------*/
+#top-nav-bar-user-landing-page{
     display: flex;
-    width: 40%;
-    margin-left: 60%;
-    height: 100%;
-    flex-direction: row;
+    width:40%;
+    margin-left:60%;
+    height:100%;
+    flex-direction:row;
     justify-content: space-evenly;
     align-items: center;
 }
-
-#admin-cp-container-user-landing-page {
+#admin-cp-container-user-landing-page{
     display: flex;
     justify-content: center;
     /* border: 1px solid white; */
     height: 60%;
     transition: .5s;
 }
-
-#admin-cp-button {
-    font-size: 140%;
-    cursor: pointer;
-    border: 2px solid white;
+#admin-cp-button{
+    font-size:140%;
+    cursor:pointer;
 }
-
-#admin-cp-button:hover {
-    color: ghostwhite;
-    background-color: rgba(0, 1, 2, 0.8);
-}
-
 #search-container {
     display: flex;
     justify-content: left;
@@ -294,7 +286,42 @@
     transition: .5s;
 }
 
-/*------------------------------------- end top nav bar --------------------------------------------------------------*/
+#search-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    /* border: 1px solid white; */
+    height: 100%;
+    width: 100%;
+    transition: .5s;
+}
+
+#search-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    /* border: 1px solid white; */
+    height: 100%;
+    width: 95%;
+    transition: .5s;
+}
+
+#search-button {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    /* border: 1px solid white; */
+    height: 100%;
+    width: 5%;
+    transition: .5s;
+}
+
+
+
+
+/*-------------------------------------------------------  end top nav bar ---------------------------------------------------------------------------*/
+
+
 
 
 /* -------------------------------------------------- footer ---------------------------------------------------------*/
@@ -304,12 +331,11 @@
     align-items: center;
     justify-content: center;
     transition: .5s;
-    min-width: 99.3%;
-    min-height: 2.5rem;
+    min-height: 4vh;
     /* border: 1px solid; */
-    margin: 0.1rem 0.1rem 0.1rem 0.7rem; /* 4.25rem = 68px */
+    margin: 0.2% 0 0.1% 0.1%; /* 4.25rem = 68px */
     background-color: #3d3d3d;
-    /*border: 1px solid white;*/
+    border:2px solid white;
 }
 
 
@@ -320,8 +346,8 @@
 
 .footer-container-item a {
     text-decoration: none;
-    font-size: 110%;
-    color: white;
+    font-size:110%;
+    color:white;
 }
 
 /* ---------------------------- adjust element by max-width in descending order ------------------------------------- */
@@ -344,9 +370,9 @@
 
 @media screen and (max-width: 900px) {
     .sidenav-item {
-        width: 96%;
-        margin-left: 2%;
-        margin-right: 2%;
+        width:96%;
+        margin-left:2%;
+        margin-right:2%;
     }
 }
 
