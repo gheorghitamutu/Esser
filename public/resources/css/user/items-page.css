@@ -149,3 +149,6 @@
 .iGroupId-button{
     display: none;
 }
+#button{
+    border:0;
+}
