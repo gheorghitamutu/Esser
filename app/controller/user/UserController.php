@@ -660,9 +660,10 @@ class UserController extends Controller
                 $fields = false
             );
             if(is_null($querry_item_groups_owners)){
+                $this->model('Itemgroup');
                 $querry_result= $this->model_class->get_mapper()->delete(
-                    'ITEMGROUPS',
-                    array
+                    $table='ITEMGROUPS',
+                    $field= array
                     (
                         'iGroupId' => $item_group['iGroupId']
                     )
