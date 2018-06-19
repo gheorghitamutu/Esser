@@ -47,6 +47,9 @@ class UserController extends Controller
             case 'user/users/addmembers':
                 $this->addMembers();
                 break;
+            case 'user/users/removemember':
+                $this->removeMember();
+                break;
 			case 'user/manageruser':
                 $this->manageruser();
                 break;
@@ -67,6 +70,58 @@ class UserController extends Controller
                 $this->index();
                 break;
 
+        }
+    }
+
+    private function removeMember(){
+        $option = $_POST['removeUser'];
+        $this->model('Grouprelation');
+        $querry =
+            $this->model_class->get_mapper()->delete(
+                $table = 'GROUPRELATIONS',
+                $where = array(
+                    'USERID' => $option . " AND UGROUPID = " . $_SESSION['renderedGroupId'] ,
+                )
+            );
+
+
+        $this->model('Useracc');
+
+        $removedUserName = $this->model_class->get_mapper()->findAll(
+            $where = "USERID =" . $option,
+            $field = false
+        )[0]['userName'];
+
+
+        $this->model('UserGroupLog');
+
+        if($_SESSION['is_admin'])
+        {
+            $userGrade = "Admin";
+        } else if ($_SESSION['canManageMembers']){
+            $userGrade = "Manager";
+        } else {
+            $userGrade = "Normal";
+        }
+
+        $this->model_class->get_mapper()->insert(
+            $table = 'USERGROUPLOGS',
+            $fields = array
+            (
+                'uGLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has removed user" . $removedUserName . " from group " . $_SESSION['userGroupName'] . "'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
+
+        if ((isset($_SESSION['renderedGroupId']) || isset($_SESSION['listOfGroupUserIds']))) {
+            unset($_SESSION['renderedGroupId']);
+            unset($_SESSION['listOfGroupUserIds']);
+            unset($_SESSION['canManageMembers']);
+            unset($_SESSION['notInGroupUsers']);
+            unset($_SESSION['userGroupName']);
+            self::redirect('/user/users');
+        } else {
+            self::redirect('/user/users');
         }
     }
 
@@ -124,15 +179,25 @@ class UserController extends Controller
         }
 
         $this->model_class->get_mapper()->insert(
-            'USERGROUPLOGS',
-            array
+            $table = 'USERGROUPLOGS',
+            $fields = array
             (
                 'uGLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added user" . $addedUserName . " in group " . $_SESSION['userGroupName'] . "'",
                 'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
             )
         );
 
-        self::redirect('/user/users');
+        if ((isset($_SESSION['renderedGroupId']) || isset($_SESSION['listOfGroupUserIds']))) {
+            unset($_SESSION['renderedGroupId']);
+            unset($_SESSION['listOfGroupUserIds']);
+            unset($_SESSION['canManageMembers']);
+            unset($_SESSION['notInGroupUsers']);
+            unset($_SESSION['userGroupName']);
+            self::redirect('/user/users');
+        } else {
+            self::redirect('/user/users');
+        }
+
     }
 
     private function renderGroup()
@@ -174,16 +239,13 @@ class UserController extends Controller
 
         $notInGroup =
             $this->model_class->get_mapper()->findAll(
-                $where = "UGROUPID <> " . $groupId,
+                $where = "UGROUPID <> " . $groupId . " AND USERID <> 1",
                 $fields = 'DISTINCT USERID'
             );
 
         for ($i = 0; $i < count($notInGroup); ++$i){
             $notInGroup[$i] = $notInGroup[$i]['userId'];
         }
-
-        //echo var_dump($notInGroup);
-        //exit(0);
 
         $this->model('Useracc');
 
@@ -245,12 +307,16 @@ class UserController extends Controller
 
     private function getMemberOfGroup($group)
     {
+        $response = [];
         $this->model('GroupRelation');
         $result = $this->model_class->get_mapper()->findAll(
-            $where = "UGROUPID = " . $group,
+            $where = "UGROUPID = " . $group . " AND USERID <> 1",
             $fields = 'USERID',
             $order = 'GRPRELCREATEDAT ASC'
         );
+
+//        echo var_dump($result);
+//        exit(0);
 
         for ($i = 0; $i < count($result); ++$i)
             $result[$i] = $result[$i]['userId'];
@@ -260,9 +326,13 @@ class UserController extends Controller
             $result[$i]= $this->model_class->get_mapper()->findAll(
                 $where = "USERID = " . $result[$i]
             );
-            $result[$i] = $result[$i][0]['userName'];
+            //$result[$i] = $result[$i][0]['userName'];
+            array_push($response, array(
+                'userId' => $result[$i][0]['userId'],
+                'userName' => $result[$i][0]['userName']
+            ));
         }
-        return $result;
+        return $response;
 
     }
 

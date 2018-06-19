@@ -8,6 +8,11 @@
     </head>
     <body>
         <div class="page-title">Choose one of the user groups</div>
+        <?php
+            echo "<form class=\"page-title\">";
+            echo "<button>Add user groups</button>";
+            echo "</form>";
+        ?>
         <div class="main-frame">
         <?php
             echo "<div class=\"group-list\">";
@@ -37,17 +42,22 @@
             } else {
                 echo NULL;
             }
-
-            //echo var_dump($_SESSION);
             echo "<div class=\"group-display-element\">";
             foreach($this->view_data['usersToDisplay'] as $user){
-                echo "<div class=\"group-display-user\"> " . $user . " </div>";
+                echo "<div class=\"group-display-user\"> " . $user['userName'] . " </div>";
             }
             echo "</div>";
 
             echo "<div class=\"group-display-button\">";
             foreach($this->view_data['usersToDisplay'] as $user){
-                echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class=\"display-button\"> Remove user from group </button>" : NULL;
+                if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) {
+                    echo "<form action='/user/users/removemember' method='POST'>";
+                    echo "<button type=\"submit\" name=\"removeUser\" class=\"display-button\" value=\"" . $user['userId'] . "\">"  ."Remove user from group </button>";
+                    echo "</form>";
+                } else {
+                    echo NULL;
+                }
+
             }
             echo "</div>";
             echo "</div>";
