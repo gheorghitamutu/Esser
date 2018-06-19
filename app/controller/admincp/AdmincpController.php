@@ -89,6 +89,30 @@ class AdmincpController extends Controller
             case 'admincp/itemmanager':
                 new ItemsController($uri);
                 break;
+            case 'admincp/itemmanager/renderitmgroup':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemmanager/deleteitem':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/getitemid':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/searchitem':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemname':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemdescription':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemquantity':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemwarning':
+                new ItemsController($uri);
+                break;
             case 'admincp/itemgroups':
                 new ItemGroupsController($uri);
                 break;
@@ -440,7 +464,7 @@ class AdmincpController extends Controller
     }
 
     protected function additemgrouplog($logdescription, $sourceip) {
-        $this->model('Itemgrouplogs');
+        $this->model('Itemgrouplog');
         $this->model_class->get_mapper()->insert
         (
             $table = 'ITEMGROUPLOGS',

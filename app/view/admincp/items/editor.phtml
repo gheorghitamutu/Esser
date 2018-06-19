@@ -6,33 +6,80 @@
             <div class="admcp-rt-box">
                 <div class="admcp-rt-cnt-box">
                     <div class="admcp-rt-content">
-                        <h3 class="adm-rt-title"> User Account Editor </h3>
-                        <form class="srch-layout" action="/admincp/usereditor/search" method="POST">
-                            <input class="adm-srch-box" required="required" name="searchuser" value="" placeholder="Insert User Account">
+                        <h3 class="adm-rt-title"> Item Editor </h3>
+                        <form class="srch-layout" action="/admincp/itemeditor/searchitem" method="POST">
+                            <input class="adm-srch-box" required="required" name="itemtosearch" value="" placeholder="Insert Item Account">
                             <button type="submit" class="admcp-srch-btn"> Search </button>
                         </form>
                     </div>
                 </div>
                 <div class="admcp-rt-result-box">
                     <div class="admcp-rt-content">
-                        <h3 class="adm-rt-title"> User Account Details </h3>
-                        <form class="usr-edit-form" method="POST" action="/admincp/usereditor/edituser">
-                                <div class="ctrl-group">                                
-                                    <label> Account Name </label> <input type="text" name="accname" id="acc-username" required="required" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userName'] : ""; ?>" placeholder="User's name">
-                                </div>
-                                <div class="ctrl-group">                                
-                                    <label> Account Level </label> <input type="text" name="acclevel" id="acc-level" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userType'] : ""; ?>"  placeholder="User's type">
-                                </div>
-                                <div class="ctrl-group"> 
-                                    <label> Account Email </label> <input type="email" name="accemail" id="acc-email" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userEmail'] : ""; ?>"  placeholder="User's email">
-                                </div>
-                                <div class="ctrl-group">
-                                    <label> Account State </label> <input type="text" name="accstate" id="acc-state" value="<?php echo (isset($this->view_data['userToEdit'])) ? $this->view_data['userToEdit']['userState'] : ""; ?>" placeholder="User's state">
-                                </div>
-                                <div class="ctrl-group"> 
-                                    <label> New Password </label> <input type="password" name="accnewpswd" id="acc-password" value="" placeholder="Insert New Password">
-                                </div>
-                            <button type="submit" class="admcp-save-btn"> Save </button>
+                        <h3 class="adm-rt-title"> Item Details </h3>
+                        <form class="usr-edit-form" method="POST" action="/admincp/itemeditor/edititemname">
+                            <div class="ctrl-group" id="grpnamediv">
+                                <label id="groupnamelabel"> Current Item Name </label>
+                                <?php echo
+
+                                    '<input type="text" name="curitemname" id="cur-itm-grp-name" value="' .
+                                    (isset($this->view_data['itemtoedit'][0]['itemName'])?
+                                        $this->view_data['itemtoedit'][0]['itemName']: "") . '" disabled>'; ?>
+                                <label id="groupnamelabel"> Insert a new name for the item here: </label>
+                                <input type="text" name="newitemname" id="grp-name" required="required"
+                                       value="" placeholder="Input New Item Name">
+                            </div>
+                            <button type="submit" class="admcp-save-btn" name="edititemnameid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['itemtoedit'][0]['itemId']))?
+                                        $this->view_data['itemtoedit'][0]['itemId']:''); ?>"> Save </button>
+                        </form>
+                        <form class="usr-edit-form" method="POST" action="/admincp/itemeditor/edititemdescription">
+                            <div class="ctrl-group" id="grpdscrptdiv">
+                                <label id="groupdescrptionlabel"> Curent Item Description </label>
+                                <textarea name="curitemdescription" id="cur-grp-descrp" disabled
+                                          minlength="6" maxlength="2000" rows="5" cols="10"><?php echo
+                                    (isset($this->view_data['itemtoedit'][0]['itemDescription']))?
+                                        $this->view_data['itemtoedit'][0]['itemDescription']: ""; ?></textarea>
+                                <br />
+                                <textarea name="newitemdescription" id="grp-descrp" minlength="6" maxlength="2000" rows="5" cols="10"
+                                          placeholder="Input here new item description..."></textarea>
+                            </div>
+                            <button type="submit" class="admcp-save-btn" name="edititemdescriptionid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['itemtoedit'][0]['itemId']))?
+                                        $this->view_data['itemtoedit'][0]['itemId']:''); ?>"> Save </button>
+                        </form>
+                        <form class="usr-edit-form" method="POST" action="/admincp/itemeditor/edititemquantity">
+                            <div class="ctrl-group" id="grpnamediv">
+                                <label id="groupnamelabel"> Current Item Quantity </label>
+                                <?php echo
+                                    '<input type="text" name="curitemqnty" id="cur-itm-grp-name" value="' .
+                                    (isset($this->view_data['itemtoedit'][0]['itemQuantity'])?
+                                        $this->view_data['itemtoedit'][0]['itemQuantity']: "") . '" disabled>'; ?>
+                                <label id="groupnamelabel"> Insert a new quantity for the item here: </label>
+                                <input type="text" name="newitemqnty" id="grp-name" required="required"
+                                       value="" placeholder="Input New Item Quantity">
+                            </div>
+                            <button type="submit" class="admcp-save-btn" name="edititemqntyid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['itemtoedit'][0]['itemId']))?
+                                        $this->view_data['itemtoedit'][0]['itemId']:''); ?>"> Save </button>
+                        </form>
+                        <form class="usr-edit-form" method="POST" action="/admincp/itemeditor/edititemwarning">
+                            <div class="ctrl-group" id="grpnamediv">
+                                <label id="groupnamelabel"> Current Item Warning State/Quantity </label>
+                                <?php echo
+                                    '<input type="text" name="curitemwarn" id="cur-itm-grp-name" value="' .
+                                    (isset($this->view_data['itemtoedit'][0]['iWarnQnty'])?
+                                        $this->view_data['itemtoedit'][0]['iWarnQnty']: "") . '" disabled>'; ?>
+                                <label id="groupnamelabel"> Insert a number, false or empty string here: </label>
+                                <input type="text" name="newitemwarn" id="grp-name" required="required"
+                                       value="" placeholder="Input New Warning Quantity/State">
+                            </div>
+                            <button type="submit" class="admcp-save-btn" name="edititemwarnid"
+                                    value="<?php echo
+                                    ((isset($this->view_data['itemtoedit'][0]['itemId']))?
+                                        $this->view_data['itemtoedit'][0]['itemId']:''); ?>"> Save </button>
                         </form>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ class ItemGroupsController extends AdmincpController
         $this->uri = $uri;
     }
 
-    protected function itemgroupsmanager()
+    private function itemgroupsmanager()
     {
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'item_groups' . DIRECTORY_SEPARATOR . 'manager',
@@ -53,7 +53,6 @@ class ItemGroupsController extends AdmincpController
     }
     private function itemgroupeditor()
     {
-//        var_dump($_SESSION['itmgrptoedit']); die;
         if (isset($_SESSION['itmgrptoedit'])) {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'item_groups' . DIRECTORY_SEPARATOR . 'editor',
@@ -136,8 +135,8 @@ class ItemGroupsController extends AdmincpController
             return [];
         }
         else {
-            $this->model('Itemgroupownership');
             for ($i = 0; $i < count($query); ++$i) {
+                $this->model('Itemgroupownership');
                 $query[$i]['owner'] = $this->model_class->get_mapper()->findAll
                 (
                     $where = 'IGID = ' . $query[$i]['iGroupId']

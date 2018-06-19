@@ -258,8 +258,7 @@ class UsersController extends AdmincpController
 
                 if ($opsuccess) {
                     $newpswd = $_POST['accnewpswd'];
-                    $salt = '$1_2jlh83#@J^Q';
-                    $newpswd = hash('sha512', $_POST['accname'] . $salt . $newpswd);
+                    $newpswd = hash(HASH_TYPE, $_POST['accname'] . SALT . $newpswd);
                     $this->model('Useracc');
 
                     if ($user[0]['userType'] == 3 && $level < 3) {
