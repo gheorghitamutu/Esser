@@ -29,6 +29,16 @@
 
 </body>
 <script src="/resources/js/user-nav-bar.js"></script>
-<script src="/resources/js/user-landing-page.js"></script>
-<script src="/resources/js/items-page.js"></script>
+
+<?php
+    if($_SERVER["REQUEST_URI"] === '/user' || $_SERVER["REQUEST_URI"] === '/user/items')
+    {
+        echo
+        "
+            <script src=\"/resources/js/user-landing-page.js\"></script>
+            <script src=\"/resources/js/items-page.js\"></script>
+        ";
+    }
+?>
+
 </html>

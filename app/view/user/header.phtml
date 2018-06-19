@@ -17,8 +17,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="/resources/images/global/favicon.png" />
         <link rel="stylesheet" type="text/css" href="/resources/css/user/user-nav-bar.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/user/user-landing-page.css">
-        <link rel="stylesheet" type="text/css" href="/resources/css/user/items-page.css">
+        <?php
+            if($_SERVER["REQUEST_URI"] === '/user' || $_SERVER["REQUEST_URI"] === '/user/items')
+            {
+                echo
+                "
+                    <link rel=\"stylesheet\" type=\"text/css\" href=\"/resources/css/user/user-landing-page.css\">
+                    <link rel=\"stylesheet\" type=\"text/css\" href=\"/resources/css/user/items-page.css\">
+                ";
+            }
+
+        ?>
         <title><?php echo (isset($this->page_title) ? $this->page_title : "Welcome ".$_SESSION['username']." !"); ?></title>
     </head>
 <body id="body">
