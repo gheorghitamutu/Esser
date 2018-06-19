@@ -373,15 +373,108 @@ class UserController extends Controller
                     'resultPostGroup'=>$this->postGroupItems(),
                     'permissionModifyItemsGroup'=>$this->getPermissionModifyItemsGroups(),
                     'groupOfItems'=>$this->getGroupsOfItems(),
-                    'resultDeleteGroup'=>$this->deleteGroupsOfItems()
+                    'resultDeleteGroup'=>$this->deleteGroupsOfItems(),
+                    'postItem'=>$this->postItem()
                  ),
             'Items ');
     }
 
+    public function postItem(){
+
+        if  (   isset($_POST["iName"]) &&
+                isset($_POST["iDescription"])&&
+                isset($_POST["iQuantity"])&&
+                isset($_POST["iLimit"]) &&
+                isset($_POST["iGroupId"])
+
+            ) {
+            $result = $this->insertingItem();
+            if ($result['operation'] == true) {
+                return $result['message'];
+            } else {
+                return "Failed to create group : " . $result['message'];
+            }
+        }
+    }
+    public function insertingItem(){
+        //validation input
+
+        if (strlen($_POST["iName"]) < 4 || strlen($_POST["iName"]) > 48) {
+            return array('operation' => false, 'message' => 'item name not being between 4 and 48 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9._ -]/',$_POST['iName'])) {
+            $iName = $_POST["iName"];
+        }else {
+            return array('operation' => false,
+                'message' => 'item name containing prohibited characters!'
+                    . PHP_EOL
+                    . 'Use only alpha-numeric, \'.\'_\' and \'-\' characters!');
+        }
+        $this->model('Item');// check if item name already exists
+        $query_items = $this->model_class->get_mapper()->findAll(
+            $where = " ITEMNAME= " ."'". $_POST["iName"]."'",
+            $fields = false
+        );
+
+        echo var_dump($query_items);
+        if (count($query_items)!= 0) {
+            return array('operation' => false, 'message' => 'item name already exists !');
+        }
+        //group description validation
+        if (strlen($_POST['iDescription']) < 4 || strlen($_POST['iDescription']) > 2000) {
+            return array('operation' => false, 'message' => 'item description not being between 4 and 2000 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9.,?! -]/',$_POST['iDescription'])) {
+            $iDescription = $_POST["iDescription"];
+        }
+        else {
+            return array('operation' => false, 'message' => 'Inputed item description is in a wrong format!');
+        }
+        if($_POST["iQuantity"]<1 || $_POST["iQuantity"]>999999){
+            return array('operation' => false, 'message' => 'Inputed item quantity is too big or too small!');
+        }
+        if($_POST["iLimit"]<1 || $_POST["iLimit"]>999999){
+            return array('operation' => false, 'message' => 'Inputed item quantity is too big or too small!');
+        }
+
+        // INSERTING ITEM
+
+        echo var_dump($_POST["iName"]);
+        echo var_dump($_POST["iDescription"]);
+        echo var_dump($_POST["iQuantity"]);
+        echo var_dump($_POST["iLimit"]);
+        echo var_dump($_POST["iGroupId"]);
+        $this->model('Item');
+        $result_item = $this->model_class->get_mapper()->insert(
+            'ITEMS',
+            array
+            (
+                'itemName'          =>  "'" .$_POST["iName"]."'",
+                'itemDescription'   =>  "'" .$_POST["iDescription"]."'",
+                'itemQuantity'      =>       $_POST["iQuantity"],
+                'iGroupId'          =>       $_POST["iGroupId"],
+                'iWarnQnty'         =>       $_POST["iLimit"],
+                'itemImage'         =>  "' '"
+
+            )
+        );
+        //creating logs for item post
+        $this->model('Itemlog');
+        $this->model_class->get_mapper()->insert(
+            'ITEMLOGS',
+            array
+            (
+                'iLogDescription'    => "'Normal user " . $_SESSION['uname']    . " has created item ".$_POST["iName"]."'" ,
+                'iLogSourceIP'       => "'" .$_SESSION['login_ip'] . "'"
+            )
+        );
+
+
+        return array('operation' => true, 'message' => " Succesfully created item !");
+    }
+
     public function deleteGroupsOfItems(){
         if(isset($_POST['delButton'])) {
-            echo var_dump($_POST['delButton']);
-            echo var_dump($_POST['delButtonUserGroupId']);
 
             $this->model('Itemgroup');
             $querry_item_groups = $this->model_class->get_mapper()->findAll(
@@ -519,6 +612,7 @@ class UserController extends Controller
             foreach($unique_items_groups as $unique_items_group){
                 array_push($items_groups,array(
                     'iGroupName'=>$unique_items_group['iGroupName'],
+                    'iGroupId'=>$unique_items_group['iGroupId'],
                     'iGroupDescription'=>$unique_items_group['iGroupDescription'],
                     'iGroupCreatedAt'=>$unique_items_group['iGroupCreatedAt'],
                     'iGroupUpdatedAt'=>$unique_items_group['iGroupUpdatedAt'],
