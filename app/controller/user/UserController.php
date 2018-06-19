@@ -773,13 +773,58 @@ class UserController extends Controller
 
         //create file type here
         $file_type .= "." . $split_uri[4];
+        $output = null;
 
+        switch($split_uri[4])
+        {
+            case 'csv':
+                $output = $file;
+                break;
+            case 'xml':
+                $output = 'temp';
 
+                $xw = $this->get_xml_writer_logs($file);
+                $temp_buffer = xmlwriter_output_memory($xw);
+
+                $handle = fopen($output, "w+");
+                fwrite($handle, $temp_buffer);
+                fclose($handle);
+
+                break;
+            case 'html':
+                $output = 'temp';
+
+                $temp_buffer = $this->get_html_buffer($file);
+                $handle = fopen($output, "w+");
+                fwrite($handle, $temp_buffer);
+                fclose($handle);
+
+                break;
+            case 'pdf':
+                $output = $this->get_pdf($file);
+                break;
+            default:
+                break;
+        }
 
         header("Content-Description: File Transfer");
         header("Content-Type: application/octet-stream");
         header("Content-Disposition: attachment; filename='" . basename($file_type) . "'");
-        readfile($file);
+
+        if($split_uri[4] !== 'pdf')
+        {
+            readfile($output);
+        }
+        else
+        {
+            $output->Output($dest='D', $name=basename($file) . '.pdf');
+        }
+
+        if($output === 'temp')
+        {
+            // delete temp file
+            unlink($output);
+        }
         exit();
     }
 
@@ -814,6 +859,8 @@ class UserController extends Controller
             }
         }
 
+        fclose($h_report);
+
         $this->model('AutomatedReport');
 
         $this->model_class->get_mapper()->insert(
@@ -830,5 +877,191 @@ class UserController extends Controller
         self::log_user_activity($log_description);
 
         self::redirect('/user/reports');
+    }
+
+    private function get_xml_writer_logs($path)
+    {
+        $xw = xmlwriter_open_memory();
+        xmlwriter_set_indent($xw, 1);
+
+        // Sets the string which will be used to indent each element/attribute of the resulting xml.
+        $res = xmlwriter_set_indent_string($xw, ' ');
+
+        xmlwriter_start_document($xw, '1.0', 'UTF-8');
+
+        // A first element
+        xmlwriter_start_element($xw, 'CATALOG');
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                // write content of an item (column values)
+                xmlwriter_start_element($xw, 'item');
+
+                for ($i = 0; $i < count($split_line); $i++)
+                {
+                    xmlwriter_start_element($xw, $file_headers[$i]);
+                    xmlwriter_text($xw, $split_line[$i]);
+                    xmlwriter_end_element($xw);
+                }
+
+                xmlwriter_end_element($xw);
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        xmlwriter_end_element($xw);
+
+        xmlwriter_end_document($xw);
+
+        return $xw;
+    }
+
+    private function get_html_buffer($path)
+    {
+        $buffer = "";
+
+        $buffer .= "<html><body>";
+
+        $buffer .= '<br><br><br><br>';
+
+        $buffer .= '<h2 style="text-align:center;">';
+        $buffer .= 'REPORT';
+        $buffer .= '</h2>';
+
+        $buffer .= '<br><br><br><br>';
+
+        $buffer .= '<ul style="list-style-type: none;">';
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            $buffer .= '<li><h3 style="text-align:center; margin-left: -100px;"><pre>';
+
+            foreach ($file_headers as $head)
+            {
+                $buffer .= "$head ";
+            }
+
+            $buffer .= '</pre></h3></li>';
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                $buffer .= '<li><h5 style="text-align:center;"><pre>';
+
+                foreach ($split_line as $value)
+                {
+                    $buffer .= "$value     ";
+                }
+
+                $buffer .= '</pre></h5></li>';
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        $buffer .= '</ul>';
+        $buffer .= "</html></body>";
+
+        return $buffer;
+    }
+
+    private function get_pdf($path)
+    {
+        $pdf = new FPDF();
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial','',20);
+        $pdf->Cell(200,10, 'REPORT', 0,1, 'C');
+
+
+        $pdf->SetFont('Arial','',11);
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            $data_headers = "";
+            for ($i = 0; $i < count($file_headers); $i++)
+            {
+                $data_headers .= $file_headers[$i] . " ";
+            }
+
+            $pdf->Cell(30,20, $data_headers);
+
+            $height = 30;
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                // write content of an item (column values)
+                $data = "";
+
+                for ($i = 0; $i < count($split_line); $i++)
+                {
+                    $data .= $split_line[$i] . " ";
+                }
+
+                $pdf->Cell(30,$height, $data);
+
+                $height += 10;
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        return $pdf;
     }
 }
