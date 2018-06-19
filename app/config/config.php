@@ -66,3 +66,7 @@ define('SQLCMD'    , '[SQL_LOG: '           . date('d-m-Y H:i:s') . ']: ');
 // glob input macros
 define('PHP_FILE'  , '*.php');
 
+// salt
+define('SALT'      , '$1_2jlh83#@J^Q');
+define('HASH_TYPE' , 'sha512');
+
