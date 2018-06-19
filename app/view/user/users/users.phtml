@@ -4,23 +4,10 @@
     <head>
         <title>EsseR - Manage users of the group</title>
         <link rel="stylesheet" type="text/css" href="/resources/css/user/user-manager.css">
+        <script src="/resources/js/user-manager.js"></script>
     </head>
     <body>
         <div class="page-title">Choose one of the user groups</div>
-        <?php
-            if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) {
-                echo "<div class=\"add-user-group\">";
-                echo "<div class=\"page-title\"> Add new group of users: </div>";
-                echo "<form class=\"form-add-group\" action='/user/users/addgroup' method='POST'>";
-                echo "<div>Name: </div>";
-                echo "<input type=\"text\" name=\"newGroupName\" value=\"\" placeholder=\"Enter new group name\" required=\"required\"/>";
-                echo "<div>Description: </div>";
-                echo "<input type=\"text\" name=\"newGroupDescription\" value=\"\" placeholder=\"Enter new group description\" required=\"required\"/>";
-                echo "<button type=\"submit\">Add user groups</button>";
-                echo "</form>";
-                echo "</div>";
-            }
-        ?>
         <div class="main-frame">
         <?php
             echo "<div class=\"group-list\">";
@@ -33,39 +20,17 @@
             echo "</div>";
             echo "</div>";
             echo "<div class=\"group-display\">";
-            if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)){
-                echo "<div class=\"add-user-container\">"  . "<div class=\"group-display-user\">" . " Select one of the following users to be added " . "</div>";
-                echo "<form class= \"form-add-user\" action='/user/users/addmembers' method='POST'>" . "<div></div>";
-                echo "<select name=\"selectedUser\">";
-                foreach($_SESSION['notInGroupUsers'] as $user) {
-                    echo "<option class=\"group-display-user\" value=" . $user['userId']. ">" . $user['userName'] . "</option>";
-                }
-                echo "</select>";
-                echo "<div class=\"input-description\">" . "Manager" ;
-                echo "<input type=\"checkbox\" name=\"canManageGroup\" >" . "</div>";
-                echo "<div class=\"input-description\">" . "Manage items";
-                echo "<input type=\"checkbox\" name=\"canManItems\" >" . "</div>";
-                echo "<button type=\"submit\" class=\"display-button\" name=\"addUser\">" . " Add " . "</button>" . "</form>";
-                echo "</div>";
-            } else {
-                echo NULL;
-            }
+            echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class='group-display-button-add'> Add member to group </button>" : NULL;
+            //echo var_dump($_SESSION);
             echo "<div class=\"group-display-element\">";
             foreach($this->view_data['usersToDisplay'] as $user){
-                echo "<div class=\"group-display-user\"> " . $user['userName'] . " </div>";
+                echo "<div class=\"group-display-user\"> " . $user . " </div>";
             }
             echo "</div>";
 
             echo "<div class=\"group-display-button\">";
             foreach($this->view_data['usersToDisplay'] as $user){
-                if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) {
-                    echo "<form action='/user/users/removemember' method='POST'>";
-                    echo "<button type=\"submit\" name=\"removeUser\" class=\"display-button\" value=\"" . $user['userId'] . "\">"  ."Remove user from group </button>";
-                    echo "</form>";
-                } else {
-                    echo NULL;
-                }
-
+                echo (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) ? "<button class=\"display-button\"> Remove user from group </button>" : NULL;
             }
             echo "</div>";
             echo "</div>";
