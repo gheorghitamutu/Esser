@@ -50,7 +50,6 @@ class UserController extends Controller
                 $this->generate_report();
                 break;
             case 'user/reports/download/csv':
-            case 'user/reports/download/xslx':
             case 'user/reports/download/pdf':
             case 'user/reports/download/html':
             case 'user/reports/download/xml':
@@ -363,7 +362,6 @@ class UserController extends Controller
 
             return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
         });
-
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
