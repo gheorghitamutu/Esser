@@ -25,8 +25,7 @@ class UserController extends Controller
                 $this->index();
                 break;
             case 'user/index':
-                $this->index();
-//                self::redirect('/user');
+                self::redirect('/user');
                 break;
             case 'user/notifications':
                 $this->set_notifications_read();
@@ -319,8 +318,6 @@ class UserController extends Controller
 
     public function notifications()
     {
-        // get the notifications
-
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             array

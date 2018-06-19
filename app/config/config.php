@@ -53,6 +53,7 @@ define('DATABASE'  , ROOT                                     . 'database'   . D
 define('LOGGER'    , ROOT                                     . 'logger'     . DS);
 define('ROUTE'     , ROOT                                     . 'route'      . DS);
 define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+define('DOMAIN'    , 'localhost');
 
 // Logger messages macros
 // date('d-m-Y H:i:s) represents date-time in the following format:
