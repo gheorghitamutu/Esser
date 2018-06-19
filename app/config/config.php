@@ -47,7 +47,7 @@ define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . D
 define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
 define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
 define('MODELS'    , ROOT                   . 'app'      . DS . 'models'     . DS);
-define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('RESOURCES' , ROOT                   . 'public'   . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
 define('DATABASE'  , ROOT                                     . 'database'   . DS);
 define('LOGGER'    , ROOT                                     . 'logger'     . DS);

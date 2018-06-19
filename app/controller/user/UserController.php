@@ -46,7 +46,14 @@ class UserController extends Controller
             case 'user/reports':
                 $this->reports();
                 break;
-            case 'user/reports/download':
+            case 'user/reports/generate':
+                $this->generate_report();
+                break;
+            case 'user/reports/download/csv':
+            case 'user/reports/download/xslx':
+            case 'user/reports/download/pdf':
+            case 'user/reports/download/html':
+            case 'user/reports/download/xml':
                 $this->download_report();
                 break;
             case 'user/admincp':
@@ -347,8 +354,10 @@ class UserController extends Controller
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-        usort($logs, function ($a, $b) {
-            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt']) {
+        usort($logs, function ($a, $b)
+        {
+            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
+            {
                 return 0;
             }
 
@@ -746,10 +755,80 @@ class UserController extends Controller
             $fields = false);
 
         $file = $reports[0]["reportPath"];
+
+        $file_type = $file;
+
+
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+
+        // array(5)
+        // {
+        //      [0]=> string(0) ""
+        //      [1]=> string(4) "user"
+        //      [2]=> string(7) "reports"
+        //      [3]=> string(8) "download"
+        //      [4]=> string(3) "csv"
+        // }
+
+        //create file type here
+        $file_type .= "." . $split_uri[4];
+
+
+
         header("Content-Description: File Transfer");
         header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename='" . basename($file) . "'");
+        header("Content-Disposition: attachment; filename='" . basename($file_type) . "'");
         readfile($file);
         exit();
+    }
+
+    private function generate_report()
+    {
+        // generate report
+        $date = date("Y-m-d-h-i-s");
+        $path = RESOURCES . 'reports' . DS . $date;
+        $h_report = fopen($path, "w+");
+
+        $report_header = "itemId,itemName,itemDescription,itemQuantity,iGroupId,iWarnQnty,itemImage,itemCreatedAt,itemUpdatedAt\n";
+        fwrite($h_report, $report_header);
+
+        $this->model('Item');
+        $reports = $this->model_class->get_mapper()->findAll($fields = false);
+
+        if(isset($reports) && $reports !== null && is_array($reports))
+        {
+            foreach ($reports as $rep)
+            {
+                $row = $rep["itemId"] . ",";
+                $row .= $rep["itemName"] . ",";
+                $row .= $rep["itemDescription"] . ",";
+                $row .= $rep["itemQuantity"] . ",";
+                $row .= $rep["iGroupId"] . ",";
+                $row .= $rep["iWarnQnty"] . ",";
+                $row .= $rep["itemImage"] . ",";
+                $row .= $rep["itemCreatedAt"] . ",";
+                $row .= $rep["itemUpdatedAt"] . "\n";
+
+                fwrite($h_report, $row);
+            }
+        }
+
+        $this->model('AutomatedReport');
+
+        $this->model_class->get_mapper()->insert(
+            'AUTOMATEDREPORTS',
+            array
+            (
+                'reportPath'         => "'$path'" ,
+                'reportType'         => 1 ,
+                'reportFormat'       => "'all'"
+            )
+        );
+
+        $log_description = "'Normal user " . $_SESSION['uname'] . " generated log ". $date ."'";
+        self::log_user_activity($log_description);
+
+        self::redirect('/user/reports');
     }
 }
