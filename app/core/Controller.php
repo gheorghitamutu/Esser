@@ -75,8 +75,7 @@ class Controller
 
     protected function authenticate_user($username, $password)
     {
-        $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $username . $salt . $password);
+        $password_hash = hash('sha512', $username . SALT . $password);
 
         $this->model('Useracc');
         $users_found = $this->model_class->get_mapper()->findAll(
@@ -121,5 +120,18 @@ class Controller
             return false;
         }
         return true;
+    }
+//
+    protected function log_user_activity($uLogDescription)
+    {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => $uLogDescription,
+                'uLogSourceIP'      => "'" . (($_SERVER["REMOTE_ADDR"]=='::1')?'127.0.0.1':$_SERVER['REMOTE_ADDR']) . "'"
+            )
+        );
     }
 }
