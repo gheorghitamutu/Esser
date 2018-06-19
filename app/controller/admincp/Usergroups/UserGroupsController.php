@@ -131,8 +131,7 @@ class UserGroupsController extends AdmincpController
 
     protected function searchusergroup()
     {
-        if (!filter_var($_POST['searchusergroup'], FILTER_VALIDATE_INT) &&
-            filter_var($_POST['searchusergroup'], FILTER_SANITIZE_STRING) == false) {
+        if (!filter_var($_POST['searchusergroup'], FILTER_VALIDATE_INT) && filter_var($_POST['searchusergroup'], FILTER_SANITIZE_STRING) == false) {
             $this->showmessage($opsuccess = false, $opmessage = 'Illegal characters found in search criteria!');
             self::redirect('/admincp/usergroupeditor');
             return;
@@ -296,17 +295,6 @@ class UserGroupsController extends AdmincpController
     {
         $userid = filter_var($userid, FILTER_SANITIZE_NUMBER_INT);
         $groupid = filter_var($groupid, FILTER_SANITIZE_NUMBER_INT);
-        $this->model('Useracc');
-        $user = $this->model_class->get_mapper()->findAll
-        (
-            $where = 'USERID = ' . $userid
-        )[0];
-        $this->model('Usergroup');
-        $group = $this->model_class->get_mapper()->findAll
-        (
-            $where = 'UGROUPID = ' . $groupid
-        )[0];
-
         switch ($groupid) {
             case 1:
                 $rootadmin = true;
@@ -333,18 +321,6 @@ class UserGroupsController extends AdmincpController
                 )
             );
             if ($result) {
-                $this->adduserlog
-                (
-                    $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                                " from the root admins group!",
-                    $sourceip = $_SESSION['login_ip']
-                );
-                $this->addusergrouplog
-                (
-                    $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                        " from the root admins group!",
-                    $sourceip = $_SESSION['login_ip']
-                );
                 $result = $this->model_class->get_mapper()->delete
                 (
                     $table = 'GROUPRELATIONS',
@@ -353,18 +329,6 @@ class UserGroupsController extends AdmincpController
                         'USERID' => $userid,
                         'UGROUPID' => 2
                     )
-                );
-                $this->adduserlog
-                (
-                    $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                        " from the root managers group!",
-                    $sourceip = $_SESSION['login_ip']
-                );
-                $this->addusergrouplog
-                (
-                    $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                        " from the root managers group!",
-                    $sourceip = $_SESSION['login_ip']
                 );
             }
         }
@@ -379,18 +343,6 @@ class UserGroupsController extends AdmincpController
                     'UGROUPID' => 1
                 )
             );
-            $this->adduserlog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                    " from the root admins group!",
-                $sourceip = $_SESSION['login_ip']
-            );
-            $this->addusergrouplog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has demoted and removed user ' . $user['userName'] .
-                    " from the root admins group!",
-                $sourceip = $_SESSION['login_ip']
-            );
         }
         else {
             $this->model('Grouprelation');
@@ -402,18 +354,6 @@ class UserGroupsController extends AdmincpController
                     'USERID' => $userid,
                     'UGROUPID' => $groupid
                 )
-            );
-            $this->adduserlog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has removed user ' . $user['userName'] .
-                    " from the " . $group['uGroupName'] . " group!",
-                $sourceip = $_SESSION['login_ip']
-            );
-            $this->addusergrouplog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . ' has removed user ' . $user['userName'] .
-                    " from the " . $group['uGroupName'] . " group!",
-                $sourceip = $_SESSION['login_ip']
             );
         }
         $opmessage= '';
@@ -465,6 +405,7 @@ class UserGroupsController extends AdmincpController
                     }
                 }
             }
+//            var_dump($userid, $groupid, $rootadmin, $rootmng, $opmessage, $needsupdate, $update);die;
             $this->showmessage($opsucces = false,
                 $opmessage = 'Successfully removed user from the group! ' . $opmessage);
             self::redirect('/admincp/usergroupeditor');
@@ -494,7 +435,7 @@ class UserGroupsController extends AdmincpController
             self::redirect('/admincp/usergroupeditor');
             return;
         }
-        $result = $this->model_class->get_mapper()->update
+        $query = $this->model_class->get_mapper()->update
         (
             $table = 'USERGROUPS',
             $fields = array
@@ -506,24 +447,12 @@ class UserGroupsController extends AdmincpController
                 'UGROUPID' => $groupid
             )
         );
-        if (is_array($result) == false && $result == false) {
+        if (is_array($query) == false && $query == false) {
             $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t update the title name!');
             self::redirect('/admincp/usergroupeditor');
             return;
         }
         else {
-            $this->adduserlog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . " has updated group's " . $query[0]['uGroupName'] .
-                    " title into " . $newtitle . " !",
-                $sourceip = $_SESSION['login_ip']
-            );
-            $this->addusergrouplog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . " has updated group's " . $query[0]['uGroupName'] .
-                            " title into " . $newtitle . " !",
-                $sourceip = $_SESSION['login_ip']
-            );
             $this->showmessage($opsuccess = false, $opmessage = 'Group name was successfully updated!');
             self::redirect('/admincp/usergroupeditor');
         }
@@ -533,6 +462,7 @@ class UserGroupsController extends AdmincpController
     {
         if (!filter_var($_POST['editgroupdscrpid'],FILTER_VALIDATE_INT) ||
             filter_var($_POST['newgrpdescrp'], FILTER_SANITIZE_STRING) == false) {
+            var_dump($_POST); die;
             $this->showmessage($opsuccess = false, $opmessage = 'Illegal argument supplied!');
             self::redirect('/admincp/usergroupeditor');
             return;
@@ -551,7 +481,7 @@ class UserGroupsController extends AdmincpController
             self::redirect('/admincp/usergroupeditor');
             return;
         }
-        $result = $this->model_class->get_mapper()->update
+        $query = $this->model_class->get_mapper()->update
         (
             $table = 'USERGROUPS',
             $fields = array
@@ -563,24 +493,12 @@ class UserGroupsController extends AdmincpController
                 'UGROUPID' => $groupid
             )
         );
-        if (is_array($result) == false && $result == false) {
+        if (is_array($query) == false && $query == false) {
             $this->showmessage($opsuccess = false, $opmessage = 'Couldn\'t update the title name!');
             self::redirect('/admincp/usergroupeditor');
             return;
         }
         else {
-            $this->adduserlog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . " has updated group's " . $query[0]['uGroupName'] .
-                    " description into " . $newdescription . " !",
-                $sourceip = $_SESSION['login_ip']
-            );
-            $this->addusergrouplog
-            (
-                $logdscrp = 'Admin user ' . $_SESSION['uname'] . " has updated group's " . $query[0]['uGroupName'] .
-                    " description into " . $newdescription . " !",
-                $sourceip = $_SESSION['login_ip']
-            );
             $this->showmessage($opsuccess = false, $opmessage = 'Group description was successfully updated!');
             self::redirect('/admincp/usergroupeditor');
         }

@@ -29,7 +29,6 @@ class RegisterController extends Controller
                 $this->success();
                 break;
             default:
-                new PageNotFoundController();
                 break;
 
         }

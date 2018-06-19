@@ -92,24 +92,6 @@ class AdmincpController extends Controller
             case 'admincp/itemgroups':
                 new ItemGroupsController($uri);
                 break;
-            case 'admincp/itemgroups/delitemgroup':
-                new ItemGroupsController($uri);
-                break;
-            case 'admincp/itemgroupeditor':
-                new ItemGroupsController($uri);
-                break;
-            case 'admincp/itemgroupeditor/searchitmgrp':
-                new ItemGroupsController($uri);
-                break;
-            case 'admincp/itemgroupeditor/getitmgroup':
-                new ItemGroupsController($uri);
-                break;
-            case 'admincp/itemgroupeditor/editgrouptitle':
-                new ItemGroupsController($uri);
-                break;
-            case 'admincp/itemgroupeditor/editgroupdescription':
-                new ItemGroupsController($uri);
-                break;
             case 'admincp/loginlogs':
                 new LogsController($uri);
                 break;
@@ -129,7 +111,10 @@ class AdmincpController extends Controller
                 new LogsController($uri);
                 break;
             default:
-                new PageNotFoundController();
+                View::CreateView(
+                    '404',
+                    [],
+                    'Page not found!');
                 break;
         }
     }
@@ -382,11 +367,6 @@ class AdmincpController extends Controller
                 self::redirect('/admincp/settings');
             }
             else {
-                $this->adduserlog
-                (
-                    $logdescription = "Admin user " . $_SESSION['uname'] . " has changed the app title into " . $newtitle,
-                    $sourceip = $_SESSION['login_ip']
-                );
                 $this->showmessage
                 (
                     $opsuccess = $success,
@@ -398,58 +378,6 @@ class AdmincpController extends Controller
                 shell_exec('httpd.exe -k restart');
             }
         }
-    }
-
-    protected function adduserlog($logdescription, $sourceip) {
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert
-        (
-            $table = 'USERLOGS',
-            $fields = array
-            (
-                'ULOGDESCRIPTION' => "'" . $logdescription . "'",
-                'ULOGSOURCEIP' => "'" . $sourceip . "'"
-            )
-        );
-    }
-
-    protected function addusergrouplog($logdescription, $sourceip) {
-        $this->model('UserGroupLog');
-        $this->model_class->get_mapper()->insert
-        (
-            $table = 'USERGROUPLOGS',
-            $fields = array
-            (
-                'UGLOGDESCRIPTION' => "'" . $logdescription . "'",
-                'UGLOGSOURCEIP' => "'" . $sourceip . "'"
-            )
-        );
-    }
-
-    protected function additemlog($logdescription, $sourceip) {
-        $this->model('Itemlog');
-        $this->model_class->get_mapper()->insert
-        (
-            $table = 'ITEMLOGS',
-            $fields = array
-            (
-                'ILOGDESCRIPTION' => "'" . $logdescription . "'",
-                'ILOGSOURCEIP' => "'" . $sourceip . "'"
-            )
-        );
-    }
-
-    protected function additemgrouplog($logdescription, $sourceip) {
-        $this->model('Itemgrouplogs');
-        $this->model_class->get_mapper()->insert
-        (
-            $table = 'ITEMGROUPLOGS',
-            $fields = array
-            (
-                'IGLOGDESCRIPTION' => "'" . $logdescription . "'",
-                'IGLOGSOURCEIP' => "'" . $sourceip . "'"
-            )
-        );
     }
 
 }

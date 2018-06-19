@@ -5,7 +5,7 @@
     <div class="container-header-user-landing-page">
         <div class="content-header-user-landing-page">
             <div id="name-header-user-landing-page">
-                <div><?php echo APP_TITLE ?></div>
+                <div>Esser</div>
             </div>
             <div id="under-title-header-user-landing-page">
                 <div>The best resource planner</div>
@@ -15,55 +15,45 @@
     <br>
     <div class="notification-container-user-landing-page">
         <div id="notification-container-user-landing-page">
-            <button type="button" id="notification-button" onclick="window.location.href = '/user/notifications'">
-                You have <?php echo $this->view_data["notifications_count"] ?> notification(s)!
-            </button>
+                <button type="button" id="notification-button" onclick="window.location.href = '/user/notifications'">
+                    You have <?php echo $this->view_data["notifications_count"]?> notification(s)!
+                </button>
         </div>
     </div>
     <div class="container-content-user-landing-page">
         <div class="items-container-user-landing-page">
-            <div class="container-title-items-and-items">
-                <div class="container-title-items">
-                    <div>Products</div>
+            <div class="container-title-items">
+                <div>Products</div>
+            </div>
+            <div class="items-content-user-landing-page">
+
+                <div class="header-items">
+                    <div>Name</div>
+                </div>
+                <div class="header-items">
+                    <div>Group</div>
+                </div>
+                <div class="header-items">
+                    <div>Quantity</div>
                 </div><?php
-                $array_items = $this->view_data['productsContainer']['items'];
-                echo "<div id=" . "container-hidden-items" . ">";
-                foreach ($array_items as $item) {
-                    echo "<div class=" . "hidden-item" . ">";
+                $array_items=$this->view_data['productsContainer']['items'];
+                foreach($array_items as $item){
+                    echo"<div class=\"body-items\">";
                     echo "<div>" . $item['itemName'] . "</div>";
+                    echo"</div>";
+
+                    echo"<div class=\"body-items\">";
                     echo "<div>" . $item['itemGroup'] . "</div>";
+                    echo"</div>";
+
+                    echo"<div class=\"body-items\">";
                     echo "<div>" . $item['itemQuantity'] . "</div>";
-                    echo "</div>";
+                    echo"</div>";
                 }
-                echo "</div>";
                 ?>
-                <div class="items-content-user-landing-page">
 
-                    <div class="header-items">
-                        <div>Name</div>
-                    </div>
-                    <div class="header-items">
-                        <div>Group</div>
-                    </div>
-                    <div class="header-items">
-                        <div>Quantity</div>
-                    </div>
-                </div>
 
             </div>
-            <div class="items-pagination-container">
-                <div>
-                    <button onclick="prevPage_items()" id="btn_prev_items"><<</button>
-                </div>
-                <div>
-                    <span id="page_items"> </span>
-                </div>
-
-                <div>
-                    <button onclick="nextPage_items()" id="btn_next_items">>></button>
-                </div>
-            </div>
-
 
             <div class="statistics-items-container-user-landing-page">
                 <div class="title-statistics-items">
@@ -71,29 +61,33 @@
                 </div>
                 <div class="body-statistics-items">
 
-                    <div id="header-row-statistics-items" class="body-statistics-items-element">
-                        <div>Total number of products</div>
-                    </div>
 
-                    <div class="body-statistics-items-element">
-                        <div><?php echo $this->view_data['productsContainer']['countItems']; ?></div>
-                    </div>
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
+                            <div>Total number of products</div>
+                        </div>
 
-                    <div id="header-row-statistics-items" class="body-statistics-items-element">
-                        <div>Total number of groups</div>
-                    </div>
+                        <div  class="body-statistics-items-element">
+                            <div><?php echo $this->view_data['productsContainer']['countItems'];?></div>
+                        </div>
 
-                    <div class="body-statistics-items-element">
-                        <div><?php echo $this->view_data['productsContainer']['countItemsGroups']; ?></div>
-                    </div>
 
-                    <div id="header-row-statistics-items" class="body-statistics-items-element">
-                        <div>Average quantity per item</div>
-                    </div>
 
-                    <div class="body-statistics-items-element">
-                        <div><?php echo round($this->view_data['productsContainer']['avgQuantity'], 2); ?></div>
-                    </div>
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
+                            <div>Total number of groups</div>
+                        </div>
+
+                        <div class="body-statistics-items-element">
+                            <div><?php echo $this->view_data['productsContainer']['countItemsGroups'];?></div>
+                        </div>
+
+
+                        <div id="header-row-statistics-items" class="body-statistics-items-element">
+                            <div>Average quantity per item</div>
+                        </div>
+
+                        <div class="body-statistics-items-element">
+                            <div><?php echo round($this->view_data['productsContainer']['avgQuantity'],2);?></div>
+                        </div>
 
                 </div>
             </div>
@@ -101,44 +95,34 @@
         </div>
 
         <div class="users-container-user-landing-page">
-            <div class="container-title-items-and-items">
-                <div class="container-title-users">
-                    <div>Users</div>
-                </div><?php
-                $array_users = $this->view_data['usersContainer']['users'];
-                echo "<div id=" . "container-hidden-users" . ">";
-                foreach ($array_users as $user) {
-                    echo "<div class=" . "hidden-user" . ">";
-                    echo "<div>" . $user['userName'] . "</div>";
-                    echo "<div>" . $user['userGroup'] . "</div>";
-                    echo "<div>" . $user['userEmail'] . "</div>";
-                    echo "</div>";
-                }
-                echo "</div>";
-                ?>
-                <div class="users-content-user-landing-page">
-                    <div class="header-users">
-                        <div>Name</div>
-                    </div>
-                    <div class="header-users">
-                        <div>Group</div>
-                    </div>
-                    <div class="header-users">
-                        <div>Email</div>
-                    </div>
-                </div>
+            <div class="container-title-users">
+                <div>Users</div>
             </div>
-            <div class="users-pagination-container">
-                <div>
-                    <button onclick="prevPage_users()" id="btn_prev_users"><<</button>
+            <div class="users-content-user-landing-page">
+                <div class="header-users">
+                    <div>Name</div>
                 </div>
-                <div>
-                    <span id="page_users"> </span>
+                <div class="header-users">
+                    <div>Group</div>
                 </div>
+                <div class="header-users">
+                    <div>Email</div>
+                </div><?php
+                $array_users=$this->view_data['usersContainer']['users'];
+                foreach($array_users as $user){
+                    echo"<div class=\"body-users\">";
+                    echo "<div>" . $user['userName'] . "</div>";
+                    echo"</div>";
 
-                <div>
-                    <button onclick="nextPage_users()" id="btn_next_users">>></button>
-                </div>
+                    echo"<div class=\"body-users\">";
+                    echo "<div>" . $user['userGroup'] . "</div>";
+                    echo"</div>";
+
+                    echo"<div class=\"body-users\">";
+                    echo "<div>" . $user['userEmail'] . "</div>";
+                    echo"</div>";
+                }
+                ?>
             </div>
 
 
@@ -153,9 +137,10 @@
                         <div>Total number of users</div>
                     </div>
 
-                    <div class="body-statistics-users-element">
+                    <div  class="body-statistics-users-element">
                         <div><?php echo $this->view_data['usersContainer']['countUsers']; ?></div>
                     </div>
+
 
 
                     <div id="header-row-statistics-users" class="body-statistics-users-element">
@@ -173,12 +158,12 @@
 
                     <div class="body-statistics-users-element">
                         <div><?php
-                            $users = $this->view_data['usersContainer']['countUsers'];
-                            $groups = $this->view_data['usersContainer']['countGroups'];
-                            if ($groups != 0) {
-                                echo(round($users / $groups, 2));
-                            } else {
-                                echo(0);
+                            $users=$this->view_data['usersContainer']['countUsers'];
+                            $groups=$this->view_data['usersContainer']['countGroups'];
+                            if($groups !=0){
+                                echo (round($users/$groups,2));
+                            }else{
+                                echo (0);
                             }
                             ?>
                         </div>
