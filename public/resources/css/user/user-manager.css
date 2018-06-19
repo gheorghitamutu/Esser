@@ -160,3 +160,21 @@ body{
 	margin: 1em;
 	position: center;
 }
+
+.add-user-group{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+}
+
+.form-add-group{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	width: max-content;
+	background: #084887;
+	color: azure;
+	padding: 1em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.7em;
+	text-align: center;
+}

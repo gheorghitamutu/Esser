@@ -9,9 +9,18 @@
     <body>
         <div class="page-title">Choose one of the user groups</div>
         <?php
-            echo "<form class=\"page-title\">";
-            echo "<button>Add user groups</button>";
-            echo "</form>";
+            if (isset($_SESSION['canManageMembers']) && ($_SESSION['canManageMembers'] == 1)) {
+                echo "<div class=\"add-user-group\">";
+                echo "<div class=\"page-title\"> Add new group of users: </div>";
+                echo "<form class=\"form-add-group\" action='/user/users/addgroup' method='POST'>";
+                echo "<div>Name: </div>";
+                echo "<input type=\"text\" name=\"newGroupName\" value=\"\" placeholder=\"Enter new group name\" required=\"required\"/>";
+                echo "<div>Description: </div>";
+                echo "<input type=\"text\" name=\"newGroupDescription\" value=\"\" placeholder=\"Enter new group description\" required=\"required\"/>";
+                echo "<button type=\"submit\">Add user groups</button>";
+                echo "</form>";
+                echo "</div>";
+            }
         ?>
         <div class="main-frame">
         <?php
