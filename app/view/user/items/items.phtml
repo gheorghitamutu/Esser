@@ -59,7 +59,7 @@
                 echo "<div>Updated Date</div>";
                 echo "</div>";
 
-                echo "<div class=\"header-element-group\">";
+                echo "<div class=\"header-element-group\ id=\"element-to-hide\">";
                 echo "<div> </div>";
                 echo "</div>";
 
@@ -84,9 +84,11 @@
                     echo "<div>". $group['iGroupUpdatedAt']."</div>";
                     echo "</div>";
 
+
                     echo"<form class=\"post-item-form\" method=\"POST\">";
-                    echo "<input  type=\"text\" class=\"del-button\" name=\"delButton\" value=".$group['iGroupName']." required=\"required\"/>";
-                    echo "<input type=\"submit\" class=\"submit-button-delete-group\" value=\"X\">";
+                    echo "<input  class=\"del-button\" name=\"delButton\" value=\"".$group['iGroupName']."\" required=\"required\"/>";
+                    echo "<input  class=\"del-button\" name=\"delButtonUserGroupId\" value=\"".$group['uGroupId']."\" required=\"required\"/>";
+                    echo "<input type=\"submit\" class=\"delete-button\" class=\"submit-button-delete-group\" value=\"X\">";
                     echo"</form>";
                 }
                 ?>

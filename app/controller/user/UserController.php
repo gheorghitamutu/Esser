@@ -381,42 +381,84 @@ class UserController extends Controller
     public function deleteGroupsOfItems(){
         if(isset($_POST['delButton'])) {
             echo var_dump($_POST['delButton']);
+            echo var_dump($_POST['delButtonUserGroupId']);
 
             $this->model('Itemgroup');
             $querry_item_groups = $this->model_class->get_mapper()->findAll(
                 $where = " iGroupName= " . "'" . $_POST['delButton'] . "'",
                 $fields = false
             );
+            //echo ("<br>"."item groups"."<br>".var_dump($querry_item_groups)."<br>");
+
+
             $this->model('Itemgroupownership');
             $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
-                $where = " iGId= "  . $querry_item_groups['0']['iGroupId'] ,
+                $where = " iGId= "  . $querry_item_groups['0']['iGroupId']
+                        ." AND iGOwnerId=".$_POST['delButtonUserGroupId'],
                 $fields = false
             );
+            //echo ("<br>"."item groups ownerships"."<br>".var_dump($querry_item_groups_owners)."<br>");
             //delete ownerships
-            foreach($querry_item_groups_owners as $querry_item_groups_owner){
-                $this->model('Itemgroupownership');
-                $querry_item_groups_owners = $this->model_class->get_mapper()->delete(
-                    'ITEMGROUPOWNERSHIPS',
-                    array
-                    (
-                        'iGOwnershipId'=>$querry_item_groups_owner['iGOwnershipId']
-                    )
-                );
+            if(!is_null($querry_item_groups_owners)) {
+                foreach ($querry_item_groups_owners as $querry_item_groups_owner) {//here is just an element not array
+                    $this->model('Itemgroupownership');
+                    $querry_item_groups_owners = $this->model_class->get_mapper()->delete(
+                        'ITEMGROUPOWNERSHIPS',
+                        array
+                        (
+                            'iGOwnershipId' => $querry_item_groups_owner['iGOwnershipId']
+                        )
+                    );
+                }
             }
 
             //delete items
             $this->model('Item');
             $querry_items = $this->model_class->get_mapper()->findAll(
-                $where = " iGroupId= "  . $querry_item_groups['0']['iGroupId'] ,
+                $where = " iGroupId= "  .$_POST['delButtonUserGroupId'] ,
                 $fields = false
             );
+            //echo("<br>"."items "."<br>".var_dump($querry_items));
+            if(!is_null($querry_items)) {
+                foreach ($querry_items as $querry_item) {
+                    $querry_item_result = $this->model_class->get_mapper()->delete(
+                        'ITEMS',
+                        array
+                        (
+                            'itemId' => $querry_item['itemId']
+                        )
+                    );
+                }
+            }
 
-            foreach($querry_items as $querry_item) {
-                $querry_item_result = $this->model_class->get_mapper()->delete(
-                    'ITEMS',
+            // deleting item group if there is no ownership
+
+            $this->model('GroupRelation');
+            $query_group_relations = $this->model_class->get_mapper()->findAll(
+                $where = " USERID= " . $_SESSION['userid'],
+                $fields = false
+            );
+            //echo("<br>"."group relations"."<br>".var_dump($query_group_relations));
+            $count=0;
+            foreach($query_group_relations as $group_relation){
+                $this->model('Itemgroupownership');
+                $querry_groups_owners = $this->model_class->get_mapper()->findAll(
+                    $where = " iGOwnerId=".$group_relation['uGroupId'],
+                    $fields = false
+                );
+                if(!is_null($querry_groups_owners)){
+                    $count=$count+1;
+                }
+            }
+            //echo("<br>"." count "."<br>".var_dump($count));
+            if($count == 0) {//if there is no ownership remove group item
+
+                $this->model('Itemgroup');
+                $querry_item_groups_del_result = $this->model_class->get_mapper()->delete(
+                    'ITEMGROUPS',
                     array
                     (
-                        'iGroupId' => $querry_item['iGroupId']
+                        'iGroupId' => $querry_item_groups['0']['iGroupId']
                     )
                 );
             }
@@ -430,6 +472,7 @@ class UserController extends Controller
                     'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
                 )
             );
+            //exit(0);
             return "Succesfully deleted group of items!";
 
         }
@@ -441,6 +484,7 @@ class UserController extends Controller
             $where = " USERID= ". $_SESSION['userid'],
             $fields = false
         );
+        //echo ("<br>"." group relation users"."<br>".var_dump($querry_rel_users)."<br>");
         // foreach group of users that session users is in,find group ownership of group items
         foreach($querry_rel_users as $querry_rel_user) {
 
@@ -449,29 +493,41 @@ class UserController extends Controller
                 $where = " uGroupId= ". $querry_rel_user['uGroupId'],
                 $fields = false
             );
-
+            //echo ("<br>"." users group"."<br>".var_dump($querry_user_groups)."<br>");
             $this->model('Itemgroupownership');
             $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
                 $where = " iGOwnerId= ". $querry_rel_user['uGroupId'],
                 $fields = false
             );
+            $unique_items_groups = array();
+            //echo ("<br>"." group items owners"."<br>".var_dump($querry_item_groups_owners)."<br>");
             foreach($querry_item_groups_owners as $querry_item_groups_owner ){
                 $this->model('Itemgroup');
                 $querry_item_groups = $this->model_class->get_mapper()->findAll(
                     $where = " iGroupId= ". $querry_item_groups_owner['iGId'],
                     $fields = false
                 );
-                foreach($querry_item_groups as $querry_item_group){
-                    array_push($items_groups,array(
-                        'iGroupName'=>$querry_item_group['iGroupName'],
-                        'iGroupDescription'=>$querry_item_group['iGroupDescription'],
-                        'iGroupCreatedAt'=>$querry_item_group['iGroupCreatedAt'],
-                        'iGroupUpdatedAt'=>$querry_item_group['iGroupUpdatedAt'],
-                        'uGroupName'=>$querry_user_groups['0']['uGroupName']
-                    ));
+                //echo ("<br>"." group items "."<br>".var_dump($querry_item_groups)."<br>");
+
+                foreach ($querry_item_groups as $item) {
+                    if (!in_array($item, $unique_items_groups)) {
+                        array_push($unique_items_groups, $item);
+                    }
                 }
             }
+
+            foreach($unique_items_groups as $unique_items_group){
+                array_push($items_groups,array(
+                    'iGroupName'=>$unique_items_group['iGroupName'],
+                    'iGroupDescription'=>$unique_items_group['iGroupDescription'],
+                    'iGroupCreatedAt'=>$unique_items_group['iGroupCreatedAt'],
+                    'iGroupUpdatedAt'=>$unique_items_group['iGroupUpdatedAt'],
+                    'uGroupName'=>$querry_user_groups['0']['uGroupName'],
+                    'uGroupId'=>$querry_user_groups['0']['uGroupId']
+                ));
+            }
         }
+
         return $items_groups;
     }
     public function getPermissionModifyItemsGroups(){
@@ -491,17 +547,18 @@ class UserController extends Controller
     }
     public function insertingItemGroup(){
 
+        //echo var_dump($_POST["gName"]);
         // group name validation
         if (strlen($_POST["gName"]) < 4 || strlen($_POST["gName"]) > 48) {
             return array('operation' => false, 'message' => 'group name not being between 4 and 48 characters long!');
         }
-        elseif(!preg_match('/[^a-zA-Z0-9._-]/',$_POST['gName'])) {
+        elseif(!preg_match('/[^a-zA-Z0-9._ -]/',$_POST['gName'])) {
             $gName = $_POST["gName"];
         }else {
             return array('operation' => false,
                 'message' => 'group name containing prohibited characters!'
                     . PHP_EOL
-                    . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
+                    . 'Use only alpha-numeric, \'.\'_\' and \'-\' characters!');
         }
         $this->model('Itemgroup');// check if group name already exists
         $query_item_groups = $this->model_class->get_mapper()->findAll(
@@ -535,7 +592,7 @@ class UserController extends Controller
                 'iGroupDescription' => "'" . $gDescription . "'"
             )
         );
-
+        //echo ("<br>".var_dump($result_item_group)."<br>");
         //for every group of users that session user can update groups of items, add in owner ship that group of users
         $this->model('Grouprelation');
         $querry_rel_users = $this->model_class->get_mapper()->findAll(
@@ -543,13 +600,12 @@ class UserController extends Controller
             $fields = false
         );
 
-
+        //echo ( "user group relation"."<br>".var_dump($querry_rel_users)."<br>");
         $this->model('Itemgroup');// item that was inserted
         $query_item_group = $this->model_class->get_mapper()->findAll(
             $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
             $fields = false
         );
-
         foreach($querry_rel_users as $querry_rel_user){
             if($querry_rel_user['canUpdItm'] !="0"){
                 $this->model('Itemgroupownership');
@@ -561,6 +617,8 @@ class UserController extends Controller
                         'iGId' =>  $query_item_group['0']['iGroupId']
                     )
                 );
+                //echo ( "user group ownership result"."<br>".var_dump($result_item_group_owner)."<br>");
+
             }
         }
 
@@ -579,12 +637,36 @@ class UserController extends Controller
         return array('operation' => true, 'message' => " Succesfully created group !");
     }
     public function postGroupItems(){
+        $this->cleanRemainingGroupsWithoutOwner();
         if(isset($_POST["gName"]) && isset($_POST["gDescription"])) {
             $result = $this->insertingItemGroup();
             if ($result['operation'] == true) {
                 return $result['message'];
             } else {
                 return "Failed to create group : " . $result['message'];
+            }
+        }
+    }
+    public function cleanRemainingGroupsWithoutOwner(){
+        $this->model('Itemgroup');
+        $querry_item_groups = $this->model_class->get_mapper()->findAll(
+            $where = '',
+            $fields = false
+        );
+        foreach($querry_item_groups as $item_group) {
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGId= " . $item_group['iGroupId'],
+                $fields = false
+            );
+            if(is_null($querry_item_groups_owners)){
+                $querry_result= $this->model_class->get_mapper()->delete(
+                    'ITEMGROUPS',
+                    array
+                    (
+                        'iGroupId' => $item_group['iGroupId']
+                    )
+                );
             }
         }
     }

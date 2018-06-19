@@ -39,7 +39,7 @@
 #right-container-group{
     border:1px solid black;
 }
-#right-container-group>div{
+#container-delete-group,#container-post-group{
     display:none;
     width:0;
     height:0;
@@ -54,10 +54,16 @@
     overflow-y:scroll;
 }
 .body-element-group,.header-element-group{
+     display:flex;
+     justify-content: center;
+     align-items: center;
+     border:1px solid black;
+     margin:2px;
+ }
+.post-item-form{
     display:flex;
     justify-content: center;
     align-items: center;
-    border:1px solid black;
     margin:2px;
 }
 .body-element-group>div,.header-element-group>div{
@@ -68,7 +74,7 @@
 /*--------------------------------   delete items group------------------------------*/
 #container-delete-group{
     display:grid;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: 6fr 6fr 6fr 6fr 6fr 1fr;
     max-height: 500px;
     overflow-y:scroll;
 }
@@ -77,4 +83,12 @@
     display: none;
     height: 0;
     width: 0;
+}
+.delete-button{
+    cursor: pointer;
+}
+
+#element-to-hide{
+    border:0;
+
 }
