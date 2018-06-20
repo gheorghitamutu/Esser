@@ -1088,7 +1088,7 @@ class UserController extends Controller
 
                 for ($i = 0; $i < count($split_line); $i++)
                 {
-                    xmlwriter_start_element($xw, $file_headers[$i]);
+                    xmlwriter_start_element($xw, trim($file_headers[$i]));
                     xmlwriter_text($xw, $split_line[$i]);
                     xmlwriter_end_element($xw);
                 }
@@ -1102,8 +1102,6 @@ class UserController extends Controller
         {
             // error opening the file.
         }
-
-        xmlwriter_end_element($xw);
 
         xmlwriter_end_document($xw);
 
