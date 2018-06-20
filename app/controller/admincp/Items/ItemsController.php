@@ -314,14 +314,14 @@ class ItemsController extends AdmincpController
             else {
                 $this->additemlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->adduserlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->showmessage(false, 'Successfully updated the item!');
@@ -364,14 +364,14 @@ class ItemsController extends AdmincpController
             else {
                 $this->additemlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->adduserlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->showmessage(false, 'Successfully updated the item!');
@@ -415,14 +415,14 @@ class ItemsController extends AdmincpController
             else {
                 $this->additemlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->adduserlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->showmessage(false, 'Successfully updated the item!');
@@ -476,14 +476,14 @@ class ItemsController extends AdmincpController
             else {
                 $this->additemlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->adduserlog
                 (
-                    $description = "'Admin user " . $_SESSION['uname'] . ' has updated item ' .
-                        $item[0]['itemName'] . "!'",
+                    $description = "Admin user " . $_SESSION['uname'] . ' has updated item ' .
+                        $item[0]['itemName'] . "!",
                     $sourceip = $_SESSION['login_ip']
                 );
                 $this->showmessage(false, 'Successfully updated the item!');

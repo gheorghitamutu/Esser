@@ -143,6 +143,9 @@ class AdmincpController extends Controller
             case 'admincp/itemlogs':
                 new LogsController($uri);
                 break;
+            case 'admincp/loginlogs/searchitemlogs':
+                new LogsController($uri);
+                break;
             case 'admincp/userlogs':
                 new LogsController($uri);
                 break;
@@ -221,7 +224,7 @@ class AdmincpController extends Controller
                 'timeZone' => $this->getDBTimeZone(),
                 'lastDBBackupTime' => $this->getLastDBBackupTime(),
                 'totalItemGroups' => $this->getTotalItemGroups(),
-                'avgItemPerGroup' => $this->getTotalItemGroups() ? ($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
+                'avgItemPerGroup' => $this->getTotalItemGroups() ? intval($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
             ),
             APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],

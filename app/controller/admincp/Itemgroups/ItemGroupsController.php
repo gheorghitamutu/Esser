@@ -290,13 +290,13 @@ class ItemGroupsController extends AdmincpController
             $this->adduserlog
             (
                 $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
-                    " item group's name into " . $newname,
+                    " item group''s name into " . $newname,
                 $sourceip = $_SESSION['login_ip']
             );
             $this->additemgrouplog
             (
                 $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
-                    " item group's name into " . $newname,
+                    " item group''s name into " . $newname,
                 $sourceip = $_SESSION['login_ip']
             );
             $this->showmessage($opsucces = false, $opmessage = 'Successfully updated item group name!!');
@@ -340,24 +340,24 @@ class ItemGroupsController extends AdmincpController
         );
 
         if (!is_array($query) && $query === false) {
-            $this->adduserlog
-            (
-                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
-                    " item group's description into " . $newdescription,
-                $sourceip = $_SESSION['login_ip']
-            );
-            $this->additemgrouplog
-            (
-                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
-                    " item group's description into " . $newdescription,
-                $sourceip = $_SESSION['login_ip']
-            );
             $this->showmessage($opsucces = false, $opmessage = 'Couldn\'t update the item group!');
             self::redirect('/admincp/itemgroupeditor');
             return;
         }
         else {
-            $this->showmessage($opsucces = false, $opmessage = 'Successfully updated item group description!!');
+            $this->adduserlog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group''s description into " . $newdescription,
+                $sourceip = $_SESSION['login_ip']
+            );
+            $this->additemgrouplog
+            (
+                $description = 'Admin user ' . $_SESSION['uname'] . " has updated the " . $group[0]['iGroupName'] .
+                    " item group''s description into " . $newdescription,
+                $sourceip = $_SESSION['login_ip']
+            );
+            $this->showmessage($opsucces = true, $opmessage = 'Successfully updated item group description!!');
             self::redirect('/admincp/itemgroupeditor');
             return;
         }
