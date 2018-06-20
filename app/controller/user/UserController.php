@@ -911,6 +911,18 @@ class UserController extends Controller
             $fields = 'REPORTID, REPORTPATH, REPORTTYPE, REPORTFORMAT,
                        TO_CHAR(RCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "RCREATEDAT"');
 
+        usort($reports, function ($a, $b)
+        {
+            $values_a = array_values( $a );
+            $values_b = array_values( $b );
+            if ($values_a[4] == $values_b[4])
+            {
+                return 0;
+            }
+
+            return ($values_a[4] > $values_b[4]) ? -1 : 1;
+        });
+
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . 'reports',
             array
