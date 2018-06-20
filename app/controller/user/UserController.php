@@ -728,7 +728,6 @@ class UserController extends Controller
             )
         );
 
-
         return array('operation' => true, 'message' => " Succesfully created item !");
     }
 
@@ -979,7 +978,15 @@ class UserController extends Controller
             )
         );
 
-
+        $this->model('Itemlog');
+        $this->model_class->get_mapper()->insert(
+            'ITEMGROUPLOGS',
+            array
+            (
+                'iLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has created group ".$gName."'" ,
+                'iLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
+            )
+        );
         return array('operation' => true, 'message' => " Succesfully created group !");
     }
     public function postGroupItems(){
