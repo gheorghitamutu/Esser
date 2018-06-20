@@ -1,24 +1,24 @@
-<?php include VIEW . 'user/header.phtml';?>
+<?php include VIEW . 'user/header.phtml'; ?>
 
     <div id="main-container-items-page">
         <div id="left-container-group"><?php
-            if($this->view_data['permissionModifyItemsGroup'] == "1"){
+            if ($this->view_data['permissionModifyItemsGroup'] == "1") {
                 echo "<div id=\"post-group\">";
-                echo"<button type=\"button\" id=\"post-group-button\" onclick=\"postGroupFunction()\">";
-                echo"Add Group";
-                echo"</\"button\">";
-                echo"</div>";
+                echo "<button type=\"button\" id=\"post-group-button\" onclick=\"postGroupFunction()\">";
+                echo "Add Group";
+                echo "</\"button\">";
+                echo "</div>";
 
-                echo"<div id=\"delete-group\">";
-                echo"<button type=\"button\" id=\"delete-group-button\" onclick=\"deleteGroupFunction()\">";
-                echo"Delete Group";
-                echo"</button>";
-                echo"</div>";
-                }
-             ?>
+                echo "<div id=\"delete-group\">";
+                echo "<button type=\"button\" id=\"delete-group-button\" onclick=\"deleteGroupFunction()\">";
+                echo "Delete Group";
+                echo "</button>";
+                echo "</div>";
+            }
+            ?>
             <div id="get-group">
                 <button type="button" id="get-group-button" onclick="getGroupFunction()">
-                  List Groups
+                    List Groups
                 </button>
             </div>
 
@@ -29,15 +29,17 @@
             <div id="container-post-group">
                 <form class="post-item-form" method="POST">
                     <a class="main-text"> Group Name </a>
-                    <input class="fill-box" type="text" name="gName" value="" placeholder="Enter group name" required="required"/>
+                    <input class="fill-box" type="text" name="gName" value="" placeholder="Enter group name"
+                           required="required"/>
                     <p class="main-text"> Group Description </p>
-                    <input class="fill-box" type="text" name="gDescription" value="" placeholder="Enter group description" required="required"/>
+                    <input class="fill-box" type="text" name="gDescription" value=""
+                           placeholder="Enter group description" required="required"/>
                     <input type="submit" class="submit-button-post-group" value="Submit">
                 </form>
             </div>
 
             <div id="container-delete-group"><?php
-                $groups=$this->view_data['groupOfItems'];
+                $groups = $this->view_data['groupOfItems'];
 
                 echo "<div class=\"header-element-group\">";
                 echo "<div>Group Name</div>";
@@ -59,92 +61,168 @@
                 echo "<div>Updated Date</div>";
                 echo "</div>";
 
-                echo "<div class=\"header-element-group\">";
+                echo "<div class=\"header-element-group\" id=\"element-to-hide\">";
                 echo "<div> </div>";
                 echo "</div>";
 
-                foreach($groups as $group){
+                foreach ($groups as $group) {
                     echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupName']."</div>";
+                    echo "<div>" . $group['iGroupName'] . "</div>";
                     echo "</div>";
 
                     echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['uGroupName']."</div>";
+                    echo "<div>" . $group['uGroupName'] . "</div>";
                     echo "</div>";
 
                     echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group[ 'iGroupDescription']."</div>";
+                    echo "<div>" . $group['iGroupDescription'] . "</div>";
                     echo "</div>";
 
                     echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupCreatedAt']."</div>";
+                    echo "<div>" . $group['iGroupCreatedAt'] . "</div>";
                     echo "</div>";
 
                     echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupUpdatedAt']."</div>";
+                    echo "<div>" . $group['iGroupUpdatedAt'] . "</div>";
                     echo "</div>";
 
-                    echo"<form class=\"post-item-form\" method=\"POST\">";
-                    echo "<input  type=\"text\" class=\"del-button\" name=\"delButton\" value=".$group['iGroupName']." required=\"required\"/>";
-                    echo "<input type=\"submit\" class=\"submit-button-delete-group\" value=\"X\">";
-                    echo"</form>";
+
+                    echo "<form class=\"post-item-form\" method=\"POST\">";
+                    echo "<input  class=\"del-button\" name=\"delButton\" value=\"" . $group['iGroupName'] . "\" required=\"required\"/>";
+                    echo "<input  class=\"del-button\" name=\"delButtonUserGroupId\" value=\"" . $group['uGroupId'] . "\" required=\"required\"/>";
+                    echo "<input type=\"submit\" class=\"delete-button\"  value=\"X\">";
+                    echo "</form>";
                 }
                 ?>
 
             </div>
 
             <div id="container-get-group"><?php
-                $groups=$this->view_data['groupOfItems'];
-
-                echo "<div class=\"header-element-group\">";
-                echo "<div>Group Name</div>";
-                echo "</div>";
-
-                echo "<div class=\"header-element-group\">";
-                echo "<div>Owner Name</div>";
-                echo "</div>";
-
-                echo "<div class=\"header-element-group\">";
-                echo "<div>Group Description</div>";
-                echo "</div>";
-
-                echo "<div class=\"header-element-group\">";
-                echo "<div>Created Date </div>";
-                echo "</div>";
-
-                echo "<div class=\"header-element-group\">";
-                echo "<div>Updated Date</div>";
-                echo "</div>";
-
-                foreach($groups as $group){
-                    echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupName']."</div>";
+                $groups = $this->view_data['groupOfItems'];
+                echo"<div class=\"header-container-group\">";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Group Name</div>";
                     echo "</div>";
 
-                    echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['uGroupName']."</div>";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Owner Name</div>";
                     echo "</div>";
 
-                    echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group[ 'iGroupDescription']."</div>";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Group Description</div>";
                     echo "</div>";
 
-                    echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupCreatedAt']."</div>";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Created Date </div>";
                     echo "</div>";
 
-                    echo "<div class=\"body-element-group\">";
-                    echo "<div>". $group['iGroupUpdatedAt']."</div>";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Updated Date</div>";
                     echo "</div>";
 
+                    echo "<div class=\"header-element-group\" id=\"element-to-hide\">";
+                    echo "<div> </div>";
+                    echo "</div>";
+                echo "</div>";
 
-                }
-                    ?>
+                $var=0;
+                foreach ($groups as $group) {
+
+                    echo "<div class=\"container-row-group-items\">";
+                        echo"<div class=\"body-container-group\">";
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupName'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['uGroupName'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupDescription'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupCreatedAt'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupUpdatedAt'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div id=\"button\" class=\"body-element-group\">";
+                            echo "<button type=\"button\" class=\"show-items-button\" id=$var onclick=\"showHiddenContainerItems(id)\">";
+                            echo "+";
+                            echo "</button>";
+                            echo "</div>";
+                    echo "</div>";
+
+                        echo "<div class=\"container-items-hidden\" id=$var'container'>";
+                            echo "<div class=\"left-container-items\" >";
+
+                                echo "<div id=\"post-item\">";
+                                    echo "<button type=\"button\" id=\"post-item-button\" onclick=\"postItemFunction()\">";
+                                        echo "Add Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                                echo "<div id=\"delete-item\">";
+                                    echo "<button type=\"button\" id=\"delete-item-button\" onclick=\"deleteItemFunction()\">";
+                                        echo "Delete Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                                echo "<div id=\"show-item\">";
+                                    echo "<button type=\"button\" id=\"show-item-button\" onclick=\"showItemFunction()\">";
+                                        echo "Show Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                            echo "</div>";
+
+                            echo "<div class=\"right-container-items\" >";
+                                echo "<div id=\"container-post-item\">";
+                                    echo "<form class=\"post-item-form\" method=\"POST\">";
+
+                                        echo "<a class=\"main-text\"> Item Name </a>";
+                                        echo "<input  type=\"text\" name=\"iName\" value=\"\" placeholder=\"Enter item name\" required=\"required\"/>";
+
+                                        echo "<p class=\"main-text\"> Item Quantity </p>";
+                                        echo "<input class=\"fill-box\" type=\"number\" name=\"iQuantity\" value=\"\" placeholder=\"Enter item quantity\" required=\"required\"/>";
+
+                                        echo "<a class=\"main-text\"> Mim limit stock </a>";
+                                        echo "<input  type=\"number\" name=\"iLimit\" value=\"\" placeholder=\"Enter stock min quantity\" required=\"required\"/>";
+
+                                        echo "<a class=\"main-text\"> Item description</a>";
+                                        echo "<input  type=\"text\" name=\"iDescription\" value=\"\" placeholder=\"Enter item description\" required=\"required\"/>";
+
+                                        echo "<input  class=\"iGroupId-button\" name=\"iGroupId\" value=\"" . $group['iGroupId'] . "\" required=\"required\"/>";
+                                        /* mai sus trebuie bagat  $group['iGroupId'] dar mai intai trebuie trimit de pe get item groups  */
+                                        echo "<input type=\"submit\" class=\"submit-button-post-item\" value=\"Submit\">";
+                                    echo "</form>";
+                                echo "</div>";
+
+                                echo "<div id=\"container-delete-item\">";
+
+                                    echo"";
+                                echo "</div>";
+
+                                echo "<div id=\"container-get-item\">";
+                                     echo"";
+                                echo "</div>";
+
+                            echo "</div>";
+
+
+                        echo "</div>";
+
+                    echo "</div>";
+                    $var=$var+1;
+                } ?>
             </div>
-
 
         </div>
 
     </div>
 
-<?php include VIEW . 'user/footer.phtml';?>
+<?php include VIEW . 'user/footer.phtml'; ?>
