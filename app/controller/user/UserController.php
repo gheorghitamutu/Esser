@@ -359,15 +359,17 @@ class UserController extends Controller
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-//        usort($logs, function ($a, $b)
-//        {
-//            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
-//            {
-//                return 0;
-//            }
-//
-//            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
-//        });
+        usort($logs, function ($a, $b)
+        {
+            $values_a = array_values( $a );
+            $values_b = array_values( $b );
+            if ($values_a[3] == $values_b[3])
+            {
+                return 0;
+            }
+
+            return ($values_a[3] > $values_b[3]) ? -1 : 1;
+        });
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
@@ -909,6 +911,18 @@ class UserController extends Controller
             $fields = 'REPORTID, REPORTPATH, REPORTTYPE, REPORTFORMAT,
                        TO_CHAR(RCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "RCREATEDAT"');
 
+        usort($reports, function ($a, $b)
+        {
+            $values_a = array_values( $a );
+            $values_b = array_values( $b );
+            if ($values_a[4] == $values_b[4])
+            {
+                return 0;
+            }
+
+            return ($values_a[4] > $values_b[4]) ? -1 : 1;
+        });
+
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . 'reports',
             array
@@ -1088,7 +1102,7 @@ class UserController extends Controller
 
                 for ($i = 0; $i < count($split_line); $i++)
                 {
-                    xmlwriter_start_element($xw, $file_headers[$i]);
+                    xmlwriter_start_element($xw, trim($file_headers[$i]));
                     xmlwriter_text($xw, $split_line[$i]);
                     xmlwriter_end_element($xw);
                 }
@@ -1102,8 +1116,6 @@ class UserController extends Controller
         {
             // error opening the file.
         }
-
-        xmlwriter_end_element($xw);
 
         xmlwriter_end_document($xw);
 
@@ -1182,7 +1194,7 @@ class UserController extends Controller
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','',20);
-        $pdf->Cell(200,10, 'REPORT', 0,1, 'C');
+        $pdf->Cell( 46, 12, " REPORT", 1, 0, 'C', false );
 
 
         $pdf->SetFont('Arial','',11);
@@ -1205,9 +1217,8 @@ class UserController extends Controller
                 $data_headers .= $file_headers[$i] . " ";
             }
 
-            $pdf->Cell(-30,20, $data_headers);
-
-            $height = 30;
+            $pdf->Ln( 20 );
+            $pdf->Cell( 0, 6, $data_headers, 1, 0, 'C', false );
 
             // parse file lines
             while (($line = fgets($handle)) !== false)
@@ -1223,9 +1234,8 @@ class UserController extends Controller
                     $data .= $split_line[$i] . " ";
                 }
 
-                $pdf->Cell(-30,$height, $data);
-
-                $height += 10;
+                $pdf->Ln( 6 );
+                $pdf->Cell( 0, 6, $data, 1, 0, 'C', false );
             }
 
             fclose($handle);
