@@ -26,13 +26,13 @@
         {
             echo
             '<div class="container-row">
-            <div class="date">
-                <p>'. $notification["ntfCreatedAt"] . '</p>
-            </div>
-    
-            <div class="message">
-                <p>' . $notification["item_name"] . ' ' . $notification["ntfDscrp"] . '</p>
-            </div>
+                <div class="date" style="min-width: 10rem;">
+                    <p>'. $notification["ntfCreatedAt"] . '</p>
+                </div>
+        
+                <div class="message" style="min-width: 30rem;">
+                    <p>' . $notification["item_name"] . ' ' . $notification["ntfDscrp"] . '</p>
+                </div>
             </div>';
         }
     }

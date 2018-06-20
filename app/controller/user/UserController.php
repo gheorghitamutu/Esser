@@ -339,17 +339,23 @@ class UserController extends Controller
         $this->model('ItemGrouplog');
 
         $item_group_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'IGLOGID, IGLOGDESCRIPTION, IGLOGSOURCEIP,
+                       TO_CHAR(IGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "IGLOGCREATEDAT"');
 
         $this->model('Itemlog');
 
         $item_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'ILOGID, ILOGDESCRIPTION, ILOGSOURCEIP,
+                       TO_CHAR(ILOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ILOGCREATEDAT"');
 
         $this->model('UserGroupLog');
 
         $user_group_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'UGLOGID, UGLOGDESCRIPTION, UGLOGSOURCEIP,
+                       TO_CHAR(UGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "UGLOGCREATEDAT"');
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
@@ -676,20 +682,23 @@ class UserController extends Controller
             $where = "usrNNotifiedAccId = " . $user_id . " AND usrnNIsRead = 0",
             $fields = false);
 
-        if (count($usrntfrelation) == 0) {
+        if (count($usrntfrelation) == 0)
+        {
             return;
         }
 
-        foreach ($usrntfrelation as $relation) {
+        foreach ($usrntfrelation as $relation)
+        {
+            $this->model('Usrntfrelation');
             $this->model_class->get_mapper()->update(
                 'USRNTFRELATIONS',
                 array
                 (
-                    'usrNRelationId' => $relation["usrNRelationId"]
+                    'usrnNIsRead' => 1
                 ),
                 array
                 (
-                    'usrnNIsRead' => 1
+                    'usrNRelationId' => $relation["usrNtfRelationId"]
                 ));
         }
     }
@@ -703,24 +712,26 @@ class UserController extends Controller
             $where = "usrNNotifiedAccId = " . $user_id,
             $fields = false);
 
-        if (count($usrntfrelation) == 0) {
+        if (count($usrntfrelation) === 0)
+        {
             return [];
         }
 
-        $this->model('Usrntfrelation');
-
         $notifications = [];
         $this->model('Notification');
-        foreach ($usrntfrelation as $relation) {
+        foreach ($usrntfrelation as $relation)
+        {
             $notifications[] = $this->model_class->get_mapper()->findAll(
                 $where = "ntfId = " . $relation["usrNNotificationId"],
-                $fields = false)[0];
+                $fields = 'NTFID, NITEMID, NTFTYPE, NTFDSCRP,
+                       TO_CHAR(NTFCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "NTFCREATEDAT"')[0];
         }
 
         $this->model('Item');
-        for ($i = 0; $i < count($notifications); $i++) {
+        for ($i = 0; $i < count($notifications); $i++)
+        {
             $notifications[$i]["item_name"] = $this->model_class->get_mapper()->findAll(
-                $where = "itemId = " . $notifications["nItemId"],
+                $where = "itemId = " . $notifications[$i]["nItemId"],
                 $fields = false)[0]["itemName"];
         }
 
@@ -732,7 +743,9 @@ class UserController extends Controller
         $this->model('AutomatedReport');
 
         $reports = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'REPORTID, REPORTPATH, REPORTTYPE, REPORTFORMAT,
+                       TO_CHAR(RCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "RCREATEDAT"');
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . 'reports',
