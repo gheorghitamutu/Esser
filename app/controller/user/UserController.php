@@ -1180,7 +1180,7 @@ class UserController extends Controller
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','',20);
-        $pdf->Cell(200,10, 'REPORT', 0,1, 'C');
+        $pdf->Cell( 46, 12, " REPORT", 1, 0, 'C', false );
 
 
         $pdf->SetFont('Arial','',11);
@@ -1203,9 +1203,8 @@ class UserController extends Controller
                 $data_headers .= $file_headers[$i] . " ";
             }
 
-            $pdf->Cell(-30,20, $data_headers);
-
-            $height = 30;
+            $pdf->Ln( 20 );
+            $pdf->Cell( 0, 6, $data_headers, 1, 0, 'C', false );
 
             // parse file lines
             while (($line = fgets($handle)) !== false)
@@ -1221,9 +1220,8 @@ class UserController extends Controller
                     $data .= $split_line[$i] . " ";
                 }
 
-                $pdf->Cell(-30,$height, $data);
-
-                $height += 10;
+                $pdf->Ln( 6 );
+                $pdf->Cell( 0, 6, $data, 1, 0, 'C', false );
             }
 
             fclose($handle);
