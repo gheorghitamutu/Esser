@@ -192,7 +192,8 @@ class UserController extends Controller
             (
                 'usersContainer' => $this->getUsers(),
                 'productsContainer' => $this->getProducts(),
-                'notifications_count' => $this->get_notifications_count()
+                'notifications_count' => $this->get_notifications_count(),
+                'totalusers' => $this->getTotalNrOFUserAccounts()
             ),
             'Welcome ' . $_SESSION["uname"]);
     }
@@ -1247,5 +1248,12 @@ class UserController extends Controller
         }
 
         return $pdf;
+    }
+
+    private function getTotalNrOFUserAccounts()
+    {
+        $this->model('Useracc');
+        $number = count($this->model_class->get_mapper()->findAll());
+        return $number;
     }
 }

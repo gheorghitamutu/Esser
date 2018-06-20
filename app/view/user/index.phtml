@@ -154,7 +154,7 @@
                     </div>
 
                     <div class="body-statistics-users-element">
-                        <div><?php echo $this->view_data['usersContainer']['countUsers']; ?></div>
+                        <div><?php echo $this->view_data['totalusers'] ?></div>
                     </div>
 
 
@@ -173,10 +173,10 @@
 
                     <div class="body-statistics-users-element">
                         <div><?php
-                            $users = $this->view_data['usersContainer']['countUsers'];
+                            $users = $this->view_data['totalusers'];
                             $groups = $this->view_data['usersContainer']['countGroups'];
                             if ($groups != 0) {
-                                echo(round($users / $groups, 2));
+                                echo(intval($users / $groups));
                             } else {
                                 echo(0);
                             }
