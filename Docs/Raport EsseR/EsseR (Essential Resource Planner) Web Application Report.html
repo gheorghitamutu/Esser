@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>EsseR (Essential Resource Planner) Web Application Report</title>
+    <link rel="stylesheet" href="./EsseR (Essential Resource Planner) Web Application Report_files/scholarly.min.css.descărcare.descărcare.descărcare">
+    <script src="./EsseR (Essential Resource Planner) Web Application Report_files/scholarly.min.js.descărcare.descărcare.descărcare"></script>
+  </head>
+ <body>
+    <header>
+      <h1 style="background: #faf9fc; color: 	#000080; text-align: center;line-height: normal;font-family: system-ui; display: block;">
+        EsseR (Essential Resource Planner)
+      </h1>
+
+      <h2 style="background: #dee2e626; color: #08088A; text-align: center;line-height: normal;font-family: system-ui; display: block;">
+        Web Application Report
+      </h2>
+      <div style="color: #08088A;">
+      <div style="text-align: center;line-height: normal;font-family: system-ui; display: block;">
+      <div style="size:10px;font-family: system-ui;text-transform: uppercase;color:#2f2f2f;">Realised by:</div>
+      <div style= "margin-bottom: 100px; border-top: 1px solid #2f2f2f;
+       content: &#39;&#39;;
+       width: 100px;
+       height: 7px;
+       display: block;
+       margin: 0 auto; "></div>
+      <div typeof="schema:WebPage" role="doc-biblioentry" property="schema:citation">
+         <span property="schema:author" typeof="schema:Person">
+         <span property="schema:givenName">George-Tiberiu</span>
+         <span property="schema:familyName"> Bugeag</span>
+       </span>
+      </div>
+      <div typeof="schema:WebPage" role="doc-biblioentry" property="schema:citation">
+         <span property="schema:author" typeof="schema:Person">
+         <span property="schema:givenName">Petru-Mihai</span>
+         <span property="schema:familyName"> Cobzaru</span>
+       </span>
+      </div>
+      <div typeof="schema:WebPage" role="doc-biblioentry" property="schema:citation">
+         <span property="schema:author" typeof="schema:Person">
+         <span property="schema:givenName">Gheorghita</span>
+         <span property="schema:familyName"> Mutu</span>
+       </span>
+      </div>
+      <div typeof="schema:WebPage" role="doc-biblioentry" property="schema:citation">
+         <span property="schema:author" typeof="schema:Person">
+         <span property="schema:givenName">Marcu</span>
+         <span property="schema:familyName"> Palii</span>
+       </span>
+      </div>
+      <div typeof="schema:WebPage" role="doc-biblioentry" property="schema:citation"> Coord. Prof.
+         <span property="schema:author" typeof="schema:Person">
+         <span property="schema:givenName">Andrei</span>
+         <span property="schema:familyName"> Panu</span>
+       </span>
+      </div>
+    </div>
+  </div>
+</header>
+    <div role="contentinfo" style="font-family: system-ui">
+    <section typeof="sa:Abstract" id="abstract" role="doc-abstract" align="justify">
+      <h2><span>1. </span>Abstract</h2>
+      <p>
+        This report describes the <code>EsseR (Essential Resource Planner)</code> Project and its feature,
+        as well as details about its progress.
+        For more tehnical details, refer to this document
+        <a role="documentation" target="_blank" href="https://docs.google.com/document/d/1Kp18q6s0MV5fcAj7tsefYx1cgh0XRaGVyF_qGCUDASU/edit#">
+        [1].</a>
+      </p>
+    </section>
+    <section id="introduction" role="doc-introduction" align="justify">
+      <h2><span>2. </span>Introduction</h2>
+      <p>
+        This project is a Web Application that allows the management of resources of any type in an organization.
+      </p>
+      <p>
+        The users or the groups of users will be notified about any change regarding the users or products, via e-mail or in-app.
+      </p>
+      <p>
+        The data regarding the management will be exported in <code>CSV</code>, <code>HTML</code> , <code>XML</code> and <code>PDF</code> format.
+      </p>
+    </section>
+    <section id="objectives" align="justify">
+      <h2><span>3. </span>Objectives</h2>
+      <p>
+        The main objective of the <code>EsseR (Essential Resource Planner)</code> was the didactic goals it suppose:
+        <ul>
+          <li>a motive for learning and interacting with web-related technologies and techniques</li>
+          <li>teamwork</li>
+          <li>developement based on stages</li>
+        </ul>
+      </p>
+   </section>
+    <section id="theory" align="justify">
+      <h2><span>4. </span>Theory</h2>
+      <p>
+        More technical details, are referred in this document
+        <a role="documentation" target="_blank" href="https://docs.google.com/document/d/1Kp18q6s0MV5fcAj7tsefYx1cgh0XRaGVyF_qGCUDASU/edit#">
+        [1].</a>
+      </p>
+    </section>
+    <section id="working-method" align="justify">
+      <h2><span>5. </span>Working method</h2>
+      <p>
+        The application was developed in two stages: the Front-End and the Back-End.
+        The Front-End uses <code>HTML</code>, <code>CSS</code> and <code>ECMA-Script</code>, which implementation can be found
+        at <span style="color:  #3b1b4c;  font-style: italic">'/app/view/'.</span> route. The public resources(like <code>CSS</code> classes and <code>ECMA-Script</code> functions) can be found at
+        <span style="color:  #3b1b4c;  font-style: italic">'/public/resources/'.</span>. For more info, consult:
+        <a role="documentation" target="_blank" href="https://docs.google.com/document/d/1Kp18q6s0MV5fcAj7tsefYx1cgh0XRaGVyF_qGCUDASU/edit#">
+        [1].</a>
+      </p>
+      <p>
+        The Back-End was designed based on the MVC Pattern, coded in <code>PHP</code>, without using any framweork.
+        All the MVC components (models, views and controllers) are routed and classified in the <span style="color:  #3b1b4c;  font-style: italic">'/app/'.</span>
+        For more info, consult:
+        <a role="documentation" target="_blank" href="https://docs.google.com/document/d/1Kp18q6s0MV5fcAj7tsefYx1cgh0XRaGVyF_qGCUDASU/edit#">
+        [1].</a>
+      </p>
+	  <p>
+		We used <code>Oracle 11g version 2</code> for the database, and the <code>php_oci8</code> to make the connection between the web-server and DB.
+		As a particular note, we implemented for each type of <code>Table</code> an Adapter Mapper, in other to create a standard for DB commands (like <code>select</code>
+		<code>insert</code>  and <code>update</code>), to make a bridge for the triggers and procedures from <code>PL/SQL</code> and also for sequrity reasons.
+	  </p>
+	  <p>
+		For each functionality of our application, we implemented separate <code>Views</code>:
+		<ul>
+			<li>Admin Control Panel(AdminCP)</li>
+			<li>Home (User landing page)</li>
+			<li>Logs</li>
+			<li>Notifications</li>
+			<li>Products</li>
+			<li>Groups</li>
+			<li>Reports</li>
+		</ul>
+	  </p>
+	  <p>
+		The <code>AdminCP</code> component has a special role, giving the root-admin of the application the special rights to approove the new created user accounts, 
+		to delete user accounts, and to alter/modify all the entities existent from the database, using automated triggers for constraints re-routing.
+	  </p>
+	  <p>
+		The <code>Home</code> component offers a brief review about the management situation of the application, giving details about the users and products that have 
+		been modified or added.
+	  </p>
+	  <p>
+		The <code>Logs</code> component offers a detailed list about any event that occured on the users, products, and specific groups, in order to 
+		make an up-to-date situation about the last modification in the Database. Using automated triggers written in <code>PL/SQL</code>, it collects different types
+		of logs and others them after the date when something was modified regarding groups, users or products.
+	  </p>
+	  <p>
+		The <code>Notifications</code> component offers details of great importance for the logged-in user, depeding on the ownership of the product-groups or the
+		user groups he is part of. It will notify the users that manage that product group if the quantity of a specific product reached it's <code>Warning Quantity Limit</code>.
+	  </p>
+	  <p>
+		The <code>Products</code> component offers the core-functionality of our application, giving the user, based on its grade of hierarchy, options to create or remove
+		product groups, if it's manager, or just to add or remove products and modify their quantity.
+	  </p>
+	  <p>
+		The <code>Groups</code> component offers, based on the grade of hierarchy of the user, the posibility to create <code>User Groups</code> that will manage specific
+		<code>Product Groups</code>, and to add users to them, giving specific rights so as <code>can manage group</code> or <code>can manage products</code>, in case of an
+		admin or a manager, or just to see the colleagues of user group, in case of a normal user.
+	  </p>
+	  <p>
+		The <code>Reports</code> component offers different situation of the <code>products</code> recent changes, which can be downloaded as different types of format.
+	  </p>
+	  <p>
+		As a <code>Back-end</code> logic of organisation, each of the previous listed component has it's own <code>Controller</code> than associates <code>URI</code>
+		addresses to specific functions. Each has it's own <code>render</code> method, which will load the <code>View</code>, based on specific pre-defined or real-time
+		conditions and situations in application.
+	  </p>
+	  <p>
+		Each time when the database had to be accesed for querrying, the <code>Table</code> had been accessed like <code>$this->model('nameOfTheTable')</code>.
+	  </p>
+	  <p>
+		Then, for each loaded <code>model</code> of a specific <code>table</code>, we accesses specific methods stored in the afferent <code>Mapper</code> classes, 
+		like this: <code>$this->model_class->get_mapper()->Command</code>, where we can define arrays of properties to generate specific 
+		equivalent <code>PL/SQL</code> commands.
+	  </p>
+    </section>
+    <section id="development-platform" align="justify">
+      <h2><span>6. </span>Development Platform</h2>
+      <p>
+        The usage of the <code>Bitbucket - web-based version control repository hosting service</code>, 
+		along with different local git clients like <code>SourceTree</code> and <code>GitHub for Desktop</code>
+        allowed an organized developement of the application. Each member of the team worked on his branch, 
+		pushing commits in order to realise a specific functionality,
+        merging with other branches in order to obtain core functionalities and merging into the master branch, 
+		where the main functional version of the application is stored. Any conflicts between
+        the branches were solved by code-reviewing.
+      </p>
+    </section>
+    <section id="Install-Method" align="justify">
+      <h2><span>7. </span>Install Method</h2>
+      <p>
+        This section describes the install steps, including the tools and local system settings and configuration.
+      </p>
+      <p>
+        System requirements: any Windows NT based OS.
+      </p>
+      <p>
+        First, we need the <code>Apache HTTP Server</code>, which can be found in the <code>XAMPP</code> suite of programs, which can be downloaded
+        from the following link: <a role="documentation" target="_blank" href="https://www.apachefriends.org/xampp-files/7.2.6/xampp-win32-7.2.6-0-VC15-installer.exe">LINK</a>.
+        Any Apache of PHP version greater than 7.2.5 will meet the requirements, but we strongly recommend to install the XAMPP for an easier first-configuration.
+      </p>
+      <p>
+        Open XAMPP -> Apache Module -> config, the select  <code>PHP (php.ini)</code>, or find the <code>php.ini</code> file associated with the Apache server.
+      </p>
+      <p>
+        Add the following two lines at the end of the file:
+      </p>
+      <p>
+        <code>extension=php_oci8.dll</code>
+      </p>
+      <p>
+        <code>extension=php_oci8_11g.dll</code>
+      </p>
+      <p>
+        Change the port of the application, using <code>Config -> Apache (httpd.conf)</code>, by adding the following code, or searching for similar code, and chaging the value with a +2000 number. Ex:
+      </p>
+      <p>
+        <code>Listen 2017</code>
+      </p>
+      <p>
+        Now we need to install the dependencies regarding the Oracle DB
+      </p>
+      <p>
+        First, search for a Oracle Instant Client(x86 version). After finding a specific zip, like <code>instantclient-basic-nt-12.2.x.x.x</code> (version 12.2+ recommended), then unzip it anywhere you like, but remember its location.
+      </p>
+      <p>
+        After that, access System Properties, then Environment Variables. After that, add to the Path from System variables the path of the previous extracted folder.
+        You should also see the <code>\xampp\php</code> path from the first step, if you installed XAMPP.
+      </p>
+      <p>
+        Then, you need to install <code>Oracle Database Express Edition 11g Release 2</code>
+        from the following <a role="documentation" target="_blank" href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html">link</a>. NOTE: You must have an Oracle account in order to download.
+      </p>
+      <p>
+        Next, you must add in <code>\xampp\php\ext</code> folder the following files:
+      </p>
+      <p>
+        <code>php_oci8.dll</code>
+      </p>
+      <p>
+        <code>php_oci8_11g.dll</code>
+      </p>
+      <p>
+        <code>php_oci8_12c.dll</code>
+      </p>
+      <p>
+        You can acquire the previous files from <code>php_oci8</code> archives, x86 bit version.
+      </p>
+      <p>
+        Now, you must download the master-branch from our repo: <a role="documentation" target="_blank" href="https://bitbucket.org/twesser/esser/src/master/">Link to repo</a>. Copy the content of the archive.
+      </p>
+      <p>
+        Next, navigate to <code>\xampp\htdocs</code> and delete everything from that folder. Now, paste the content into the archive(the src folder) directly into <code>htdocs</code>.
+      </p>
+      <p>
+        Then, open from XAMPP, press Config then select <code>Apache (httpd.conf)</code>. Search the <code>DocumentRoot</code>, then modify to <code>DocumentRoot "X:/xampp/htdocs/src/public"</code>, where X is the drive where you installed XAMPP.
+      </p>
+      <p>
+        In the same file, modify <code>&lt;Directory&gt;</code> to <code>&lt;Directory "X:/xampp/htdocs/src/public"&gt;</code>, where X is the drive where you installed XAMPP.
+      </p>
+    </section>
+    <section id="User-Manual">
+      <h2><span>8. </span>User Manual</h2>
+    </section>
+    <p>
+      The user manual is referred to the following address:
+	  <a role="documentation" target="_blank" href="https://docs.google.com/document/d/183_GTaxqPtZGAoraB18ji1pngHWAOo3fGjYveSv-wu0/edit?usp=sharing">Link to user-manual</a>
+	  
+	  
+
+    </p>
+    <section id="Bibliography">
+      <h2><span>9. </span>Bibliography</h2>
+    </section>
+
+
+  </div>
+
+</body></html>
