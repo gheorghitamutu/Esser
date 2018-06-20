@@ -1034,7 +1034,7 @@ class UserController extends Controller
             {
                 $row = $rep["itemId"] . ",";
                 $row .= $rep["itemName"] . ",";
-                $row .= $rep["itemDescription"] . ",";
+                $row .= str_replace(',','', $rep["itemDescription"]) . ",";
                 $row .= $rep["itemQuantity"] . ",";
                 $row .= $rep["iGroupId"] . ",";
                 $row .= $rep["iWarnQnty"] . ",";
@@ -1231,11 +1231,12 @@ class UserController extends Controller
 
                 for ($i = 0; $i < count($split_line); $i++)
                 {
-                    $data .= $split_line[$i] . " ";
+                    //$data .= $split_line[$i] . " ";
+                    $pdf->Ln( 6 );
+                    $pdf->Cell( 0, 6, $split_line[$i] . " ", 1, 0, 'C', false );
                 }
 
-                $pdf->Ln( 6 );
-                $pdf->Cell( 0, 6, $data, 1, 0, 'C', false );
+
             }
 
             fclose($handle);
