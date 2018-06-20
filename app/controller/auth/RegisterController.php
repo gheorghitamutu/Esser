@@ -92,7 +92,7 @@ class RegisterController extends Controller
         else
         {
             return array('operation' => false,
-                'message' => 'username containing prohibited characters!'
+                'message' => 'username contains prohibited characters!'
                              . PHP_EOL
                              . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
         }

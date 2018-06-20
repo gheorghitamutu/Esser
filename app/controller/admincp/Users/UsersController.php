@@ -12,6 +12,8 @@ class UsersController extends AdmincpController
 
     public function __construct($uri)
     {
+        Parent::__construct($uri);
+
         switch ($uri) {
             case 'admincp/usereditor':
                 $this->usereditor();

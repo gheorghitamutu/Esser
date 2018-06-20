@@ -1,0 +1,80 @@
+
+#main-container-items-page{
+    width:100%;
+    height: 100%;
+    display:grid;
+    grid-template-columns: 1fr 4fr;
+    border:1px solid black;
+}
+
+
+
+/*----------------------------------- left side ------------------------------- */
+#left-container-group{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+
+}
+#left-container-group>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+}
+
+#post-group-button,#delete-group-button,#get-group-button{
+    width:100%;
+    cursor:pointer;
+}
+
+
+
+
+
+/*----------------------------------------------  right side ----------------*/
+#right-container-group{
+    border:1px solid black;
+}
+#right-container-group>div{
+    display:none;
+    width:0;
+    height:0;
+}
+
+/*---------------------     list group of items ---------*/
+
+#container-get-group{
+    display:grid;
+    grid-template-columns: auto auto auto auto auto;
+    max-height: 500px;
+    overflow-y:scroll;
+}
+.body-element-group,.header-element-group{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+    margin:2px;
+}
+.body-element-group>div,.header-element-group>div{
+    text-align: center;
+}
+
+
+/*--------------------------------   delete items group------------------------------*/
+#container-delete-group{
+    display:grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    max-height: 500px;
+    overflow-y:scroll;
+}
+
+.del-button{
+    display: none;
+    height: 0;
+    width: 0;
+}

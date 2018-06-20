@@ -47,12 +47,13 @@ define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . D
 define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);
 define('LIB'       , ROOT                   . 'app'      . DS . 'lib'        . DS);
 define('MODELS'    , ROOT                   . 'app'      . DS . 'models'     . DS);
-define('RESOURCES' , ROOT                   . 'app'      . DS . 'resources'  . DS);
+define('RESOURCES' , ROOT                   . 'public'   . DS . 'resources'  . DS);
 define('VIEW'      , ROOT                   . 'app'      . DS . 'view'       . DS);
 define('DATABASE'  , ROOT                                     . 'database'   . DS);
 define('LOGGER'    , ROOT                                     . 'logger'     . DS);
 define('ROUTE'     , ROOT                                     . 'route'      . DS);
 define('DB_SCRIPTS', ROOT                   . 'scripts'  . DS . 'database'   . DS);
+define('DOMAIN'    , 'localhost');
 
 // Logger messages macros
 // date('d-m-Y H:i:s) represents date-time in the following format:

@@ -7,39 +7,73 @@
     </div>
 
     <div id="main-second-row-container">
-    <div class="container">
-        <?php
+        <div class="container" style="margin: 15px 0px 15px -30px">
+            <div class = "message">
+                <form action="/user/reports/generate" method="POST">
+                    <button type="submit" name="generate_report" value="generate_report" style="padding: 10px 10px 10px 10px">
+                        Generate Report
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="main-second-row-container">
+            <?php
 
-        if (empty($this->view_data["reports"]))
-        {
-            echo
-            '<div class="container-row">    
-                <div class="message">
-                    <p>There are no reports!</p>
-                </div>
-            </div>';
-
-        }
-        else
-        {
-            foreach ($this->view_data["reports"] as $report)
+            if (empty($this->view_data["reports"]))
             {
                 echo
-                    '<div class="message">
-                            <p>' . 'Report: ' . ' ' . $report["rCreatedAt"] . '</p>' .
-                        '</div>
-                         <div class = "message">' .
-                            '<form action="/user/reports/download" method="POST">
-                                <button type="submit" name="download_report" value="' . $report["reportId"] . '">
-                                                Download 
-                                </button>
-                             </form>'
-                        . 
-                    '</div>';
+                '<div class="container-row">    
+                    <div class="message">
+                        <p>There are no reports!</p>
+                    </div>
+                </div>';
+
             }
-        }
-        ?>
-    </div>
+            else
+            {
+                foreach ($this->view_data["reports"] as $report)
+                {
+                    echo
+                        '<div class="container-row">
+                            <div class="message">
+                                <p>' . 'Report: ' . ' ' . $report["rCreatedAt"] . '</p>' .
+                            '</div>
+                             <div class = "message">' .
+                                '<form action="/user/reports/download/csv" method="POST">
+                                    <button type="submit" name="download_report" value="' . $report["reportId"] . '">
+                                                    Download CSV
+                                    </button>
+                                 </form> 
+                             </div> '.
+
+                             '<div class = "message">
+                                 <form action="/user/reports/download/pdf" method="POST">
+                                    <button type="submit" name="download_report" value="' . $report["reportId"] . '">
+                                                    Download PDF
+                                    </button>
+                                 </form> 
+                              </div>'.
+
+                             '<div class = "message">
+                                 <form action="/user/reports/download/html" method="POST">
+                                    <button type="submit" name="download_report" value="' . $report["reportId"] . '">
+                                                    Download HTML
+                                    </button>
+                                 </form> 
+                             </div>'  .
+
+                             '<div class = "message">
+                                <form action="/user/reports/download/xml" method="POST">
+                                    <button type="submit" name="download_report" value="' . $report["reportId"] . '">
+                                                    Download XML
+                                    </button>
+                                 </form>
+                             </div>
+                        </div>';
+                }
+            }
+            ?>
     </div>
 
 <?php include VIEW . 'user/footer.phtml';?>
