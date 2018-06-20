@@ -359,15 +359,17 @@ class UserController extends Controller
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-//        usort($logs, function ($a, $b)
-//        {
-//            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
-//            {
-//                return 0;
-//            }
-//
-//            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
-//        });
+        usort($logs, function ($a, $b)
+        {
+            $values_a = array_values( $a );
+            $values_b = array_values( $b );
+            if ($values_a[3] == $values_b[3])
+            {
+                return 0;
+            }
+
+            return ($values_a[3] > $values_b[3]) ? -1 : 1;
+        });
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
