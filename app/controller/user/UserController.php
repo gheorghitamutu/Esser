@@ -104,11 +104,11 @@ class UserController extends Controller
 
         if($_SESSION['is_admin'])
         {
-            $userGrade = "Admin";
+            $userGrade = "Admin user";
         } else if ($_SESSION['canManageMembers']){
-            $userGrade = "Manager";
+            $userGrade = "Manager user";
         } else {
-            $userGrade = "Normal";
+            $userGrade = "Normal user";
         }
 
         $this->model_class->get_mapper()->insert(
@@ -117,6 +117,16 @@ class UserController extends Controller
             (
                 'uGLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added group " . $description  . "'",
                 'uGLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
+
+        $this->model('Userlog');
+        $this->model_class->get_mapper()->insert(
+            $table = 'USERLOGS',
+            $fields = array
+            (
+                'uLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added group " . $description  . "'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
             )
         );
         self::redirect('/user/users');
@@ -147,11 +157,11 @@ class UserController extends Controller
 
         if($_SESSION['is_admin'])
         {
-            $userGrade = "Admin";
+            $userGrade = "Admin user";
         } else if ($_SESSION['canManageMembers']){
-            $userGrade = "Manager";
+            $userGrade = "Manager user";
         } else {
-            $userGrade = "Normal";
+            $userGrade = "Normal user";
         }
 
         $this->model_class->get_mapper()->insert(
@@ -163,6 +173,15 @@ class UserController extends Controller
             )
         );
 
+        $this->model('Userlog');
+        $this->model_class->get_mapper()->insert(
+            $table = 'USERLOGS',
+            $fields = array
+            (
+                'uLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has removed user " . $removedUserName . " from group " . $_SESSION['userGroupName'] . "'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
         if ((isset($_SESSION['renderedGroupId']) || isset($_SESSION['listOfGroupUserIds']))) {
             unset($_SESSION['renderedGroupId']);
             unset($_SESSION['listOfGroupUserIds']);
@@ -221,11 +240,11 @@ class UserController extends Controller
 
         if($_SESSION['is_admin'])
         {
-            $userGrade = "Admin";
+            $userGrade = "Admin user";
         } else if ($_SESSION['canManageMembers']){
-            $userGrade = "Manager";
+            $userGrade = "Manager user";
         } else {
-            $userGrade = "Normal";
+            $userGrade = "Normal user";
         }
 
         $this->model_class->get_mapper()->insert(
@@ -234,6 +253,16 @@ class UserController extends Controller
             (
                 'uGLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added user " . $addedUserName . " in group " . $_SESSION['userGroupName'] . "'",
                 'uGLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
+            )
+        );
+
+        $this->model('Userlog');
+        $this->model_class->get_mapper()->insert(
+            $table = 'USERLOGS',
+            $fields = array
+            (
+                'uLogDescription'   => "'" . $userGrade . " " . $_SESSION['uname'] . " " . " has added user " . $addedUserName . " in group " . $_SESSION['userGroupName'] . "'",
+                'uLogSourceIP'      => "'" . $_SESSION['login_ip'] . "'"
             )
         );
 
