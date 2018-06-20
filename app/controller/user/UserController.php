@@ -359,15 +359,15 @@ class UserController extends Controller
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-        usort($logs, function ($a, $b)
-        {
-            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
-            {
-                return 0;
-            }
-
-            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
-        });
+//        usort($logs, function ($a, $b)
+//        {
+//            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
+//            {
+//                return 0;
+//            }
+//
+//            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
+//        });
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
@@ -1043,7 +1043,7 @@ class UserController extends Controller
                 $data_headers .= $file_headers[$i] . " ";
             }
 
-            $pdf->Cell(30,20, $data_headers);
+            $pdf->Cell(-30,20, $data_headers);
 
             $height = 30;
 
@@ -1061,7 +1061,7 @@ class UserController extends Controller
                     $data .= $split_line[$i] . " ";
                 }
 
-                $pdf->Cell(30,$height, $data);
+                $pdf->Cell(-30,$height, $data);
 
                 $height += 10;
             }
