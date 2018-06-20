@@ -13,8 +13,6 @@ class AdmincpController extends Controller
 {
     public function __construct($uri)
     {
-        $this->model('Useracc');
-
         switch ($uri) {
             case 'admincp':
                 $this->index();

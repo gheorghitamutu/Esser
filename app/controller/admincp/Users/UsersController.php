@@ -12,7 +12,7 @@ class UsersController extends AdmincpController
 
     public function __construct($uri)
     {
-        Parent::__construct($uri);
+//        Parent::__construct($uri);
 
         switch ($uri) {
             case 'admincp/usereditor':
@@ -48,7 +48,8 @@ class UsersController extends AdmincpController
 
     protected function usereditor()
     {
-        if (key_exists('userToEdit', $_SESSION)) {
+        $_SESSION['userToEdit'] = null;
+        if (isset($_SESSION['userToEdit'])) {
             View::CreateView(
                 'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'editor',
                 ['userToEdit' => $_SESSION['userToEdit']],
@@ -484,6 +485,7 @@ class UsersController extends AdmincpController
 
     protected function usermanager()
     {
+        unset ($_SESSION['userToEdit']);
         View::CreateView(
             'admincp' . DIRECTORY_SEPARATOR . 'users_manager' . DIRECTORY_SEPARATOR . 'manager',
             [
