@@ -572,7 +572,7 @@ div.flex-table-head > div.flex-table-row {
     text-align: center;
     display: flex;
     width: 100%;
-    margin: 0%;
+    margin: 0.2%;
     overflow: auto;
 }
 
@@ -618,27 +618,27 @@ div.flex-table-body div.flex-table-row {
 
 div.flex-table-row div.flex-table-td {
     width: 15%;
-    margin: 0.2% auto;
+    margin: 0.6% auto;
 }
 
 div.flex-table-row div:first-child.flex-table-td {
     width: 10%;
-    margin: 0.2% auto;
+    margin: 0.6% auto;
 }
 
 div.flex-table-row div:nth-child(2).flex-table-td {
     width: 12.5%;
-    margin: 0.2% auto;
+    margin: 0.6% auto;
 }
 
 div.flex-table-row div:nth-child(3).flex-table-td {
     width: 50%;
-    margin: 0.2% auto;
+    margin: 0.6% auto;
 }
 
 div.flex-table-row div:nth-child(4).flex-table-td {
     width: 10%;
-    margin: 0.2% auto;
+    margin: 0.6% auto;
 }
 
 div.flex-table-td + div.flex-table-td {

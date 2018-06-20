@@ -15,6 +15,64 @@
     <div class="admcp-rt-box">
         <div class="admcp-rt-cnt-box">
             <div class="admcp-rt-content">
+                <h3 class="adm-rt-title"> Item Management </h3>
+                <div class="admcp-rt-content">
+                <?php
+                for ($i = 0; $i < count($this->view_data['itmgroups']); ++$i) {
+                    echo '<form action="/admincp/itemmanager/renderitmgroup" method="POST">' .
+                    '<button class="admcp-menu-option" type="submit" name="groupitmid" value="'
+                        . $this->view_data['itmgroups'][$i]['iGroupId'] . '">'
+                        . $this->view_data['itmgroups'][$i]['iGroupName'] . '</button>' .
+                    '</form>';
+                    echo  ((count($this->view_data['groupitemlist']) > 0 &&
+                           $this->view_data['grouptorender'] == $this->view_data['itmgroups'][$i]['iGroupId']) ?
+                    '<div class="admcp-rt-content">' . PHP_EOL .
+                    '<div class="flex-table">' . PHP_EOL .
+                        '<h2 class="adm-rt-title"> Item List </h2>' . PHP_EOL .
+                        '<div class="flex-table-head">' . PHP_EOL .
+                            '<div class="flex-table-row">' . PHP_EOL .
+                                '<div class="flex-table-th"> Item Name </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Created At </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Description </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Current Quantity </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Warn Quantity </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Edit </div>' . PHP_EOL .
+                                '<div class="flex-table-th"> Delete </div>' . PHP_EOL .
+                            '</div>' . PHP_EOL .
+                        '</div>' . PHP_EOL .
+                        '<div class="flex-table-body">' : '');
+                            for($idx = 0; $this->view_data['grouptorender'] == $this->view_data['itmgroups'][$i]['iGroupId'] &&
+                                $idx < count($this->view_data['groupitemlist']); ++$idx) {
+                                echo
+                                    "<div class=\"flex-table-row\">". PHP_EOL .
+                                    "<div class=\"flex-table-td\">". $this->view_data['groupitemlist'][$idx]['itemName'] ."</div>" . PHP_EOL .
+                                    "<div class=\"flex-table-td\">" .$this->view_data['groupitemlist'][$idx]['itemCreatedAt'] . "</div>" . PHP_EOL .
+                                    "<div class=\"flex-table-td\">". $this->view_data['groupitemlist'][$idx]['itemDescription']. "</div>" . PHP_EOL .
+                                    "<div class=\"flex-table-td\">" .$this->view_data['groupitemlist'][$idx]['itemQuantity'] . "</div>" . PHP_EOL .
+                                    "<div class=\"flex-table-td\">" .$this->view_data['groupitemlist'][$idx]['iWarnQnty'] . "</div>" . PHP_EOL .
+                                    "<div class=\"flex-table-td\">" . PHP_EOL .
+                                    "<form action=\"/admincp/itemeditor/getitemid\" method=\"POST\">" . PHP_EOL .
+                                    "<button type=\"submit\" class=\"admcp-srch-btn\" name=\"edititemid\" 
+                                        value=\"".$this->view_data['groupitemlist'][$idx]['itemId']."\"> Edit </button>" . PHP_EOL .
+                                    "</form>" . PHP_EOL .
+                                    "</div>".PHP_EOL .
+                                    "<div class=\"flex-table-td\">" . PHP_EOL .
+                                    "<form action=\"/admincp/itemmanager/deleteitem\" method=\"POST\">" . PHP_EOL .
+                                    "<button type=\"submit\" class=\"admcp-srch-btn\" name=\"delitemid\" 
+                                        value=\"".$this->view_data['groupitemlist'][$idx]['itemId']."\"> Delete </button>" . PHP_EOL .
+                                    "</form>" . PHP_EOL .
+                                    "</div>" . PHP_EOL .
+                                    "</div>";
+                            }
+                            echo (count($this->view_data['groupitemlist']) > 0 &&
+                                $this->view_data['grouptorender'] == $this->view_data['itmgroups'][$i]['iGroupId']) ?
+                        '</div>' . PHP_EOL .
+                    '</div>' . PHP_EOL .
+                '</div>' : null ;
+                }
+                ?>
+
+                </div>
             </div>
         </div>
     </div>

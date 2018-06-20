@@ -89,7 +89,49 @@ class AdmincpController extends Controller
             case 'admincp/itemmanager':
                 new ItemsController($uri);
                 break;
+            case 'admincp/itemmanager/renderitmgroup':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemmanager/deleteitem':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/getitemid':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/searchitem':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemname':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemdescription':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemquantity':
+                new ItemsController($uri);
+                break;
+            case 'admincp/itemeditor/edititemwarning':
+                new ItemsController($uri);
+                break;
             case 'admincp/itemgroups':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroups/delitemgroup':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/searchitmgrp':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/getitmgroup':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/editgrouptitle':
+                new ItemGroupsController($uri);
+                break;
+            case 'admincp/itemgroupeditor/editgroupdescription':
                 new ItemGroupsController($uri);
                 break;
             case 'admincp/loginlogs':
@@ -99,6 +141,9 @@ class AdmincpController extends Controller
                 new LogsController($uri);
                 break;
             case 'admincp/itemlogs':
+                new LogsController($uri);
+                break;
+            case 'admincp/loginlogs/searchitemlogs':
                 new LogsController($uri);
                 break;
             case 'admincp/userlogs':
@@ -111,10 +156,7 @@ class AdmincpController extends Controller
                 new LogsController($uri);
                 break;
             default:
-                View::CreateView(
-                    '404',
-                    [],
-                    'Page not found!');
+                new PageNotFoundController();
                 break;
         }
     }
@@ -182,7 +224,7 @@ class AdmincpController extends Controller
                 'timeZone' => $this->getDBTimeZone(),
                 'lastDBBackupTime' => $this->getLastDBBackupTime(),
                 'totalItemGroups' => $this->getTotalItemGroups(),
-                'avgItemPerGroup' => $this->getTotalItemGroups() ? ($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
+                'avgItemPerGroup' => $this->getTotalItemGroups() ? intval($this->getTotalItems() / $this->getTotalItemGroups()) : 'N/A'
             ),
             APP_TITLE);
         unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
@@ -367,6 +409,11 @@ class AdmincpController extends Controller
                 self::redirect('/admincp/settings');
             }
             else {
+                $this->adduserlog
+                (
+                    $logdescription = "Admin user " . $_SESSION['uname'] . " has changed the app title into " . $newtitle,
+                    $sourceip = $_SESSION['login_ip']
+                );
                 $this->showmessage
                 (
                     $opsuccess = $success,
@@ -378,6 +425,58 @@ class AdmincpController extends Controller
                 shell_exec('httpd.exe -k restart');
             }
         }
+    }
+
+    protected function adduserlog($logdescription, $sourceip) {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert
+        (
+            $table = 'USERLOGS',
+            $fields = array
+            (
+                'ULOGDESCRIPTION' => "'" . $logdescription . "'",
+                'ULOGSOURCEIP' => "'" . $sourceip . "'"
+            )
+        );
+    }
+
+    protected function addusergrouplog($logdescription, $sourceip) {
+        $this->model('UserGroupLog');
+        $this->model_class->get_mapper()->insert
+        (
+            $table = 'USERGROUPLOGS',
+            $fields = array
+            (
+                'UGLOGDESCRIPTION' => "'" . $logdescription . "'",
+                'UGLOGSOURCEIP' => "'" . $sourceip . "'"
+            )
+        );
+    }
+
+    protected function additemlog($logdescription, $sourceip) {
+        $this->model('Itemlog');
+        $this->model_class->get_mapper()->insert
+        (
+            $table = 'ITEMLOGS',
+            $fields = array
+            (
+                'ILOGDESCRIPTION' => "'" . $logdescription . "'",
+                'ILOGSOURCEIP' => "'" . $sourceip . "'"
+            )
+        );
+    }
+
+    protected function additemgrouplog($logdescription, $sourceip) {
+        $this->model('Itemgrouplog');
+        $this->model_class->get_mapper()->insert
+        (
+            $table = 'ITEMGROUPLOGS',
+            $fields = array
+            (
+                'IGLOGDESCRIPTION' => "'" . $logdescription . "'",
+                'IGLOGSOURCEIP' => "'" . $sourceip . "'"
+            )
+        );
     }
 
 }

@@ -22,6 +22,9 @@ class LogsController extends AdmincpController
             case 'admincp/itemlogs':
                 $this->itemlogs();
                 break;
+            case 'admincp/loginlogs/searchitemlogs':
+                $this->searchitemlogs();
+                break;
             case 'admincp/userlogs':
                 $this->userlogs();
                 break;
@@ -39,12 +42,26 @@ class LogsController extends AdmincpController
     protected function itemlogs()
     {
         $this->check_rights();
-        View::CreateView(
-            'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
-            [],
-            APP_TITLE);
-        unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
-            $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
+        if (isset($_SESSION['searcheditemlogs'])) {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
+                [
+                    'productlogs' => $_SESSION['searcheditemlogs']
+                ],
+                APP_TITLE);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
+                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
+        }
+        else {
+            View::CreateView(
+                'admincp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'itemlogs',
+                [
+                    'productlogs' => $this->getAllItemLogs()
+                ],
+                APP_TITLE);
+            unset($_SESSION['opsuccess'], $_SESSION['opmessage'], $_SESSION['userToEdit'],
+                $_SESSION['userLoginLogs'], $_SESSION['logsofuser'], $_SESSION['usergrouptoedit']);
+        }
     }
 
     protected function loginlogs()
@@ -355,6 +372,158 @@ class LogsController extends AdmincpController
         else {
             return [];
         }
+    }
+
+    private function searchitemlogs()
+    {
+        if (!isset($_POST['searchitemlogs'])) {
+            $this->showmessage
+            (
+                $opsuccess = false,
+                $opmessage = 'You need to offer a search criteria first!'
+            );
+            self::redirect('/admincp/loginlogs');
+            return [];
+        }
+        else {
+            switch($_POST['searchitemlogs']) {
+                case filter_var($_POST['searchitemlogs'], FILTER_VALIDATE_INT):
+                    $this->model('Itemlog');
+                    $validatedfield = ' ILOGID = ';
+                    $logs['items'] = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . filter_var($_POST['searchitemlogs'], FILTER_SANITIZE_NUMBER_INT),
+                        $fields = 'ILOGID, ILOGDESCRIPTION, ILOGSOURCEIP,
+                            TO_CHAR(ILOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ILOGCREATEDAT"');
+                    $this->model('Itemgrouplog');
+                    $validatedfield = 'IGLOGID =';
+                    $logs['itemgroups'] = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . filter_var($_POST['searchitemlogs'], FILTER_SANITIZE_NUMBER_INT),
+                    $fields = 'IGLOGID, IGLogDescription, IGLOGSOURCEIP,
+                       TO_CHAR(IGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "IGLOGCREATEDAT"');
+                    $result = array_merge($logs['items'], $logs['itemgroups']);
+                    break;
+                default:
+                    $this->model('Itemlog');
+                    $validatedfield = ' ILOGDESCRIPTION LIKE \'%';
+                    $logs['items'] = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . filter_var($_POST['searchitemlogs'], FILTER_SANITIZE_STRING) . "'%",
+                        $fields = 'ILOGID, ILOGDESCRIPTION, ILOGSOURCEIP,
+                            TO_CHAR(ILOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ILOGCREATEDAT"');
+                    $this->model('Itemgrouplog');
+                    $validatedfield = 'IGLogDescription LIKE \'%';
+                    $logs['itemgroups'] = $this->model_class->get_mapper()->findAll(
+                        $where = $validatedfield . filter_var($_POST['searchitemlogs'], FILTER_SANITIZE_STRING) . "'%",
+                        $fields = 'IGLOGID, IGLogDescription, IGLOGSOURCEIP,
+                       TO_CHAR(IGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "IGLOGCREATEDAT"');
+                    $result = array_merge($logs['items'], $logs['itemgroups']);
+                    break;
+            }
+            for ($i = 0; $i < count($result); ++$i) {
+                if (preg_match('/(Admin\ user\ )/',
+                    (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                    $result[$i]['userName'] = substr(
+                        (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                        strlen('Admin user '),
+                        strpos(
+                            substr(
+                                (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                                strlen('Admin user ')
+                            ),
+                            " "));
+                }
+                elseif (preg_match('/(Normal\ user\ )/', (
+                    isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                    $result[$i]['userName'] = substr(
+                        (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                        strlen('Normal user '),
+                        strpos(
+                            substr(
+                                (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                                strlen('Normal user ')
+                            ),
+                            " "));
+                }
+                elseif (preg_match('/(Manager\ user\ )/',
+                    (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                    $result[$i]['userName'] = substr(
+                        (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                        strlen('Manager user '),
+                        strpos(
+                            substr(
+                                (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                                strlen('Manager user ')
+                            ),
+                            " "));
+                }
+                else {
+                    $result[$i]['userName'] = 'N/A';
+                }
+                $result[$i]['datetime'] = (isset($result[$i]['iLogCreatedAt'])?$result[$i]['iLogCreatedAt']:$result[$i]['iGLogCreatedAt']);
+                $result[$i]['action'] = (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']);
+                $result[$i]['sourceIP'] = (isset($result[$i]['iLogSourceIP'])?$result[$i]['iLogSourceIP']:$result[$i]['iGLogSourceIP']);
+            }
+            return $result;
+        }
+    }
+
+    private function getAllItemLogs()
+    {
+        $this->model('Itemlog');
+        $query['itemlogs'] = $this->model_class->get_mapper()->findAll($where = '',
+            $fields = 'ILOGID, ILOGDESCRIPTiON, ILOGSOURCEIP,
+                       TO_CHAR(ILOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ILOGCREATEDAT"');
+
+        $this->model('Itemgrouplog');
+        $query['itemgrouplogs'] = $this->model_class->get_mapper()->findAll($where = '',
+            $fields = 'IGLOGID, IGLogDescription, IGLOGSOURCEIP,
+                       TO_CHAR(IGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "IGLOGCREATEDAT"');
+
+        $result = array_merge($query['itemlogs'],$query['itemgrouplogs']);
+        for ($i = 0; $i < count($result); ++$i) {
+            if (preg_match('/(Admin\ user\ )/',
+                (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                $result[$i]['userName'] = substr(
+                    (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                    strlen('Admin user '),
+                    strpos(
+                        substr(
+                            (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                            strlen('Admin user ')
+                        ),
+                        " "));
+            }
+            elseif (preg_match('/(Normal\ user\ )/', (
+            isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                $result[$i]['userName'] = substr(
+                    (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                    strlen('Normal user '),
+                    strpos(
+                        substr(
+                            (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                            strlen('Normal user ')
+                        ),
+                        " "));
+            }
+            elseif (preg_match('/(Manager\ user\ )/',
+                (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']))) {
+                $result[$i]['userName'] = substr(
+                    (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                    strlen('Manager user '),
+                    strpos(
+                        substr(
+                            (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']),
+                            strlen('Manager user ')
+                        ),
+                        " "));
+            }
+            else {
+                $result[$i]['userName'] = 'N/A';
+            }
+            $result[$i]['datetime'] = (isset($result[$i]['iLogCreatedAt'])?$result[$i]['iLogCreatedAt']:$result[$i]['iGLogCreatedAt']);
+            $result[$i]['action'] = (isset($result[$i]['iLogDescription'])?$result[$i]['iLogDescription']:$result[$i]['IGLogDescription']);
+            $result[$i]['sourceIP'] = (isset($result[$i]['iLogSourceIP'])?$result[$i]['iLogSourceIP']:$result[$i]['iGLogSourceIP']);
+        }
+        return $result;
     }
 
 }

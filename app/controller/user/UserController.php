@@ -2,7 +2,7 @@
 /**
  * IDE: PhpStorm
  * Project: esser
- * Filename: UserController.phpheorghita Mutu
+ * Filename: UserController.php
  * Email: gheorghitamutu@gmail.com
  * Date: 4/6/2018
  * Time: 1:07 PM
@@ -25,8 +25,7 @@ class UserController extends Controller
                 $this->index();
                 break;
             case 'user/index':
-                $this->index();
-//                self::redirect('/user');
+                self::redirect('/user');
                 break;
             case 'user/notifications':
                 $this->set_notifications_read();
@@ -53,13 +52,16 @@ class UserController extends Controller
             case 'user/users/addgroup':
                 $this->addNewGroup();
                 break;
-			case 'user/manageruser':
-                $this->manageruser();
-                break;
             case 'user/reports':
                 $this->reports();
                 break;
-            case 'user/reports/download':
+            case 'user/reports/generate':
+                $this->generate_report();
+                break;
+            case 'user/reports/download/csv':
+            case 'user/reports/download/pdf':
+            case 'user/reports/download/html':
+            case 'user/reports/download/xml':
                 $this->download_report();
                 break;
             case 'user/admincp':
@@ -70,7 +72,7 @@ class UserController extends Controller
                 $this->logout();
                 break;
             default:
-                $this->index();
+                new PageNotFoundController();
                 break;
 
         }
@@ -278,7 +280,6 @@ class UserController extends Controller
 
     }
 
-
     private function getNonMembers($groupId){
 
         $this->model('Useracc');
@@ -308,6 +309,7 @@ class UserController extends Controller
         return $result;
 
     }
+
 
     private function getUserGroups()
     {
@@ -473,7 +475,7 @@ class UserController extends Controller
     {
 
         $avg_quantity = 0;
-        $count_items_groups = 0;
+        $array_ownership_items_count_groups=array();
         $items = array();
         // fetch all groups  that use is part of
         $this->model('GroupRelation');
@@ -492,7 +494,7 @@ class UserController extends Controller
             );
             //for every itemGroupOwnership  search for  group item
             foreach ($querry_ownership_items as $querry_ownership_item) {
-
+                array_push($array_ownership_items_count_groups,$querry_ownership_item['iGId']);
                 $this->model('Itemgroup');
                 $querry_group_item = $this->model_class->get_mapper()->findAll(
                     $where = " IGROUPID= " . $querry_ownership_item['iGId'],
@@ -506,7 +508,7 @@ class UserController extends Controller
                         $where = " iGroupId= " . $item_group['iGroupId'],
                         $fields = false
                     );
-                    ++$count_items_groups;
+
                     //for every items create result
                     foreach ($querry_items as $item) {
                         $avg_quantity = $avg_quantity + $item['itemQuantity'];
@@ -527,19 +529,24 @@ class UserController extends Controller
                 array_push($unique_items, $item);
             }
         }
+
+        $unique_groups_items=array();
+        foreach($array_ownership_items_count_groups as $array_ownership_items_count_group){
+            if(!in_array($array_ownership_items_count_group,$unique_groups_items)){
+                array_push($unique_groups_items,$array_ownership_items_count_group);
+            }
+        }
         return [
             'items' => $unique_items,
             'countItems' => count($items),
             'avgQuantity' => ((count($items) ? ($avg_quantity / count($items)) : 0)),
-            'countItemsGroups' => $count_items_groups
+            'countItemsGroups' => count($unique_groups_items)
         ];
 
     }
 
     public function notifications()
     {
-        // get the notifications
-
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'notifications' . DIRECTORY_SEPARATOR . 'notifications',
             array
@@ -555,28 +562,35 @@ class UserController extends Controller
         $this->model('ItemGrouplog');
 
         $item_group_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'IGLOGID, IGLOGDESCRIPTION, IGLOGSOURCEIP,
+                       TO_CHAR(IGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "IGLOGCREATEDAT"');
 
         $this->model('Itemlog');
 
         $item_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'ILOGID, ILOGDESCRIPTION, ILOGSOURCEIP,
+                       TO_CHAR(ILOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "ILOGCREATEDAT"');
 
         $this->model('UserGroupLog');
 
         $user_group_logs = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'UGLOGID, UGLOGDESCRIPTION, UGLOGSOURCEIP,
+                       TO_CHAR(UGLOGCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "UGLOGCREATEDAT"');
 
         $logs = array_merge($item_group_logs, $item_logs, $user_group_logs);
 
-        usort($logs, function ($a, $b) {
-            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt']) {
-                return 0;
-            }
-
-            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
-        });
-
+//        usort($logs, function ($a, $b)
+//        {
+//            if ($a['uLogCreatedAt'] == $b['uLogCreatedAt'])
+//            {
+//                return 0;
+//            }
+//
+//            return ($a['uLogCreatedAt'] < $b['uLogCreatedAt']) ? -1 : 1;
+//        });
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'logs',
@@ -588,10 +602,387 @@ class UserController extends Controller
     {
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'items' . DIRECTORY_SEPARATOR . 'items',
-            ['itemGroups' => $this->getItemGroups()],
-            'Items area');
+            array(
+                    'resultPostGroup'=>$this->postGroupItems(),
+                    'permissionModifyItemsGroup'=>$this->getPermissionModifyItemsGroups(),
+                    'groupOfItems'=>$this->getGroupsOfItems(),
+                    'resultDeleteGroup'=>$this->deleteGroupsOfItems(),
+                    'postItem'=>$this->postItem()
+                 ),
+            'Items ');
     }
 
+    public function postItem(){
+
+        if  (   isset($_POST["iName"]) &&
+                isset($_POST["iDescription"])&&
+                isset($_POST["iQuantity"])&&
+                isset($_POST["iLimit"]) &&
+                isset($_POST["iGroupId"])
+
+            ) {
+            $result = $this->insertingItem();
+            if ($result['operation'] == true) {
+                return $result['message'];
+            } else {
+                return "Failed to create group : " . $result['message'];
+            }
+        }
+    }
+    public function insertingItem(){
+        //validation input
+
+        if (strlen($_POST["iName"]) < 4 || strlen($_POST["iName"]) > 48) {
+            return array('operation' => false, 'message' => 'item name not being between 4 and 48 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9._ -]/',$_POST['iName'])) {
+            $iName = $_POST["iName"];
+        }else {
+            return array('operation' => false,
+                'message' => 'item name containing prohibited characters!'
+                    . PHP_EOL
+                    . 'Use only alpha-numeric, \'.\'_\' and \'-\' characters!');
+        }
+        $this->model('Item');// check if item name already exists
+        $query_items = $this->model_class->get_mapper()->findAll(
+            $where = " ITEMNAME= " ."'". $_POST["iName"]."'",
+            $fields = false
+        );
+
+        if (count($query_items)!= 0) {
+            return array('operation' => false, 'message' => 'item name already exists !');
+        }
+        //group description validation
+        if (strlen($_POST['iDescription']) < 4 || strlen($_POST['iDescription']) > 2000) {
+            return array('operation' => false, 'message' => 'item description not being between 4 and 2000 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9.,?! -]/',$_POST['iDescription'])) {
+            $iDescription = $_POST["iDescription"];
+        }
+        else {
+            return array('operation' => false, 'message' => 'Inputed item description is in a wrong format!');
+        }
+        if($_POST["iQuantity"]<1 || $_POST["iQuantity"]>999999){
+            return array('operation' => false, 'message' => 'Inputed item quantity is too big or too small!');
+        }
+        if($_POST["iLimit"]<1 || $_POST["iLimit"]>999999){
+            return array('operation' => false, 'message' => 'Inputed item quantity is too big or too small!');
+        }
+
+        // INSERTING ITEM
+        $this->model('Item');
+        $result_item = $this->model_class->get_mapper()->insert(
+            'ITEMS',
+            array
+            (
+                'itemName'          =>  "'" .$_POST["iName"]."'",
+                'itemDescription'   =>  "'" .$_POST["iDescription"]."'",
+                'itemQuantity'      =>       $_POST["iQuantity"],
+                'iGroupId'          =>       $_POST["iGroupId"],
+                'iWarnQnty'         =>       $_POST["iLimit"],
+                'itemImage'         =>  "' '"
+
+            )
+        );
+        //creating logs for item post
+        $this->model('Itemlog');
+        $this->model_class->get_mapper()->insert(
+            'ITEMLOGS',
+            array
+            (
+                'iLogDescription'    => "'Normal user " . $_SESSION['uname']    . " has created item ".$_POST["iName"]."'" ,
+                'iLogSourceIP'       => "'" .$_SESSION['login_ip'] . "'"
+            )
+        );
+
+
+        return array('operation' => true, 'message' => " Succesfully created item !");
+    }
+
+    public function deleteGroupsOfItems(){
+        if(isset($_POST['delButton'])) {
+
+            $this->model('Itemgroup');
+            $querry_item_groups = $this->model_class->get_mapper()->findAll(
+                $where = " iGroupName= " . "'" . $_POST['delButton'] . "'",
+                $fields = false
+            );
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGId= "  . $querry_item_groups['0']['iGroupId']
+                        ." AND iGOwnerId=".$_POST['delButtonUserGroupId'],
+                $fields = false
+            );
+
+            //delete ownerships
+            if(!is_null($querry_item_groups_owners)) {
+                foreach ($querry_item_groups_owners as $querry_item_groups_owner) {//here is just an element not array
+                    $this->model('Itemgroupownership');
+                    $querry_item_groups_owners = $this->model_class->get_mapper()->delete(
+                        'ITEMGROUPOWNERSHIPS',
+                        array
+                        (
+                            'iGOwnershipId' => $querry_item_groups_owner['iGOwnershipId']
+                        )
+                    );
+                }
+            }
+
+            //delete items
+            $this->model('Item');
+            $querry_items = $this->model_class->get_mapper()->findAll(
+                $where = " iGroupId= "  .$_POST['delButtonUserGroupId'] ,
+                $fields = false
+            );
+
+            if(!is_null($querry_items)) {
+                foreach ($querry_items as $querry_item) {
+                    $querry_item_result = $this->model_class->get_mapper()->delete(
+                        'ITEMS',
+                        array
+                        (
+                            'itemId' => $querry_item['itemId']
+                        )
+                    );
+                }
+            }
+
+            // deleting item group if there is no ownership
+
+            $this->model('GroupRelation');
+            $query_group_relations = $this->model_class->get_mapper()->findAll(
+                $where = " USERID= " . $_SESSION['userid'],
+                $fields = false
+            );
+
+            $count=0;
+            foreach($query_group_relations as $group_relation){
+                $this->model('Itemgroupownership');
+                $querry_groups_owners = $this->model_class->get_mapper()->findAll(
+                    $where = " iGOwnerId=".$group_relation['uGroupId'],
+                    $fields = false
+                );
+                if(!is_null($querry_groups_owners)){
+                    $count=$count+1;
+                }
+            }
+
+            if($count == 0) {//if there is no ownership remove group item
+
+                $this->model('Itemgroup');
+                $querry_item_groups_del_result = $this->model_class->get_mapper()->delete(
+                    'ITEMGROUPS',
+                    array
+                    (
+                        'iGroupId' => $querry_item_groups['0']['iGroupId']
+                    )
+                );
+            }
+            //creating logs for deleting group
+            $this->model('Itemgrouplog');
+            $this->model_class->get_mapper()->insert(
+                'ITEMGROUPLOGS',
+                array
+                (
+                    'iGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has deleted group ".$_POST['delButton']."'" ,
+                    'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
+                )
+            );
+
+            return "Succesfully deleted group of items!";
+        }
+        return "Input is not set";
+    }
+    public function getGroupsOfItems(){
+        $items_groups=array();
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+
+        foreach($querry_rel_users as $querry_rel_user) {
+
+            $this->model('Usergroup');// find by id
+            $querry_user_groups = $this->model_class->get_mapper()->findAll(
+                $where = " uGroupId= ". $querry_rel_user['uGroupId'],
+                $fields = false
+            );
+
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGOwnerId= ". $querry_rel_user['uGroupId'],
+                $fields = false
+            );
+            $unique_items_groups = array();
+
+            foreach($querry_item_groups_owners as $querry_item_groups_owner ){
+                $this->model('Itemgroup');
+                $querry_item_groups = $this->model_class->get_mapper()->findAll(
+                    $where = " iGroupId= ". $querry_item_groups_owner['iGId'],
+                    $fields = false
+                );
+
+
+                foreach ($querry_item_groups as $item) {
+                    if (!in_array($item, $unique_items_groups)) {
+                        array_push($unique_items_groups, $item);
+                    }
+                }
+            }
+
+            foreach($unique_items_groups as $unique_items_group){
+                array_push($items_groups,array(
+                    'iGroupName'=>$unique_items_group['iGroupName'],
+                    'iGroupId'=>$unique_items_group['iGroupId'],
+                    'iGroupDescription'=>$unique_items_group['iGroupDescription'],
+                    'iGroupCreatedAt'=>$unique_items_group['iGroupCreatedAt'],
+                    'iGroupUpdatedAt'=>$unique_items_group['iGroupUpdatedAt'],
+                    'uGroupName'=>$querry_user_groups['0']['uGroupName'],
+                    'uGroupId'=>$querry_user_groups['0']['uGroupId']
+                ));
+            }
+        }
+
+        return $items_groups;
+    }
+    public function getPermissionModifyItemsGroups(){
+
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+
+        foreach($querry_rel_users as $querry_rel_user) {
+            if ($querry_rel_user['canUpdItm'] == "1") {
+                return "1";
+            }
+        }
+        return "0";
+    }
+    public function insertingItemGroup(){
+
+
+        // group name validation
+        if (strlen($_POST["gName"]) < 4 || strlen($_POST["gName"]) > 48) {
+            return array('operation' => false, 'message' => 'group name not being between 4 and 48 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9._ -]/',$_POST['gName'])) {
+            $gName = $_POST["gName"];
+        }else {
+            return array('operation' => false,
+                'message' => 'group name containing prohibited characters!'
+                    . PHP_EOL
+                    . 'Use only alpha-numeric, \'.\'_\' and \'-\' characters!');
+        }
+        $this->model('Itemgroup');// check if group name already exists
+        $query_item_groups = $this->model_class->get_mapper()->findAll(
+            $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
+            $fields = false
+        );
+
+        if (count($query_item_groups)!= 0) {
+            return array('operation' => false, 'message' => 'group name already exists !');
+        }
+        //group description validation
+        if (strlen($_POST['gDescription']) < 4 || strlen($_POST['gDescription']) > 2000) {
+            return array('operation' => false, 'message' => 'group description not being between 4 and 2000 characters long!');
+        }
+        elseif(!preg_match('/[^a-zA-Z0-9.,?! -]/',$_POST['gDescription'])) {
+            $gDescription = $_POST["gDescription"];
+        }
+        else {
+            return array('operation' => false, 'message' => 'Inputed group description is in a wrong format!');
+        }
+
+        // inserting
+        $this->model('Itemgroup');
+        $result_item_group = $this->model_class->get_mapper()->insert(
+            'ITEMGROUPS',
+            array
+            (
+                'iGroupName'  => "'" . $gName  . "'",
+                'iGroupDescription' => "'" . $gDescription . "'"
+            )
+        );
+
+        //for every group of users that session user can update groups of items, add in owner ship that group of users
+        $this->model('Grouprelation');
+        $querry_rel_users = $this->model_class->get_mapper()->findAll(
+            $where = " USERID= ". $_SESSION['userid'],
+            $fields = false
+        );
+
+
+        $this->model('Itemgroup');// item that was inserted
+        $query_item_group = $this->model_class->get_mapper()->findAll(
+            $where = " IGROUPNAME= " ."'". $_POST["gName"]."'",
+            $fields = false
+        );
+        foreach($querry_rel_users as $querry_rel_user){
+            if($querry_rel_user['canUpdItm'] !="0"){
+                $this->model('Itemgroupownership');
+                $result_item_group_owner = $this->model_class->get_mapper()->insert(
+                    'ITEMGROUPOWNERSHIPS',
+                    array
+                    (
+                        'iGOwnerId'  => $querry_rel_user['uGroupId'] ,
+                        'iGId' =>  $query_item_group['0']['iGroupId']
+                    )
+                );
+            }
+        }
+
+        //creating logs for groups post
+        $this->model('Itemgrouplog');
+        $this->model_class->get_mapper()->insert(
+            'ITEMGROUPLOGS',
+            array
+            (
+                'iGLogDescription'   => "'Normal user " . $_SESSION['uname']    . " has created group ".$gName."'" ,
+                'iGLogSourceIP'      => "'" .$_SESSION['login_ip'] . "'"
+            )
+        );
+
+
+        return array('operation' => true, 'message' => " Succesfully created group !");
+    }
+    public function postGroupItems(){
+        $this->cleanRemainingGroupsWithoutOwner();
+        if(isset($_POST["gName"]) && isset($_POST["gDescription"])) {
+            $result = $this->insertingItemGroup();
+            if ($result['operation'] == true) {
+                return $result['message'];
+            } else {
+                return "Failed to create group : " . $result['message'];
+            }
+        }
+    }
+    public function cleanRemainingGroupsWithoutOwner(){
+        $this->model('Itemgroup');
+        $querry_item_groups = $this->model_class->get_mapper()->findAll(
+            $where = '',
+            $fields = false
+        );
+        foreach($querry_item_groups as $item_group) {
+            $this->model('Itemgroupownership');
+            $querry_item_groups_owners = $this->model_class->get_mapper()->findAll(
+                $where = " iGId= " . $item_group['iGroupId'],
+                $fields = false
+            );
+            if(is_null($querry_item_groups_owners)){
+                $this->model('Itemgroup');
+                $querry_result= $this->model_class->get_mapper()->delete(
+                    $table='ITEMGROUPS',
+                    $field= array
+                    (
+                        'iGroupId' => $item_group['iGroupId']
+                    )
+                );
+            }
+        }
+    }
     public function users()
     {
         if (isset($_SESSION['renderedGroupId'])) {
@@ -636,16 +1027,8 @@ class UserController extends Controller
         );
 
         $_SESSION['login_failed'] = true;
-
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription' => "'Normal user " . $_SESSION['uname'] . " has logged out!'",
-                'uLogSourceIP' => "'" . $_SESSION['login_ip'] . "'"
-            )
-        );
+        
+        self::log_user_activity("'Normal user " . $_SESSION['uname']     . " has logged out!'");
 
         session_destroy();
         Controller::redirect('/home');
@@ -688,20 +1071,23 @@ class UserController extends Controller
             $where = "usrNNotifiedAccId = " . $user_id . " AND usrnNIsRead = 0",
             $fields = false);
 
-        if (count($usrntfrelation) == 0) {
+        if (count($usrntfrelation) == 0)
+        {
             return;
         }
 
-        foreach ($usrntfrelation as $relation) {
+        foreach ($usrntfrelation as $relation)
+        {
+            $this->model('Usrntfrelation');
             $this->model_class->get_mapper()->update(
                 'USRNTFRELATIONS',
                 array
                 (
-                    'usrNRelationId' => $relation["usrNRelationId"]
+                    'usrnNIsRead' => 1
                 ),
                 array
                 (
-                    'usrnNIsRead' => 1
+                    'usrNRelationId' => $relation["usrNtfRelationId"]
                 ));
         }
     }
@@ -715,24 +1101,26 @@ class UserController extends Controller
             $where = "usrNNotifiedAccId = " . $user_id,
             $fields = false);
 
-        if (count($usrntfrelation) == 0) {
+        if (count($usrntfrelation) === 0)
+        {
             return [];
         }
 
-        $this->model('Usrntfrelation');
-
         $notifications = [];
         $this->model('Notification');
-        foreach ($usrntfrelation as $relation) {
+        foreach ($usrntfrelation as $relation)
+        {
             $notifications[] = $this->model_class->get_mapper()->findAll(
                 $where = "ntfId = " . $relation["usrNNotificationId"],
-                $fields = false)[0];
+                $fields = 'NTFID, NITEMID, NTFTYPE, NTFDSCRP,
+                       TO_CHAR(NTFCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "NTFCREATEDAT"')[0];
         }
 
         $this->model('Item');
-        for ($i = 0; $i < count($notifications); $i++) {
+        for ($i = 0; $i < count($notifications); $i++)
+        {
             $notifications[$i]["item_name"] = $this->model_class->get_mapper()->findAll(
-                $where = "itemId = " . $notifications["nItemId"],
+                $where = "itemId = " . $notifications[$i]["nItemId"],
                 $fields = false)[0]["itemName"];
         }
 
@@ -744,7 +1132,9 @@ class UserController extends Controller
         $this->model('AutomatedReport');
 
         $reports = $this->model_class->get_mapper()->findAll(
-            $fields = false);
+            $where = "",
+            $fields = 'REPORTID, REPORTPATH, REPORTTYPE, REPORTFORMAT,
+                       TO_CHAR(RCREATEDAT, \'DD-MM-YYYY HH24:MI:SS\') AS "RCREATEDAT"');
 
         View::CreateView(
             'user' . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . 'reports',
@@ -765,10 +1155,313 @@ class UserController extends Controller
             $fields = false);
 
         $file = $reports[0]["reportPath"];
+
+        $file_type = $file;
+
+
+        $uri = $_SERVER['REQUEST_URI'];
+        $split_uri = explode("/", $uri);
+
+        // array(5)
+        // {
+        //      [0]=> string(0) ""
+        //      [1]=> string(4) "user"
+        //      [2]=> string(7) "reports"
+        //      [3]=> string(8) "download"
+        //      [4]=> string(3) "csv"
+        // }
+
+        //create file type here
+        $file_type .= "." . $split_uri[4];
+        $output = null;
+
+        switch($split_uri[4])
+        {
+            case 'csv':
+                $output = $file;
+                break;
+            case 'xml':
+                $output = 'temp';
+
+                $xw = $this->get_xml_writer_logs($file);
+                $temp_buffer = xmlwriter_output_memory($xw);
+
+                $handle = fopen($output, "w+");
+                fwrite($handle, $temp_buffer);
+                fclose($handle);
+
+                break;
+            case 'html':
+                $output = 'temp';
+
+                $temp_buffer = $this->get_html_buffer($file);
+                $handle = fopen($output, "w+");
+                fwrite($handle, $temp_buffer);
+                fclose($handle);
+
+                break;
+            case 'pdf':
+                $output = $this->get_pdf($file);
+                break;
+            default:
+                break;
+        }
+
         header("Content-Description: File Transfer");
         header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename='" . basename($file) . "'");
-        readfile($file);
+        header("Content-Disposition: attachment; filename='" . basename($file_type) . "'");
+
+        if($split_uri[4] !== 'pdf')
+        {
+            readfile($output);
+        }
+        else
+        {
+            $output->Output($dest='D', $name=basename($file) . '.pdf');
+        }
+
+        if($output === 'temp')
+        {
+            // delete temp file
+            unlink($output);
+        }
         exit();
+    }
+
+    private function generate_report()
+    {
+        // generate report
+        $date = date("Y-m-d-h-i-s");
+        $path = RESOURCES . 'reports' . DS . $date;
+        $h_report = fopen($path, "w+");
+
+        $report_header = "itemId,itemName,itemDescription,itemQuantity,iGroupId,iWarnQnty,itemImage,itemCreatedAt,itemUpdatedAt\n";
+        fwrite($h_report, $report_header);
+
+        $this->model('Item');
+        $reports = $this->model_class->get_mapper()->findAll($fields = false);
+
+        if(isset($reports) && $reports !== null && is_array($reports))
+        {
+            foreach ($reports as $rep)
+            {
+                $row = $rep["itemId"] . ",";
+                $row .= $rep["itemName"] . ",";
+                $row .= $rep["itemDescription"] . ",";
+                $row .= $rep["itemQuantity"] . ",";
+                $row .= $rep["iGroupId"] . ",";
+                $row .= $rep["iWarnQnty"] . ",";
+                $row .= $rep["itemImage"] . ",";
+                $row .= $rep["itemCreatedAt"] . ",";
+                $row .= $rep["itemUpdatedAt"] . "\n";
+
+                fwrite($h_report, $row);
+            }
+        }
+
+        fclose($h_report);
+
+        $this->model('AutomatedReport');
+
+        $this->model_class->get_mapper()->insert(
+            'AUTOMATEDREPORTS',
+            array
+            (
+                'reportPath'         => "'$path'" ,
+                'reportType'         => 1 ,
+                'reportFormat'       => "'all'"
+            )
+        );
+
+        $log_description = "'Normal user " . $_SESSION['uname'] . " generated log ". $date ."'";
+        self::log_user_activity($log_description);
+
+        self::redirect('/user/reports');
+    }
+
+    private function get_xml_writer_logs($path)
+    {
+        $xw = xmlwriter_open_memory();
+        xmlwriter_set_indent($xw, 1);
+
+        // Sets the string which will be used to indent each element/attribute of the resulting xml.
+        $res = xmlwriter_set_indent_string($xw, ' ');
+
+        xmlwriter_start_document($xw, '1.0', 'UTF-8');
+
+        // A first element
+        xmlwriter_start_element($xw, 'CATALOG');
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                // write content of an item (column values)
+                xmlwriter_start_element($xw, 'item');
+
+                for ($i = 0; $i < count($split_line); $i++)
+                {
+                    xmlwriter_start_element($xw, $file_headers[$i]);
+                    xmlwriter_text($xw, $split_line[$i]);
+                    xmlwriter_end_element($xw);
+                }
+
+                xmlwriter_end_element($xw);
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        xmlwriter_end_element($xw);
+
+        xmlwriter_end_document($xw);
+
+        return $xw;
+    }
+
+    private function get_html_buffer($path)
+    {
+        $buffer = "";
+
+        $buffer .= "<html><body>";
+
+        $buffer .= '<br><br><br><br>';
+
+        $buffer .= '<h2 style="text-align:center;">';
+        $buffer .= 'REPORT';
+        $buffer .= '</h2>';
+
+        $buffer .= '<br><br><br><br>';
+
+        $buffer .= '<ul style="list-style-type: none;">';
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            $buffer .= '<li><h3 style="text-align:center; margin-left: -100px;"><pre>';
+
+            foreach ($file_headers as $head)
+            {
+                $buffer .= "$head ";
+            }
+
+            $buffer .= '</pre></h3></li>';
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                $buffer .= '<li><h5 style="text-align:center;"><pre>';
+
+                foreach ($split_line as $value)
+                {
+                    $buffer .= "$value     ";
+                }
+
+                $buffer .= '</pre></h5></li>';
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        $buffer .= '</ul>';
+        $buffer .= "</html></body>";
+
+        return $buffer;
+    }
+
+    private function get_pdf($path)
+    {
+        $pdf = new FPDF();
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial','',20);
+        $pdf->Cell(200,10, 'REPORT', 0,1, 'C');
+
+
+        $pdf->SetFont('Arial','',11);
+
+        $handle = fopen($path, "r");
+
+        if ($handle)
+        {
+            $file_headers = [];
+
+            // get headers
+            if (($line = fgets($handle)) !== false)
+            {
+                $file_headers = explode(',', $line);
+            }
+
+            $data_headers = "";
+            for ($i = 0; $i < count($file_headers); $i++)
+            {
+                $data_headers .= $file_headers[$i] . " ";
+            }
+
+            $pdf->Cell(-30,20, $data_headers);
+
+            $height = 30;
+
+            // parse file lines
+            while (($line = fgets($handle)) !== false)
+            {
+
+                $split_line = explode(',', $line);
+
+                // write content of an item (column values)
+                $data = "";
+
+                for ($i = 0; $i < count($split_line); $i++)
+                {
+                    $data .= $split_line[$i] . " ";
+                }
+
+                $pdf->Cell(-30,$height, $data);
+
+                $height += 10;
+            }
+
+            fclose($handle);
+        }
+        else
+        {
+            // error opening the file.
+        }
+
+        return $pdf;
     }
 }

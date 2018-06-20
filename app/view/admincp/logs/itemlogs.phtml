@@ -1,14 +1,15 @@
 <?php include VIEW . 'admincp/header.phtml';?>
 
 <?php include VIEW . 'admincp/menu/header_bar.phtml';?>
+
 <div class="admcp-tables-body">
     <?php include VIEW . 'admincp/menu/menu.phtml';?>
     <div class="admcp-rt-box">
         <div class="admcp-rt-cnt-box">
             <div class="admcp-rt-content">
-                <h3 class="adm-rt-title"> Search logs of a specifc product </h3>
-                <form class="srch-layout">
-                    <input class="adm-srch-box" required="required" placeholder="Insert Product">
+                <h3 class="adm-rt-title"> Search item or item group logs </h3>
+                <form class="srch-layout" method="POST" action="/admincp/userlogs/searchitemlogs">
+                    <input class="adm-srch-box" name="searchitemlogs" required="required" value="" placeholder="Insert Item/Item Group Here">
                     <button type="submit" class="admcp-srch-btn"> Search </button>
                 </form>
             </div>
@@ -19,22 +20,25 @@
                 <div class="flex-table">
                     <div class="flex-table-head">
                         <div class="flex-table-row">
-                            <div class="flex-table-th"> Product </div>
-                            <div class="flex-table-th"> Date </div>
-                            <div class="flex-table-th"> Action Info </div>
-                            <div class="flex-table-th"> Quantifier </div>
-                            <div class="flex-table-th"> Account </div>
-                            <div class="flex-table-th"> IP </div>
+                            <div class="flex-table-th">Account</div>
+                            <div class="flex-table-th">Date</div>
+                            <div class="flex-table-th">Action Info</div>
+                            <div class="flex-table-th">IP</div>
                         </div>
                     </div>
                     <div class="flex-table-body">
-                        <?php foreach ($this->param[1] as $rows) {
-                            echo "<div class=\"flex-table-row\">";
-                            foreach ($rows as $row => $value) {
-                                echo "<div class=\"flex-table-td\"> $value </div >";
-                            }
-                            echo "</div >";
-                        }?>
+                        <?php
+                        for ($i = 0; $i < count($this->view_data['productlogs']); ++$i)
+                        {
+                            echo
+                                "<div class=\"flex-table-row\">" . PHP_EOL .
+                                "<div class=\"flex-table-td\">" . $this->view_data['productlogs'][$i]['userName'] .  "</div>" . PHP_EOL .
+                                "<div class=\"flex-table-td\">" . $this->view_data['productlogs'][$i]['datetime'] .  "</div>" . PHP_EOL .
+                                "<div class=\"flex-table-td\">" . $this->view_data['productlogs'][$i]['action'] .  "</div>" . PHP_EOL .
+                                "<div class=\"flex-table-td\">" . $this->view_data['productlogs'][$i]['sourceIP'] .  "</div>" . PHP_EOL .
+                                "</div>" . PHP_EOL;
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
