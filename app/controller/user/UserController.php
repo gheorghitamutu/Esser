@@ -539,8 +539,8 @@ class UserController extends Controller
         }
         return [
             'items' => $unique_items,
-            'countItems' => count($items),
-            'avgQuantity' => ((count($items) ? ($avg_quantity / count($items)) : 0)),
+            'countItems' => count($unique_items),
+            'avgQuantity' => ((count($unique_items) ? ($avg_quantity / count($unique_items)) : 0)),
             'countItemsGroups' => count($unique_groups_items)
         ];
 
