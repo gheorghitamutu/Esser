@@ -41,7 +41,7 @@ define('ROOT_NORMAL_USER_GROUP'             , 'Normal Users');
  
 // paths macros
 define('DS'        , DIRECTORY_SEPARATOR);
-define('APP'       , ROOT                   . 'app'                          . DS);
+define('APP'       , ROOT                                     . 'app'        . DS);
 define('APP_INIT'  , ROOT                                     . 'app'        . DS);
 define('CONTROLLER', ROOT                   . 'app'      . DS . 'controller' . DS);
 define('CORE'      , ROOT                   . 'app'      . DS . 'core'       . DS);

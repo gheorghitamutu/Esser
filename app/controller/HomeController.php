@@ -46,7 +46,7 @@ class HomeController extends Controller
     private function index()
     {
         View::CreateView(
-            'home' . DIRECTORY_SEPARATOR . 'index',
+            'home' . DS . 'index',
             [],
             APP_TITLE);
     }

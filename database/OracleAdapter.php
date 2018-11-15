@@ -324,8 +324,8 @@ class OracleAdapter implements DatabaseAdapterInterface {
             $rows,
             $skip,
             $maxrows,
-            OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
-
+            OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC
+        );
         return $rows;
     }
 
