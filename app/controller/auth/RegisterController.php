@@ -29,6 +29,7 @@ class RegisterController extends Controller
                 $this->success();
                 break;
             default:
+                new PageNotFoundController();
                 break;
 
         }
@@ -44,12 +45,14 @@ class RegisterController extends Controller
 
     private function check_registration()
     {
-        if($this->register_user())
+        $registration = $this->register_user();
+        if($registration['operation'] == true)
         {
             self::redirect('success');
         }
         else
         {
+            $_SESSION['validation_message'] = $registration['message'];
             self::redirect('fail');
         }
     }
@@ -58,10 +61,10 @@ class RegisterController extends Controller
     {
         View::CreateView(
             'home' . DIRECTORY_SEPARATOR . 'register' . DIRECTORY_SEPARATOR . 'fail',
-            [],
+            ['validation_message' => (isset($_SESSION['validation_message'])) ? $_SESSION['validation_message'] : 'technical issues!' ],
             'Esser');
+        unset($_SESSION["validation_message"]);
 
-        unset($_SESSION["registration_wrong_pass_repeat"]);
     }
 
     private function success()
@@ -70,31 +73,62 @@ class RegisterController extends Controller
             'home' . DIRECTORY_SEPARATOR . 'register' . DIRECTORY_SEPARATOR . 'success',
             [],
             'Esser');
-
-        unset($_SESSION["registration_wrong_pass_repeat"]);
     }
 
     private function register_user()
     {
         $this->model('Useracc');
 
-        $username           = $_POST["uname"];
-        $email              = $_POST["email"];
-        $password           = $_POST["psw"];
-        $password_repeat    = $_POST["cpsw"];
-
-        if($password !== $password_repeat)
+        // validate user
+        if (strlen($_POST["uname"]) < 4 || strlen($_POST["uname"]) > 16)
         {
-            $_SESSION["registration_wrong_pass_repeat"] = true;
-            return false;
+            return array('operation' => false, 'message' => 'username not being between 4 and 16 characters long!');
+        }
+        elseif (!preg_match('/[^a-zA-Z0-9._-]/',$_POST['uname']))
+        {
+
+            $username = $_POST["uname"];
         }
         else
         {
-            $_SESSION["registration_wrong_pass_repeat"] = false;
+            return array('operation' => false,
+                'message' => 'username contains prohibited characters!'
+                             . PHP_EOL
+                             . 'Use only alpha-numeric, \'.\', \'_\' and \'-\' characters!');
         }
 
-        $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $username . $salt . $password);
+        // validate email
+        if (strlen($_POST['email']) < 4 || strlen($_POST['email']) > 48)
+        {
+            return array('operation' => false, 'message' => 'email must be between 4 and 48 characters long!');
+        }
+        elseif (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+        {
+            $email = $_POST["email"];
+        }
+        else
+        {
+            return array('operation' => false, 'message' => 'Wrong email format!');
+        }
+
+        // validate password
+        if (strlen($_POST["psw"]) > 64 || strlen($_POST["psw"]) < 4)
+        {
+            return array('operation' => false, 'message' => 'password must be between 4 and 64 characters long!');
+        }
+        else
+        {
+            $password = $_POST["psw"];
+            $password_repeat = $_POST["cpsw"];
+        }
+
+        // validate password matching
+        if($password !== $password_repeat)
+        {
+            return array('operation' => false, 'message' => 'password and repeat password not matching!');
+        }
+
+        $password_hash = hash('sha512', $username . SALT . $password);
 
         $result = $this->model_class->get_mapper()->insert(
             'USERACCS',
@@ -109,17 +143,32 @@ class RegisterController extends Controller
             )
         );
 
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription'   => "'Normal user " . $username     . " registered!'",
-                'uLogSourceIP'      => "'" . $_SERVER["REMOTE_ADDR"]              . "'"
-            )
-        );
+        $log_description = "'Normal user " . $username     . " has registered!'";
+        parent::log_user_activity($log_description);
 
-        return $result;
+        $email_subject = "[Esser] Registration";
+
+        if($result)
+        {
+            $email_body = "Successfully registered!";
+        }
+        else
+        {
+            $email_body = "Failed to register!";
+        }
+
+        if(GMail::send_email($email, $email_subject, $email_body) === true)
+        {
+            $log_description = "'Normal user " . $username     . " registration email success!'";
+        }
+        else
+        {
+            $log_description = "'Normal user " . $username     . " registration email fail!'";
+        }
+
+        parent::log_user_activity($log_description);
+
+        return array('operation' => true, 'result' => $result);
     }
 }
 

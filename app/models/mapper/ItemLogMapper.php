@@ -13,7 +13,11 @@ use DatabaseConnectivity;
 class ItemLogMapper extends AbstractMapper
 {
     protected $_entityTable = 'ITEMLOGS';
-    protected $_entityClass = 'ItemLogs';
+//<<<<<<< HEAD
+//    protected $_entityClass = 'Itemlog';
+//=======
+    protected $_entityClass = 'ItemLog';
+//>>>>>>> UserLandingPageAdjustFE
 
     public function __construct(DatabaseConnectivity\DatabaseAdapterInterface $adapter)
     {

@@ -1,177 +1,228 @@
-<?php include VIEW . 'user/header.phtml';?>
-    
-    <!-- Register a new group Form -->
-    
-    <div class="modal" id="groupForm">
-        <div class="groupFormContent">
-            <div class="Title">Add a new group</div>
-            <form>
-            <div class="formElement">Name:</div>
-            <input type="text" name="newGroupName" value="NewGroup" class="formElement"><br>
-            </form>
-            <a href="#">
-                <button class="closeButton FormButton">Add Group</button>
-            </a>
-            <a href="#">
-                <button class="closeButton FormButton">Cancel</button>
-            </a>
-        </div>
-    </div>
-    
-    <!-- Register a new product Form -->
-    
-    <div class="modal" id="productForm">
-        <div class="productFormContent">
-            <div class="Title">Add a new group</div>
-            <form>
-            <div class="formElement">Name:</div>
-            <input type="text" name="newProductName" value="NewProduct" class="formElement"><br>
-            <div class="formElement">Quantity:</div>
-            <input type="text" name="newProductQuantity" value="NewProductQ" class="formElement"><br>
-            <div class="formElement">Tile Image:</div>
-            <button class="FormButton">Browse</button>
-            </form>
-            <a href="#">
-                <button class="FormButton closeButton ">Add Product</button>
-            </a>
-            <a href="#">
-                <button class="FormButton closeButton ">Cancel</button>
-            </a>
-        </div>
-    </div>
-    <link rel="stylesheet" type="text/css" href="/resources/css/user/pmc_groups_of_items_style.css">
-    <body>
-        <!-- Section to be shown -->
-        
-        <div class="ProductGroups">
-            <div class="Title">Product Groups</div>
-            <div class="Menu">
-                <a href="#groupForm"><button class="MenuButton" id="addGroup">Add Group</button>
-                </a>
-                <button class="MenuButton" id="deleteGroup">Delete Group</button>
+<?php include VIEW . 'user/header.phtml'; ?>
+
+    <div id="main-container-items-page">
+        <div id="left-container-group"><?php
+            if ($this->view_data['permissionModifyItemsGroup'] == "1") {
+                echo "<div id=\"post-group\">";
+                echo "<button type=\"button\" id=\"post-group-button\" onclick=\"postGroupFunction()\">";
+                echo "Add Group";
+                echo "</\"button\">";
+                echo "</div>";
+
+                echo "<div id=\"delete-group\">";
+                echo "<button type=\"button\" id=\"delete-group-button\" onclick=\"deleteGroupFunction()\">";
+                echo "Delete Group";
+                echo "</button>";
+                echo "</div>";
+            }
+            ?>
+            <div id="get-group">
+                <button type="button" id="get-group-button" onclick="getGroupFunction()">
+                    List Groups
+                </button>
             </div>
-            <div class="ProductGroup">
-                <a href="#productForm"><div class="GroupButton">Add Product</div></a>
-                <a href="#hide1" id="hide1">
-                    <div class="GroupName">+ PC Parts</div>
-                </a>
-                <a href="#" id="show1">
-                    <div class="GroupName">- PC Parts</div>
-                </a>
-                <div id="Contents1">
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/cpu.png" alt="CPU">
-                        <div class="ProductName">CPU</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/hdd.png" alt="HDD">
-                        <div class="ProductName">HDD</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/motherboard.png" alt="Motherboard">
-                        <div class="ProductName">Motherboard</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/gpu.png" alt="GPU">
-                        <div class="ProductName">GPU</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/ssd.png" alt="SSD">
-                        <div class="ProductName">SSD</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/Case.png" alt="Case">
-                        <div class="ProductName">Case</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/psu.png" alt="PSU">
-                        <div class="ProductName">PSU</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/cooler.png" alt="Cooler">
-                        <div class="ProductName">Cooler</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                </div>
-            </div>
-            <div class="ProductGroup">
-                <a href="#productForm"><div class="GroupButton">Add Product</div></a>
-                <a href="#hide2" id="hide2">
-                    <div class="GroupName">+ Fruits</div>
-                </a>
-                <a href="#" id="show2">
-                    <div class="GroupName">- Fruits</div>
-                </a>
-                <div id="Contents2">
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/default.png" alt="Bananas">
-                        <div class="ProductName">Bananas</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                    <div class="Product">
-                        <img class="ProductIcon" src="/resources/images/user/default.png" alt="Apples">
-                        <div class="ProductName">Apples</div>
-                        <div class="ProductQuantity">12</div>
-                        <div class="ProductAvailable">Yes</div>
-                        <button class="ProductButton">Remove Item</button>
-                        <button class="ProductButton">Add Quantity</button>
-                        <button class="ProductButton">Remove Quantity</button>
-                        <button class="ProductButton">Request Quantity</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
-<?php include VIEW . 'user/footer.phtml';?>
+        <div id="right-container-group">
+
+            <div id="container-post-group">
+                <form class="post-item-form" method="POST">
+                    <a class="main-text"> Group Name </a>
+                    <input class="fill-box" type="text" name="gName" value="" placeholder="Enter group name"
+                           required="required"/>
+                    <p class="main-text"> Group Description </p>
+                    <input class="fill-box" type="text" name="gDescription" value=""
+                           placeholder="Enter group description" required="required"/>
+                    <input type="submit" class="submit-button-post-group" value="Submit">
+                </form>
+            </div>
+
+            <div id="container-delete-group"><?php
+                $groups = $this->view_data['groupOfItems'];
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Owner Name</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Group Description</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Created Date </div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\">";
+                echo "<div>Updated Date</div>";
+                echo "</div>";
+
+                echo "<div class=\"header-element-group\" id=\"element-to-hide\">";
+                echo "<div> </div>";
+                echo "</div>";
+
+                foreach ($groups as $group) {
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>" . $group['iGroupName'] . "</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>" . $group['uGroupName'] . "</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>" . $group['iGroupDescription'] . "</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>" . $group['iGroupCreatedAt'] . "</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"body-element-group\">";
+                    echo "<div>" . $group['iGroupUpdatedAt'] . "</div>";
+                    echo "</div>";
+
+
+                    echo "<form class=\"post-item-form\" method=\"POST\">";
+                    echo "<input  class=\"del-button\" name=\"delButton\" value=\"" . $group['iGroupName'] . "\" required=\"required\"/>";
+                    echo "<input  class=\"del-button\" name=\"delButtonUserGroupId\" value=\"" . $group['uGroupId'] . "\" required=\"required\"/>";
+                    echo "<input type=\"submit\" class=\"delete-button\"  value=\"X\">";
+                    echo "</form>";
+                }
+                ?>
+
+            </div>
+
+            <div id="container-get-group"><?php
+                $groups = $this->view_data['groupOfItems'];
+                echo"<div class=\"header-container-group\">";
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Group Name</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Owner Name</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Group Description</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Created Date </div>";
+                    echo "</div>";
+
+                    echo "<div class=\"header-element-group\">";
+                    echo "<div>Updated Date</div>";
+                    echo "</div>";
+
+                    echo "<div class=\"header-element-group\" id=\"element-to-hide\">";
+                    echo "<div> </div>";
+                    echo "</div>";
+                echo "</div>";
+
+                $var=0;
+                foreach ($groups as $group) {
+
+                    echo "<div class=\"container-row-group-items\">";
+                        echo"<div class=\"body-container-group\">";
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupName'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['uGroupName'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupDescription'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupCreatedAt'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div class=\"body-element-group\">";
+                            echo "<div>" . $group['iGroupUpdatedAt'] . "</div>";
+                            echo "</div>";
+
+                            echo "<div id=\"button\" class=\"body-element-group\">";
+                            echo "<button type=\"button\" class=\"show-items-button\" id=$var onclick=\"showHiddenContainerItems(id)\">";
+                            echo "+";
+                            echo "</button>";
+                            echo "</div>";
+                    echo "</div>";
+
+                        echo "<div class=\"container-items-hidden\" id=$var'container'>";
+                            echo "<div class=\"left-container-items\" >";
+
+                                echo "<div id=\"post-item\">";
+                                    echo "<button type=\"button\" id=\"post-item-button\" onclick=\"postItemFunction()\">";
+                                        echo "Add Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                                echo "<div id=\"delete-item\">";
+                                    echo "<button type=\"button\" id=\"delete-item-button\" onclick=\"deleteItemFunction()\">";
+                                        echo "Delete Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                                echo "<div id=\"show-item\">";
+                                    echo "<button type=\"button\" id=\"show-item-button\" onclick=\"showItemFunction()\">";
+                                        echo "Show Item";
+                                    echo "</\"button\">";
+                                echo "</div>";
+
+                            echo "</div>";
+
+                            echo "<div class=\"right-container-items\" >";
+                                echo "<div id=\"container-post-item\">";
+                                    echo "<form class=\"post-item-form\" method=\"POST\">";
+
+                                        echo "<a class=\"main-text\"> Item Name </a>";
+                                        echo "<input  type=\"text\" name=\"iName\" value=\"\" placeholder=\"Enter item name\" required=\"required\"/>";
+
+                                        echo "<p class=\"main-text\"> Item Quantity </p>";
+                                        echo "<input class=\"fill-box\" type=\"number\" name=\"iQuantity\" value=\"\" placeholder=\"Enter item quantity\" required=\"required\"/>";
+
+                                        echo "<a class=\"main-text\"> Mim limit stock </a>";
+                                        echo "<input  type=\"number\" name=\"iLimit\" value=\"\" placeholder=\"Enter stock min quantity\" required=\"required\"/>";
+
+                                        echo "<a class=\"main-text\"> Item description</a>";
+                                        echo "<input  type=\"text\" name=\"iDescription\" value=\"\" placeholder=\"Enter item description\" required=\"required\"/>";
+
+                                        echo "<input  class=\"iGroupId-button\" name=\"iGroupId\" value=\"" . $group['iGroupId'] . "\" required=\"required\"/>";
+                                        /* mai sus trebuie bagat  $group['iGroupId'] dar mai intai trebuie trimit de pe get item groups  */
+                                        echo "<input type=\"submit\" class=\"submit-button-post-item\" value=\"Submit\">";
+                                    echo "</form>";
+                                echo "</div>";
+
+                                echo "<div id=\"container-delete-item\">";
+
+                                    echo"";
+                                echo "</div>";
+
+                                echo "<div id=\"container-get-item\">";
+                                     echo"";
+                                echo "</div>";
+
+                            echo "</div>";
+
+
+                        echo "</div>";
+
+                    echo "</div>";
+                    $var=$var+1;
+                } ?>
+            </div>
+
+        </div>
+
+    </div>
+
+<?php include VIEW . 'user/footer.phtml'; ?>

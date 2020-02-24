@@ -60,23 +60,15 @@ class Controller
                 'userId' => $_SESSION['userid']
             ));
 
-        $this->model('UserLog');
-        $this->model_class->get_mapper()->insert(
-            'USERLOGS',
-            array
-            (
-                'uLogDescription'   => "'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'",
-                'uLogSourceIP'      => "'" . $_SESSION['login_ip']              . "'"
-            )
-        );
+        $this->log_user_activity("'" . ($is_admin_cp ? "Admin" : "Normal") . " user " . $_SESSION["uname"] . " has logged in!'");
+
 
         return true;
     }
 
     protected function authenticate_user($username, $password)
     {
-        $salt = '$1_2jlh83#@J^Q';
-        $password_hash = hash('sha512', $username . $salt . $password);
+        $password_hash = hash('sha512', $username . SALT . $password);
 
         $this->model('Useracc');
         $users_found = $this->model_class->get_mapper()->findAll(
@@ -95,7 +87,7 @@ class Controller
             return false;
         }
 
-        $_SESSION["login_ip"]   = $_SERVER["REMOTE_ADDR"];
+        $_SESSION["login_ip"]   = ($_SERVER["REMOTE_ADDR"] == '::1' ? '127.0.0.1' : $_SERVER["REMOTE_ADDR"]);
         $_SESSION["uname"]      = $users_found[0]["userName"];
         $_SESSION["userid"]     = $users_found[0]["userId"];
 
@@ -114,12 +106,25 @@ class Controller
         }
 
         // Check if the request is from a different IP address to previously
-        if (!isset($_SESSION["login_ip"]) || ($_SESSION["login_ip"] != $_SERVER["REMOTE_ADDR"]))
+        if (!isset($_SESSION["login_ip"]) || ($_SESSION["login_ip"] != ($_SERVER["REMOTE_ADDR"] == '::1' ? '127.0.0.1' : $_SERVER["REMOTE_ADDR"])))
         {
             // The request did not originate from the machine
             // that was used to create the session.
             return false;
         }
         return true;
+    }
+//
+    protected function log_user_activity($uLogDescription)
+    {
+        $this->model('UserLog');
+        $this->model_class->get_mapper()->insert(
+            'USERLOGS',
+            array
+            (
+                'uLogDescription'   => $uLogDescription,
+                'uLogSourceIP'      => "'" . (($_SERVER["REMOTE_ADDR"]=='::1')?'127.0.0.1':$_SERVER['REMOTE_ADDR']) . "'"
+            )
+        );
     }
 }

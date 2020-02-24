@@ -1,832 +1,1578 @@
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:17:56] Executed createDBUserPrc.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:56 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-
-PL/SQL procedure successfully completed.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:17:56] Executed dbCreate.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:17:57 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-PL/SQL procedure successfully completed.
-
-
-Procedure created.
-
-All table names have been cleaned
-Procedure finished!
-Procedure finished!
-
-PL/SQL procedure successfully completed.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Function created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:17:56] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
-[APP_LOG: 06-06-2018 21:17:56] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
-[APP_LOG: 06-06-2018 21:17:56] Installation procedure exited. Error verification underway.
-[APP_LOG: 06-06-2018 21:17:56] App successfully installed.
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:19:25] Executed createDBUserPrc.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:25 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-
-PL/SQL procedure successfully completed.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:19:25] Executed dbCreate.sql script output is: 
-==============
-
-SQL*Plus: Release 11.2.0.2.0 Production on Wed Jun 6 22:19:26 2018
-
-Copyright (c) 1982, 2014, Oracle.  All rights reserved.
-
-
-Connected to:
-Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-
-PL/SQL procedure successfully completed.
-
-
-Procedure created.
-
-All table names have been cleaned
-Procedure finished!
-Procedure finished!
-
-PL/SQL procedure successfully completed.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_useraccs start with 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itms START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usergrps START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_grprels START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrpowns START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmgrplogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_itmlogs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_autorep START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_notifs START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_ugrpntfsrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Sequence created.
-
-CREATE SEQUENCE incr_usrntfrel START WITH 1 INCREMENT BY 1
-                *
-ERROR at line 1:
-ORA-00955: name is already used by an existing object
-
-
-
-Table created.
-
-
-Trigger created.
-
-
-Function created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-SQL> Disconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
-
-==============
-
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 06-06-2018 21:19:25] Completed install phase number 3. Proceeding to gracefull apache servervice restart.
-[APP_LOG: 06-06-2018 21:19:25] Completed apache service gracefull restart. Left number of install phases is: 1. Exiting installation procedure.
-[APP_LOG: 06-06-2018 21:19:25] Installation procedure exited. Error verification underway.
-[APP_LOG: 06-06-2018 21:19:25] App successfully installed.
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:07] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:13] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:14] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[ERROR: 09-06-2018 16:35:18] Could not connect to the database as user: EsseR !
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 1. Switching to the next phase.
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBUserPrc.sql script output is: 
-==============
-
-Procedure created.
-
-old   2:   prc_esser_crt_root_user('&1', '&2');
-new   2:   prc_esser_crt_root_user('EsseR', 'EsserTest1234');
-BEGIN
-*
-ERROR at line 1:
-ORA-01940: cannot drop a user that is currently connected
-ORA-06512: at "SYS.PRC_ESSER_CRT_ROOT_USER", line 110
-ORA-01920: user name 'ESSER' conflicts with another user or role name
-ORA-06512: at line 2
-
-
-
-Commit complete.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBTables.sql script output is: 
-==============
-
-PL/SQL procedure successfully completed.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Table created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBSequences.sql script output is: 
-==============
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Sequence created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBAutoInsTriggers.sql script output is: 
-==============
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Commit complete.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBComplexTriggers.sql script output is: 
-==============
-
-Trigger created.
-
-
-Trigger created.
-
-
-Trigger created.
-
-
-Commit complete.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Executed createDBPrcsFcts.sql script output is: 
-==============
-
-Function created.
-
-old   4:   v_result := fct_addMainRoots(&&1,&&2,&&3,&&4,&&5,&&6);
-new   4:   v_result := fct_addMainRoots('EsseR','c7acc0543b43a90847c443a9b5720121a33ae08e52ffbc0671a351e471221512dcc530352c87bdfb0036b860ffba8f354510a6a4b58192be5e3232e6b6bea407','bugeag.george@info.uaic.ro','Admins','Managers','Normal Users');
-
-PL/SQL procedure successfully completed.
-
-
-==============
-
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 2. Switching to the next phase.
-[APP_LOG: 13-06-2018 18:42:18]: Completed install phase number 3. Restarting apache...
-[APP_LOG: 13-06-2018 18:42:18]: Apache restarted. Left number of install phases is: 0. Exiting installation procedure.
-[APP_LOG: 13-06-2018 18:42:18]: Installation procedure exited. Error verification underway.
-[APP_LOG: 13-06-2018 18:42:18]: App successfully installed.
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #66
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #69
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #72
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #75
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #78
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #81
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #84
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #87
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #90
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #93
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #96
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #99
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #102
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #105
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 3
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #108
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 4
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #111
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 5
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #114
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 6
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #117
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 7
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #120
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 8
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #123
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 9
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #126
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 10
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #129
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 11
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #132
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #135
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 13
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #138
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 14
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #141
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 15
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #144
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 16
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #147
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 17
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #150
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 18
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #153
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 19
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #156
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 20
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #159
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 21
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #162
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 22
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #165
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #168
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #171
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #174
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 4
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #177
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 5
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #180
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 6
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #183
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 7
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #186
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 8
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #189
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 9
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #192
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 10
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #195
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 11
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #198
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #201
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 13
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #204
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 14
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #207
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 15
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #210
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 16
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #213
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 17
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #216
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS WHERE  USERID= 18
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #219
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #222
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #225
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #228
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #231
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #234
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #237
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #240
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #243
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #246
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #249
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #252
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USRNTFRELATIONS WHERE usrNNotifiedAccId = 1 AND usrnNIsRead = 0
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #255
+[SQL_LOG: 20-06-2018 10:19:40]: SELECT * FROM USERACCS
+[SQL_LOG: 20-06-2018 10:19:40]: Resource id #258
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #65
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #68
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #71
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #74
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #77
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #80
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #83
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #86
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #89
+[SQL_LOG: 20-06-2018 10:19:58]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:19:58]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #67
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #70
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 1 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #73
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #76
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #79
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #82
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #85
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #88
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #91
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #94
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #97
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #100
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #103
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #106
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #109
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #112
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #115
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #118
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #121
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #124
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #127
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #130
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #133
+[SQL_LOG: 20-06-2018 10:20:01]: SELECT * FROM USERGROUPS WHERE UGROUPID=1
+[SQL_LOG: 20-06-2018 10:20:01]: Resource id #136
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:02]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:27]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:27]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #67
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #70
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 2 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #73
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #76
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #79
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #82
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #85
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #88
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #91
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #94
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #97
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #100
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #103
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #106
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #109
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #112
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #115
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #118
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #121
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #124
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #127
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #130
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #133
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #136
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #139
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE UGROUPID=2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #142
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:37]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:37]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #67
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #70
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 4 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #73
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #76
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 18
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #79
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 6
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #82
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 7
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #85
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 8
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #88
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 9
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #91
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 10
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #94
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 11
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #97
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #100
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 13
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #103
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 14
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #106
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #109
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 16
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #112
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 17
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #115
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERID = 5
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #118
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #121
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #124
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #127
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #130
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #133
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #136
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #139
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #142
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #145
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #148
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #151
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #154
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #157
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #160
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #163
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #166
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #169
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #172
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #175
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #178
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE UGROUPID=4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #181
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:54]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:54]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #67
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #70
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 2 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #73
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #76
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #79
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #82
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #85
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #88
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #91
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #94
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #97
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #100
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #103
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #106
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #109
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #112
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #115
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #118
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #121
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #124
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #127
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #130
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #133
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #136
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #139
+[SQL_LOG: 20-06-2018 10:20:55]: SELECT * FROM USERGROUPS WHERE UGROUPID=2
+[SQL_LOG: 20-06-2018 10:20:55]: Resource id #142
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:56]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:56]: Resource id #92
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #67
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #70
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 1 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #73
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #76
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #79
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #82
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #85
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #88
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #91
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #94
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #97
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #100
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #103
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #106
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #109
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #112
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #115
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #118
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #121
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #124
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #127
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #130
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #133
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE UGROUPID=1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #136
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #65
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #68
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #71
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #74
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #77
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #80
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #83
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #86
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #89
+[SQL_LOG: 20-06-2018 10:20:57]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:20:57]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:01]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:01]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:01]: insert into USERGROUPS (uGroupName,uGroupDescription,nrOfMembers,nrOfManagers) values('Aprozar','Grupa de gestionari de la aprozar.',0,0) 
+[SQL_LOG: 20-06-2018 10:22:01]: insert into USERGROUPLOGS (uGLogDescription,uGLogSourceIP) values('Admin EsseR  has added group Grupa de gestionari de la aprozar.','127.0.0.1') 
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:02]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:02]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #73
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #76
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #79
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #82
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #85
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #88
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #91
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #94
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #97
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #100
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #103
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #106
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #109
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #112
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #115
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #118
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #121
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #124
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #127
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #130
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #133
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #136
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #139
+[SQL_LOG: 20-06-2018 10:22:05]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:22:05]: Resource id #142
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:06]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:06]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #73
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #76
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #79
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #82
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #85
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #88
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #91
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #94
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #97
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #100
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #103
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #106
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #109
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #112
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #115
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #118
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #121
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #124
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #127
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #130
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #133
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #136
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #139
+[SQL_LOG: 20-06-2018 10:22:08]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:22:08]: Resource id #142
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:09]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:09]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:35]: insert into GROUPRELATIONS (userId,uGroupId,canUpdItm,canMngMbs) values('4','5','1','1') 
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERACCS WHERE USERID =4
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #72
+[SQL_LOG: 20-06-2018 10:22:35]: insert into USERGROUPLOGS (uGLogDescription,uGLogSourceIP) values('Admin EsseR  has added user Anca.Macovei in group Aprozar','127.0.0.1') 
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:35]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:35]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #73
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #76
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #79
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #82
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #85
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #88
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #91
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #94
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #97
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #100
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #103
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #106
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #109
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #112
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #115
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #118
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #121
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #124
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #127
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #130
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #133
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #136
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #139
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #142
+[SQL_LOG: 20-06-2018 10:22:37]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:22:37]: Resource id #145
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:38]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:38]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:47]: insert into GROUPRELATIONS (userId,uGroupId,canUpdItm,canMngMbs) values('15','5','1','1') 
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERACCS WHERE USERID =15
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #72
+[SQL_LOG: 20-06-2018 10:22:47]: insert into USERGROUPLOGS (uGLogDescription,uGLogSourceIP) values('Admin EsseR  has added user Vasile.Anton in group Aprozar','127.0.0.1') 
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:47]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:47]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #73
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #76
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #79
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #82
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #85
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #88
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #91
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #94
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #97
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #100
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #103
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #106
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #109
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #112
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #115
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #118
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #121
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #124
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #127
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #130
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #133
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #136
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #139
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #142
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #145
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #148
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:49]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:49]: Resource id #98
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #67
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #70
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #73
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #76
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #79
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #82
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #85
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #88
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #91
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #94
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #97
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #100
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #103
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #106
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #109
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #112
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #115
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #118
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #121
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #124
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #127
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #130
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #133
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #136
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #139
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #142
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #145
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #148
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #65
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #68
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #71
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #74
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #77
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #80
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #83
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #86
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #89
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #92
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #95
+[SQL_LOG: 20-06-2018 10:22:52]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:22:52]: Resource id #98
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #67
+[SQL_LOG: 20-06-2018 10:23:05]: insert into GROUPRELATIONS (userId,uGroupId,canUpdItm,canMngMbs) values('3','5','1','1') 
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERACCS WHERE USERID =3
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #72
+[SQL_LOG: 20-06-2018 10:23:05]: insert into USERGROUPLOGS (uGLogDescription,uGLogSourceIP) values('Admin EsseR  has added user Andreea.Ghita in group Aprozar','127.0.0.1') 
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #65
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #68
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #71
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #74
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #77
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #80
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #83
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #86
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #89
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #92
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #95
+[SQL_LOG: 20-06-2018 10:23:05]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:05]: Resource id #98
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #67
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #70
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #73
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #76
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #79
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #82
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #85
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERID = 3
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #88
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #91
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #94
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #97
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #100
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #103
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #106
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #109
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #112
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #115
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #118
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #121
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #124
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #127
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #130
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #133
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #136
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #139
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #142
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #145
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #148
+[SQL_LOG: 20-06-2018 10:23:16]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:23:16]: Resource id #151
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #65
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #68
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #71
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #74
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #77
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #80
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #83
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #86
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #89
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #92
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #95
+[SQL_LOG: 20-06-2018 10:23:17]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:17]: Resource id #98
+[SQL_LOG: 20-06-2018 10:23:21]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:21]: Resource id #67
+[SQL_LOG: 20-06-2018 10:23:21]: insert into GROUPRELATIONS (userId,uGroupId,canUpdItm,canMngMbs) values('5','5','1','0') 
+[SQL_LOG: 20-06-2018 10:23:21]: SELECT * FROM USERACCS WHERE USERID =5
+[SQL_LOG: 20-06-2018 10:23:21]: Resource id #72
+[SQL_LOG: 20-06-2018 10:23:21]: insert into USERGROUPLOGS (uGLogDescription,uGLogSourceIP) values('Admin EsseR  has added user Mihai.Paun in group Aprozar','127.0.0.1') 
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #65
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #68
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #71
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #74
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #77
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #80
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #83
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #86
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #89
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #92
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #95
+[SQL_LOG: 20-06-2018 10:23:22]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:22]: Resource id #98
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #67
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID=1 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #70
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT USERID FROM GROUPRELATIONS WHERE UGROUPID = 5 AND USERID <> 1 ORDER BY GRPRELCREATEDAT ASC
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #73
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 2
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #76
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 12
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #79
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 4
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #82
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 15
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #85
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 3
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #88
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #91
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERACCS WHERE USERTYPE < 2 AND USERID != 1
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #94
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 3 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #97
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 4 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #100
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 5 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #103
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 6 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #106
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 7 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #109
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 8 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #112
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 9 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #115
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 10 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #118
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 11 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #121
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 13 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #124
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 14 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #127
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 15 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #130
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 16 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #133
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 17 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #136
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 18 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #139
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 19 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #142
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 20 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #145
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 21 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #148
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM GROUPRELATIONS WHERE USERID = 22 AND UGROUPID = 5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #151
+[SQL_LOG: 20-06-2018 10:23:23]: SELECT * FROM USERGROUPS WHERE UGROUPID=5
+[SQL_LOG: 20-06-2018 10:23:23]: Resource id #154
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #65
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM GROUPRELATIONS WHERE USERID=1
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #68
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #71
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #74
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #77
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #80
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #83
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #86
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #89
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #92
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #95
+[SQL_LOG: 20-06-2018 10:23:24]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:23:24]: Resource id #98
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #65
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPS
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #68
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #71
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #74
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #77
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERGROUPS WHERE  uGroupId= 5
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #80
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 5
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #83
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERGROUPS WHERE  uGroupId= 1
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #86
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #89
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #92
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERGROUPS WHERE  uGroupId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #95
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #98
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #101
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERGROUPS WHERE  uGroupId= 3
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #104
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #107
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM USERGROUPS WHERE  uGroupId= 4
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #110
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #113
+[SQL_LOG: 20-06-2018 10:24:52]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:24:52]: Resource id #116
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #65
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPS
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #68
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #71
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #74
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #77
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERGROUPS WHERE  uGroupId= 5
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #80
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 5
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #83
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERGROUPS WHERE  uGroupId= 1
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #86
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #89
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #92
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERGROUPS WHERE  uGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #95
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #98
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #101
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERGROUPS WHERE  uGroupId= 3
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #104
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #107
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM USERGROUPS WHERE  uGroupId= 4
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #110
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #113
+[SQL_LOG: 20-06-2018 10:30:37]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:37]: Resource id #116
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #65
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPS
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #68
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #71
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #74
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #77
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERGROUPS WHERE  uGroupId= 5
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #80
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 5
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #83
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERGROUPS WHERE  uGroupId= 1
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #86
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #89
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #92
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERGROUPS WHERE  uGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #95
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #98
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #101
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERGROUPS WHERE  uGroupId= 3
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #104
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #107
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM USERGROUPS WHERE  uGroupId= 4
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #110
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #113
+[SQL_LOG: 20-06-2018 10:30:38]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:38]: Resource id #116
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #65
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPS
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #68
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #71
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #74
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #77
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERGROUPS WHERE  uGroupId= 5
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #80
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 5
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #83
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERGROUPS WHERE  uGroupId= 1
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #86
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #89
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #92
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERGROUPS WHERE  uGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #95
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #98
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #101
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERGROUPS WHERE  uGroupId= 3
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #104
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #107
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM USERGROUPS WHERE  uGroupId= 4
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #110
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #113
+[SQL_LOG: 20-06-2018 10:30:39]: SELECT * FROM ITEMGROUPS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:39]: Resource id #116
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE userId = 1 AND userType = 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #65
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #68
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #71
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #74
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #77
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #80
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #83
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #86
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 15
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #89
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #92
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #95
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #98
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #101
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #104
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #107
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #110
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #113
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #116
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #119
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #122
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #125
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #128
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #131
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #134
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #137
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #140
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 6
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #143
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 7
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #146
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 8
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #149
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 9
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #152
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 10
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #155
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 11
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #158
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #161
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 13
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #164
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 14
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #167
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 15
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #170
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 16
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #173
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 17
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #176
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 18
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #179
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 19
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #182
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 20
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #185
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 21
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #188
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 22
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #191
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERGROUPS WHERE  UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #194
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE UGROUPID= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #197
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #200
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #203
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #206
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 6
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #209
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 7
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #212
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 8
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #215
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 9
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #218
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 10
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #221
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 11
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #224
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 12
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #227
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 13
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #230
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 14
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #233
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 15
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #236
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 16
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #239
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 17
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #242
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS WHERE  USERID= 18
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #245
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM GROUPRELATIONS WHERE  USERID= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #248
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 5
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #251
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 1
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #254
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #257
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #260
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #263
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #266
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #269
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 3
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #272
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPOWNERSHIPS WHERE  iGOwnerId= 4
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #275
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMGROUPS WHERE  IGROUPID= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #278
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM ITEMS WHERE  iGroupId= 2
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #281
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USRNTFRELATIONS WHERE usrNNotifiedAccId = 1 AND usrnNIsRead = 0
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #284
+[SQL_LOG: 20-06-2018 10:30:43]: SELECT * FROM USERACCS
+[SQL_LOG: 20-06-2018 10:30:43]: Resource id #287

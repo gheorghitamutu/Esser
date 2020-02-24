@@ -7,12 +7,9 @@
  */ ?>
 
 <?php
-    if (isset($_SESSION['opsuccess']) && isset($_SESSION['opmessage'])) {
-        echo "<script type=\"text/javascript\">alert('" . $_SESSION['opmessage'] . "');</script>";
-        $_SESSION['opsuccess'] = null;
-        $_SESSION['opmessage'] = null;
-    }
+    (isset($_SESSION['opsuccess']) && isset($_SESSION['opmessage'])) ?
+        print_r($print = "<script type=\"text/javascript\">alert(\"" . $_SESSION['opmessage'] . "\");</script>")
+        : ' ' ;
 ?>
-
 </body>
 </html>

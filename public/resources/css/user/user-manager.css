@@ -1,126 +1,180 @@
-.main{
-	background-color: #80ced6;
+body{
+	padding: 2em;
 }
 
-.nested {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    display:grid;
-	grid-template-columns:1fr;
+.main-frame{
+	display: grid;
+	grid-template-columns: 25% 75%;
 	grid-gap: 1em;
 	padding: 1em;
 }
 
-.nested > div:nth-child(1){
-	color: white;
-	background:#618685;
-	padding:1em;
-}
-
-.nested > div{
-	font-size: 1.5vw;
-	border-radius: 10% 10%;
-	background:#d5f4e6;
-	padding:1em;
-}
-
-.nested > div:hover{
-	background:#fefbd8;
-}
-
-.nested > div:nth-child(1):hover{
-	background:#618685;
-}
-
-.menu {
-	/*visibility: hidden;*/
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    display:grid;
-	grid-template-columns:1fr;
-	grid-gap: 1em;
+.page-title{
+	width: max-content;
+	background: #084887;
+	color: azure;
 	padding: 1em;
-}
-
-.menu > div:nth-child(1){
-	color: white;
-	background:#618685;
-	padding:1em;
-}
-
-.menu > div:nth-child(2){
-	color: white;
-	background:#618685;
-	padding:1em;
-}
-
-.menu > div{
-	font-size: 1.5vw;
-	border-radius: 10% 10%;
-	background:#d5f4e6;
-	padding:1em;
-}
-
-.menu > div:hover{
-	background:#fefbd8;
-}
-
-.menu > div:nth-child(1):hover{
-	background:#618685;
-}
-
-.menu > div:nth-child(2):hover{
-	background:#618685;
-}
-
-.menu-button {
-	/*visibility: hidden;*/
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size: 1.5vw;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.7em;
 	text-align: center;
-    display:grid;
-	grid-template-columns:25% 1fr 25% 25%;
-	grid-gap: 1em;
+}
+
+.group-list{
+	display: grid;
+	grid-template-columns: 1fr;
+	background: #909cc2;
+	color: aliceblue;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+	row-gap: 1em;
 	padding: 1em;
 }
 
-/*.menu-button > div:nth-child(1){
-	grid-area: 1/1/1/2;
-	color: white;
-	background:#618685;
-	padding:1em;
+.group-list-wrap{
+	display: grid;
+	grid-template-columns: 1fr;
+	background: #909cc2;
+	color: aliceblue;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
 }
 
-.menu-button > div:nth-child(2){
-	color: black;
-	grid-area: 1/3/row1-end/col3-end;
-	background:#d5f4e6;
-	padding:1em;
+
+.group-list-button{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-decoration: none;
+	background-color: #f7f5fb;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+	height: 60px;
 }
 
-.menu-button > div:nth-child(3){
-	color: black;
-	grid-area: 1/col4-start/row1-end/col4-end;
-	background:#d5f4e6;
-	padding:1em;
-}*/
-
-.menu-button > div{
-	grid-area: 1/3/1/2;
-	font-size: 1.5vw;
-	border-radius: 10% 10%;
-	background:#d5f4e6;
-	padding:1em;
+.group-list-button:hover{
+	background: #084887;
+	color: #f58a07;
 }
 
-.menu-button > div:hover{
-	background:#fefbd8;
+.group-list-button:active{
+	background: #f58a07;
+	color: #084887;
 }
 
-.menu-button > div:nth-child(1):hover{
-	background:#618685;
+.group-display{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: "buton buton"
+                         "user adauga";
+	background: #f58a07;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: center;
 }
 
-.expandable {
-	display: none;
-	border-radius: 10% 10%;
-	background:#d5f4e6;
+.group-display-button{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-area: adauga;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.group-display-button-add{
+	background: #f9ab55;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.group-display-element{
+	display: grid;
+	grid-template-columns: 1fr ;
+	grid-area: user;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.group-display-user{
+	background: #084887;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.display-button{
+	background: #f9ab55;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+}
+
+.add-user-container{
+	grid-area: buton;
+	display: grid;
+	grid-template-columns: 1fr 1fr ;
+	grid-template-areas: "buton buton"
+	"user adauga";
+	background: #f58a07;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: center;
+}
+
+.form-add-user{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 12vh;
+}
+
+.input-description{
+	display: grid;
+	grid-template-columns: 1fr 1fr ;
+	background: #f9ab55;
+	color: ghostwhite;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	text-align: center;
+	padding: 1em;
+	margin: 1em;
+	position: center;
+}
+
+.add-user-group{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+}
+
+.form-add-group{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	width: max-content;
+	background: #084887;
+	color: azure;
+	padding: 1em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.7em;
+	text-align: center;
 }
